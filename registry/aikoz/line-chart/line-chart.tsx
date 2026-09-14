@@ -202,7 +202,7 @@ export function LineChart({
                 strokeWidth={1.5}
                 strokeDasharray="3 4"
                 dot={false}
-                activeDot={{ r: 5, stroke: "var(--foreground)", strokeWidth: 2 }}
+                activeDot={{ r: 5, stroke: "var(--card)", strokeWidth: 2.5 }}
                 isAnimationActive={false}
               />
             )}
@@ -216,10 +216,12 @@ export function LineChart({
                 strokeWidth={2}
                 strokeDasharray={styleSerie(i).trait}
                 dot={{ r: 3.5, fill: couleurSerie(i), strokeWidth: 0 }}
-                // Le point survolé s'entoure d'un anneau `--foreground` :
-                // l'emphase est portée par une FORME, comme partout ailleurs
-                // dans le système, et non par une variation de teinte.
-                activeDot={{ r: 6, stroke: "var(--foreground)", strokeWidth: 2 }}
+                // Halo à la couleur de la carte : le point survolé se
+                // détache par un liseré qui le DÉCOUPE du fond, plutôt que
+                // par un anneau sombre qui ajoute un trait de plus. C'est le
+                // motif standard des dashboards, et il reste discret quand
+                // plusieurs séries s'activent en même temps.
+                activeDot={{ r: 6, stroke: "var(--card)", strokeWidth: 2.5 }}
                 isAnimationActive={false}
               />
             ))}

@@ -65,17 +65,32 @@ export interface ContexteGraphique {
 }
 
 /**
- * Emphase de la valeur survolée.
+ * Emphase de la valeur survolée — **par retrait, pas par ajout**.
  *
- * **Un CONTOUR, jamais une atténuation des autres.** Estomper les séries
- * voisines pour faire ressortir celle qu'on pointe ferait tomber leur
- * contraste sous les 3:1 exigés (WCAG 1.4.11) le temps du survol. Le contour
- * n'enlève rien à personne.
+ * L'élément pointé ne change pas : ce sont les autres qui s'effacent à 30 %.
+ * C'est le geste de Carbon, et il vaut mieux que ce qu'on avait — un contour
+ * `--foreground` de 2px, qui lisait comme une SÉLECTION et non comme un
+ * survol, et qui ajoutait un trait là où l'œil cherchait une donnée.
+ *
+ * **J'avais écarté l'atténuation pour une mauvaise raison** : la crainte que
+ * les séries estompées tombent sous les 3:1 de WCAG 1.4.11. Ce seuil vaut
+ * pour l'état au repos, celui qui permet d'identifier un composant. Une
+ * atténuation de survol est transitoire, réversible au moindre mouvement, et
+ * n'enlève aucune information — le tableau porte toutes les valeurs. Carbon,
+ * Ant Design et Material appliquent tous ce geste.
+ *
+ * 30 % est la valeur de Carbon. Plus haut, l'effacement ne se voit pas ;
+ * plus bas, les autres séries disparaissent au lieu de passer au second plan.
  */
-export const CONTOUR_ACTIF = {
-  stroke: "var(--foreground)",
-  strokeWidth: 2,
-} as const;
+export const OPACITE_ESTOMPEE = 0.3;
+
+/**
+ * Opacité d'une série selon ce qui est survolé. `1` quand rien ne l'est —
+ * un graphique au repos ne doit jamais être à demi effacé.
+ */
+export function opaciteSerie(indexActif: number | null, index: number): number {
+  return indexActif === null || indexActif === index ? 1 : OPACITE_ESTOMPEE;
+}
 
 export interface LigneInfobulle {
   dataKey?: string | number;

@@ -1,9 +1,9 @@
-import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip as RechartsTooltip } from "recharts";
+import { Cell, Pie, PieChart, ResponsiveContainer, Sector, Tooltip as RechartsTooltip } from "recharts";
 import { cn } from "@registry/aikoz/lib/utils";
 import {
   ChartFrame,
   ChartTooltipContent,
-  CONTOUR_ACTIF,
+  opaciteSerie,
   couleurSerie,
 } from "@registry/aikoz/chart-frame/chart-frame";
 import { type TableColumn } from "@registry/aikoz/table/table";
@@ -115,6 +115,16 @@ export function DonutChart({
                 stroke="var(--card)"
                 strokeWidth={2}
                 isAnimationActive={false}
+                // La part pointée s'écarte de 6px vers l'extérieur. C'est le
+                // geste que font tous les anneaux modernes, et il fonctionne
+                // ici pour une raison précise : sur un cercle, une part fine
+                // ne peut pas s'agrandir en largeur — le seul axe disponible
+                // est le rayon.
+                activeIndex={indexActif ?? undefined}
+                activeShape={(p: unknown) => {
+                  const s = p as { outerRadius: number };
+                  return <Sector {...s} outerRadius={s.outerRadius + 6} />;
+                }}
                 // Ce calque est RECOUVERT par celui des trames : il ne reçoit
                 // jamais le pointeur. Le survol et l'infobulle sont donc
                 // portés par le calque du dessus, pas ici.
@@ -128,7 +138,11 @@ export function DonutChart({
                 rootTabIndex={-1}
               >
                 {parts.map((p, i) => (
-                  <Cell key={p.key} fill={couleurSerie(i)} />
+                  <Cell
+                    key={p.key}
+                    fill={couleurSerie(i)}
+                    fillOpacity={opaciteSerie(indexActif, i)}
+                  />
                 ))}
               </Pie>
               {/* Calque transparent posé par-dessus : il ne peint rien, il
@@ -155,10 +169,6 @@ export function DonutChart({
                   <Cell
                     key={p.key}
                     fill="transparent"
-                    // Le contour d'emphase se pose sur CE `Pie`, celui du
-                    // dessus : posé sur celui du dessous, il serait recouvert
-                    // par la trame et ne se verrait jamais.
-                    {...(indexActif === i ? CONTOUR_ACTIF : {})}
                   />
                 ))}
               </Pie>

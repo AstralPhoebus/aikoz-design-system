@@ -101,11 +101,15 @@ export const SurvolEtEmphase: Story = {
     docs: {
       description: {
         story:
-          "**L'emphase est un CONTOUR, pas une atténuation des autres.** Estomper les " +
-          "séries voisines pour faire ressortir celle qu'on pointe ferait tomber leur " +
-          "contraste sous les 3:1 exigés (WCAG 1.4.11) le temps du survol. Le contour " +
-          "n'enlève rien à personne, et c'est un canal non chromatique — la même " +
-          "logique que la trame.\n\n" +
+          "**L'emphase se fait par RETRAIT.** La catégorie pointée ne change pas ; ce " +
+          "sont les autres qui s'effacent à 30 % — la valeur de Carbon. C'est le geste " +
+          "des dashboards modernes, et il remplace un contour `--foreground` de 2px qui " +
+          "lisait comme une SÉLECTION plutôt qu'un survol.\n\n" +
+          "J'avais d'abord écarté l'atténuation en craignant que les séries estompées " +
+          "tombent sous les 3:1 de WCAG 1.4.11. Ce seuil vaut pour l'état **au repos**, " +
+          "celui qui permet d'identifier un composant ; une atténuation de survol est " +
+          "transitoire, réversible au moindre mouvement, et n'enlève aucune information " +
+          "puisque le tableau porte toutes les valeurs.\n\n" +
           "**Échap referme l'infobulle** (WCAG 1.4.13, « Dismissible »). Recharts ne le " +
           "prévoit pas : son infobulle suit la souris et rien ne la referme. " +
           "`ChartFrame` écoute donc Échap tant que le pointeur est sur le graphique, et " +

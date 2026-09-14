@@ -11,7 +11,7 @@ import {
 import {
   ChartFrame,
   ChartTooltipContent,
-  CONTOUR_ACTIF,
+  opaciteSerie,
   couleurSerie,
   type ChartSerie,
 } from "@registry/aikoz/chart-frame/chart-frame";
@@ -293,9 +293,10 @@ export function BarChart({
                   // n'atteint que 4,05:1 en sombre — blanc fixe y passe dans
                   // les deux thèmes (4,62 / 6,64) et est donc conservé tel quel.
                   const texte = i % 6 === 4 ? "oklch(1 0 0)" : "var(--primary-foreground)";
-                  const actif = indexActif !== null && indexActif === props.index;
                   return (
-                    <g>
+                    // L'emphase se fait par RETRAIT : la catégorie pointée
+                    // garde sa pleine intensité, les autres s'effacent.
+                    <g opacity={opaciteSerie(indexActif, props.index)}>
                       <rect
                         x={props.x}
                         y={props.y}
@@ -314,20 +315,6 @@ export function BarChart({
                           fill="none"
                           stroke="var(--card)"
                           strokeWidth={2}
-                        />
-                      )}
-                      {actif && (
-                        // L'emphase de la valeur survolée : un contour, pas
-                        // une atténuation des autres séries — estomper les
-                        // voisines les ferait passer sous 3:1 le temps du
-                        // survol. Le contour n'enlève rien à personne.
-                        <rect
-                          x={props.x}
-                          y={props.y}
-                          width={props.width}
-                          height={props.height}
-                          fill="none"
-                          {...CONTOUR_ACTIF}
                         />
                       )}
                       {etiquette && (

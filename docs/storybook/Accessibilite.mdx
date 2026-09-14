@@ -166,6 +166,27 @@ le plugin qui les définit.
 > Une liste tenue à la main à côté d'une liste générée finit toujours par
 > diverger.
 
+## Le survol s'emphase par retrait
+
+L'élément pointé ne change pas : ce sont les **autres qui s'effacent à 30 %**,
+la valeur de Carbon. Le graphique au repos reste à pleine intensité — une
+atténuation permanente serait une perte, pas une emphase.
+
+Ce qui précédait était un contour `--foreground` de 2px sur l'élément survolé.
+Il lisait comme une **sélection**, pas comme un survol, et ajoutait un trait là
+où l'œil cherchait une donnée.
+
+**L'atténuation avait été écartée pour une mauvaise raison** : la crainte que
+les séries estompées tombent sous les 3:1 de WCAG 1.4.11. Ce seuil vaut pour
+l'état **au repos**, celui qui permet d'identifier un composant. Une
+atténuation de survol est transitoire, réversible au moindre mouvement du
+pointeur, et n'enlève aucune information — le tableau porte toutes les valeurs.
+Carbon, Ant Design et Material appliquent tous ce geste.
+
+Sur l'anneau, la part pointée s'écarte en plus de 6px vers l'extérieur : sur un
+cercle, une part fine ne peut pas s'élargir, le seul axe disponible est le
+rayon.
+
 ## Une commande qui disparaît emporte le focus
 
 Trois boutons du `ResponseKanban` se retirent eux-mêmes du document en agissant :
