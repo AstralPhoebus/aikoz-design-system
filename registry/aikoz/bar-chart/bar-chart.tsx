@@ -55,6 +55,20 @@ export interface BarChartProps {
   yLabel?: string;
   formatValue?: (v: string | number) => string;
   height?: number;
+  /**
+   * Colonnes ajoutées au tableau équivalent, après les séries. Sert à y poser
+   * une COMMANDE — le graphique étant `aria-hidden`, le tableau est le seul
+   * endroit où une action reste atteignable au clavier.
+   */
+  extraColumns?: TableColumn<Record<string, string | number>>[];
+  /**
+   * Clic sur une barre. **Raccourci à la souris uniquement** : le graphique
+   * est masqué aux technologies d'assistance, donc toute action offerte ici
+   * doit aussi exister dans le tableau, via `extraColumns`.
+   */
+  onBarClick?: (ligne: Record<string, string | number>) => void;
+  /** Déplie le tableau équivalent au lieu de le replier dans un `details`. */
+  tableCollapsed?: boolean;
   className?: string;
 }
 
@@ -85,6 +99,9 @@ export function BarChart({
   orientation = "vertical",
   xLabel,
   yLabel,
+  extraColumns,
+  onBarClick,
+  tableCollapsed = true,
   formatValue = (v) => String(v),
   height = 300,
   className,
@@ -101,6 +118,7 @@ export function BarChart({
       numeric: true,
       cell: (row: Record<string, string | number>) => formatValue(row[s.key]),
     })),
+    ...(extraColumns ?? []),
   ];
 
   // En empilé, le total est l'information principale : il a sa colonne. En
@@ -149,6 +167,7 @@ export function BarChart({
       rowHeaderKey={xKey}
       height={height}
       legendStyle="aplat"
+      tableCollapsed={tableCollapsed}
       className={className}
     >
       {({ infobulleActive, indexActif, surSurvol }) => (
@@ -209,7 +228,26 @@ export function BarChart({
                     />
                   )}
                 </XAxis>
-                <YAxis type="category" dataKey={xKey} width={120} tick={{ fill: "var(--muted-foreground)", fontSize: 12 }} stroke="var(--border-strong)" tickLine={false} />
+                <YAxis
+                  type="category"
+                  dataKey={xKey}
+                  // Largeur DÉDUITE du libellé le plus long, pas figée à
+                  // 120px : « Auvergne-Rhône-Alpes » s'y faisait rogner à
+                  // gauche, et « Provence-Alpes-Côte d'Azur » passait à la
+                  // ligne. Une barre couchée sert justement à loger des
+                  // libellés longs — les tronquer lui retire sa raison d'être.
+                  // Bornée à 260px pour ne pas écraser la zone de tracé.
+                  width={Math.min(
+                    260,
+                    Math.max(
+                      96,
+                      Math.max(...chartData.map((d) => String(d[xKey] ?? "").length)) * 7 + 16
+                    )
+                  )}
+                  tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
+                  stroke="var(--border-strong)"
+                  tickLine={false}
+                />
               </>
             ) : (
               <>
@@ -271,6 +309,8 @@ export function BarChart({
               <Bar
                 key={s.key}
                 dataKey={s.key}
+                onClick={onBarClick ? (_, index) => onBarClick(chartData[index]) : undefined}
+                style={onBarClick ? { cursor: "pointer" } : undefined}
                 // `name` : sans lui l'infobulle affiche la CLÉ de la série
                 // (« pj ») au lieu de son libellé (« Pages Jaunes »).
                 name={s.label}
