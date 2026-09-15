@@ -1,0 +1,19 @@
+/**
+ * Do not edit directly, this file was auto-generated.
+ */
+
+[data-brand="adp"] {
+  --color-brand-primary: var(--color-adp-blue-800);
+  --color-brand-primary-hover: var(--color-adp-blue-700);
+  --color-brand-primary-active: var(--color-adp-blue-600);
+  --color-brand-primary-subtle: var(--color-adp-blue-100);
+  --color-brand-secondary: var(--color-adp-campanula-500);
+  --color-brand-secondary-hover: var(--color-adp-campanula-600);
+  --color-brand-secondary-active: var(--color-adp-campanula-700);
+  --color-brand-secondary-subtle: var(--color-adp-campanula-100);
+  --color-brand-accent: var(--color-adp-campanula-400);
+  --color-brand-accent-hover: var(--color-adp-campanula-300);
+  --color-brand-accent-active: var(--color-adp-campanula-200);
+  --color-brand-accent-subtle: var(--color-adp-campanula-50);
+  --color-brand-on-accent: var(--color-midnight-blue-900);
+}

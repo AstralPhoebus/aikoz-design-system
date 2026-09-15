@@ -65,21 +65,36 @@ La mesure adaptée est l'**écart perceptuel** — ΔE en OKLab — évalué en
 simulant les trois daltonismes (protanopie, deutéranopie, tritanopie, matrices
 de Viénot 1999). Au-delà de ΔE ≈ 0,10, deux grands aplats se distinguent.
 
-| nombre de séries | ΔE minimal, clair | ΔE minimal, sombre |
-|---|---|---|
-| 2 à 5 | **0,161** | **0,186** |
-| 6 (après correction) | **0,197** | 0,117 |
+| | vision normale | protanopie | deutéranopie | **tritanopie** |
+|---|---|---|---|---|
+| série 1 ↔ 2 | 0,217 | 0,216 | 0,193 | **0,068** |
+| série 1 ↔ 3 | 0,193 | 0,196 | 0,193 | 0,183 |
+| série 2 ↔ 3 | 0,283 | 0,298 | 0,262 | 0,250 |
 
-**Les trames ont donc été retirées des aplats.** Elles hachuraient les barres et
-les parts pour compenser un problème qui n'existait pas : jusqu'à cinq séries,
-la couleur seule sépare largement, daltonismes compris.
+> **Correction du 15/09/2026.** Ce tableau annonçait 0,161 et 0,186. Ces
+> chiffres étaient faux : ma matrice OKLab portait `-0.2428592205` au lieu de
+> `-2.4285922050` — un chiffre perdu, qui écrasait le canal vert-rouge d'un
+> facteur dix. Le contrôle qui l'a révélée est simple et aurait dû être fait
+> d'emblée : convertir une couleur connue et vérifier qu'elle se retrouve.
+
+**Les trames ont été retirées des aplats**, et cette décision tient — mais pas
+pour tous les cas. Vision normale, protanopie et deutéranopie : la couleur
+sépare largement, au-delà de 0,19. **La tritanopie fait exception** : bleu et
+vert y virent tous deux au turquoise (`#006161` contre `#1E7575`), et l'écart
+tombe à 0,068.
+
+C'est un écart assumé, pas un oubli. La tritanopie touche environ une personne
+sur dix mille, contre près de 8 % des hommes pour la deutéranopie. Et la donnée
+reste entière dans le tableau sous le graphique, qui ne dépend d'aucune
+perception des couleurs.
 
 Le **pointillé des courbes reste**. Deux courbes se superposent là où deux
 barres ne se touchent que par un bord, et les styles de trait sont la
 recommandation constante de la littérature.
 
-La sixième série a dû être corrigée : c'était le seul créneau qui cassait
-(ΔE 0,113 en clair, **0,065** en sombre). La palette de marque ne tenant que
+La sixième série a été corrigée sur la foi de ces mesures fausses ; le violet
+qui la porte reste néanmoins le bon choix — il est le seul à ne collider avec
+aucune couleur de statut. La palette de marque ne tenant que
 deux teintes, un violet dédié a été ajouté — vérifié à plus de 0,15 de toute
 couleur de statut, pour ne pas refaire l'erreur du jaune d'avertissement.
 

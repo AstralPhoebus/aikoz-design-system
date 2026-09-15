@@ -137,6 +137,7 @@ await make('primitives.css', [PRIM], { selector: ':root', filter: inPath('primit
 // Couche 2 — brand (rôles) : Aikoz par défaut sur :root, Generali scopé
 await make('brand-aikoz.css',    [PRIM, brand('aikoz')],    { selector: ':root',                    filter: inPath('brand/aikoz'),    transforms: cssOklch }).buildAllPlatforms();
 await make('brand-generali.css', [PRIM, brand('generali')], { selector: '[data-brand="generali"]',  filter: inPath('brand/generali'), transforms: cssOklch }).buildAllPlatforms();
+await make('brand-adp.css', [PRIM, brand('adp')], { selector: '[data-brand="adp"]', filter: inPath('brand/adp'), transforms: cssOklch }).buildAllPlatforms();
 // Couche 3 — theme (sémantique) : light sur :root, dark sur .dark
 // `.light` double `:root` : purement additif, aucune valeur ajoutée, mais il donne
 // une échappatoire imbriquée. Sans elle, un bloc « clair » posé dans une page `.dark`
@@ -180,20 +181,20 @@ await make('semantics.css', [PRIM, SEM], {
 // C'est le fichier consommé par les composants (playground/demo). Ne pas éditer à la main.
 const bridgeTransforms = ['attribute/cti', 'name/kebab', 'color/oklch', 'size/rem'];
 await make('.tmp-shadcn-light.css', [PRIM, brand('aikoz'), theme('light'), SEM, bridgeSrc], {
-  selector: ':root, .light', filter: inPath('bridge/shadcn'), refs: false,
+  selector: ':root, .light', filter: inPath('bridge/shadcn'),
   transforms: bridgeTransforms, buildPath: 'bridge/',
 }).buildAllPlatforms();
 await make('.tmp-shadcn-dark.css', [PRIM, brand('aikoz'), theme('dark'), SEM, bridgeSrc], {
-  selector: '.dark', filter: inPath('bridge/shadcn'), refs: false,
+  selector: '.dark', filter: inPath('bridge/shadcn'),
   transforms: bridgeTransforms, buildPath: 'bridge/',
 }).buildAllPlatforms();
 await make('.tmp-shadcn-marketing-light.css', [PRIM, brand('aikoz'), theme('marketing-light'), SEM, bridgeSrc], {
-  selector: '[data-register="marketing"]', filter: inPath('bridge/shadcn'), refs: false,
+  selector: '[data-register="marketing"]', filter: inPath('bridge/shadcn'),
   transforms: bridgeTransforms, buildPath: 'bridge/',
 }).buildAllPlatforms();
 await make('.tmp-shadcn-marketing.css', [PRIM, brand('aikoz'), theme('marketing'), SEM, bridgeSrc], {
   selector: '.dark[data-register="marketing"], .dark [data-register="marketing"]',
-  filter: inPath('bridge/shadcn'), refs: false,
+  filter: inPath('bridge/shadcn'),
   transforms: bridgeTransforms, buildPath: 'bridge/',
 }).buildAllPlatforms();
 
@@ -262,6 +263,48 @@ console.log(`build/tailwind-colors.mjs — ${varsBridge.length} couleurs exposé
 // combinaison porte les BONNES valeurs. C'est ce que fait ce contrôle.
 const bridge = bridge0;
 
+/**
+ * Résout `--background` jusqu'à sa valeur `oklch()` et rend sa clarté.
+ *
+ * Le bridge pointe vers un rôle de thème, qui pointe vers une primitive. On
+ * suit la chaîne dans les fichiers générés, en préférant le bloc du MÊME
+ * sélecteur — sans quoi le thème sombre se résoudrait sur les valeurs claires.
+ */
+function resoudreClarte(bloc, selecteur) {
+  const sources = ['build/theme-light.css','build/theme-dark.css','build/theme-marketing-light.css','build/theme-marketing.css','build/primitives.css','build/brand-aikoz.css']
+    .filter((f) => fs.existsSync(f))
+    .map((f) => ({ fichier: f, contenu: fs.readFileSync(f, 'utf8') }));
+
+  const cherche = (nomVar) => {
+    // 1) dans le bloc dont le sélecteur correspond exactement
+    for (const { contenu } of sources) {
+      const re = new RegExp(`^${selecteur.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[^{]*\\{([\\s\\S]*?)^\\}`, 'm');
+      const b = contenu.match(re);
+      if (b) { const v = b[1].match(new RegExp(`--${nomVar}:\\s*([^;]+);`)); if (v) return v[1].trim(); }
+    }
+    // 2) à défaut, n'importe où (les primitives sont sur :root)
+    for (const { contenu } of sources) {
+      const v = contenu.match(new RegExp(`--${nomVar}:\\s*([^;]+);`));
+      if (v) return v[1].trim();
+    }
+    return null;
+  };
+
+  let valeur = (bloc.match(/--background:\s*([^;]+);/) || [])[1];
+  if (!valeur) return null;
+  valeur = valeur.trim();
+  for (let i = 0; i < 8; i++) {
+    const direct = valeur.match(/oklch\(([\d.]+)/);
+    if (direct) return parseFloat(direct[1]);
+    const ref = valeur.match(/var\(\s*--([a-z0-9-]+)\s*\)/i);
+    if (!ref) return null;
+    const suite = cherche(ref[1]);
+    if (!suite) return null;
+    valeur = suite;
+  }
+  return null;
+}
+
 const BLOCS = [
   { nom: 'produit clair',    selecteur: ':root, .light',                    clair: true  },
   { nom: 'produit sombre',   selecteur: '.dark',                            clair: false },
@@ -281,10 +324,12 @@ for (const { nom, selecteur, clair } of BLOCS) {
   const m = bridge.match(re);
   if (!m) { echecs.push(`bloc « ${nom} » absent du bridge`); continue; }
 
-  const bg = m[1].match(/--background:\s*oklch\(([\d.]+)/);
-  if (!bg) { echecs.push(`« ${nom} » : --background introuvable`); continue; }
-
-  const L = parseFloat(bg[1]);
+  // Le bridge émet désormais des RÉFÉRENCES (`var(--color-surface-page)`) et
+  // non des littéraux : c'est ce qui fait suivre `data-brand` jusqu'aux
+  // composants. Le vérificateur doit donc résoudre la chaîne, comme le
+  // navigateur — sinon il ne vérifie plus rien.
+  const L = resoudreClarte(m[1], selecteur);
+  if (L === null) { echecs.push(`« ${nom} » : --background irrésolu`); continue; }
   fonds.set(nom, L);
   // La luminance OKLCH tranche sans ambiguïté : un fond clair est au-dessus de
   // 0,5, un fond sombre en dessous. C'est ce test qui aurait attrapé l'inversion.
@@ -303,6 +348,26 @@ for (const [nom, L] of fonds) {
 // suffit que quelqu'un remette une liste de couleurs à la main pour que la
 // divergence revienne — et elle ne se voit pas : en thème clair, une carte
 // blanche manquante laisse voir une page presque blanche.
+// ── Garde-fou : toute marque générée doit être importée ─────────────────────
+//
+// `build/index.css` vit dans `build/` mais est écrit À LA MAIN et suivi par
+// git — rien ne le distingue d'un fichier généré. Ajouter une marque produit
+// donc son CSS sans que personne ne le charge, et la marque reste inerte sans
+// la moindre erreur. C'est arrivé en ajoutant ADP.
+{
+  const indexCss = fs.readFileSync('build/index.css', 'utf8');
+  const marques = fs.readdirSync('tokens/brand').filter((f) => f.endsWith('.json'));
+  for (const f of marques) {
+    const nom = f.replace(/\.json$/, '');
+    if (!indexCss.includes(`@import "./brand-${nom}.css";`)) {
+      echecs.push(
+        `build/index.css n'importe pas brand-${nom}.css — la marque « ${nom} » serait inerte. ` +
+        `Ajouter : @import "./brand-${nom}.css";`
+      );
+    }
+  }
+}
+
 const configTw = fs.readFileSync('tailwind.config.ts', 'utf8');
 if (!/from\s+["'].\/build\/tailwind-colors\.mjs["']/.test(configTw)) {
   echecs.push(

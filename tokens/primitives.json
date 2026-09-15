@@ -1545,6 +1545,432 @@
         },
         "$description": "Violet — réservé à la SIXIÈME série de données. Ajouté parce que la palette de marque ne contient que deux teintes (bleu, aigue-marine) : à six séries, l'écart perceptuel tombait à ΔE 0,113 en clair et 0,065 en sombre, sous le seuil où deux aplats voisins se distinguent. Aucun rôle sémantique, et vérifié à plus de 0,15 de toute couleur de statut."
       }
+    },
+    "adp-blue": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.9531,
+            0.0108,
+            263.85
+          ],
+          "alpha": 1,
+          "hex": "#ECF0F7"
+        },
+        "$description": "PANTONE 2748 C · Spectrum Blue · RAL 5022 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.9037,
+            0.0332,
+            263.85
+          ],
+          "alpha": 1,
+          "hex": "#D4E0F6"
+        },
+        "$description": "PANTONE 2748 C · Spectrum Blue · RAL 5022 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8111,
+            0.076,
+            263.85
+          ],
+          "alpha": 1,
+          "hex": "#A8C1F3"
+        },
+        "$description": "PANTONE 2748 C · Spectrum Blue · RAL 5022 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.6898,
+            0.133,
+            263.85
+          ],
+          "alpha": 1,
+          "hex": "#7099EE"
+        },
+        "$description": "PANTONE 2748 C · Spectrum Blue · RAL 5022 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.58,
+            0.183,
+            263.85
+          ],
+          "alpha": 1,
+          "hex": "#4072E5"
+        },
+        "$description": "PANTONE 2748 C · Spectrum Blue · RAL 5022 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.5127,
+            0.2057,
+            263.85
+          ],
+          "alpha": 1,
+          "hex": "#2559DA"
+        },
+        "$description": "PANTONE 2748 C · Spectrum Blue · RAL 5022 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.4443,
+            0.1952,
+            263.85
+          ],
+          "alpha": 1,
+          "hex": "#1645BD"
+        },
+        "$description": "PANTONE 2748 C · Spectrum Blue · RAL 5022 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.3664,
+            0.1764,
+            263.85
+          ],
+          "alpha": 1,
+          "hex": "#083099"
+        },
+        "$description": "PANTONE 2748 C · Spectrum Blue · RAL 5022 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.2925,
+            0.1465,
+            263.85
+          ],
+          "alpha": 1,
+          "hex": "#031F73"
+        },
+        "$description": "PANTONE 2748 C · Spectrum Blue · RAL 5022 — **valeur officielle de la charte ADP**, relevée dans le brand book (Groupe ADP & Paris Aéroport Style Guide, avril 2019, p. 13). Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.2299,
+            0.1059,
+            263.85
+          ],
+          "alpha": 1,
+          "hex": "#03154D"
+        },
+        "$description": "PANTONE 2748 C · Spectrum Blue · RAL 5022 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      }
+    },
+    "adp-campanula": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.9731,
+            0.0065,
+            255.89
+          ],
+          "alpha": 1,
+          "hex": "#F3F6FB"
+        },
+        "$description": "PANTONE 2144 C · Campanula · RAL 5015 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.9237,
+            0.0201,
+            255.89
+          ],
+          "alpha": 1,
+          "hex": "#DDE7F3"
+        },
+        "$description": "PANTONE 2144 C · Campanula · RAL 5015 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8311,
+            0.046,
+            255.89
+          ],
+          "alpha": 1,
+          "hex": "#B5CAE6"
+        },
+        "$description": "PANTONE 2144 C · Campanula · RAL 5015 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.7098,
+            0.0805,
+            255.89
+          ],
+          "alpha": 1,
+          "hex": "#80A4D4"
+        },
+        "$description": "PANTONE 2144 C · Campanula · RAL 5015 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.6,
+            0.1107,
+            255.89
+          ],
+          "alpha": 1,
+          "hex": "#5282C1"
+        },
+        "$description": "PANTONE 2144 C · Campanula · RAL 5015 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.5327,
+            0.1245,
+            255.89
+          ],
+          "alpha": 1,
+          "hex": "#376DB3"
+        },
+        "$description": "PANTONE 2144 C · Campanula · RAL 5015 — **valeur officielle de la charte ADP**, relevée dans le brand book (Groupe ADP & Paris Aéroport Style Guide, avril 2019, p. 13). Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.4643,
+            0.1181,
+            255.89
+          ],
+          "alpha": 1,
+          "hex": "#27599A"
+        },
+        "$description": "PANTONE 2144 C · Campanula · RAL 5015 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.3864,
+            0.1067,
+            255.89
+          ],
+          "alpha": 1,
+          "hex": "#17437B"
+        },
+        "$description": "PANTONE 2144 C · Campanula · RAL 5015 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.3125,
+            0.0887,
+            255.89
+          ],
+          "alpha": 1,
+          "hex": "#0D305D"
+        },
+        "$description": "PANTONE 2144 C · Campanula · RAL 5015 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.2499,
+            0.0641,
+            255.89
+          ],
+          "alpha": 1,
+          "hex": "#0A223F"
+        },
+        "$description": "PANTONE 2144 C · Campanula · RAL 5015 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      }
+    },
+    "adp-red": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.995,
+            0.0094,
+            36.141
+          ],
+          "alpha": 1,
+          "hex": "#FFFBF9"
+        },
+        "$description": "PANTONE Bright Red C · Tangerine Tango · RAL 3024 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.9551,
+            0.0288,
+            36.141
+          ],
+          "alpha": 1,
+          "hex": "#FFEAE3"
+        },
+        "$description": "PANTONE Bright Red C · Tangerine Tango · RAL 3024 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8625,
+            0.0659,
+            36.141
+          ],
+          "alpha": 1,
+          "hex": "#F9C3B4"
+        },
+        "$description": "PANTONE Bright Red C · Tangerine Tango · RAL 3024 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.7412,
+            0.1152,
+            36.141
+          ],
+          "alpha": 1,
+          "hex": "#EA9077"
+        },
+        "$description": "PANTONE Bright Red C · Tangerine Tango · RAL 3024 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.6314,
+            0.1586,
+            36.141
+          ],
+          "alpha": 1,
+          "hex": "#D8603F"
+        },
+        "$description": "PANTONE Bright Red C · Tangerine Tango · RAL 3024 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.5641,
+            0.1783,
+            36.141
+          ],
+          "alpha": 1,
+          "hex": "#C84118"
+        },
+        "$description": "PANTONE Bright Red C · Tangerine Tango · RAL 3024 — **valeur officielle de la charte ADP**, relevée dans le brand book (Groupe ADP & Paris Aéroport Style Guide, avril 2019, p. 13). Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.4957,
+            0.1691,
+            36.141
+          ],
+          "alpha": 1,
+          "hex": "#AD2E00"
+        },
+        "$description": "PANTONE Bright Red C · Tangerine Tango · RAL 3024 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.4178,
+            0.1528,
+            36.141
+          ],
+          "alpha": 1,
+          "hex": "#8C1C00"
+        },
+        "$description": "PANTONE Bright Red C · Tangerine Tango · RAL 3024 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.3439,
+            0.127,
+            36.141
+          ],
+          "alpha": 1,
+          "hex": "#6B1200"
+        },
+        "$description": "PANTONE Bright Red C · Tangerine Tango · RAL 3024 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.2813,
+            0.0917,
+            36.141
+          ],
+          "alpha": 1,
+          "hex": "#4D1202"
+        },
+        "$description": "PANTONE Bright Red C · Tangerine Tango · RAL 3024 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      }
     }
   },
   "font-family": {

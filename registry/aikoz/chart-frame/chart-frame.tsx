@@ -12,7 +12,8 @@ import { Table, type TableColumn } from "@registry/aikoz/table/table";
  *
  * **Le pointillé n'est pas décoratif — la trame, elle, a été retirée.** Mesuré sur notre
  * palette : la meilleure séparation atteignable entre six séries est de
- * **1,26:1 en clair, 1,30 en sombre**. Elles se confondent donc en niveaux
+ * **1,26:1 en clair, 1,30 en sombre** — un ratio de LUMINANCE, pas un écart
+ * perceptuel. Elles se confondent donc en niveaux
  * de gris et pour une part des daltonismes. La couleur ne porte pas la
  * distinction — elle la renforce, pour qui la perçoit.
  *
@@ -23,11 +24,15 @@ import { Table, type TableColumn } from "@registry/aikoz/table/table";
  * aplats voisins. La bonne mesure est l'écart perceptuel (ΔE OKLab), évalué
  * en simulant les trois daltonismes.
  *
- * Mesuré ainsi, la palette sépare de **ΔE 0,161 en clair et 0,186 en sombre
- * jusqu'à cinq séries** — très au-dessus du seuil de ~0,10 où deux grands
- * aplats cessent de se distinguer. La couleur suffit donc, et les trames qui
- * hachuraient les barres ont été retirées : elles alourdissaient la lecture
- * sans rien apporter.
+ * Mesuré ainsi, la palette sépare de **ΔE 0,19 à 0,28** en vision normale
+ * comme en protanopie et en deutéranopie — très au-dessus du seuil de ~0,10.
+ * La couleur suffit donc, et les trames qui hachuraient les barres ont été
+ * retirées : elles alourdissaient la lecture sans rien apporter.
+ *
+ * **Une exception, assumée :** en tritanopie, bleu et vert virent tous deux au
+ * turquoise et l'écart tombe à 0,068. Elle touche une personne sur dix mille,
+ * contre près de 8 % des hommes pour la deutéranopie, et le tableau sous le
+ * graphique porte la donnée sans dépendre d'aucune couleur.
  *
  * Le POINTILLÉ des courbes reste, lui : deux courbes se superposent là où
  * deux barres ne se touchent que par un bord, et les styles de trait sont la

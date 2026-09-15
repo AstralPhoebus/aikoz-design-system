@@ -1,0 +1,58 @@
+{
+  "color": {
+    "brand": {
+      "primary": {
+        "$type": "color",
+        "$value": "{color.adp-blue.800}"
+      },
+      "primary-hover": {
+        "$type": "color",
+        "$value": "{color.adp-blue.700}"
+      },
+      "primary-active": {
+        "$type": "color",
+        "$value": "{color.adp-blue.600}"
+      },
+      "primary-subtle": {
+        "$type": "color",
+        "$value": "{color.adp-blue.100}"
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": "{color.adp-campanula.500}"
+      },
+      "secondary-hover": {
+        "$type": "color",
+        "$value": "{color.adp-campanula.600}"
+      },
+      "secondary-active": {
+        "$type": "color",
+        "$value": "{color.adp-campanula.700}"
+      },
+      "secondary-subtle": {
+        "$type": "color",
+        "$value": "{color.adp-campanula.100}"
+      },
+      "accent": {
+        "$type": "color",
+        "$value": "{color.adp-campanula.400}"
+      },
+      "accent-hover": {
+        "$type": "color",
+        "$value": "{color.adp-campanula.300}"
+      },
+      "accent-active": {
+        "$type": "color",
+        "$value": "{color.adp-campanula.200}"
+      },
+      "accent-subtle": {
+        "$type": "color",
+        "$value": "{color.adp-campanula.50}"
+      },
+      "on-accent": {
+        "$type": "color",
+        "$value": "{color.midnight-blue.900}"
+      }
+    }
+  }
+}
