@@ -7,9 +7,30 @@ import { cn } from "@registry/aikoz/lib/utils";
 const cardVariants = cva("flex flex-col bg-card text-card-foreground", {
   variants: {
     surface: {
-      /** Carte standard, posée sur la page. */
-      raised: "border border-border rounded-[var(--radius)] shadow-sm",
-      /** Sans ombre — pour une grille dense où l'empilement d'ombres fatigue. */
+      /**
+       * Carte standard. La bordure porte la STRUCTURE ; l'élévation vient du
+       * REGISTRE et n'ajoute que la PROFONDEUR — aucune en produit, deux
+       * couches transparentes en marketing.
+       *
+       * `better-ui` recommande de remplacer la bordure par un anneau d'ombre.
+       * On s'en écarte, et c'est mesuré : cet anneau donne 1,18:1 contre la
+       * page en clair et 1,00 en sombre, moins que la bordure qu'il
+       * remplacerait. La carte disparaîtrait.
+       */
+      raised: [
+        // Propriété arbitraire `[box-shadow:…]`, et NON l'utilitaire
+        // `shadow-…`. Deux échecs successifs l'ont imposé : `shadow-[var(…)]`
+        // fait prendre à Tailwind un `var()` nu pour une COULEUR d'ombre — il
+        // émet `--tw-shadow-color` et rien ne se voit ; et même avec l'indice
+        // de type, son système de composition (`--tw-shadow`,
+        // `--tw-ring-shadow`, `--tw-shadow-colored`) écrase les couleurs d'une
+        // ombre multi-couches. La propriété arbitraire court-circuite tout ça.
+        "border border-border rounded-[var(--radius)]",
+        "[box-shadow:var(--role-elevation-card)]",
+        "transition-[box-shadow] duration-150 ease-out",
+        "hover:[box-shadow:var(--role-elevation-card-hover)]",
+      ].join(" "),
+      /** Bordure franche, aucune élévation — pour une grille dense. */
       flat: "border border-border rounded-[var(--radius)]",
       /** Ni bord ni ombre : un simple regroupement, quand le conteneur cadre déjà. */
       bare: "rounded-[var(--radius)]",

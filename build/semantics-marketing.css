@@ -1,0 +1,11 @@
+/**
+ * Do not edit directly, this file was auto-generated.
+ */
+
+[data-register="marketing"] {
+  --role-elevation-card: 0px 1px 2px -1px #0000000F, 0px 2px 4px 0px #0000000A; /** Soulèvement et ambiance. La couche d'anneau de `better-ui` est retirée : la bordure la fait déjà, et mieux — mesuré. */
+  --role-elevation-card-hover: 0px 2px 4px -1px #00000014, 0px 4px 8px 0px #0000000F; /** L'ombre se creuse au survol — même géométrie, portée doublée. */
+  --role-radius-default: var(--dimension-radius-lg); /** 12px au lieu de 8. Un seul token à surcharger : tout le registre suit, puisque `--radius` en dérive et que 47 endroits le consomment.
+
+12 et non 16 : le rayon extérieur d'une carte doit valoir le rayon intérieur plus le rembourrage (règle concentrique de `better-ui`). Nos cartes ont 20px de rembourrage et des enfants à 8px — 16px creuserait l'écart au lieu de le combler. */
+}

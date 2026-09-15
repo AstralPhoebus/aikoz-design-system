@@ -7,6 +7,7 @@ const brand = b => `tokens/brand/${b}.json`;
 const theme = t => `tokens/theme/${t}.json`;
 const bridgeSrc = 'tokens/bridge/shadcn.json';
 const SEM = 'tokens/semantics.json';
+const SEM_MKT = 'tokens/semantics-marketing.json';
 const inPath = sub => t => t.filePath.includes(sub);
 
 // hex sRGB -> composants OKLCH (matrices de Björn Ottosson). Uniquement pour
@@ -173,7 +174,17 @@ await make('theme-marketing.css', [PRIM, brand('aikoz'), theme('marketing')], {
 // les autres en une variable. Les alias sont posés directement en var(--…),
 // donc outputReferences est inutile ici — et surtout inoffensif.
 await make('semantics.css', [PRIM, SEM], {
-  selector: ':root', filter: inPath('semantics'),
+  selector: ':root', filter: (t) => t.filePath.includes('tokens/semantics.json'),
+  format: 'css/variables-aikoz-semantics',
+}).buildAllPlatforms();
+
+// Couche 3ter — le REGISTRE ne changeait que des couleurs. Onze tokens sur
+// soixante-et-onze, tous chromatiques : le marketing était « autrement
+// coloré », pas « moins à plat ». Cette surcharge lui donne enfin une
+// profondeur propre — ombres pour l'élévation, bordures pour la structure.
+await make('semantics-marketing.css', [PRIM, SEM_MKT], {
+  selector: '[data-register="marketing"]',
+  filter: (t) => t.filePath.includes('semantics-marketing'),
   format: 'css/variables-aikoz-semantics',
 }).buildAllPlatforms();
 
@@ -356,13 +367,16 @@ for (const [nom, L] of fonds) {
 // la moindre erreur. C'est arrivé en ajoutant ADP.
 {
   const indexCss = fs.readFileSync('build/index.css', 'utf8');
-  const marques = fs.readdirSync('tokens/brand').filter((f) => f.endsWith('.json'));
-  for (const f of marques) {
-    const nom = f.replace(/\.json$/, '');
-    if (!indexCss.includes(`@import "./brand-${nom}.css";`)) {
+  // Toute feuille générée dans build/ doit être importée — pas seulement les
+  // marques. Un fichier produit et jamais chargé est inerte, sans erreur.
+  const feuilles = fs
+    .readdirSync('build')
+    .filter((f) => f.endsWith('.css') && f !== 'index.css');
+  for (const f of feuilles) {
+    if (!indexCss.includes(`@import "./${f}";`)) {
       echecs.push(
-        `build/index.css n'importe pas brand-${nom}.css — la marque « ${nom} » serait inerte. ` +
-        `Ajouter : @import "./brand-${nom}.css";`
+        `build/index.css n'importe pas ${f} — ce qu'il déclare serait inerte. ` +
+        `Ajouter : @import "./${f}";`
       );
     }
   }

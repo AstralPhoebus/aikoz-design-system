@@ -1,0 +1,53 @@
+{
+  "role": {
+    "elevation": {
+      "card": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": "#0000000F",
+            "offsetX": "0px",
+            "offsetY": "1px",
+            "blur": "2px",
+            "spread": "-1px"
+          },
+          {
+            "color": "#0000000A",
+            "offsetX": "0px",
+            "offsetY": "2px",
+            "blur": "4px",
+            "spread": "0px"
+          }
+        ],
+        "$description": "Soulèvement et ambiance. La couche d'anneau de `better-ui` est retirée : la bordure la fait déjà, et mieux — mesuré."
+      },
+      "card-hover": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": "#00000014",
+            "offsetX": "0px",
+            "offsetY": "2px",
+            "blur": "4px",
+            "spread": "-1px"
+          },
+          {
+            "color": "#0000000F",
+            "offsetX": "0px",
+            "offsetY": "4px",
+            "blur": "8px",
+            "spread": "0px"
+          }
+        ],
+        "$description": "L'ombre se creuse au survol — même géométrie, portée doublée."
+      }
+    },
+    "radius": {
+      "default": {
+        "$type": "dimension",
+        "$value": "{dimension.radius.lg}",
+        "$description": "12px au lieu de 8. Un seul token à surcharger : tout le registre suit, puisque `--radius` en dérive et que 47 endroits le consomment.\n\n12 et non 16 : le rayon extérieur d'une carte doit valoir le rayon intérieur plus le rembourrage (règle concentrique de `better-ui`). Nos cartes ont 20px de rembourrage et des enfants à 8px — 16px creuserait l'écart au lieu de le combler."
+      }
+    }
+  }
+}

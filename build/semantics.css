@@ -114,4 +114,8 @@
   --role-border-width-default: var(--dimension-border-width-thin); /** Standard border thickness */
   --role-border-width-emphasis: var(--dimension-border-width-medium); /** Highlighted or focus-state border */
   --role-border-width-strong: var(--dimension-border-width-thick); /** Heavy stroke for bold visual separation */
+  --role-elevation-card: 0px 0px 0px 0px #00000000; /** Profondeur d'une carte — **en plus de sa bordure, jamais à sa place**. Produit : aucune. Une interface de travail dense se lit mieux à plat, et l'ombre y devient du bruit. Marketing : deux couches transparentes.
+
+La skill `better-ui` recommande de remplacer la bordure par un anneau d'ombre à 6 % — on s'en écarte, et c'est mesuré : cet anneau donne 1,18:1 contre la page en clair et **1,00 en sombre**, soit moins que la bordure qu'il remplacerait (1,22 à 1,44). La carte disparaîtrait. La bordure porte la structure, l'ombre ne porte que l'élévation. */
+  --role-elevation-card-hover: 0px 0px 0px 0px #00000000; /** État survolé. Produit : toujours aucune profondeur. */
 }
