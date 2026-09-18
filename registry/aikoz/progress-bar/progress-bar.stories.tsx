@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from "storybook/test";
 import { ProgressBar } from "./progress-bar";
 
 const meta = {
@@ -54,5 +55,53 @@ export const MeterPasProgressbar: Story = {
           "`meter` : ici la barre sert des indicateurs, pas des traitements en cours.",
       },
     },
+  },
+};
+
+export const LeRepereSeLitDesDeuxCotes: Story = {
+  name: "Le repère se lit qu'il tombe sur le vide ou sur le plein",
+  decorators: [(S) => <div className="w-80"><S /></div>],
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "`marker` pose l'objectif SUR la piste. Sans lui, l'objectif n'existait " +
+          "que dans l'annonce vocale : à l'écran, une barre aux trois quarts ne dit " +
+          "pas si le quart manquant est un retard ou une avance.\n\n" +
+          "Le repère est une **fente** de la couleur de la carte, avec un trait " +
+          "neutre au milieu. Le trait seul ne tient qu'un côté — 5,99:1 sur la " +
+          "piste vide, mais 1,53:1 dès qu'il tombe sur l'aplat rempli, c'est-à-dire " +
+          "invisible au moment précis où l'objectif est dépassé. La fente le " +
+          "détache du remplissage, le trait le détache de la piste.",
+      },
+    },
+  },
+  render: () => (
+    <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-1.5">
+        <ProgressBar value={72} max={100} marker={90} valueText="72 %, objectif 90 %" />
+        <span className="text-xs text-muted-foreground">72 % — objectif 90 % pas atteint</span>
+      </div>
+      <div className="flex flex-col gap-1.5">
+        <ProgressBar value={96} max={100} marker={90} valueText="96 %, objectif 90 %" />
+        <span className="text-xs text-muted-foreground">
+          96 % — objectif 90 % dépassé, le repère tombe sur le plein
+        </span>
+      </div>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    // Le repère existe et se pose bien à 90 % de la piste, pas au bout.
+    const pistes = [...canvasElement.querySelectorAll("[role='meter']")];
+    await expect(pistes).toHaveLength(2);
+    for (const piste of pistes) {
+      const repere = piste.querySelector("span[aria-hidden='true']");
+      await expect(repere).not.toBeNull();
+      const gauche = (repere as HTMLElement).getBoundingClientRect().left;
+      const bords = piste.getBoundingClientRect();
+      const fraction = (gauche - bords.left) / bords.width;
+      await expect(fraction).toBeGreaterThan(0.85);
+      await expect(fraction).toBeLessThan(0.95);
+    }
   },
 };

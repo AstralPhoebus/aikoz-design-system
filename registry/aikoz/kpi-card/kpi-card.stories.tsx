@@ -143,9 +143,17 @@ export const LIconeEtLaVariationTiennentLeurRang: Story = {
   },
   render: () => (
     <div className="grid grid-cols-3 gap-4">
-      <KpiCard label="Avis reçus" value={1654} variant="raw" icon={IconeAvis} trend={12} />
-      <KpiCard label="Taux de réponse" value={87} unit="%" variant="target" target={90} icon={IconeAvis} />
-      <KpiCard label="Avis traités" value={312} variant="trend" data={[4, 6, 5, 8, 7, 9]} trend={18} />
+      <KpiCard density="large" label="Avis reçus" value={1654} variant="raw" icon={IconeAvis} trend={12} />
+      <KpiCard density="large" label="Taux de réponse" value={87} unit="%" variant="target" target={90} icon={IconeAvis} />
+      <KpiCard
+        density="large"
+        label="Avis traités"
+        value={312}
+        variant="trend"
+        data={[180, 212, 198, 265, 241, 312]}
+        trend={18}
+        icon={IconeAvis}
+      />
     </div>
   ),
   play: async ({ canvasElement }) => {

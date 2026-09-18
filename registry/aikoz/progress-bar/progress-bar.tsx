@@ -6,7 +6,7 @@ import { cn } from "@registry/aikoz/lib/utils";
 const trackVariants = cva(
   // --track, pas --muted : en dark ce dernier vaut exactement --card (1,00:1),
   // la piste y serait strictement invisible.
-  ["w-full overflow-hidden rounded-full", "bg-[var(--track)]"],
+  ["relative w-full overflow-hidden rounded-full", "bg-[var(--track)]"],
   {
     variants: {
       size: {
@@ -79,6 +79,16 @@ export interface ProgressBarProps extends VariantProps<typeof trackVariants> {
   label?: string | null;
   /** Texte substitué à la valeur brute dans l'annonce (« 87 %, objectif 90 % »). */
   valueText?: string;
+  /**
+   * Repère fixe sur la piste — typiquement l'OBJECTIF, dans la même unité que
+   * `value`. Sans lui, une barre remplie aux trois quarts ne dit pas si le
+   * quart manquant est un échec ou une avance : l'objectif n'existait que dans
+   * l'annonce vocale, jamais à l'écran.
+   *
+   * Purement visuel : la valeur annoncée ne change pas. Passer l'objectif dans
+   * `valueText` pour qu'il soit aussi énoncé.
+   */
+  marker?: number;
   /** Rôle ARIA — cf. `ProgressRole`. `meter` par défaut. */
   role?: ProgressRole;
   className?: string;
@@ -103,6 +113,7 @@ export function ProgressBar({
   thresholds = { good: 0.9, warning: 0.6 },
   size = "md",
   label,
+  marker,
   valueText,
   role = "meter",
   className,
@@ -117,6 +128,12 @@ export function ProgressBar({
       : fraction >= thresholds.warning
       ? "warning"
       : "critical");
+
+  // Un repère hors de l'échelle ne se dessine pas : il se poserait sur le bord
+  // et se lirait comme une fin de piste. Aux extrêmes exacts non plus — collé
+  // au bord arrondi, il disparaît dans le rayon.
+  const markerFraction =
+    marker !== undefined && max > 0 && marker > 0 && marker < max ? marker / max : null;
 
   const formatted = clamped.toLocaleString("fr-FR", { maximumFractionDigits: 1 });
   const decorative = label === null;
@@ -143,6 +160,27 @@ export function ProgressBar({
           boxShadow: `inset 0 0 0 1px ${FILL[resolved].edge}`,
         }}
       />
+      {markerFraction !== null && (
+        // Trois pixels, pas un : une FENTE de la couleur de la carte, et un
+        // trait neutre au milieu.
+        //
+        // Le trait seul ne tient qu'un côté. Sur la piste vide il donne 5,99:1
+        // en clair et 5,66:1 en sombre ; posé sur l'aplat rempli — ce qui
+        // arrive dès que la valeur dépasse l'objectif — il tombe à 1,53:1 et
+        // 1,18:1, c'est-à-dire invisible. La fente le détache du remplissage,
+        // le trait le détache de la piste : le repère se lit où qu'il tombe.
+        //
+        // Un repère coloré aurait réglé le problème en en créant un autre — le
+        // remplissage porte déjà le niveau par sa couleur, une seconde teinte
+        // sur la même barre entrerait en concurrence avec lui.
+        <span
+          aria-hidden="true"
+          className="absolute inset-y-0 flex w-1 -translate-x-1/2 justify-center bg-[var(--card)]"
+          style={{ left: `${markerFraction * 100}%` }}
+        >
+          <span className="w-0.5 rounded-full bg-[var(--muted-foreground)]" />
+        </span>
+      )}
     </div>
   );
 }
