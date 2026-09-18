@@ -139,6 +139,7 @@ await make('primitives.css', [PRIM], { selector: ':root', filter: inPath('primit
 await make('brand-aikoz.css',    [PRIM, brand('aikoz')],    { selector: ':root',                    filter: inPath('brand/aikoz'),    transforms: cssOklch }).buildAllPlatforms();
 await make('brand-generali.css', [PRIM, brand('generali')], { selector: '[data-brand="generali"]',  filter: inPath('brand/generali'), transforms: cssOklch }).buildAllPlatforms();
 await make('brand-adp.css', [PRIM, brand('adp')], { selector: '[data-brand="adp"]', filter: inPath('brand/adp'), transforms: cssOklch }).buildAllPlatforms();
+await make('brand-extime.css', [PRIM, brand('extime')], { selector: '[data-brand="extime"]', filter: inPath('brand/extime'), transforms: cssOklch }).buildAllPlatforms();
 // Couche 3 — theme (sémantique) : light sur :root, dark sur .dark
 // `.light` double `:root` : purement additif, aucune valeur ajoutée, mais il donne
 // une échappatoire imbriquée. Sans elle, un bloc « clair » posé dans une page `.dark`

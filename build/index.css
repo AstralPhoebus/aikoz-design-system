@@ -1,6 +1,6 @@
 /* Aikoz Design Tokens — point d'entrée
    Marque par défaut : Aikoz · Thème par défaut : light
-   Switch marque  : <html data-brand="generali"> ou <html data-brand="adp">
+   Switch marque  : <html data-brand="generali"|"adp"|"extime">
    Switch thème   : <html class="dark">
    Registre site  : <html data-register="marketing"> (clair)
                     — change AUSSI la profondeur, pas seulement les couleurs
@@ -11,6 +11,7 @@
 @import "./brand-aikoz.css";
 @import "./brand-generali.css";
 @import "./brand-adp.css";
+@import "./brand-extime.css";
 @import "./theme-light.css";
 @import "./theme-dark.css";
 @import "./theme-marketing-light.css";

@@ -1,0 +1,19 @@
+/**
+ * Do not edit directly, this file was auto-generated.
+ */
+
+[data-brand="extime"] {
+  --color-brand-primary: var(--color-extime-ink-900);
+  --color-brand-primary-hover: var(--color-extime-ink-800);
+  --color-brand-primary-active: var(--color-extime-ink-700);
+  --color-brand-primary-subtle: var(--color-extime-ink-100);
+  --color-brand-secondary: var(--color-extime-green-500);
+  --color-brand-secondary-hover: var(--color-extime-green-600);
+  --color-brand-secondary-active: var(--color-extime-green-700);
+  --color-brand-secondary-subtle: var(--color-extime-green-100);
+  --color-brand-accent: var(--color-extime-gold-200);
+  --color-brand-accent-hover: var(--color-extime-gold-300);
+  --color-brand-accent-active: var(--color-extime-gold-400);
+  --color-brand-accent-subtle: var(--color-extime-gold-50);
+  --color-brand-on-accent: var(--color-extime-ink-900);
+}

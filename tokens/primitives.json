@@ -1971,6 +1971,432 @@
         },
         "$description": "PANTONE Bright Red C · Tangerine Tango · RAL 3024 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
       }
+    },
+    "extime-ink": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.9415,
+            0.0042,
+            223.562
+          ],
+          "alpha": 1,
+          "hex": "#E9ECEE"
+        },
+        "$description": "Extime « Primary Colors / Black » #001E28 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8921,
+            0.0128,
+            223.562
+          ],
+          "alpha": 1,
+          "hex": "#D3DDE2"
+        },
+        "$description": "Extime « Primary Colors / Black » #001E28 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.7995,
+            0.0293,
+            223.562
+          ],
+          "alpha": 1,
+          "hex": "#AAC2CC"
+        },
+        "$description": "Extime « Primary Colors / Black » #001E28 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.6782,
+            0.0512,
+            223.562
+          ],
+          "alpha": 1,
+          "hex": "#759FAF"
+        },
+        "$description": "Extime « Primary Colors / Black » #001E28 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.5684,
+            0.0705,
+            223.562
+          ],
+          "alpha": 1,
+          "hex": "#448096"
+        },
+        "$description": "Extime « Primary Colors / Black » #001E28 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.5011,
+            0.0793,
+            223.562
+          ],
+          "alpha": 1,
+          "hex": "#246D85"
+        },
+        "$description": "Extime « Primary Colors / Black » #001E28 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.4327,
+            0.0752,
+            223.562
+          ],
+          "alpha": 1,
+          "hex": "#10596F"
+        },
+        "$description": "Extime « Primary Colors / Black » #001E28 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.3548,
+            0.068,
+            223.562
+          ],
+          "alpha": 1,
+          "hex": "#004356"
+        },
+        "$description": "Extime « Primary Colors / Black » #001E28 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.2809,
+            0.0565,
+            223.562
+          ],
+          "alpha": 1,
+          "hex": "#002F3D"
+        },
+        "$description": "Extime « Primary Colors / Black » #001E28 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.2183,
+            0.0408,
+            223.562
+          ],
+          "alpha": 1,
+          "hex": "#001E28"
+        },
+        "$description": "Extime « Primary Colors / Black » #001E28 — **valeur officielle**, relevée dans les variables du fichier Figma « Extime Design System ». Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+      }
+    },
+    "extime-green": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.9369,
+            0.0046,
+            185.323
+          ],
+          "alpha": 1,
+          "hex": "#E7EBEA"
+        },
+        "$description": "Extime « Secondary / Green 1 » #007269 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8875,
+            0.0141,
+            185.323
+          ],
+          "alpha": 1,
+          "hex": "#D0DDDB"
+        },
+        "$description": "Extime « Secondary / Green 1 » #007269 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.7949,
+            0.0323,
+            185.323
+          ],
+          "alpha": 1,
+          "hex": "#A6C3BF"
+        },
+        "$description": "Extime « Secondary / Green 1 » #007269 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.6736,
+            0.0565,
+            185.323
+          ],
+          "alpha": 1,
+          "hex": "#6EA29B"
+        },
+        "$description": "Extime « Secondary / Green 1 » #007269 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.5638,
+            0.0777,
+            185.323
+          ],
+          "alpha": 1,
+          "hex": "#36847C"
+        },
+        "$description": "Extime « Secondary / Green 1 » #007269 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.4965,
+            0.0874,
+            185.323
+          ],
+          "alpha": 1,
+          "hex": "#007269"
+        },
+        "$description": "Extime « Secondary / Green 1 » #007269 — **valeur officielle**, relevée dans les variables du fichier Figma « Extime Design System ». Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.4281,
+            0.0829,
+            185.323
+          ],
+          "alpha": 1,
+          "hex": "#005D55"
+        },
+        "$description": "Extime « Secondary / Green 1 » #007269 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.3502,
+            0.0749,
+            185.323
+          ],
+          "alpha": 1,
+          "hex": "#004740"
+        },
+        "$description": "Extime « Secondary / Green 1 » #007269 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.2763,
+            0.0622,
+            185.323
+          ],
+          "alpha": 1,
+          "hex": "#00312C"
+        },
+        "$description": "Extime « Secondary / Green 1 » #007269 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.2137,
+            0.045,
+            185.323
+          ],
+          "alpha": 1,
+          "hex": "#00201C"
+        },
+        "$description": "Extime « Secondary / Green 1 » #007269 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+      }
+    },
+    "extime-gold": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.9846,
+            0.0227,
+            96.335
+          ],
+          "alpha": 1,
+          "hex": "#FEFAE9"
+        },
+        "$description": "Extime « Accent / Yellow » #F4D651 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante. La chroma des crans foncés est bornée par le gamut sRGB, pas par le profil : un jaune ne tient pas 0,15 de chroma à 0,30 de clarté, et forcer le produit vire au brun. Chaque cran prend donc le maximum atteignable à sa clarté."
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.9703,
+            0.061,
+            96.335
+          ],
+          "alpha": 1,
+          "hex": "#FFF6C7"
+        },
+        "$description": "Extime « Accent / Yellow » #F4D651 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante. La chroma des crans foncés est bornée par le gamut sRGB, pas par le profil : un jaune ne tient pas 0,15 de chroma à 0,30 de clarté, et forcer le produit vire au brun. Chaque cran prend donc le maximum atteignable à sa clarté."
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8777,
+            0.1515,
+            96.335
+          ],
+          "alpha": 1,
+          "hex": "#F4D651"
+        },
+        "$description": "Extime « Accent / Yellow » #F4D651 — **valeur officielle**, relevée dans les variables du fichier Figma « Extime Design System ». Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante. La chroma des crans foncés est bornée par le gamut sRGB, pas par le profil : un jaune ne tient pas 0,15 de chroma à 0,30 de clarté, et forcer le produit vire au brun. Chaque cran prend donc le maximum atteignable à sa clarté."
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.7564,
+            0.1515,
+            96.335
+          ],
+          "alpha": 1,
+          "hex": "#CCAF17"
+        },
+        "$description": "Extime « Accent / Yellow » #F4D651 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante. La chroma des crans foncés est bornée par le gamut sRGB, pas par le profil : un jaune ne tient pas 0,15 de chroma à 0,30 de clarté, et forcer le produit vire au brun. Chaque cran prend donc le maximum atteignable à sa clarté."
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.6466,
+            0.1373,
+            96.335
+          ],
+          "alpha": 1,
+          "hex": "#A78D00"
+        },
+        "$description": "Extime « Accent / Yellow » #F4D651 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante. La chroma des crans foncés est bornée par le gamut sRGB, pas par le profil : un jaune ne tient pas 0,15 de chroma à 0,30 de clarté, et forcer le produit vire au brun. Chaque cran prend donc le maximum atteignable à sa clarté."
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.5793,
+            0.1233,
+            96.335
+          ],
+          "alpha": 1,
+          "hex": "#907900"
+        },
+        "$description": "Extime « Accent / Yellow » #F4D651 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante. La chroma des crans foncés est bornée par le gamut sRGB, pas par le profil : un jaune ne tient pas 0,15 de chroma à 0,30 de clarté, et forcer le produit vire au brun. Chaque cran prend donc le maximum atteignable à sa clarté."
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.5109,
+            0.109,
+            96.335
+          ],
+          "alpha": 1,
+          "hex": "#796500"
+        },
+        "$description": "Extime « Accent / Yellow » #F4D651 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante. La chroma des crans foncés est bornée par le gamut sRGB, pas par le profil : un jaune ne tient pas 0,15 de chroma à 0,30 de clarté, et forcer le produit vire au brun. Chaque cran prend donc le maximum atteignable à sa clarté."
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.433,
+            0.0933,
+            96.335
+          ],
+          "alpha": 1,
+          "hex": "#605000"
+        },
+        "$description": "Extime « Accent / Yellow » #F4D651 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante. La chroma des crans foncés est bornée par le gamut sRGB, pas par le profil : un jaune ne tient pas 0,15 de chroma à 0,30 de clarté, et forcer le produit vire au brun. Chaque cran prend donc le maximum atteignable à sa clarté."
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.3591,
+            0.0778,
+            96.335
+          ],
+          "alpha": 1,
+          "hex": "#493C00"
+        },
+        "$description": "Extime « Accent / Yellow » #F4D651 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante. La chroma des crans foncés est bornée par le gamut sRGB, pas par le profil : un jaune ne tient pas 0,15 de chroma à 0,30 de clarté, et forcer le produit vire au brun. Chaque cran prend donc le maximum atteignable à sa clarté."
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.2965,
+            0.0647,
+            96.335
+          ],
+          "alpha": 1,
+          "hex": "#362C00"
+        },
+        "$description": "Extime « Accent / Yellow » #F4D651 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante. La chroma des crans foncés est bornée par le gamut sRGB, pas par le profil : un jaune ne tient pas 0,15 de chroma à 0,30 de clarté, et forcer le produit vire au brun. Chaque cran prend donc le maximum atteignable à sa clarté."
+      }
     }
   },
   "font-family": {

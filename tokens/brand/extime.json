@@ -1,0 +1,58 @@
+{
+  "color": {
+    "brand": {
+      "primary": {
+        "$type": "color",
+        "$value": "{color.extime-ink.900}"
+      },
+      "primary-hover": {
+        "$type": "color",
+        "$value": "{color.extime-ink.800}"
+      },
+      "primary-active": {
+        "$type": "color",
+        "$value": "{color.extime-ink.700}"
+      },
+      "primary-subtle": {
+        "$type": "color",
+        "$value": "{color.extime-ink.100}"
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": "{color.extime-green.500}"
+      },
+      "secondary-hover": {
+        "$type": "color",
+        "$value": "{color.extime-green.600}"
+      },
+      "secondary-active": {
+        "$type": "color",
+        "$value": "{color.extime-green.700}"
+      },
+      "secondary-subtle": {
+        "$type": "color",
+        "$value": "{color.extime-green.100}"
+      },
+      "accent": {
+        "$type": "color",
+        "$value": "{color.extime-gold.200}"
+      },
+      "accent-hover": {
+        "$type": "color",
+        "$value": "{color.extime-gold.300}"
+      },
+      "accent-active": {
+        "$type": "color",
+        "$value": "{color.extime-gold.400}"
+      },
+      "accent-subtle": {
+        "$type": "color",
+        "$value": "{color.extime-gold.50}"
+      },
+      "on-accent": {
+        "$type": "color",
+        "$value": "{color.extime-ink.900}"
+      }
+    }
+  }
+}

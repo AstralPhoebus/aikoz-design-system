@@ -16,6 +16,7 @@ import { ViewTabs } from "@registry/aikoz/view-tabs/view-tabs";
 const MARQUES = [
   { id: null, nom: "Aikoz" },
   { id: "adp", nom: "ADP by Aikoz" },
+  { id: "extime", nom: "Extime" },
   { id: "generali", nom: "Generali" },
 ] as const;
 
