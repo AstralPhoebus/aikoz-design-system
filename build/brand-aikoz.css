@@ -16,4 +16,6 @@
   --color-brand-accent-active: var(--color-aquamarine-500);
   --color-brand-accent-subtle: var(--color-aquamarine-50);
   --color-brand-on-accent: var(--color-midnight-blue-900);
+  --color-brand-glow-from: var(--color-midnight-blue-900); /** Départ de la lueur de marque. La lueur des post-link Aikoz : bleu nuit qui s'éclaire vers l'outremer. Posée en dégradé radial sur les surfaces SOMBRES uniquement — sur fond clair elle sature l'écran au lieu de le creuser. */
+  --color-brand-glow-to: var(--color-ultramarine-700); /** Arrivée de la lueur. Deux crans d'une rampe de la marque, jamais une couleur inventée. */
 }

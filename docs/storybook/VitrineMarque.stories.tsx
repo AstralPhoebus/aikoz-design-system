@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useEffect, useState } from "react";
 import { SiteNav } from "@registry/aikoz/site-nav/site-nav";
+import { BrandGlow } from "@registry/aikoz/brand-glow/brand-glow";
 import { KpiCard } from "@registry/aikoz/kpi-card/kpi-card";
 import { BarChart } from "@registry/aikoz/bar-chart/bar-chart";
 import { DonutChart } from "@registry/aikoz/donut-chart/donut-chart";
@@ -37,7 +38,7 @@ function Contenu() {
 
 function Page() {
   return (
-    <div className="min-h-[70vh] bg-background text-foreground">
+    <BrandGlow className="min-h-[70vh] bg-background text-foreground">
       <SiteNav
         links={[
           { label: "Tableau de bord", href: "#", current: true },
@@ -136,7 +137,7 @@ function Page() {
           <ProgressBar value={87} max={100} label="Couverture des réponses" />
         </Card>
       </main>
-    </div>
+    </BrandGlow>
   );
 }
 

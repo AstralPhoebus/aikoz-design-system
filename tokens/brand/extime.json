@@ -52,6 +52,16 @@
       "on-accent": {
         "$type": "color",
         "$value": "{color.extime-ink.900}"
+      },
+      "glow-from": {
+        "$type": "color",
+        "$value": "{color.extime-ink.900}",
+        "$description": "Départ de la lueur de marque. Reprend le dégradé « Dark Green » officiel d'Extime (#007269 → #014751). Posée en dégradé radial sur les surfaces SOMBRES uniquement — sur fond clair elle sature l'écran au lieu de le creuser."
+      },
+      "glow-to": {
+        "$type": "color",
+        "$value": "{color.extime-green.700}",
+        "$description": "Arrivée de la lueur. Deux crans d'une rampe de la marque, jamais une couleur inventée."
       }
     }
   }
