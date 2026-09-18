@@ -15,9 +15,6 @@
   --destructive-foreground: var(--color-text-inverse); /** shadcn --destructive-foreground — à auditer */
   --nav-surface: var(--color-nav-surface); /** extension DS — fond de la barre de navigation ; distinct de --card, elle ne suit pas forcement la carte */
   --background: var(--color-surface-page); /** shadcn --background */
-  --foreground: var(--color-text-primary); /** shadcn --foreground */
-  --card-foreground: var(--color-text-primary); /** shadcn --card-foreground */
-  --popover-foreground: var(--color-text-primary); /** shadcn --popover-foreground */
   --muted: var(--color-surface-sunken); /** shadcn --muted */
   --muted-foreground: var(--color-text-muted); /** shadcn --muted-foreground */
   --surface-hover: var(--color-surface-hover); /** extension DS — fond au survol d'une surface. Rôle qui manquait : les composants détournaient --muted, qui est un CREUX décoratif et non un état. */
@@ -34,7 +31,6 @@
   --error-fill-edge: var(--color-status-error-fill-edge); /** extension DS — contour de l'aplat d'une jauge ; porte le 3:1 la ou l'aplat ne peut pas */
   --nav-surface-active: var(--color-nav-surface-active); /** extension DS — voile de l'entree courante ; NE PORTE PAS l'etat a lui seul (1,19:1 en clair) */
   --nav-border: var(--color-nav-border); /** extension DS — separateur de la barre de navigation */
-  --nav-on: var(--color-nav-on); /** extension DS — texte de la navigation */
   --nav-on-muted: var(--color-nav-on-muted); /** extension DS — texte de navigation en retrait — entree non courante */
   --success-subtle: var(--color-status-success-subtle); /** extension DS — fond tres pale d'un statut ; PORTE le texte du meme statut, donc audite a 4,5:1 contre lui */
   --warning-subtle: var(--color-status-warning-subtle); /** extension DS — fond tres pale d'un statut ; PORTE le texte du meme statut, donc audite a 4,5:1 contre lui */
@@ -42,7 +38,6 @@
   --info-subtle: var(--color-status-info-subtle); /** extension DS — fond tres pale d'un statut ; PORTE le texte du meme statut, donc audite a 4,5:1 contre lui */
   --chart-1: var(--color-chart-1); /** extension DS — tracé série de données 1 */
   --chart-2: var(--color-chart-2); /** extension DS — trace de la serie 2 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
-  --chart-3: var(--color-chart-3); /** extension DS — trace de la serie 3 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-4: var(--color-chart-4); /** extension DS — trace de la serie 4 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-5: var(--color-chart-5); /** extension DS — trace de la serie 5 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-6: var(--color-chart-6); /** extension DS — trace de la serie 6 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
@@ -54,11 +49,16 @@
   --rating: var(--color-rating-default); /** extension DS — couleur de notation (étoiles pleines), rôle dédié : cf. règle « un rôle manquant = une variable dédiée » */
   --rating-empty: var(--color-rating-empty); /** extension DS — étoile vide, repère décoratif de l'échelle */
   --radius: var(--role-radius-default); /** extension DS — rayon de base (shadcn --radius, dérivé en lg/md/sm par Tailwind) */
+  --foreground: var(--color-text-primary); /** shadcn --foreground */
+  --card-foreground: var(--color-text-primary); /** shadcn --card-foreground */
+  --popover-foreground: var(--color-text-primary); /** shadcn --popover-foreground */
   --primary: var(--color-surface-action); /** shadcn --primary */
   --secondary: var(--color-surface-action-secondary); /** shadcn --secondary */
   --accent-foreground: var(--color-text-on-accent); /** shadcn --accent-foreground */
   --ring: var(--color-border-focus); /** shadcn --ring */
+  --nav-on: var(--color-nav-on); /** extension DS — texte de la navigation */
   --nav-accent: var(--color-nav-accent); /** extension DS — trait de l'entree courante ; ultramarine en clair, aquamarine en sombre — c'est LUI qui porte l'etat */
+  --chart-3: var(--color-chart-3); /** extension DS — trace de la serie 3 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
 }
 
 /**
@@ -70,30 +70,16 @@
   --card-foreground: var(--color-text-primary); /** shadcn --card-foreground */
   --popover-foreground: var(--color-text-primary); /** shadcn --popover-foreground */
   --nav-on: var(--color-nav-on); /** extension DS — texte de la navigation */
-  --background: var(--color-surface-page); /** shadcn --background */
-  --card: var(--color-surface-raised); /** shadcn --card */
-  --popover: var(--color-surface-raised); /** shadcn --popover */
-  --primary-foreground: var(--color-text-on-action); /** shadcn --primary-foreground */
   --secondary: var(--color-surface-action-secondary); /** shadcn --secondary */
-  --secondary-foreground: var(--color-text-on-action-secondary); /** shadcn --secondary-foreground */
-  --muted: var(--color-surface-sunken); /** shadcn --muted */
   --muted-foreground: var(--color-text-muted); /** shadcn --muted-foreground */
-  --surface-hover: var(--color-surface-hover); /** extension DS — fond au survol d'une surface. Rôle qui manquait : les composants détournaient --muted, qui est un CREUX décoratif et non un état. */
   --accent: var(--color-brand-accent); /** shadcn --accent */
   --destructive: var(--color-status-error); /** shadcn --destructive */
-  --destructive-foreground: var(--color-text-inverse); /** shadcn --destructive-foreground — à auditer */
-  --border: var(--color-border-default); /** shadcn --border */
-  --border-strong: var(--color-border-strong); /** extension DS — bordure porteuse, >= 3:1 contre la page. Porte le survol des boutons sans fond. */
-  --input: var(--color-border-input); /** shadcn --input */
   --success-fill: var(--color-status-success-fill); /** extension DS — remplissage porteur succès (jauges, barres) */
   --warning-fill: var(--color-status-warning-fill); /** extension DS — remplissage porteur avertissement */
   --error-fill: var(--color-status-error-fill); /** extension DS — remplissage porteur erreur */
   --success-fill-edge: var(--color-status-success-fill-edge); /** extension DS — contour de l'aplat d'une jauge ; porte le 3:1 la ou l'aplat ne peut pas */
   --warning-fill-edge: var(--color-status-warning-fill-edge); /** extension DS — contour de l'aplat d'une jauge ; porte le 3:1 la ou l'aplat ne peut pas */
   --error-fill-edge: var(--color-status-error-fill-edge); /** extension DS — contour de l'aplat d'une jauge ; porte le 3:1 la ou l'aplat ne peut pas */
-  --nav-surface: var(--color-nav-surface); /** extension DS — fond de la barre de navigation ; distinct de --card, elle ne suit pas forcement la carte */
-  --nav-surface-active: var(--color-nav-surface-active); /** extension DS — voile de l'entree courante ; NE PORTE PAS l'etat a lui seul (1,19:1 en clair) */
-  --nav-border: var(--color-nav-border); /** extension DS — separateur de la barre de navigation */
   --nav-on-muted: var(--color-nav-on-muted); /** extension DS — texte de navigation en retrait — entree non courante */
   --success-subtle: var(--color-status-success-subtle); /** extension DS — fond tres pale d'un statut ; PORTE le texte du meme statut, donc audite a 4,5:1 contre lui */
   --warning-subtle: var(--color-status-warning-subtle); /** extension DS — fond tres pale d'un statut ; PORTE le texte du meme statut, donc audite a 4,5:1 contre lui */
@@ -103,7 +89,6 @@
   --chart-2: var(--color-chart-2); /** extension DS — trace de la serie 2 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-3: var(--color-chart-3); /** extension DS — trace de la serie 3 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-4: var(--color-chart-4); /** extension DS — trace de la serie 4 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
-  --chart-5: var(--color-chart-5); /** extension DS — trace de la serie 5 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-6: var(--color-chart-6); /** extension DS — trace de la serie 6 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --track: var(--color-surface-track); /** extension DS — piste d'une jauge ; PAS --muted, identique à --card en dark */
   --warning: var(--color-status-warning-text); /** extension DS — texte/emphase avertissement, et remplissage du niveau intermédiaire de ProgressBar */
@@ -113,10 +98,25 @@
   --rating: var(--color-rating-default); /** extension DS — couleur de notation (étoiles pleines), rôle dédié : cf. règle « un rôle manquant = une variable dédiée » */
   --rating-empty: var(--color-rating-empty); /** extension DS — étoile vide, repère décoratif de l'échelle */
   --radius: var(--role-radius-default); /** extension DS — rayon de base (shadcn --radius, dérivé en lg/md/sm par Tailwind) */
+  --background: var(--color-surface-page); /** shadcn --background */
+  --card: var(--color-surface-raised); /** shadcn --card */
+  --popover: var(--color-surface-raised); /** shadcn --popover */
   --primary: var(--color-surface-action); /** shadcn --primary */
+  --primary-foreground: var(--color-text-on-action); /** shadcn --primary-foreground */
+  --secondary-foreground: var(--color-text-on-action-secondary); /** shadcn --secondary-foreground */
+  --muted: var(--color-surface-sunken); /** shadcn --muted */
+  --surface-hover: var(--color-surface-hover); /** extension DS — fond au survol d'une surface. Rôle qui manquait : les composants détournaient --muted, qui est un CREUX décoratif et non un état. */
   --accent-foreground: var(--color-text-on-accent); /** shadcn --accent-foreground */
+  --destructive-foreground: var(--color-text-inverse); /** shadcn --destructive-foreground — à auditer */
+  --border: var(--color-border-default); /** shadcn --border */
+  --border-strong: var(--color-border-strong); /** extension DS — bordure porteuse, >= 3:1 contre la page. Porte le survol des boutons sans fond. */
+  --input: var(--color-border-input); /** shadcn --input */
   --ring: var(--color-border-focus); /** shadcn --ring */
+  --nav-surface: var(--color-nav-surface); /** extension DS — fond de la barre de navigation ; distinct de --card, elle ne suit pas forcement la carte */
+  --nav-surface-active: var(--color-nav-surface-active); /** extension DS — voile de l'entree courante ; NE PORTE PAS l'etat a lui seul (1,19:1 en clair) */
+  --nav-border: var(--color-nav-border); /** extension DS — separateur de la barre de navigation */
   --nav-accent: var(--color-nav-accent); /** extension DS — trait de l'entree courante ; ultramarine en clair, aquamarine en sombre — c'est LUI qui porte l'etat */
+  --chart-5: var(--color-chart-5); /** extension DS — trace de la serie 5 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
 }
 
 /**
@@ -129,13 +129,9 @@
   --secondary-foreground: var(--color-text-on-action-secondary); /** shadcn --secondary-foreground */
   --destructive-foreground: var(--color-text-inverse); /** shadcn --destructive-foreground — à auditer */
   --nav-surface: var(--color-nav-surface); /** extension DS — fond de la barre de navigation ; distinct de --card, elle ne suit pas forcement la carte */
-  --foreground: var(--color-text-primary); /** shadcn --foreground */
   --card: var(--color-surface-raised); /** shadcn --card */
-  --card-foreground: var(--color-text-primary); /** shadcn --card-foreground */
   --popover: var(--color-surface-raised); /** shadcn --popover */
-  --popover-foreground: var(--color-text-primary); /** shadcn --popover-foreground */
   --muted: var(--color-surface-sunken); /** shadcn --muted */
-  --muted-foreground: var(--color-text-muted); /** shadcn --muted-foreground */
   --surface-hover: var(--color-surface-hover); /** extension DS — fond au survol d'une surface. Rôle qui manquait : les composants détournaient --muted, qui est un CREUX décoratif et non un état. */
   --accent: var(--color-brand-accent); /** shadcn --accent */
   --destructive: var(--color-status-error); /** shadcn --destructive */
@@ -150,7 +146,6 @@
   --error-fill-edge: var(--color-status-error-fill-edge); /** extension DS — contour de l'aplat d'une jauge ; porte le 3:1 la ou l'aplat ne peut pas */
   --nav-surface-active: var(--color-nav-surface-active); /** extension DS — voile de l'entree courante ; NE PORTE PAS l'etat a lui seul (1,19:1 en clair) */
   --nav-border: var(--color-nav-border); /** extension DS — separateur de la barre de navigation */
-  --nav-on: var(--color-nav-on); /** extension DS — texte de la navigation */
   --nav-on-muted: var(--color-nav-on-muted); /** extension DS — texte de navigation en retrait — entree non courante */
   --success-subtle: var(--color-status-success-subtle); /** extension DS — fond tres pale d'un statut ; PORTE le texte du meme statut, donc audite a 4,5:1 contre lui */
   --warning-subtle: var(--color-status-warning-subtle); /** extension DS — fond tres pale d'un statut ; PORTE le texte du meme statut, donc audite a 4,5:1 contre lui */
@@ -158,7 +153,6 @@
   --info-subtle: var(--color-status-info-subtle); /** extension DS — fond tres pale d'un statut ; PORTE le texte du meme statut, donc audite a 4,5:1 contre lui */
   --chart-1: var(--color-chart-1); /** extension DS — tracé série de données 1 */
   --chart-2: var(--color-chart-2); /** extension DS — trace de la serie 2 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
-  --chart-3: var(--color-chart-3); /** extension DS — trace de la serie 3 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-4: var(--color-chart-4); /** extension DS — trace de la serie 4 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-5: var(--color-chart-5); /** extension DS — trace de la serie 5 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-6: var(--color-chart-6); /** extension DS — trace de la serie 6 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
@@ -170,11 +164,17 @@
   --rating: var(--color-rating-default); /** extension DS — couleur de notation (étoiles pleines), rôle dédié : cf. règle « un rôle manquant = une variable dédiée » */
   --rating-empty: var(--color-rating-empty); /** extension DS — étoile vide, repère décoratif de l'échelle */
   --radius: var(--role-radius-default); /** extension DS — rayon de base (shadcn --radius, dérivé en lg/md/sm par Tailwind) */
+  --foreground: var(--color-text-primary); /** shadcn --foreground */
+  --card-foreground: var(--color-text-primary); /** shadcn --card-foreground */
+  --popover-foreground: var(--color-text-primary); /** shadcn --popover-foreground */
   --primary: var(--color-surface-action); /** shadcn --primary */
   --secondary: var(--color-surface-action-secondary); /** shadcn --secondary */
+  --muted-foreground: var(--color-text-muted); /** shadcn --muted-foreground */
   --accent-foreground: var(--color-text-on-accent); /** shadcn --accent-foreground */
   --ring: var(--color-border-focus); /** shadcn --ring */
+  --nav-on: var(--color-nav-on); /** extension DS — texte de la navigation */
   --nav-accent: var(--color-nav-accent); /** extension DS — trait de l'entree courante ; ultramarine en clair, aquamarine en sombre — c'est LUI qui porte l'etat */
+  --chart-3: var(--color-chart-3); /** extension DS — trace de la serie 3 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
 }
 
 /**
@@ -186,30 +186,16 @@
   --card-foreground: var(--color-text-primary); /** shadcn --card-foreground */
   --popover-foreground: var(--color-text-primary); /** shadcn --popover-foreground */
   --nav-on: var(--color-nav-on); /** extension DS — texte de la navigation */
-  --background: var(--color-surface-page); /** shadcn --background */
-  --card: var(--color-surface-raised); /** shadcn --card */
-  --popover: var(--color-surface-raised); /** shadcn --popover */
-  --primary-foreground: var(--color-text-on-action); /** shadcn --primary-foreground */
   --secondary: var(--color-surface-action-secondary); /** shadcn --secondary */
-  --secondary-foreground: var(--color-text-on-action-secondary); /** shadcn --secondary-foreground */
-  --muted: var(--color-surface-sunken); /** shadcn --muted */
   --muted-foreground: var(--color-text-muted); /** shadcn --muted-foreground */
-  --surface-hover: var(--color-surface-hover); /** extension DS — fond au survol d'une surface. Rôle qui manquait : les composants détournaient --muted, qui est un CREUX décoratif et non un état. */
   --accent: var(--color-brand-accent); /** shadcn --accent */
   --destructive: var(--color-status-error); /** shadcn --destructive */
-  --destructive-foreground: var(--color-text-inverse); /** shadcn --destructive-foreground — à auditer */
-  --border: var(--color-border-default); /** shadcn --border */
-  --border-strong: var(--color-border-strong); /** extension DS — bordure porteuse, >= 3:1 contre la page. Porte le survol des boutons sans fond. */
-  --input: var(--color-border-input); /** shadcn --input */
   --success-fill: var(--color-status-success-fill); /** extension DS — remplissage porteur succès (jauges, barres) */
   --warning-fill: var(--color-status-warning-fill); /** extension DS — remplissage porteur avertissement */
   --error-fill: var(--color-status-error-fill); /** extension DS — remplissage porteur erreur */
   --success-fill-edge: var(--color-status-success-fill-edge); /** extension DS — contour de l'aplat d'une jauge ; porte le 3:1 la ou l'aplat ne peut pas */
   --warning-fill-edge: var(--color-status-warning-fill-edge); /** extension DS — contour de l'aplat d'une jauge ; porte le 3:1 la ou l'aplat ne peut pas */
   --error-fill-edge: var(--color-status-error-fill-edge); /** extension DS — contour de l'aplat d'une jauge ; porte le 3:1 la ou l'aplat ne peut pas */
-  --nav-surface: var(--color-nav-surface); /** extension DS — fond de la barre de navigation ; distinct de --card, elle ne suit pas forcement la carte */
-  --nav-surface-active: var(--color-nav-surface-active); /** extension DS — voile de l'entree courante ; NE PORTE PAS l'etat a lui seul (1,19:1 en clair) */
-  --nav-border: var(--color-nav-border); /** extension DS — separateur de la barre de navigation */
   --nav-on-muted: var(--color-nav-on-muted); /** extension DS — texte de navigation en retrait — entree non courante */
   --success-subtle: var(--color-status-success-subtle); /** extension DS — fond tres pale d'un statut ; PORTE le texte du meme statut, donc audite a 4,5:1 contre lui */
   --warning-subtle: var(--color-status-warning-subtle); /** extension DS — fond tres pale d'un statut ; PORTE le texte du meme statut, donc audite a 4,5:1 contre lui */
@@ -219,18 +205,32 @@
   --chart-2: var(--color-chart-2); /** extension DS — trace de la serie 2 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-3: var(--color-chart-3); /** extension DS — trace de la serie 3 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-4: var(--color-chart-4); /** extension DS — trace de la serie 4 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
-  --chart-5: var(--color-chart-5); /** extension DS — trace de la serie 5 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-6: var(--color-chart-6); /** extension DS — trace de la serie 6 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
-  --track: var(--color-surface-track); /** extension DS — piste d'une jauge ; PAS --muted, identique à --card en dark */
   --warning: var(--color-status-warning-text); /** extension DS — texte/emphase avertissement, et remplissage du niveau intermédiaire de ProgressBar */
   --info: var(--color-status-info-text); /** extension DS — texte/emphase information, ton `info` de Badge */
   --success: var(--color-status-success-text); /** extension DS — texte/emphase succès (utilisé par KpiCard) */
   --destructive-text: var(--color-status-error-text); /** extension DS — texte/emphase erreur (utilisé par KpiCard) */
   --rating: var(--color-rating-default); /** extension DS — couleur de notation (étoiles pleines), rôle dédié : cf. règle « un rôle manquant = une variable dédiée » */
-  --rating-empty: var(--color-rating-empty); /** extension DS — étoile vide, repère décoratif de l'échelle */
   --radius: var(--role-radius-default); /** extension DS — rayon de base (shadcn --radius, dérivé en lg/md/sm par Tailwind) */
+  --background: var(--color-surface-page); /** shadcn --background */
+  --card: var(--color-surface-raised); /** shadcn --card */
+  --popover: var(--color-surface-raised); /** shadcn --popover */
   --primary: var(--color-surface-action); /** shadcn --primary */
+  --primary-foreground: var(--color-text-on-action); /** shadcn --primary-foreground */
+  --secondary-foreground: var(--color-text-on-action-secondary); /** shadcn --secondary-foreground */
+  --muted: var(--color-surface-sunken); /** shadcn --muted */
+  --surface-hover: var(--color-surface-hover); /** extension DS — fond au survol d'une surface. Rôle qui manquait : les composants détournaient --muted, qui est un CREUX décoratif et non un état. */
   --accent-foreground: var(--color-text-on-accent); /** shadcn --accent-foreground */
+  --destructive-foreground: var(--color-text-inverse); /** shadcn --destructive-foreground — à auditer */
+  --border: var(--color-border-default); /** shadcn --border */
+  --border-strong: var(--color-border-strong); /** extension DS — bordure porteuse, >= 3:1 contre la page. Porte le survol des boutons sans fond. */
+  --input: var(--color-border-input); /** shadcn --input */
   --ring: var(--color-border-focus); /** shadcn --ring */
+  --nav-surface: var(--color-nav-surface); /** extension DS — fond de la barre de navigation ; distinct de --card, elle ne suit pas forcement la carte */
+  --nav-surface-active: var(--color-nav-surface-active); /** extension DS — voile de l'entree courante ; NE PORTE PAS l'etat a lui seul (1,19:1 en clair) */
+  --nav-border: var(--color-nav-border); /** extension DS — separateur de la barre de navigation */
   --nav-accent: var(--color-nav-accent); /** extension DS — trait de l'entree courante ; ultramarine en clair, aquamarine en sombre — c'est LUI qui porte l'etat */
+  --chart-5: var(--color-chart-5); /** extension DS — trace de la serie 5 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
+  --track: var(--color-surface-track); /** extension DS — piste d'une jauge ; PAS --muted, identique à --card en dark */
+  --rating-empty: var(--color-rating-empty); /** extension DS — étoile vide, repère décoratif de l'échelle */
 }

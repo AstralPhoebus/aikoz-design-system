@@ -22,4 +22,16 @@
   --color-chart-4: var(--color-midnight-blue-400); /** Série de données 4 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 4.25:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.132 au pire, en vision normale comme en protanopie et en deutéranopie. */
   --color-chart-5: var(--color-midnight-blue-600); /** Série de données 5 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 11.38:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.132 au pire, en vision normale comme en protanopie et en deutéranopie. */
   --color-chart-6: var(--color-aquamarine-900); /** Série de données 6 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 12.76:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.132 au pire, en vision normale comme en protanopie et en deutéranopie. */
+  --color-ink-50: var(--color-midnight-blue-50); /** Rampe de CHROME de la marque — fonds, bordures, navigation en thème sombre. C'est l'indirection qui manquait : le thème pointait directement `midnight-blue`, une primitive Aikoz, donc toute marque gardait le bleu nuit d'Aikoz sous ses propres couleurs. */
+  --color-ink-100: var(--color-midnight-blue-100); /** Palier 100 de la rampe de chrome (midnight-blue). */
+  --color-ink-200: var(--color-midnight-blue-200); /** Palier 200 de la rampe de chrome (midnight-blue). */
+  --color-ink-300: var(--color-midnight-blue-300); /** Palier 300 de la rampe de chrome (midnight-blue). */
+  --color-ink-400: var(--color-midnight-blue-400); /** Palier 400 de la rampe de chrome (midnight-blue). */
+  --color-ink-500: var(--color-midnight-blue-500); /** Palier 500 de la rampe de chrome (midnight-blue). */
+  --color-ink-600: var(--color-midnight-blue-600); /** Palier 600 de la rampe de chrome (midnight-blue). */
+  --color-ink-700: var(--color-midnight-blue-700); /** Palier 700 de la rampe de chrome (midnight-blue). */
+  --color-ink-800: var(--color-midnight-blue-800); /** Palier 800 de la rampe de chrome (midnight-blue). */
+  --color-ink-900: var(--color-midnight-blue-900); /** Palier 900 de la rampe de chrome (midnight-blue). */
+  --color-ink-950: var(--color-midnight-blue-950); /** Palier 950 de la rampe de chrome (midnight-blue). */
+  --color-ink-1000: var(--color-midnight-blue-1000); /** Palier 1000 de la rampe de chrome (midnight-blue). */
 }

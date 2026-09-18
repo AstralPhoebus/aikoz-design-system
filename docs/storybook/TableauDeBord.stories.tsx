@@ -223,9 +223,14 @@ export const UnePageEntiere: Story = {
     // Conséquence assumée : la barre d'outils et le bouton peuvent diverger.
     // Le dernier geste l'emporte, et l'état lu sur la classe garde le libellé
     // juste dans tous les cas.
-    const [sombre, setSombre] = useState(
-      () => typeof document !== "undefined" && document.documentElement.classList.contains("dark")
-    );
+    const [sombre, setSombre] = useState(false);
+    // L'état se relit APRÈS le montage : le décorateur de `preview.tsx` pose
+    // la classe dans son propre effet, donc à l'initialisation du `useState`
+    // elle n'est pas encore là et le libellé démarrait à l'envers quand on
+    // ouvrait l'histoire déjà en sombre.
+    useEffect(() => {
+      setSombre(document.documentElement.classList.contains("dark"));
+    }, []);
 
     useEffect(() => {
       const racine = document.documentElement;
@@ -236,33 +241,69 @@ export const UnePageEntiere: Story = {
 
     return (
       <div>
-        <div className="flex flex-wrap items-center gap-2 border-b border-border p-3">
-          {MARQUES.map((m) => (
-            <Button
-              key={m.nom}
-              size="sm"
-              variant={marque === m.id ? "default" : "secondary"}
-              onClick={() => setMarque(m.id)}
-            >
-              {m.nom}
-            </Button>
-          ))}
+        {/* La barre de démonstration n'est PAS un composant du design system :
+          c'est le chassis de l'histoire. Elle emprunte donc les tokens sans
+          rien inventer — piste `--muted`, pastille active sur `--card` avec
+          l'ombre de carte, exactement le contrôle segmenté des références.
+          Une rangée de boutons pleins mettait quatre appels à l'action au
+          même rang, alors qu'un seul est actif à la fois. */}
+      <div className="flex flex-wrap items-center gap-3 border-b border-border bg-background px-4 py-3">
+        <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+          Marque
+        </span>
 
-          <Button
-            className="ml-auto"
-            size="sm"
-            variant="outline"
-            aria-pressed={sombre}
-            onClick={() => {
-              const suivant = !sombre;
-              document.documentElement.classList.toggle("dark", suivant);
-              setSombre(suivant);
-            }}
-          >
-            <span aria-hidden="true">{sombre ? "\u2600" : "\u263E"}</span>
-            {sombre ? "Passer en clair" : "Passer en sombre"}
-          </Button>
+        <div
+          role="radiogroup"
+          aria-label="Marque appliquée à la page"
+          className="inline-flex items-center gap-0.5 rounded-full bg-muted p-0.5"
+        >
+          {MARQUES.map((m) => {
+            const actif = marque === m.id;
+            return (
+              <button
+                key={m.nom}
+                type="button"
+                role="radio"
+                aria-checked={actif}
+                onClick={() => setMarque(m.id)}
+                className={[
+                  "rounded-full px-3 py-1.5 text-sm font-medium transition-colors",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]",
+                  "focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]",
+                  actif
+                    ? "bg-card text-foreground [box-shadow:var(--role-elevation-card)]"
+                    : "text-muted-foreground hover:text-foreground",
+                ].join(" ")}
+              >
+                {m.nom}
+              </button>
+            );
+          })}
         </div>
+
+        <button
+          type="button"
+          aria-pressed={sombre}
+          aria-label={sombre ? "Passer en thème clair" : "Passer en thème sombre"}
+          onClick={() => {
+            const suivant = !sombre;
+            document.documentElement.classList.toggle("dark", suivant);
+            setSombre(suivant);
+          }}
+          className={[
+            "ml-auto inline-flex size-9 items-center justify-center rounded-full",
+            "border border-border bg-card text-muted-foreground",
+            "transition-colors hover:text-foreground",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]",
+            "focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]",
+          ].join(" ")}
+        >
+          <span aria-hidden="true" className="text-base leading-none">
+            {sombre ? "\u2600" : "\u263E"}
+          </span>
+        </button>
+      </div>
+
         <Page />
       </div>
     );

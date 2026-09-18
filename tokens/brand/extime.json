@@ -85,6 +85,68 @@
         "$value": "{color.neutral.1000}",
         "$description": "Série de données 6 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 20.02:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.137 au pire, en vision normale comme en protanopie et en deutéranopie."
       }
+    },
+    "ink": {
+      "50": {
+        "$type": "color",
+        "$value": "{color.extime-ink.50}",
+        "$description": "Rampe de CHROME de la marque — fonds, bordures, navigation en thème sombre. C'est l'indirection qui manquait : le thème pointait directement `midnight-blue`, une primitive Aikoz, donc toute marque gardait le bleu nuit d'Aikoz sous ses propres couleurs."
+      },
+      "100": {
+        "$type": "color",
+        "$value": "{color.extime-ink.100}",
+        "$description": "Palier 100 de la rampe de chrome (extime-ink)."
+      },
+      "200": {
+        "$type": "color",
+        "$value": "{color.extime-ink.200}",
+        "$description": "Palier 200 de la rampe de chrome (extime-ink)."
+      },
+      "300": {
+        "$type": "color",
+        "$value": "{color.extime-ink.300}",
+        "$description": "Palier 300 de la rampe de chrome (extime-ink)."
+      },
+      "400": {
+        "$type": "color",
+        "$value": "{color.extime-ink.400}",
+        "$description": "Palier 400 de la rampe de chrome (extime-ink)."
+      },
+      "500": {
+        "$type": "color",
+        "$value": "{color.extime-ink.500}",
+        "$description": "Palier 500 de la rampe de chrome (extime-ink)."
+      },
+      "600": {
+        "$type": "color",
+        "$value": "{color.extime-ink.600}",
+        "$description": "Palier 600 de la rampe de chrome (extime-ink)."
+      },
+      "700": {
+        "$type": "color",
+        "$value": "{color.extime-ink.700}",
+        "$description": "Palier 700 de la rampe de chrome (extime-ink)."
+      },
+      "800": {
+        "$type": "color",
+        "$value": "{color.extime-ink.800}",
+        "$description": "Palier 800 de la rampe de chrome (extime-ink)."
+      },
+      "900": {
+        "$type": "color",
+        "$value": "{color.extime-ink.900}",
+        "$description": "Palier 900 de la rampe de chrome (extime-ink)."
+      },
+      "950": {
+        "$type": "color",
+        "$value": "{color.extime-ink.950}",
+        "$description": "Palier 950 de la rampe de chrome (extime-ink)."
+      },
+      "1000": {
+        "$type": "color",
+        "$value": "{color.extime-ink.1000}",
+        "$description": "Palier 1000 de la rampe de chrome (extime-ink)."
+      }
     }
   }
 }
