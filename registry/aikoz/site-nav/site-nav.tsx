@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { cn } from "@registry/aikoz/lib/utils";
+import { BrandMark } from "@registry/aikoz/brand-mark/brand-mark";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -58,7 +59,7 @@ export interface SiteNavProps {
  */
 export function SiteNav({
   links,
-  brand = "Aikoz",
+  brand,
   brandHref = "/",
   brandLabel = "Aikoz, accueil",
   actions,
@@ -143,7 +144,13 @@ export function SiteNav({
             "rounded-[var(--radius)]"
           )}
         >
-          {brand}
+          {/*
+            Le LOGO, pas le nom écrit — et celui de la MARQUE COURANTE.
+            `BrandMark` suit `data-brand` tout seul : passer la marque en prop
+            à chaque appelant reviendrait à réimplémenter la marque blanche
+            dans chaque page, et un oubli ne se verrait nulle part.
+          */}
+          {brand ?? <BrandMark />}
         </a>
 
         <nav aria-label={label} className="hidden md:block">

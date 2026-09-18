@@ -141,7 +141,13 @@ export function ViewTabs({
               role="tab"
               id={`${uid}-tab-${t.value}`}
               aria-selected={estActif}
-              aria-controls={`${uid}-panel-${t.value}`}
+              // `aria-controls` seulement si le panneau EXISTE. Un onglet
+              // sans `content` n'en rend aucun ; pointer vers un identifiant
+              // absent produit de l'ARIA invalide, qu'aucun lecteur d'écran
+              // ne peut suivre — et que rien ne signalait jusqu'ici.
+              aria-controls={
+                t.content !== undefined ? `${uid}-panel-${t.value}` : undefined
+              }
               // Tabindex tournant : un seul onglet est dans l'ordre de
               // tabulation, les flèches font le reste.
               tabIndex={estActif ? 0 : -1}
