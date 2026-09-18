@@ -46,7 +46,44 @@ def dE(a,b,kind):
     x,y=oklab(cvd(a,kind)),oklab(cvd(b,kind))
     return math.dist(x,y)
 
-CARTE = {'light': srgb('#FFFFFF'), 'dark': srgb('#0E1640')}
+# La carte SOMBRE n'est plus la même pour toutes les marques : depuis que le
+# chrome suit `data-brand`, elle garde la clarté du thème (celle de
+# midnight-blue.800) mais prend la teinte de la marque. Auditer les six séries
+# contre la carte d'Aikoz laissait passer un écart — la sixième série d'Extime
+# tombait à 2,99:1 sur SA carte, sous le seuil de 3:1.
+def carte_sombre(rampes):
+    """Reproduit la règle de `ink-sombre.py` : clarté du thème, teinte de la marque."""
+    L_ref = P['midnight-blue']['800']['$value']['components'][0]
+    rampe = rampes[0]
+    source = '800' if '800' in P[rampe] else '900'
+    _, Ch, H = P[rampe][source]['$value']['components']
+    def gamut(c):
+        return all(-0.0005 <= x <= 1.0005 for x in _oklch_lin(L_ref, c, H))
+    if not gamut(Ch):
+        bas, haut = 0.0, Ch
+        for _ in range(40):
+            mid = (bas+haut)/2
+            if gamut(mid): bas = mid
+            else: haut = mid
+        Ch = bas
+    return _oklch_srgb(L_ref, Ch, H)
+
+def _oklch_lin(L, Ch, H):
+    h = math.radians(H); a = Ch*math.cos(h); b = Ch*math.sin(h)
+    l = (L+0.3963377774*a+0.2158037573*b)**3
+    m = (L-0.1055613458*a-0.0638541728*b)**3
+    s = (L-0.0894841775*a-1.2914855480*b)**3
+    return (4.0767416621*l-3.3077115913*m+0.2309699292*s,
+           -1.2684380046*l+2.6097574011*m-0.3413193965*s,
+           -0.0041960863*l-0.7034186147*m+1.7076147010*s)
+
+def _oklch_srgb(L, Ch, H):
+    def f(c):
+        c = max(0.0, min(1.0, c))
+        return 12.92*c if c <= 0.0031308 else 1.055*c**(1/2.4)-0.055
+    return tuple(f(c) for c in _oklch_lin(L, Ch, H))
+
+CARTE = {'light': srgb('#FFFFFF'), 'dark': None}
 
 def separation(cols):
     """Le pire écart perceptuel, toutes paires et tous types de vision."""
@@ -57,6 +94,7 @@ def separation(cols):
     return pire
 
 def choisir(rampes, theme, n=6, seuil=3.0):
+    CARTE['dark'] = carte_sombre(rampes)
     """Les trois premieres series viennent des trois rampes de MARQUE, dans
     l'ordre primary / secondary / accent : une palette optimisee librement
     maximise la separation mais peut abandonner le vert d'Extime au profit de
@@ -130,6 +168,13 @@ for marque, rampes in [
             open(p,'a').write('\n')
         else:
             p=f'tokens/brand/{marque}-dark.json'
-            json.dump({"color":{"chart":chart}},open(p,'w'),ensure_ascii=False,indent=2)
+            # FUSIONNER, pas écraser : ce fichier porte aussi la rampe `ink`
+            # posée par `ink-sombre.py`. Un `json.dump` d'un dictionnaire neuf
+            # l'effaçait, et le chrome sombre repartait sur la clarté de la
+            # charte sans que rien ne le signale.
+            import os
+            base = json.load(open(p)) if os.path.exists(p) else {"color":{}}
+            base.setdefault("color",{})["chart"]=chart
+            json.dump(base,open(p,'w'),ensure_ascii=False,indent=2)
             open(p,'a').write('\n')
         print('écrit', p)
