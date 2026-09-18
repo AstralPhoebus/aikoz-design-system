@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useEffect, useState } from "react";
+// Hooks de Storybook, pas ceux de React : dans une fonction `render` les deux
+// ne se mélangent pas.
+import { useEffect, useState } from "storybook/preview-api";
 import { SiteNav } from "@registry/aikoz/site-nav/site-nav";
 import { KpiCard } from "@registry/aikoz/kpi-card/kpi-card";
 import { LineChart } from "@registry/aikoz/line-chart/line-chart";
@@ -186,35 +188,6 @@ function Page() {
 
 // ─── Histoire ────────────────────────────────────────────────────────────────
 
-function Vitrine() {
-  const [marque, setMarque] = useState<string | null>(null);
-
-  useEffect(() => {
-    const racine = document.documentElement;
-    if (marque) racine.setAttribute("data-brand", marque);
-    else racine.removeAttribute("data-brand");
-    return () => racine.removeAttribute("data-brand");
-  }, [marque]);
-
-  return (
-    <div>
-      <div className="flex flex-wrap gap-2 p-3">
-        {MARQUES.map((m) => (
-          <Button
-            key={m.nom}
-            size="sm"
-            variant={marque === m.id ? "default" : "secondary"}
-            onClick={() => setMarque(m.id)}
-          >
-            {m.nom}
-          </Button>
-        ))}
-      </div>
-      <Page />
-    </div>
-  );
-}
-
 const meta = {
   title: "Design system/Tableau de bord",
   parameters: { layout: "fullscreen" },
@@ -239,5 +212,59 @@ export const UnePageEntiere: Story = {
       },
     },
   },
-  render: () => <Vitrine />,
+  render: () => {
+    const [marque, setMarque] = useState<string | null>(null);
+    // Le bouton bascule la CLASSE, il ne passe pas par `setGlobals`.
+    // J'ai essayé l'inverse pour garder la barre d'outils synchronisée : sans
+    // le manager — iframe seule, Storybook publié sur Pages — le canal
+    // n'existe pas et le bouton ne faisait rien. Un bouton qui ne marche que
+    // dans un contexte sur deux ne marche pas.
+    //
+    // Conséquence assumée : la barre d'outils et le bouton peuvent diverger.
+    // Le dernier geste l'emporte, et l'état lu sur la classe garde le libellé
+    // juste dans tous les cas.
+    const [sombre, setSombre] = useState(
+      () => typeof document !== "undefined" && document.documentElement.classList.contains("dark")
+    );
+
+    useEffect(() => {
+      const racine = document.documentElement;
+      if (marque) racine.setAttribute("data-brand", marque);
+      else racine.removeAttribute("data-brand");
+      return () => racine.removeAttribute("data-brand");
+    }, [marque]);
+
+    return (
+      <div>
+        <div className="flex flex-wrap items-center gap-2 border-b border-border p-3">
+          {MARQUES.map((m) => (
+            <Button
+              key={m.nom}
+              size="sm"
+              variant={marque === m.id ? "default" : "secondary"}
+              onClick={() => setMarque(m.id)}
+            >
+              {m.nom}
+            </Button>
+          ))}
+
+          <Button
+            className="ml-auto"
+            size="sm"
+            variant="outline"
+            aria-pressed={sombre}
+            onClick={() => {
+              const suivant = !sombre;
+              document.documentElement.classList.toggle("dark", suivant);
+              setSombre(suivant);
+            }}
+          >
+            <span aria-hidden="true">{sombre ? "\u2600" : "\u263E"}</span>
+            {sombre ? "Passer en clair" : "Passer en sombre"}
+          </Button>
+        </div>
+        <Page />
+      </div>
+    );
+  },
 };
