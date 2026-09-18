@@ -213,7 +213,22 @@ export function KpiCard({
       aria-label={isInteractive ? spoken : undefined}
       {...compProps}
     >
-      <div className="flex items-start justify-between gap-2">
+      {/* L'icône AVANT le libellé, sur sa ligne, nue.
+          J'avais d'abord posé une puce arrondie en haut à droite. C'est le
+          geste d'Impro AI et des pastilles d'agents — pas celui des cartes de
+          KPI : chez Pillio comme chez QORE, l'icône est un glyphe filaire
+          discret posé à gauche du libellé, et c'est le CHIFFRE qui occupe la
+          carte. Une puce de 32px en haut à droite met l'icône au même rang
+          visuel que la valeur, alors qu'elle ne fait que nommer la ligne. */}
+      <div className="flex items-start gap-2">
+        {icon && (
+          <span
+            aria-hidden="true"
+            className="mt-px shrink-0 text-muted-foreground [&>svg]:size-4"
+          >
+            {icon}
+          </span>
+        )}
         {/* `min-h-8` : deux lignes de `text-xs`, réservées que le libellé
             tienne sur une ligne ou deux. Sans ça, la valeur et le repère de
             comparaison qui suivent démarrent à des hauteurs différentes
@@ -223,26 +238,6 @@ export function KpiCard({
         <span className="min-h-8 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
           {label}
         </span>
-        {icon && (
-          // L'icône dans une PUCE, pas nue. C'est le geste commun aux
-          // tableaux de bord SaaS récents : elle devient un repère qu'on
-          // retrouve d'une carte à l'autre au lieu d'un glyphe flottant.
-          // Fond `--track` et non une teinte : une puce colorée ferait porter un
-          // sens à l'icône, qui n'en a pas. Et `--track` plutôt que `--muted`
-          // pour la raison déjà rencontrée sur ProgressBar — en thème sombre
-          // `--muted` vaut le fond de page, donc 1,12:1 sur la carte : la puce
-          // s'y lirait comme un trou, pas comme un repère.
-          <span
-            aria-hidden="true"
-            className={cn(
-              "inline-flex size-8 shrink-0 items-center justify-center",
-              "rounded-[calc(var(--radius)*0.75)] bg-[var(--track)] text-muted-foreground",
-              "[&>svg]:size-4"
-            )}
-          >
-            {icon}
-          </span>
-        )}
       </div>
 
       {/* Le chiffre et sa variation sur UNE ligne. Séparés, l'œil fait deux

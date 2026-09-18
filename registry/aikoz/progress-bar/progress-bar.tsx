@@ -154,7 +154,15 @@ export function ProgressBar({
         className="h-full rounded-full transition-[width] duration-300 motion-reduce:transition-none"
         style={{
           width: `${fraction * 100}%`,
-          background: FILL[resolved].bg,
+          // Un DÉGRADÉ, pas un aplat. C'est le geste de QORE et de Pillio : la
+          // barre part plus dense et s'éclaircit vers sa pointe, ce qui lui
+          // donne un sens de lecture au lieu d'un rectangle posé là.
+          //
+          // Le mélange se fait vers le NOIR et uniquement au départ : la
+          // couleur nominale reste le point le plus clair de la barre, donc le
+          // ratio mesuré contre la piste ne baisse jamais — c'est lui qui a été
+          // audité, et le dégradé ne peut que l'améliorer.
+          background: `linear-gradient(90deg, color-mix(in oklch, ${FILL[resolved].bg}, black 14%) 0%, ${FILL[resolved].bg} 100%)`,
           // Liseré INTÉRIEUR : il ne consomme pas de place, donc la longueur du
           // remplissage reste exactement proportionnelle à la valeur.
           boxShadow: `inset 0 0 0 1px ${FILL[resolved].edge}`,
