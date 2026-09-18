@@ -72,6 +72,8 @@
   --color-border-accent: var(--color-brand-accent);
   --color-border-disabled: var(--color-ink-700);
   --color-border-input: var(--color-ink-400); /** Bordure de champ — 4,09:1 sur carte, 4,58 sur page (seuil 3:1, WCAG 1.4.11 : le trait porte l'information « ici on saisit »). Le palier des séparateurs ne donnait que 1,14:1, une bordure de champ invisible. Défaut systémique relevé en auditant les quatre combinaisons registre × thème — il touchait produit clair, produit sombre et marketing clair, seul le marketing sombre avait déjà été corrigé. */
+  --color-status-neutral-text: var(--color-ink-200); /** Variation NEUTRE — pendant sombre du rôle. La palette de données d'Alice ne vaut qu'en clair ; en sombre on reste sur la rampe de chrome, qui suit déjà la marque. */
+  --color-status-neutral-fill: var(--color-ink-300); /** Aplat neutre — pendant sombre du rôle. */
   --color-nav-surface: var(--color-ink-900);
   --color-nav-surface-active: var(--color-ink-800);
   --color-nav-border: var(--color-ink-700); /** Séparateur INTERNE de la barre de navigation — entre deux groupes d'entrées. 1,44:1 en clair, 1,22:1 en sombre : volontairement discret, et hors du champ de WCAG 1.4.11, qui vise les limites nécessaires pour identifier un composant ou son état. Ici les composants sont les liens, et ils sont perceptibles. La limite EXTERNE de la barre, elle, est portée par --border-strong : la surface de la barre ne se détache de la page que de 1,09:1, il faut donc un trait qui la délimite. */

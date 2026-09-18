@@ -32,6 +32,8 @@ export default {
   "nav-on-muted": "var(--nav-on-muted)",
   "nav-surface": "var(--nav-surface)",
   "nav-surface-active": "var(--nav-surface-active)",
+  "neutral-fill": "var(--neutral-fill)",
+  "neutral-text": "var(--neutral-text)",
   "on-inverse": "var(--on-inverse)",
   "popover": "var(--popover)",
   "popover-foreground": "var(--popover-foreground)",

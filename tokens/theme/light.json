@@ -173,7 +173,8 @@
     "status": {
       "success": {
         "$type": "color",
-        "$value": "{color.success.500}"
+        "$value": "{color.success.500}",
+        "$description": "Aplat PLEIN de statut, sous texte inverse — reste sur la rampe auditée. La palette de données d'Alice s'arrête aux surfaces qui ne portent pas de texte : en aplat plein elle donne 3,13:1 sous du blanc."
       },
       "success-subtle": {
         "$type": "color",
@@ -185,12 +186,13 @@
       },
       "success-text": {
         "$type": "color",
-        "$value": "{color.success.700}",
-        "$description": "Texte/emphase succès. Passé de .600 à .700 : sur un voile de badge à 8 % le .600 tombait à 4,20:1, sous le seuil texte. En .700 — 7,44:1 sur carte, 6,82 sur page, 6,55 sur voile. Un rôle « texte » doit tenir 4,5:1 sur TOUTES les surfaces où il peut atterrir, voile compris."
+        "$value": "{color.data.positive.text}",
+        "$description": "Palette de données du thème clair, choisie par Alice et reprise au hex près sur l'APLAT. Le thème sombre n'est pas touché : il fonctionnait. Version assombrie : un rôle de TEXTE doit tenir 4,5:1 sur toutes les surfaces où il atterrit, voile de badge compris."
       },
       "warning": {
         "$type": "color",
-        "$value": "{color.warning.500}"
+        "$value": "{color.warning.500}",
+        "$description": "Aplat PLEIN de statut, sous texte inverse — reste sur la rampe auditée."
       },
       "warning-subtle": {
         "$type": "color",
@@ -202,12 +204,13 @@
       },
       "warning-text": {
         "$type": "color",
-        "$value": "{color.warning.700}",
-        "$description": "Texte/emphase avertissement. Passé de .600 à .700 : le .600 ne faisait que 3,25:1 sur la carte — le rôle ne tenait pas son contrat de texte, indépendamment de tout composant. En .700 — 5,13:1 sur carte, 4,70 sur page, 4,62 sur voile. Le jaune est intrinsèquement faible sur clair."
+        "$value": "{color.data.warning.text}",
+        "$description": "Palette de données du thème clair, choisie par Alice et reprise au hex près sur l'APLAT. Le thème sombre n'est pas touché : il fonctionnait. Version assombrie pour l'usage texte."
       },
       "error": {
         "$type": "color",
-        "$value": "{color.error.500}"
+        "$value": "{color.error.500}",
+        "$description": "Aplat PLEIN de statut, sous texte inverse — reste sur la rampe auditée."
       },
       "error-subtle": {
         "$type": "color",
@@ -219,38 +222,38 @@
       },
       "success-fill": {
         "$type": "color",
-        "$value": "{color.success.600}",
-        "$description": "Aplat d'une jauge. Le jaune vif du thème sombre est repris ici — il ne tient pas 3:1 seul sur une piste claire (1,40:1), c'est le CONTOUR qui porte la limite. en clair le contour est un cran plus foncé que l'aplat : c'est lui qui tient le 3:1 contre la piste"
+        "$value": "{color.data.positive.fill}",
+        "$description": "Palette de données du thème clair, choisie par Alice et reprise au hex près sur l'APLAT. Le thème sombre n'est pas touché : il fonctionnait. Remplissage de jauge."
       },
       "success-fill-edge": {
         "$type": "color",
-        "$value": "{color.success.700}",
-        "$description": "Contour de l'aplat d'une jauge — il porte le 3:1 là où l'aplat ne peut pas. en clair le contour est un cran plus foncé que l'aplat : c'est lui qui tient le 3:1 contre la piste"
+        "$value": "{color.data.positive.edge}",
+        "$description": "Contour qui porte le 3:1 là où l'aplat ne peut pas."
       },
       "warning-fill": {
         "$type": "color",
-        "$value": "{color.warning.500}",
-        "$description": "Aplat d'une jauge. Un seul or par thème : c'est exactement la teinte des étoiles (rating.default = warning.500 en clair), comme en sombre où barre et étoiles partagent le .400. L'aplat seul ne donne que 1,83:1 contre la piste — c'est le CONTOUR (warning.700, 4,30:1) qui porte WCAG 1.4.11, pas l'aplat."
+        "$value": "{color.data.warning.fill}",
+        "$description": "Palette de données du thème clair, choisie par Alice et reprise au hex près sur l'APLAT. Le thème sombre n'est pas touché : il fonctionnait. Remplissage de jauge."
       },
       "warning-fill-edge": {
         "$type": "color",
-        "$value": "{color.warning.700}",
-        "$description": "Contour de l'aplat d'une jauge — il porte le 3:1 là où l'aplat ne peut pas. en clair le contour est un cran plus foncé que l'aplat : c'est lui qui tient le 3:1 contre la piste"
+        "$value": "{color.data.warning.edge}",
+        "$description": "Contour qui porte le 3:1 là où l'aplat ne peut pas."
       },
       "error-fill": {
         "$type": "color",
-        "$value": "{color.error.600}",
-        "$description": "Aplat d'une jauge. Le jaune vif du thème sombre est repris ici — il ne tient pas 3:1 seul sur une piste claire (1,40:1), c'est le CONTOUR qui porte la limite. en clair le contour est un cran plus foncé que l'aplat : c'est lui qui tient le 3:1 contre la piste"
+        "$value": "{color.data.negative.fill}",
+        "$description": "Palette de données du thème clair, choisie par Alice et reprise au hex près sur l'APLAT. Le thème sombre n'est pas touché : il fonctionnait. Remplissage de jauge."
       },
       "error-fill-edge": {
         "$type": "color",
-        "$value": "{color.error.700}",
-        "$description": "Contour de l'aplat d'une jauge — il porte le 3:1 là où l'aplat ne peut pas. en clair le contour est un cran plus foncé que l'aplat : c'est lui qui tient le 3:1 contre la piste"
+        "$value": "{color.data.negative.edge}",
+        "$description": "Contour qui porte le 3:1 là où l'aplat ne peut pas."
       },
       "error-text": {
         "$type": "color",
-        "$value": "{color.error.600}",
-        "$description": "Texte/emphase erreur, contraste AA sur surface (error.600 light, .400 dark). Mappé sur --destructive-text."
+        "$value": "{color.data.negative.text}",
+        "$description": "Palette de données du thème clair, choisie par Alice et reprise au hex près sur l'APLAT. Le thème sombre n'est pas touché : il fonctionnait. Version assombrie pour l'usage texte."
       },
       "info": {
         "$type": "color",
@@ -268,6 +271,16 @@
       "info-border": {
         "$type": "color",
         "$value": "{color.info.300}"
+      },
+      "neutral-text": {
+        "$type": "color",
+        "$value": "{color.data.neutral.text}",
+        "$description": "Palette de données du thème clair, choisie par Alice et reprise au hex près sur l'APLAT. Le thème sombre n'est pas touché : il fonctionnait. Variation NEUTRE d'un indicateur — un rôle à part entière, là où le composant empruntait `muted-foreground`, un gris de texte secondaire qui ne dit rien de la donnée."
+      },
+      "neutral-fill": {
+        "$type": "color",
+        "$value": "{color.data.neutral.fill}",
+        "$description": "Palette de données du thème clair, choisie par Alice et reprise au hex près sur l'APLAT. Le thème sombre n'est pas touché : il fonctionnait. Aplat neutre — seul des quatre à tenir 4,19:1 sur la piste sans assombrissement."
       }
     },
     "nav": {

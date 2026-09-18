@@ -71,6 +71,8 @@
   --color-border-accent: var(--color-brand-accent); /** Liseré d'accent — le trait gauche d'un bloc mis en avant. */
   --color-border-disabled: var(--color-ink-700); /** Champ désactivé — volontairement en retrait, l'effacement EST l'information. */
   --color-border-input: var(--color-ink-400); /** Bordure de champ — 4,09:1 sur carte, 4,40:1 sur page (seuil 3:1, WCAG 1.4.11 : le trait porte l'information « ici on saisit »). Le palier .700 des séparateurs ne donnait que 1,53:1. Bleuté et non gris : sur fond midnight un gris rompt la teinte. */
+  --color-status-neutral-text: var(--color-ink-200); /** Variation NEUTRE d'un indicateur — registre marketing. */
+  --color-status-neutral-fill: var(--color-ink-300); /** Aplat neutre d'un indicateur — registre marketing. */
   --color-nav-surface: var(--color-ink-900); /** Barre de navigation du site — même fond que la page, séparée par un trait. */
   --color-nav-surface-active: var(--color-ink-800);
   --color-nav-border: var(--color-ink-700); /** Séparateur INTERNE de la barre de navigation — entre deux groupes d'entrées. 1,44:1 en clair, 1,22:1 en sombre : volontairement discret, et hors du champ de WCAG 1.4.11, qui vise les limites nécessaires pour identifier un composant ou son état. Ici les composants sont les liens, et ils sont perceptibles. La limite EXTERNE de la barre, elle, est portée par --border-strong : la surface de la barre ne se détache de la page que de 1,09:1, il faut donc un trait qui la délimite. */

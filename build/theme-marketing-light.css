@@ -44,6 +44,8 @@
   --color-status-info-text: var(--color-info-600); /** Texte/emphase information (info.600 light, .400 dark), aligné sur success-text, warning-text et error-text. Mappé sur --info. Il manquait : les quatre statuts n'avaient pas tous leur déclinaison texte. */
   --color-status-info-subtle: var(--color-info-50);
   --color-status-info-border: var(--color-info-300);
+  --color-status-neutral-text: var(--color-data-neutral-text); /** Variation NEUTRE d'un indicateur — registre marketing. */
+  --color-status-neutral-fill: var(--color-data-neutral-fill); /** Aplat neutre d'un indicateur — registre marketing. */
   --color-nav-surface-active: var(--color-neutral-100);
   --color-nav-border: var(--color-neutral-200); /** Séparateur INTERNE de la barre de navigation — entre deux groupes d'entrées. 1,44:1 en clair, 1,22:1 en sombre : volontairement discret, et hors du champ de WCAG 1.4.11, qui vise les limites nécessaires pour identifier un composant ou son état. Ici les composants sont les liens, et ils sont perceptibles. La limite EXTERNE de la barre, elle, est portée par --border-strong : la surface de la barre ne se détache de la page que de 1,09:1, il faut donc un trait qui la délimite. */
   --color-nav-on-muted: var(--color-neutral-600); /** Texte de navigation en retrait — entrée non courante. neutral.500 n'atteignait que 4,44:1 sur la barre, sous le seuil 4,5 de WCAG 1.4.3 : un libellé de menu est du texte, pas un ornement. neutral.600 : 7,14:1. */

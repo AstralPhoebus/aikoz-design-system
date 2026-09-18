@@ -269,6 +269,16 @@
       "info-border": {
         "$type": "color",
         "$value": "{color.info.700}"
+      },
+      "neutral-text": {
+        "$type": "color",
+        "$value": "{color.ink.200}",
+        "$description": "Variation NEUTRE — pendant sombre du rôle. La palette de données d'Alice ne vaut qu'en clair ; en sombre on reste sur la rampe de chrome, qui suit déjà la marque."
+      },
+      "neutral-fill": {
+        "$type": "color",
+        "$value": "{color.ink.300}",
+        "$description": "Aplat neutre — pendant sombre du rôle."
       }
     },
     "nav": {

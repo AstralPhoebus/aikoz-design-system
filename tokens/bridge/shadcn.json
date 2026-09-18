@@ -268,5 +268,15 @@
     "$type": "color",
     "$value": "{color.surface.on-inverse}",
     "$description": "extension DS — texte porte par --surface-inverse"
+  },
+  "neutral-text": {
+    "$type": "color",
+    "$value": "{color.status.neutral-text}",
+    "$description": "extension DS — variation neutre d'un indicateur (DeltaBadge ton neutre)"
+  },
+  "neutral-fill": {
+    "$type": "color",
+    "$value": "{color.status.neutral-fill}",
+    "$description": "extension DS — aplat neutre d'un indicateur"
   }
 }

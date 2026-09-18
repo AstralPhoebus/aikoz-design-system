@@ -49,6 +49,8 @@
   --rating: var(--color-rating-default); /** extension DS — couleur de notation (étoiles pleines), rôle dédié : cf. règle « un rôle manquant = une variable dédiée » */
   --rating-empty: var(--color-rating-empty); /** extension DS — étoile vide, repère décoratif de l'échelle */
   --radius: var(--role-radius-default); /** extension DS — rayon de base (shadcn --radius, dérivé en lg/md/sm par Tailwind) */
+  --neutral-text: var(--color-status-neutral-text); /** extension DS — variation neutre d'un indicateur (DeltaBadge ton neutre) */
+  --neutral-fill: var(--color-status-neutral-fill); /** extension DS — aplat neutre d'un indicateur */
   --foreground: var(--color-text-primary); /** shadcn --foreground */
   --card-foreground: var(--color-text-primary); /** shadcn --card-foreground */
   --popover-foreground: var(--color-text-primary); /** shadcn --popover-foreground */
@@ -123,6 +125,8 @@
   --chart-5: var(--color-chart-5); /** extension DS — trace de la serie 5 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --surface-inverse: var(--color-surface-inverse); /** extension DS — fond a contre-theme, premier arret du degrade */
   --on-inverse: var(--color-surface-on-inverse); /** extension DS — texte porte par --surface-inverse */
+  --neutral-text: var(--color-status-neutral-text); /** extension DS — variation neutre d'un indicateur (DeltaBadge ton neutre) */
+  --neutral-fill: var(--color-status-neutral-fill); /** extension DS — aplat neutre d'un indicateur */
 }
 
 /**
@@ -170,6 +174,8 @@
   --rating: var(--color-rating-default); /** extension DS — couleur de notation (étoiles pleines), rôle dédié : cf. règle « un rôle manquant = une variable dédiée » */
   --rating-empty: var(--color-rating-empty); /** extension DS — étoile vide, repère décoratif de l'échelle */
   --radius: var(--role-radius-default); /** extension DS — rayon de base (shadcn --radius, dérivé en lg/md/sm par Tailwind) */
+  --neutral-text: var(--color-status-neutral-text); /** extension DS — variation neutre d'un indicateur (DeltaBadge ton neutre) */
+  --neutral-fill: var(--color-status-neutral-fill); /** extension DS — aplat neutre d'un indicateur */
   --foreground: var(--color-text-primary); /** shadcn --foreground */
   --card-foreground: var(--color-text-primary); /** shadcn --card-foreground */
   --popover-foreground: var(--color-text-primary); /** shadcn --popover-foreground */
@@ -245,4 +251,6 @@
   --rating-empty: var(--color-rating-empty); /** extension DS — étoile vide, repère décoratif de l'échelle */
   --surface-inverse: var(--color-surface-inverse); /** extension DS — fond a contre-theme, premier arret du degrade */
   --on-inverse: var(--color-surface-on-inverse); /** extension DS — texte porte par --surface-inverse */
+  --neutral-text: var(--color-status-neutral-text); /** extension DS — variation neutre d'un indicateur (DeltaBadge ton neutre) */
+  --neutral-fill: var(--color-status-neutral-fill); /** extension DS — aplat neutre d'un indicateur */
 }

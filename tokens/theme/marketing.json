@@ -283,6 +283,16 @@
       "info-border": {
         "$type": "color",
         "$value": "{color.info.700}"
+      },
+      "neutral-text": {
+        "$type": "color",
+        "$value": "{color.ink.200}",
+        "$description": "Variation NEUTRE d'un indicateur — registre marketing."
+      },
+      "neutral-fill": {
+        "$type": "color",
+        "$value": "{color.ink.300}",
+        "$description": "Aplat neutre d'un indicateur — registre marketing."
       }
     },
     "nav": {
