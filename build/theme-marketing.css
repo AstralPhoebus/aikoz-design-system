@@ -7,6 +7,7 @@
   --color-nav-on: oklch(1 0 0);
   --color-surface-accent: var(--color-aquamarine-900); /** Fond teinté d'accent, très sombre — pour une zone à souligner sans la peindre en aqua. */
   --color-surface-action-secondary: var(--color-ultramarine-225); /** Surface d'action secondaire. ultramarine.225 comme en produit sombre, et non la teinte de marque : sur une carte sombre, ultramarine.500 ne donne que 3,02:1 — sous le seuil de 4,5 dès qu'on s'en sert comme couleur de TEXTE, ce que fait tout lien secondaire. Le registre marketing avait gardé la valeur claire par omission ; le thème sombre l'éclaircissait déjà, le registre ne suivait pas. */
+  --color-surface-inverse-to: var(--color-neutral-50); /** Second arrêt du dégradé de `surface.inverse`. Même rampe, deux paliers d'écart : un dégradé qui change de teinte se lit comme une image, pas comme une surface. */
   --color-text-secondary: var(--color-ultramarine-200); /** Texte secondaire TEINTÉ BLEU, et non gris comme en dashboard dark. C'est la différence de registre la plus visible : le site reste dans la famille de marque jusque dans son texte discret. */
   --color-text-muted: var(--color-ultramarine-200); /** Alias de secondary — même teinte bleutée. */
   --color-text-brand: var(--color-ultramarine-300); /** Lien sur fond sombre — l'ultramarine.500 des fonds clairs n'y passe pas. */
@@ -55,6 +56,8 @@
   --color-surface-brand-active: var(--color-brand-primary-active);
   --color-surface-brand-subtle: var(--color-ink-800); /** Teinte de marque discrète. */
   --color-surface-action: var(--color-brand-accent); /** LE SEUL aplat en aquamarine du registre : le CTA. C'est la règle qui manquait au lead magnet, où l'accent servait à la fois de texte, de fond, de contour et d'ombre — une couleur qui sert à tout ne signale plus rien. */
+  --color-surface-inverse: var(--color-ink-50); /** Fond d'une carte à CONTRE-THÈME : sombre en thème clair, clair en thème sombre. Premier arrêt du dégradé. Sa raison d'être est la hiérarchie — une seule carte par écran doit primer sur toutes les autres, et l'inversion y arrive sans ajouter de couleur. */
+  --color-surface-on-inverse: var(--color-ink-900); /** Texte porté par `surface.inverse`. Existe déjà sous le nom `text.inverse` ; ce token le nomme depuis le rôle de surface, pour qu'on ne puisse pas poser l'un sans l'autre. */
   --color-text-tertiary: var(--color-ink-300); /** Légendes, dates, mentions. */
   --color-text-disabled: var(--color-ink-500);
   --color-text-inverse: var(--color-ink-900); /** Texte sur les rares surfaces claires. */

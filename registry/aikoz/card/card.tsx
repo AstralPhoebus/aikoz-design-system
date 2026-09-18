@@ -4,7 +4,7 @@ import { cn } from "@registry/aikoz/lib/utils";
 
 // ─── Variants ────────────────────────────────────────────────────────────────
 
-const cardVariants = cva("flex flex-col bg-card text-card-foreground", {
+const cardVariants = cva("flex flex-col", {
   variants: {
     surface: {
       /**
@@ -18,6 +18,7 @@ const cardVariants = cva("flex flex-col bg-card text-card-foreground", {
        * remplacerait. La carte disparaîtrait.
        */
       raised: [
+        "bg-card text-card-foreground",
         // Propriété arbitraire `[box-shadow:…]`, et NON l'utilitaire
         // `shadow-…`. Deux échecs successifs l'ont imposé : `shadow-[var(…)]`
         // fait prendre à Tailwind un `var()` nu pour une COULEUR d'ombre — il
@@ -31,9 +32,36 @@ const cardVariants = cva("flex flex-col bg-card text-card-foreground", {
         "hover:[box-shadow:var(--role-elevation-card-hover)]",
       ].join(" "),
       /** Bordure franche, aucune élévation — pour une grille dense. */
-      flat: "border border-border rounded-[var(--radius)]",
+      flat: "bg-card text-card-foreground border border-border rounded-[var(--radius)]",
       /** Ni bord ni ombre : un simple regroupement, quand le conteneur cadre déjà. */
-      bare: "rounded-[var(--radius)]",
+      bare: "bg-card text-card-foreground rounded-[var(--radius)]",
+      /**
+       * Carte à CONTRE-THÈME : sombre en thème clair, claire en thème sombre.
+       *
+       * Sa raison d'être est la hiérarchie, pas la décoration. Dans une grille
+       * où toutes les cartes sont blanches, aucune ne prime ; l'inversion fait
+       * primer la principale sans ajouter de couleur au système ni changer sa
+       * taille. C'est le geste des tableaux de bord bancaires — une carte
+       * noire pour le solde, des cartes blanches pour le reste.
+       *
+       * D'où la règle d'emploi : **une seule par écran**. Deux cartes
+       * inversées ne hiérarchisent plus rien, elles font un damier.
+       *
+       * Le dégradé se lit en deux couches. La base va d'un palier de la rampe
+       * de chrome à un autre — même rampe, donc la surface reste une surface :
+       * un dégradé qui change de teinte se lit comme une image. Par-dessus,
+       * une lueur d'angle porte la SECONDE couleur de marque, qui suit
+       * `data-brand` : marine vers campanule chez ADP, encre vers vert chez
+       * Extime. C'est là que la marque se voit vraiment.
+       */
+      inverse: [
+        "rounded-[var(--radius)] border border-transparent",
+        "text-[var(--on-inverse)]",
+        "[background:radial-gradient(130%_150%_at_88%_0%,color-mix(in_oklch,var(--secondary),transparent_58%)_0%,transparent_62%),linear-gradient(135deg,var(--surface-inverse)_0%,var(--surface-inverse-to)_100%)]",
+        "[box-shadow:var(--role-elevation-card)]",
+        "transition-[box-shadow] duration-150 ease-out",
+        "hover:[box-shadow:var(--role-elevation-card-hover)]",
+      ].join(" "),
     },
     density: {
       compact: "p-4 gap-2",

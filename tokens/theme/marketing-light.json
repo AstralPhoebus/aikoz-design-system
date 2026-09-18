@@ -66,6 +66,21 @@
         "$type": "color",
         "$value": "{color.brand.primary}",
         "$description": "Action secondaire — le midnight."
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": "{color.ink.900}",
+        "$description": "Fond d'une carte à CONTRE-THÈME : sombre en thème clair, clair en thème sombre. Premier arrêt du dégradé. Sa raison d'être est la hiérarchie — une seule carte par écran doit primer sur toutes les autres, et l'inversion y arrive sans ajouter de couleur."
+      },
+      "inverse-to": {
+        "$type": "color",
+        "$value": "{color.ink.700}",
+        "$description": "Second arrêt du dégradé de `surface.inverse`. Même rampe, deux paliers d'écart : un dégradé qui change de teinte se lit comme une image, pas comme une surface."
+      },
+      "on-inverse": {
+        "$type": "color",
+        "$value": "{color.ink.50}",
+        "$description": "Texte porté par `surface.inverse`. Existe déjà sous le nom `text.inverse` ; ce token le nomme depuis le rôle de surface, pour qu'on ne puisse pas poser l'un sans l'autre."
       }
     },
     "text": {

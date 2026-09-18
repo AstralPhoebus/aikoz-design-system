@@ -59,6 +59,9 @@
   --nav-on: var(--color-nav-on); /** extension DS — texte de la navigation */
   --nav-accent: var(--color-nav-accent); /** extension DS — trait de l'entree courante ; ultramarine en clair, aquamarine en sombre — c'est LUI qui porte l'etat */
   --chart-3: var(--color-chart-3); /** extension DS — trace de la serie 3 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
+  --surface-inverse: var(--color-surface-inverse); /** extension DS — fond a contre-theme, premier arret du degrade */
+  --surface-inverse-to: var(--color-surface-inverse-to); /** extension DS — second arret du degrade a contre-theme */
+  --on-inverse: var(--color-surface-on-inverse); /** extension DS — texte porte par --surface-inverse */
 }
 
 /**
@@ -98,6 +101,7 @@
   --rating: var(--color-rating-default); /** extension DS — couleur de notation (étoiles pleines), rôle dédié : cf. règle « un rôle manquant = une variable dédiée » */
   --rating-empty: var(--color-rating-empty); /** extension DS — étoile vide, repère décoratif de l'échelle */
   --radius: var(--role-radius-default); /** extension DS — rayon de base (shadcn --radius, dérivé en lg/md/sm par Tailwind) */
+  --surface-inverse-to: var(--color-surface-inverse-to); /** extension DS — second arret du degrade a contre-theme */
   --background: var(--color-surface-page); /** shadcn --background */
   --card: var(--color-surface-raised); /** shadcn --card */
   --popover: var(--color-surface-raised); /** shadcn --popover */
@@ -117,6 +121,8 @@
   --nav-border: var(--color-nav-border); /** extension DS — separateur de la barre de navigation */
   --nav-accent: var(--color-nav-accent); /** extension DS — trait de l'entree courante ; ultramarine en clair, aquamarine en sombre — c'est LUI qui porte l'etat */
   --chart-5: var(--color-chart-5); /** extension DS — trace de la serie 5 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
+  --surface-inverse: var(--color-surface-inverse); /** extension DS — fond a contre-theme, premier arret du degrade */
+  --on-inverse: var(--color-surface-on-inverse); /** extension DS — texte porte par --surface-inverse */
 }
 
 /**
@@ -175,6 +181,9 @@
   --nav-on: var(--color-nav-on); /** extension DS — texte de la navigation */
   --nav-accent: var(--color-nav-accent); /** extension DS — trait de l'entree courante ; ultramarine en clair, aquamarine en sombre — c'est LUI qui porte l'etat */
   --chart-3: var(--color-chart-3); /** extension DS — trace de la serie 3 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
+  --surface-inverse: var(--color-surface-inverse); /** extension DS — fond a contre-theme, premier arret du degrade */
+  --surface-inverse-to: var(--color-surface-inverse-to); /** extension DS — second arret du degrade a contre-theme */
+  --on-inverse: var(--color-surface-on-inverse); /** extension DS — texte porte par --surface-inverse */
 }
 
 /**
@@ -212,6 +221,7 @@
   --destructive-text: var(--color-status-error-text); /** extension DS — texte/emphase erreur (utilisé par KpiCard) */
   --rating: var(--color-rating-default); /** extension DS — couleur de notation (étoiles pleines), rôle dédié : cf. règle « un rôle manquant = une variable dédiée » */
   --radius: var(--role-radius-default); /** extension DS — rayon de base (shadcn --radius, dérivé en lg/md/sm par Tailwind) */
+  --surface-inverse-to: var(--color-surface-inverse-to); /** extension DS — second arret du degrade a contre-theme */
   --background: var(--color-surface-page); /** shadcn --background */
   --card: var(--color-surface-raised); /** shadcn --card */
   --popover: var(--color-surface-raised); /** shadcn --popover */
@@ -233,4 +243,6 @@
   --chart-5: var(--color-chart-5); /** extension DS — trace de la serie 5 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --track: var(--color-surface-track); /** extension DS — piste d'une jauge ; PAS --muted, identique à --card en dark */
   --rating-empty: var(--color-rating-empty); /** extension DS — étoile vide, repère décoratif de l'échelle */
+  --surface-inverse: var(--color-surface-inverse); /** extension DS — fond a contre-theme, premier arret du degrade */
+  --on-inverse: var(--color-surface-on-inverse); /** extension DS — texte porte par --surface-inverse */
 }

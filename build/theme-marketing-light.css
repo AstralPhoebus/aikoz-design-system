@@ -61,6 +61,9 @@
   --color-surface-accent: var(--color-brand-accent-subtle);
   --color-surface-action: var(--color-brand-secondary); /** CTA en ULTRAMARINE, pas en aquamarine. Le bundle marketing l'écrit noir sur blanc : l'aquamarine est réservée aux fonds sombres — sur blanc elle tombe à 1,24:1. Le seul aplat d'action du registre clair. */
   --color-surface-action-secondary: var(--color-brand-primary); /** Action secondaire — le midnight. */
+  --color-surface-inverse: var(--color-ink-900); /** Fond d'une carte à CONTRE-THÈME : sombre en thème clair, clair en thème sombre. Premier arrêt du dégradé. Sa raison d'être est la hiérarchie — une seule carte par écran doit primer sur toutes les autres, et l'inversion y arrive sans ajouter de couleur. */
+  --color-surface-inverse-to: var(--color-ink-700); /** Second arrêt du dégradé de `surface.inverse`. Même rampe, deux paliers d'écart : un dégradé qui change de teinte se lit comme une image, pas comme une surface. */
+  --color-surface-on-inverse: var(--color-ink-50); /** Texte porté par `surface.inverse`. Existe déjà sous le nom `text.inverse` ; ce token le nomme depuis le rôle de surface, pour qu'on ne puisse pas poser l'un sans l'autre. */
   --color-text-primary: var(--color-ink-900);
   --color-text-secondary: var(--color-ink-500); /** Texte secondaire TEINTÉ BLEU et non gris, comme dans le registre sombre. C'est la marque du registre marketing : rester dans la famille jusque dans le texte discret. */
   --color-text-tertiary: var(--color-ink-400); /** Légendes, dates. */

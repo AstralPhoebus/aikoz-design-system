@@ -74,6 +74,21 @@
         "$type": "color",
         "$value": "{color.ultramarine.225}",
         "$description": "Surface d'action secondaire. ultramarine.225 comme en produit sombre, et non la teinte de marque : sur une carte sombre, ultramarine.500 ne donne que 3,02:1 — sous le seuil de 4,5 dès qu'on s'en sert comme couleur de TEXTE, ce que fait tout lien secondaire. Le registre marketing avait gardé la valeur claire par omission ; le thème sombre l'éclaircissait déjà, le registre ne suivait pas."
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": "{color.ink.50}",
+        "$description": "Fond d'une carte à CONTRE-THÈME : sombre en thème clair, clair en thème sombre. Premier arrêt du dégradé. Sa raison d'être est la hiérarchie — une seule carte par écran doit primer sur toutes les autres, et l'inversion y arrive sans ajouter de couleur."
+      },
+      "inverse-to": {
+        "$type": "color",
+        "$value": "{color.neutral.50}",
+        "$description": "Second arrêt du dégradé de `surface.inverse`. Même rampe, deux paliers d'écart : un dégradé qui change de teinte se lit comme une image, pas comme une surface."
+      },
+      "on-inverse": {
+        "$type": "color",
+        "$value": "{color.ink.900}",
+        "$description": "Texte porté par `surface.inverse`. Existe déjà sous le nom `text.inverse` ; ce token le nomme depuis le rôle de surface, pour qu'on ne puisse pas poser l'un sans l'autre."
       }
     },
     "text": {
