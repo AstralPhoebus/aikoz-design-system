@@ -33,6 +33,8 @@
   "include": [
     "registry",
     "playground",
+    "docs",
+    ".storybook",
     "vite.config.ts"
   ]
 }
