@@ -1,0 +1,36 @@
+{
+  "color": {
+    "chart": {
+      "1": {
+        "$type": "color",
+        "$value": "{color.extime-ink.400}",
+        "$description": "Série de données 1 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 3.95:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.137 au pire, en vision normale comme en protanopie et en deutéranopie."
+      },
+      "2": {
+        "$type": "color",
+        "$value": "{color.extime-green.50}",
+        "$description": "Série de données 2 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 14.47:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.137 au pire, en vision normale comme en protanopie et en deutéranopie."
+      },
+      "3": {
+        "$type": "color",
+        "$value": "{color.extime-gold.200}",
+        "$description": "Série de données 3 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 12.08:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.137 au pire, en vision normale comme en protanopie et en deutéranopie."
+      },
+      "4": {
+        "$type": "color",
+        "$value": "{color.extime-gold.400}",
+        "$description": "Série de données 4 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 5.34:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.137 au pire, en vision normale comme en protanopie et en deutéranopie."
+      },
+      "5": {
+        "$type": "color",
+        "$value": "{color.neutral.300}",
+        "$description": "Série de données 5 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 9.06:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.137 au pire, en vision normale comme en protanopie et en deutéranopie."
+      },
+      "6": {
+        "$type": "color",
+        "$value": "{color.extime-gold.600}",
+        "$description": "Série de données 6 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 3.04:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.137 au pire, en vision normale comme en protanopie et en deutéranopie."
+      }
+    }
+  }
+}

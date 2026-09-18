@@ -135,11 +135,34 @@ function make(destination, source, { selector, filter, refs = true, transforms, 
 
 // Couche 1 — primitives : valeurs brutes, :root, pas de références
 await make('primitives.css', [PRIM], { selector: ':root', filter: inPath('primitives'), refs: false, transforms: cssOklch }).buildAllPlatforms();
-// Couche 2 — brand (rôles) : Aikoz par défaut sur :root, Generali scopé
+// Couche 2 — brand (rôles) : Aikoz par défaut sur :root, les autres scopées.
+//
+// LE SÉLECTEUR PORTE UNE SPÉCIFICITÉ, PAS SEULEMENT UN NOM.
+// `[data-brand="adp"]` pèse (0,1,0), exactement comme `:root` et comme
+// `.dark` — et la couche thème est importée APRÈS. À spécificité égale,
+// l'ordre tranche : la marque ne pouvait donc RIEN redéfinir de ce que le
+// thème posait. Elle n'avait l'air de fonctionner que parce qu'elle ne
+// touchait que `--color-brand-*`, que le thème ignore. Dès qu'on lui a
+// confié la palette des graphiques, elle est restée sans effet : les séries
+// gardaient l'outremer d'Aikoz sous toutes les marques.
+//
+// `:root[data-brand="adp"]` pèse (0,2,0) et passe devant le thème ; la
+// variante sombre `:root[data-brand="adp"].dark` pèse (0,3,0) et passe
+// devant la variante claire de la même marque.
 await make('brand-aikoz.css',    [PRIM, brand('aikoz')],    { selector: ':root',                    filter: inPath('brand/aikoz'),    transforms: cssOklch }).buildAllPlatforms();
-await make('brand-generali.css', [PRIM, brand('generali')], { selector: '[data-brand="generali"]',  filter: inPath('brand/generali'), transforms: cssOklch }).buildAllPlatforms();
-await make('brand-adp.css', [PRIM, brand('adp')], { selector: '[data-brand="adp"]', filter: inPath('brand/adp'), transforms: cssOklch }).buildAllPlatforms();
-await make('brand-extime.css', [PRIM, brand('extime')], { selector: '[data-brand="extime"]', filter: inPath('brand/extime'), transforms: cssOklch }).buildAllPlatforms();
+await make('brand-generali.css', [PRIM, brand('generali')], { selector: ':root[data-brand="generali"]',  filter: inPath('brand/generali'), transforms: cssOklch }).buildAllPlatforms();
+await make('brand-adp.css', [PRIM, brand('adp')], { selector: ':root[data-brand="adp"]', filter: inPath('brand/adp'), transforms: cssOklch }).buildAllPlatforms();
+await make('brand-extime.css', [PRIM, brand('extime')], { selector: ':root[data-brand="extime"]', filter: inPath('brand/extime'), transforms: cssOklch }).buildAllPlatforms();
+// Palettes de séries en thème sombre — une marque ne peut pas tenir les deux
+// thèmes avec les mêmes teintes : ce qui se lit sur du blanc disparaît sur du
+// bleu nuit.
+for (const m of ['generali', 'adp', 'extime']) {
+  await make(`brand-${m}-dark.css`, [PRIM, brand(`${m}-dark`)], {
+    selector: `:root[data-brand="${m}"].dark`,
+    filter: inPath(`brand/${m}-dark`),
+    transforms: cssOklch,
+  }).buildAllPlatforms();
+}
 // Couche 3 — theme (sémantique) : light sur :root, dark sur .dark
 // `.light` double `:root` : purement additif, aucune valeur ajoutée, mais il donne
 // une échappatoire imbriquée. Sans elle, un bloc « clair » posé dans une page `.dark`
