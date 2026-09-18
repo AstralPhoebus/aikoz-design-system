@@ -40,9 +40,9 @@ function Page() {
     <div className="min-h-[70vh] bg-background text-foreground">
       <SiteNav
         links={[
-          { label: "Tableau de bord", href: "#", current: true },
-          { label: "Avis", href: "#" },
-          { label: "Réseaux", href: "#" },
+          { label: "Tableau de bord", href: "#tableau-de-bord", current: true },
+          { label: "Avis", href: "#avis" },
+          { label: "Réseaux", href: "#reseaux" },
         ]}
         skipTo={null}
         actions={<Button size="sm">Exporter</Button>}

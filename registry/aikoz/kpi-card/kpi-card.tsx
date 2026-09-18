@@ -219,27 +219,47 @@ export function KpiCard({
         <span className="min-h-8 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
           {label}
         </span>
-        {trend !== undefined ? (
+        {icon && (
+          // L'icône dans une PUCE, pas nue. C'est le geste commun aux
+          // tableaux de bord SaaS récents : elle devient un repère qu'on
+          // retrouve d'une carte à l'autre au lieu d'un glyphe flottant.
+          // Fond `--track` et non une teinte : une puce colorée ferait porter un
+          // sens à l'icône, qui n'en a pas. Et `--track` plutôt que `--muted`
+          // pour la raison déjà rencontrée sur ProgressBar — en thème sombre
+          // `--muted` vaut le fond de page, donc 1,12:1 sur la carte : la puce
+          // s'y lirait comme un trou, pas comme un repère.
+          <span
+            aria-hidden="true"
+            className={cn(
+              "inline-flex size-8 shrink-0 items-center justify-center",
+              "rounded-[calc(var(--radius)*0.75)] bg-[var(--track)] text-muted-foreground",
+              "[&>svg]:size-4"
+            )}
+          >
+            {icon}
+          </span>
+        )}
+      </div>
+
+      {/* Le chiffre et sa variation sur UNE ligne. Séparés, l'œil fait deux
+          arrêts pour une seule information ; côte à côte, « 87 % ↑ 4,2 pts »
+          se lit d'un trait. C'est le motif de toutes les références. */}
+      <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+        <span className={valueVariants({ density })}>{formatted}</span>
+        {suffix && (
+          <span className="text-base font-medium text-muted-foreground">{suffix}</span>
+        )}
+        {trend !== undefined && (
           <DeltaBadge
             value={trend}
             unit={trendUnit}
             tone={trendTone}
             size="sm"
+            className="self-center"
             /* Décoratif seulement si la carte parle : sur une carte statique le
                badge reste le seul porteur du sens de la variation. */
             label={isInteractive ? null : undefined}
           />
-        ) : icon ? (
-          <span className="text-muted-foreground" aria-hidden="true">
-            {icon}
-          </span>
-        ) : null}
-      </div>
-
-      <div className="flex items-baseline gap-1">
-        <span className={valueVariants({ density })}>{formatted}</span>
-        {suffix && (
-          <span className="text-base font-medium text-muted-foreground">{suffix}</span>
         )}
       </div>
 

@@ -7,12 +7,17 @@ const meta = {
   component: KpiCard,
   tags: ["autodocs"],
   args: { label: "Taux de réponse", value: 87, unit: "%", variant: "target", target: 90 },
-  decorators: [(S) => <div className="w-72"><S /></div>],
 } satisfies Meta<typeof KpiCard>;
+
+// Les cartes isolées se regardent à une largeur réaliste de colonne de tableau
+// de bord ; les grilles, elles, ont besoin de la pleine largeur. La contrainte
+// vit donc sur les histoires, pas sur le meta — sinon elle s'ajoute à celle des
+// grilles et les chiffres se chevauchent.
+const carteSeule: Story["decorators"] = [(S) => <div className="w-72"><S /></div>];
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Defaut: Story = { name: "Par défaut" };
+export const Defaut: Story = { name: "Par défaut", decorators: carteSeule };
 
 export const DeuxAxesIndependants: Story = {
   name: "Deux axes : variant × density",
@@ -29,6 +34,7 @@ export const DeuxAxesIndependants: Story = {
 
 export const LeNiveauVientDeLObjectif: Story = {
   name: "Le niveau vient de l'objectif, pas du maximum",
+  decorators: carteSeule,
   args: { label: "Taux de réponse", value: 87, unit: "%", variant: "target", target: 90 },
   parameters: {
     docs: {
@@ -107,4 +113,46 @@ export const UnLibelleTropLongCasseLAlignement: Story = {
       <KpiCard label="Nombre d'avis" value={1654} variant="raw" />
     </div>
   ),
+};
+
+// Une icône de démonstration : `currentColor` pour qu'elle hérite de la puce,
+// et aucun titre — c'est le libellé qui nomme l'indicateur, pas le glyphe.
+const IconeAvis = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+export const LIconeEtLaVariationTiennentLeurRang: Story = {
+  name: "L'icône a sa puce, la variation suit le chiffre",
+  parameters: {
+    layout: "padded",
+    docs: {
+      description: {
+        story:
+          "Deux dispositifs repris des tableaux de bord SaaS récents.\n\n" +
+          "**L'icône vit dans une puce**, pas nue en haut à droite : posée sur " +
+          "`--muted`, elle devient un repère qu'on retrouve d'une carte à l'autre au " +
+          "lieu d'un glyphe qui flotte. Le fond reste neutre — une puce teintée " +
+          "ferait porter un sens à une icône qui n'en a pas.\n\n" +
+          "**La variation est collée au chiffre**, sur la même ligne de base. " +
+          "Séparés, l'œil fait deux arrêts pour une seule information ; côte à côte, " +
+          "« 312 ↑ +18 % » se lit d'un trait.",
+      },
+    },
+  },
+  render: () => (
+    <div className="grid grid-cols-3 gap-4">
+      <KpiCard label="Avis reçus" value={1654} variant="raw" icon={IconeAvis} trend={12} />
+      <KpiCard label="Taux de réponse" value={87} unit="%" variant="target" target={90} icon={IconeAvis} />
+      <KpiCard label="Avis traités" value={312} variant="trend" data={[4, 6, 5, 8, 7, 9]} trend={18} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    // La puce et le chiffre coexistent : l'ancienne implémentation les rendait
+    // exclusifs (icône OU variation), ce qui privait d'icône toute carte qui
+    // affichait une évolution.
+    const carte = canvasElement.querySelector("article, [data-slot]") ?? canvasElement;
+    await expect(carte.querySelectorAll("svg").length).toBeGreaterThanOrEqual(1);
+  },
 };
