@@ -9,6 +9,7 @@ import { BarChart } from "@registry/aikoz/bar-chart/bar-chart";
 import { DonutChart } from "@registry/aikoz/donut-chart/donut-chart";
 import { Leaderboard } from "@registry/aikoz/leaderboard/leaderboard";
 import { Card } from "@registry/aikoz/card/card";
+import { Area, AreaChart, ResponsiveContainer } from "recharts";
 import { Button } from "@registry/aikoz/button/button";
 import { ViewTabs } from "@registry/aikoz/view-tabs/view-tabs";
 
@@ -112,11 +113,65 @@ function Page() {
           ]}
         />
 
-        {/* La rangée d'indicateurs : les quatre variantes de KpiCard côte à
-            côte, pour qu'on voie d'un coup l'étoile, la barre à objectif, la
-            courbe de tendance et la valeur nue s'aligner sur la même grille. */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <KpiCard label="Note moyenne" value={4.2} variant="rating" icon={IconeEtoile} trend={0.3} trendUnit=" pt" />
+        {/* La rangée d'indicateurs. La PREMIÈRE carte est à contre-thème :
+            c'est l'indicateur dont tout le reste dépend, et sur une grille où
+            quatre cartes blanches se valent, rien ne le disait. Une seule sur
+            l'écran — deux ne hiérarchiseraient plus rien.
+
+            Les trois autres restent des `KpiCard` standard : l'étoile, la
+            barre à objectif et la courbe de tendance, pour qu'on voie les
+            variantes s'aligner sur la même grille. */}
+        <div className="grid gap-4 lg:grid-cols-4">
+          <Card surface="inverse" density="large" className="lg:col-span-2">
+            <span className="text-xs font-semibold uppercase tracking-widest opacity-70">
+              Satisfaction globale
+            </span>
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <span className="text-5xl font-bold leading-none tracking-tight">4,2</span>
+              <span className="text-lg font-medium opacity-80">/5</span>
+              {/* Pas de `DeltaBadge` ici : ses tons sont calibrés sur la carte
+                  standard, et son vert de succès tombe à 1,4:1 sur ce fond.
+                  La variation se dit donc en toutes lettres, dans la couleur
+                  de texte de la surface. */}
+              <span className="text-sm font-semibold">
+                <span aria-hidden="true">↑ </span>+0,3 pt
+                <span className="sr-only"> en hausse</span>
+              </span>
+            </div>
+            <div className="flex items-end justify-between gap-4">
+              <span className="max-w-[28ch] text-sm opacity-80">
+                1 654 avis sur les six derniers mois, tous canaux confondus.
+              </span>
+              <div aria-hidden="true" className="h-12 w-40 shrink-0">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart
+                    data={[3.7, 3.8, 3.9, 3.9, 4.1, 4.2].map((v, i) => ({ v, i }))}
+                    margin={{ top: 4, right: 4, left: 2, bottom: 0 }}
+                  >
+                    <defs>
+                      <linearGradient id="heroAire" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="var(--on-inverse)" stopOpacity={0.35} />
+                        <stop offset="100%" stopColor="var(--on-inverse)" stopOpacity={0} />
+                      </linearGradient>
+                    </defs>
+                    {/* La série emprunte la couleur de TEXTE de la surface,
+                        pas `--chart-1` : celle-ci est calibrée contre la carte
+                        standard et se perdrait sur ce fond. */}
+                    <Area
+                      type="monotone"
+                      dataKey="v"
+                      stroke="var(--on-inverse)"
+                      strokeWidth={2}
+                      fill="url(#heroAire)"
+                      dot={false}
+                      isAnimationActive={false}
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </Card>
+
           <KpiCard label="Taux de réponse" value={87} unit="%" variant="target" target={90} icon={IconeReponse} />
           <KpiCard
             label="Avis reçus"
@@ -126,6 +181,10 @@ function Page() {
             trend={20.6}
             icon={IconeVolume}
           />
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          <KpiCard label="Note moyenne" value={4.2} variant="rating" icon={IconeEtoile} trend={0.3} trendUnit=" pt" />
           <KpiCard label="Délai de réponse" value={6} unit="h" variant="raw" icon={IconeDelai} trend={-14} trendTone="positive" />
         </div>
 
