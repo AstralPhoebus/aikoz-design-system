@@ -229,3 +229,90 @@ export const LaGeometrieEstComplete: Story = {
     }
   },
 };
+
+export const LEchelleTientDansLesDeuxThemes: Story = {
+  name: "L'échelle se lit dans les deux thèmes, sur les quatre marques",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Une échelle séquentielle bâtie sur `color-mix` ne se comporte pas " +
+          "pareil selon le fond. En clair, elle part du blanc et a toute " +
+          "l'amplitude ; en sombre, elle part d'une carte à 0,223 de clarté, " +
+          "et si le haut de l'échelle est un aplat de milieu de rampe, les " +
+          "cinq classes se touchent.\n\n" +
+          "C'est arrivé : mesurées sur le rendu, deux classes voisines " +
+          "n'étaient séparées que de **ΔE 0,054** chez Aikoz en sombre, contre " +
+          "0,18 en clair. Le haut de l'échelle est donc `--primary-edge`, le " +
+          "palier clair de la rampe — celui qui sert déjà de liseré au bouton " +
+          "primaire. Aucune couleur nouvelle, et l'amplitude revient.\n\n" +
+          "Cette histoire mesure les pastilles **telles qu'elles sont " +
+          "rendues**, dans les huit combinaisons. Un `color-mix` ne se calcule " +
+          "pas sur les tokens : il faut le lire sur le document.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const cv = document.createElement("canvas").getContext("2d")!;
+    const px = (couleur: string): [number, number, number] => {
+      cv.fillStyle = "#000000";
+      cv.fillRect(0, 0, 1, 1);
+      cv.fillStyle = couleur;
+      cv.fillRect(0, 0, 1, 1);
+      const d = cv.getImageData(0, 0, 1, 1).data;
+      return [d[0], d[1], d[2]];
+    };
+    const lin = (c: number) => (c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4));
+    const oklab = (rgb: [number, number, number]) => {
+      const [r, g, b] = rgb.map((v) => lin(v / 255));
+      const l = Math.cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b);
+      const m = Math.cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b);
+      const s = Math.cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b);
+      return [
+        0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s,
+        1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s,
+        0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s,
+      ];
+    };
+    const dE = (a: [number, number, number], b: [number, number, number]) => {
+      const [x, y] = [oklab(a), oklab(b)];
+      return Math.hypot(x[0] - y[0], x[1] - y[1], x[2] - y[2]);
+    };
+
+    // Deux aplats se confondent sous ΔE 0,05. On garde de la marge : une
+    // carte se regarde en petit, et les zones ne sont pas côte à côte.
+    const SEUIL_VOISINES = 0.09;
+    // La classe la plus basse doit rester visible sur la carte, sinon une
+    // zone renseignée se lit comme une zone vide.
+    const SEUIL_FOND = 0.05;
+
+    const H = document.documentElement;
+    const echecs: string[] = [];
+    for (const sombre of [false, true]) {
+      H.classList.toggle("dark", sombre);
+      for (const marque of [null, "adp", "extime", "generali"]) {
+        if (marque) H.setAttribute("data-brand", marque);
+        else H.removeAttribute("data-brand");
+        await new Promise((r) => setTimeout(r, 60));
+        const pastilles = [...canvasElement.querySelectorAll(".size-3")].map((e) =>
+          px(getComputedStyle(e).backgroundColor)
+        );
+        const carte = px(getComputedStyle(H).getPropertyValue("--card").trim());
+        const ou = `${marque ?? "aikoz"}/${sombre ? "sombre" : "clair"}`;
+        const fond = dE(pastilles[0], carte);
+        if (fond < SEUIL_FOND) {
+          echecs.push(`${ou} — la classe la plus basse se confond avec la carte : ΔE ${fond.toFixed(3)}`);
+        }
+        for (let i = 1; i < pastilles.length; i++) {
+          const d = dE(pastilles[i], pastilles[i - 1]);
+          if (d < SEUIL_VOISINES) {
+            echecs.push(`${ou} — classes ${i} et ${i + 1} : ΔE ${d.toFixed(3)} pour un seuil de ${SEUIL_VOISINES}`);
+          }
+        }
+      }
+    }
+    H.classList.remove("dark");
+    H.removeAttribute("data-brand");
+    await expect(echecs).toEqual([]);
+  },
+};

@@ -49,14 +49,26 @@ function bornes(valeurs: number[], classes: number): number[] {
 /**
  * La teinte d'une classe.
  *
- * Un `color-mix` entre la couleur primaire de la MARQUE et la carte, plutôt
- * qu'une échelle figée : elle suit donc la marque et le thème sans qu'on ait
- * rien à recalculer, en clair comme en sombre. Le mélange part de 14 % pour
- * que la classe la plus basse reste visible sur le fond, et monte à 100 %.
+ * Un `color-mix` entre une couleur de MARQUE et la carte, plutôt qu'une
+ * échelle figée : elle suit la marque et le thème sans qu'on ait rien à
+ * recalculer.
+ *
+ * Le haut de l'échelle est `--primary-edge`, pas `--primary`, et c'est tout
+ * le sujet. En clair les deux valent la même chose, donc rien ne change. En
+ * sombre, `--primary` est un aplat de milieu de rampe (clarté ~0,45) posé sur
+ * une carte à 0,223 : cinq classes n'avaient qu'un tiers de l'amplitude du
+ * clair pour s'étaler, et se touchaient.
+ *
+ *     écart ΔE entre deux classes voisines, mesuré sur le rendu
+ *     clair    0,11 à 0,18        sombre AVANT   0,054 à 0,106
+ *
+ * `--primary-edge` est le palier CLAIR de la même rampe — celui qui sert déjà
+ * de liseré au bouton primaire en sombre. L'échelle retrouve son amplitude
+ * sans introduire ni token ni couleur.
  */
 function teinte(classe: number, classes: number): string {
   const part = 14 + (86 * classe) / Math.max(1, classes - 1);
-  return `color-mix(in oklch, var(--primary) ${part.toFixed(0)}%, var(--card))`;
+  return `color-mix(in oklch, var(--primary-edge) ${part.toFixed(0)}%, var(--card))`;
 }
 
 // ─── Composant ────────────────────────────────────────────────────────────────
