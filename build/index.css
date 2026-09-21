@@ -14,6 +14,7 @@
 @import "./brand-extime.css";
 /* Palettes de séries en sombre, par marque — sélecteur plus spécifique que la
    variante claire de la même marque. */
+@import "./brand-aikoz-dark.css";
 @import "./brand-generali-dark.css";
 @import "./brand-adp-dark.css";
 @import "./brand-extime-dark.css";

@@ -15,7 +15,34 @@ import {
   couleurSerie,
   type ChartSerie,
 } from "@registry/aikoz/chart-frame/chart-frame";
+import { useId } from "react";
 import { type TableColumn } from "@registry/aikoz/table/table";
+
+/**
+ * Le sommet d'une barre, arrondi ; sa base, franche.
+ *
+ * Arrondir les quatre coins ferait flotter la barre au-dessus de l'axe alors
+ * qu'elle en part : la base est une mesure, pas une décoration. C'est le tracé
+ * commun aux tableaux de bord récents, et il ne change rien à la LONGUEUR —
+ * le rayon se prend à l'intérieur, la hauteur reste proportionnelle.
+ *
+ * Le rayon se borne à la moitié de la largeur ET à la hauteur : sur une barre
+ * plus courte que son rayon, un arrondi non borné produit un tracé qui se
+ * replie sur lui-même.
+ */
+function cheminBarre(x: number, y: number, w: number, h: number, r: number) {
+  const rayon = Math.max(0, Math.min(r, w / 2, h));
+  if (rayon === 0) return `M${x},${y}h${w}v${h}h${-w}Z`;
+  return (
+    `M${x},${y + h}` +
+    `V${y + rayon}` +
+    `a${rayon},${rayon} 0 0 1 ${rayon},${-rayon}` +
+    `h${w - 2 * rayon}` +
+    `a${rayon},${rayon} 0 0 1 ${rayon},${rayon}` +
+    `V${y + h}` +
+    `Z`
+  );
+}
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -107,6 +134,10 @@ export function BarChart({
   className,
 }: BarChartProps) {
   const horizontal = orientation === "horizontal";
+  // Les dégradés vivent dans le SVG du graphique : sans identifiant unique,
+  // deux histogrammes sur la même page partageraient leurs `<linearGradient>`
+  // et le second reprendrait les couleurs du premier.
+  const idDegrade = useId().replace(/:/g, "");
   const percent = layout === "stacked-percent";
   const empile = layout === "stacked" || percent;
 
@@ -188,6 +219,32 @@ export function BarChart({
             onMouseMove={surSurvol}
             onMouseLeave={() => surSurvol(null)}
           >
+            <defs>
+              {/* Un dégradé par série, dense à la BASE et nominal au sommet.
+                  La barre paraît ainsi partir de l'axe au lieu d'y être posée.
+
+                  Le sens n'est pas indifférent : la couleur nominale reste le
+                  point le plus CLAIR de la barre, donc tous les contrastes déjà
+                  audités — l'étiquette de pourcentage au centre du segment, la
+                  série contre la carte — restent des bornes basses. Éclaircir
+                  le sommet les aurait invalidés d'un coup. */}
+              {series.map((s, i) => (
+                <linearGradient
+                  key={s.key}
+                  id={`${idDegrade}-s${i}`}
+                  x1="0"
+                  y1="1"
+                  x2="0"
+                  y2="0"
+                >
+                  <stop
+                    offset="0%"
+                    stopColor={`color-mix(in oklch, ${couleurSerie(i)}, black 16%)`}
+                  />
+                  <stop offset="100%" stopColor={couleurSerie(i)} />
+                </linearGradient>
+              ))}
+            </defs>
             {infobulleActive && (
               <RechartsTooltip
                 content={<ChartTooltipContent formatValue={(v) => formatValue(v)} />}
@@ -337,21 +394,30 @@ export function BarChart({
                     // L'emphase se fait par RETRAIT : la catégorie pointée
                     // garde sa pleine intensité, les autres s'effacent.
                     <g opacity={opaciteSerie(indexActif, props.index)}>
-                      <rect
-                        x={props.x}
-                        y={props.y}
-                        width={props.width}
-                        height={props.height}
-                        fill={couleurSerie(i)}
+                      <path
+                        d={cheminBarre(
+                          props.x,
+                          props.y,
+                          props.width,
+                          props.height,
+                          // Empilé, seul le segment du HAUT s'arrondit : arrondir
+                          // chaque segment creuserait des encoches entre eux et
+                          // ferait lire une pile comme des blocs détachés.
+                          !empile || i === series.length - 1 ? 4 : 0
+                        )}
+                        fill={`url(#${idDegrade}-s${i})`}
                       />
                       {empile && (
                         // Le séparateur : sans lui, deux segments de teintes
                         // voisines fusionnent en un seul bloc.
-                        <rect
-                          x={props.x}
-                          y={props.y}
-                          width={props.width}
-                          height={props.height}
+                        <path
+                          d={cheminBarre(
+                            props.x,
+                            props.y,
+                            props.width,
+                            props.height,
+                            !empile || i === series.length - 1 ? 4 : 0
+                          )}
                           fill="none"
                           stroke="var(--card)"
                           strokeWidth={2}

@@ -121,8 +121,8 @@
       },
       "accent": {
         "$type": "color",
-        "$value": "{color.aquamarine.700}",
-        "$description": "Mot mis en exergue. L'aquamarine ne survit sur clair qu'à ce palier — jamais en aplat."
+        "$value": "{color.brand.accent-text}",
+        "$description": "Texte teinté de l'accent. Pointait sur `aquamarine`, une rampe d'AIKOZ, sous toutes les marques. Passe par `brand.accent-text`, un palier de la rampe d'accent de la marque choisi par la mesure — `brand.accent` ne convient pas, c'est une SURFACE et elle est claire par construction."
       },
       "on-accent": {
         "$type": "color",

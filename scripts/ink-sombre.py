@@ -55,11 +55,41 @@ def chroma_max(L, Ch, H):
         else: haut = mid
     return round(bas, 4)
 
-# Les paliers que le thème sombre consomme, avec la clarté de référence.
-PALIERS = ['400', '700', '800', '900', '950', '1000']
-REF = {p: comps('midnight-blue', p)[0] for p in PALIERS}
+# ─── L'échelle de chrome sombre ──────────────────────────────────────────────
+#
+# Elle appartient au THÈME. Elle est écrite ici en clair, et c'est le point
+# de la remarque d'Alice : « oui mais midnight c'est aikoz ».
+#
+# Les deux versions précédentes lisaient la clarté puis le chroma dans
+# `midnight-blue`. Or `midnight-blue` est une primitive de MARQUE, celle
+# d'Aikoz. Toutes les autres marques héritaient donc de sa rampe — exactement
+# le défaut corrigé quand le thème a cessé de la nommer, revenu par la règle
+# de dérivation au lieu du CSS. Conséquence concrète : retoucher
+# `midnight-blue.800` déplaçait la carte sombre d'ADP et d'Extime sans que
+# rien ne le signale.
+#
+# Les valeurs ci-dessous sont celles qui ont été auditées — séparation
+# page/carte, texte à 17:1, séries à 3:1 minimum. Elles viennent
+# historiquement de la rampe d'Aikoz, mais elles ne lui appartiennent plus :
+# c'est l'échelle, et Aikoz s'y conforme comme les autres. Un garde-fou de
+# build le vérifie (cf. `build-tokens.mjs`) et échoue si sa rampe s'en écarte.
+#
+# La forme compte autant que les valeurs : le chroma DÉCROÎT à mesure que la
+# clarté descend. Une surface sombre très chromée ne se lit pas comme
+# profonde, elle se lit comme un voile de couleur posé sur du noir.
+ECHELLE = {
+    '400':  (0.5856, 0.0957),
+    '700':  (0.2720, 0.0982),
+    '800':  (0.2232, 0.0804),
+    '900':  (0.1857, 0.0480),
+    '950':  (0.1590, 0.0351),
+    '1000': (0.1334, 0.0203),
+}
+PALIERS = list(ECHELLE)
+REF   = {p: ECHELLE[p][0] for p in PALIERS}
+REF_C = {p: ECHELLE[p][1] for p in PALIERS}
 
-MARQUES = {'adp': 'adp-blue', 'extime': 'extime-ink'}
+MARQUES = {'adp': 'adp-blue', 'extime': 'extime-malachite', 'generali': 'generali-red'}
 
 for marque, rampe in MARQUES.items():
     chemin = f'tokens/brand/{marque}-dark.json'
@@ -69,16 +99,20 @@ for marque, rampe in MARQUES.items():
         source = pas if pas in C[rampe] else '900'
         _, Ch, H = comps(rampe, source)
         L = REF[pas]
-        Ch2 = chroma_max(L, Ch, H)
+        plafonne = min(Ch, REF_C[pas])
+        Ch2 = chroma_max(L, plafonne, H)
         ink[pas] = {"$type": "color", "$value": {
             "colorSpace": "oklch", "components": [L, Ch2, H], "alpha": 1,
             "hex": hexa(L, Ch2, H)},
             "$description":
-                f"Chrome sombre, palier {pas} — clarté du thème ({L}), teinte de la marque "
-                f"({H}°). La clarté de l'échelle sombre appartient au THÈME : laissée à la "
-                f"charte, la carte d'ADP sortait 30 % plus claire que celle d'Aikoz et le "
-                f"thème sombre n'était plus le même d'une marque à l'autre."
-                + (f" Chroma ramené de {Ch} à {Ch2} : au-delà, la couleur sort du gamut sRGB."
+                f"Chrome sombre, palier {pas} — clarté et chroma de l'ÉCHELLE DU THÈME "
+                f"({L} / plafond {REF_C[pas]}), teinte de la marque ({H}°). L'échelle est "
+                f"déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque : "
+                f"laissée à la charte, la carte d'ADP sortait 30 % plus claire et trois fois "
+                f"plus saturée que celle d'Aikoz."
+                + (f" Chroma plafonné par la référence : {Ch} -> {Ch2}. Une surface sombre "
+                   f"très chromée ne se lit pas comme profonde mais comme un voile de couleur "
+                   f"posé sur du noir. L'intensité appartient à l'échelle, la teinte à la marque."
                    if Ch2 < Ch else "")}
         print(f"{marque:8} ink.{pas:<5} L={L:<6} C={Ch}->{Ch2:<7} {hexa(L, Ch2, H)}")
     d['color']['ink'] = ink

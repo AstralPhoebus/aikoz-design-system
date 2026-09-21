@@ -143,7 +143,10 @@ export const ApercuGeneral: Story = {
           className="hidden md:flex sticky top-0 h-screen"
           header={
             <div className="flex items-center px-2 py-1">
-              <BrandMark className="h-6" />
+              {/* Pas de classe : le composant applique sa boîte par défaut, qui vaut
+                  pour toutes les marques. La régler ici marque par marque,
+                  c’est reprendre à la main ce que la règle fait déjà. */}
+              <BrandMark />
             </div>
           }
           footer={

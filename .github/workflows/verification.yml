@@ -24,6 +24,20 @@ jobs:
       - name: Types
         run: npx tsc --noEmit
 
+      # ── Étanchéité des marques ───────────────────────────────────────────
+      #
+      # Sous une marque, aucune couleur ne doit venir de la rampe d'une autre.
+      # Le défaut se réintroduit tout seul : il suffit d'un rôle nouveau posé
+      # sur une primitive Aikoz « en attendant ». C'est arrivé quatre fois —
+      # `text.accent` sur aquamarine, `brand.on-accent` sur midnight-blue,
+      # `nav.on-muted` et `surface.action-secondary` sur ultramarine — et rien
+      # ne le signalait, parce que le rendu était joli sous Aikoz.
+      #
+      # Les statuts et la palette de données sont exclus : ils sont communs par
+      # construction, une hausse doit se lire pareil d'une marque à l'autre.
+      - name: Étanchéité des marques
+        run: python3 scripts/audit-etancheite.py
+
       # ── Le garde-fou qui manquait ────────────────────────────────────────
       #
       # `public/r/*.json` EMBARQUE le source de chaque composant : c'est une

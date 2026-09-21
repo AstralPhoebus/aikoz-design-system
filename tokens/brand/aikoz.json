@@ -51,7 +51,13 @@
       },
       "on-accent": {
         "$type": "color",
-        "$value": "{color.midnight-blue.900}"
+        "$value": "{color.ink.900}",
+        "$description": "Texte posé sur l'aplat d'accent. Pointait sur `midnight-blue.900`, une primitive d'AIKOZ, y compris sous ADP et Extime. Passe par `ink`, la rampe de chrome de la marque — même valeur pour Aikoz, sa propre rampe."
+      },
+      "accent-text": {
+        "$type": "color",
+        "$value": "{color.aquamarine.700}",
+        "$description": "Texte teinté de l'accent — 5.45:1 sur la carte claire. Un palier DISTINCT de `accent` : celui-ci est une surface, clair par construction, et ne tient pas 4,5:1 sous du texte. Choisi comme le plus vif des paliers qui passent le seuil, pour que l'accent garde son caractère. Remplace `aquamarine`, une rampe d'Aikoz, que toutes les marques portaient."
       }
     },
     "ink": {
@@ -115,6 +121,23 @@
         "$value": "{color.midnight-blue.1000}",
         "$description": "Palier 1000 de la rampe de chrome (midnight-blue)."
       }
+    }
+  },
+  "font": {
+    "heading": {
+      "$type": "fontFamily",
+      "$value": "{font-family.heading}",
+      "$description": "Police de la marque Aikoz — PP Radio Grotesk pour les titres, Inter pour l'interface."
+    },
+    "body": {
+      "$type": "fontFamily",
+      "$value": "{font-family.body}",
+      "$description": "Police d'interface de la marque."
+    },
+    "mono": {
+      "$type": "fontFamily",
+      "$value": "{font-family.mono}",
+      "$description": "Chiffres tabulaires — commune, aucune charte n'en impose."
     }
   }
 }

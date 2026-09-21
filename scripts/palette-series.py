@@ -54,9 +54,13 @@ def dE(a,b,kind):
 def carte_sombre(rampes):
     """Reproduit la règle de `ink-sombre.py` : clarté du thème, teinte de la marque."""
     L_ref = P['midnight-blue']['800']['$value']['components'][0]
+    C_ref = P['midnight-blue']['800']['$value']['components'][1]
     rampe = rampes[0]
     source = '800' if '800' in P[rampe] else '900'
     _, Ch, H = P[rampe][source]['$value']['components']
+    # Même plafond de chroma que `ink-sombre.py`. Sans lui, les séries étaient
+    # auditées contre une carte plus saturée que celle qui est rendue.
+    Ch = min(Ch, C_ref)
     def gamut(c):
         return all(-0.0005 <= x <= 1.0005 for x in _oklch_lin(L_ref, c, H))
     if not gamut(Ch):
@@ -130,8 +134,8 @@ def choisir(rampes, theme, n=6, seuil=3.0):
 for marque, rampes in [
     ('aikoz',   ['ultramarine','aquamarine','midnight-blue','neutral','violet']),
     ('adp',     ['adp-blue','adp-campanula','adp-red','neutral']),
-    ('extime',  ['extime-ink','extime-green','extime-gold','neutral']),
-    ('generali',['generali-red','neutral','midnight-blue','aquamarine']),
+    ('extime',  ['extime-malachite','extime-green','extime-gold','neutral']),
+    ('generali',['generali-red','generali-slate','generali-green','generali-periwinkle','generali-amber','neutral']),
 ]:
     print('###', marque)
     for theme in ('light','dark'):
@@ -151,8 +155,8 @@ DESC = ("Série de données {i} de la marque. Les trois premières viennent des 
 
 for marque, rampes in [
     ('adp',     ['adp-blue','adp-campanula','adp-red','neutral']),
-    ('extime',  ['extime-ink','extime-green','extime-gold','neutral']),
-    ('generali',['generali-red','neutral','midnight-blue','aquamarine']),
+    ('extime',  ['extime-malachite','extime-green','extime-gold','neutral']),
+    ('generali',['generali-red','generali-slate','generali-green','generali-periwinkle','generali-amber','neutral']),
 ]:
     for theme in ('light','dark'):
         s,sel = choisir(rampes, theme)

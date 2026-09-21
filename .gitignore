@@ -26,3 +26,20 @@ storybook-static
 # Rapport de couverture — régénéré à chaque `vitest --coverage`.
 # Écrit sous `playground/` parce que c'est la racine du projet vitest.
 coverage/
+logos/marque/.DS_Store
+
+# ─── Polices sous licence ────────────────────────────────────────────────────
+# Gotham s'achète chez Hœfler & Co (la charte ADP le dit : « You must purchase
+# the Gotham typeface to obtain the user licence »), la police Extime se
+# récupère sur le brand center Extime. Ce dépôt est PUBLIC : y committer les
+# fichiers les redistribuerait.
+#
+# Un design system DÉCLARE la police, il ne la livre pas. Les `@font-face` sont
+# versionnés, les binaires non — chacun dépose les siens (cf.
+# public/fonts/LISEZ-MOI.md).
+logos/marque/typo*/
+public/fonts/**/*.woff
+public/fonts/**/*.woff2
+public/fonts/**/*.ttf
+public/fonts/**/*.otf
+public/fonts/**/*.eot

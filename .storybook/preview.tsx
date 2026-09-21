@@ -8,6 +8,7 @@ import { definirBaseDesLogos } from "@registry/aikoz/brand-logo/brands";
 import "../build/index.css";
 import "../bridge/shadcn-bridge.css";
 import "../playground/playground.css";
+import "./fonts.css";
 import "./storybook.css";
 
 // Chemin RELATIF, pas `/brands/`. Servi sous un sous-chemin — ce que fait
