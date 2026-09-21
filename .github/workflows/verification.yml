@@ -57,6 +57,22 @@ jobs:
             exit 1
           fi
 
+      # ── Le registry décrit-il ce qu'il contient ? ────────────────────────
+      #
+      # L'étape précédente compare `public/r/` aux sources : elle ne voit rien
+      # d'une entrée qui n'existe pas. Quatre composants — brand-glow,
+      # brand-mark, geo-drilldown, toast — étaient rendus, testés, documentés,
+      # et absents de `registry.json` : impossibles à installer, et
+      # `geo-drilldown` renvoyait 404 sur le site publié.
+      #
+      # Le même contrôle suit les imports de chaque composant et vérifie que
+      # l'entrée les fournit, en fichiers livrés ou en `registryDependencies`.
+      # Deux manquaient : `kpi-card` sans `progress-bar`, `site-nav` sans
+      # `brand-mark`. Dans les deux cas `shadcn add` réussissait et la
+      # compilation cassait chez le consommateur — donc chez Louis, pas ici.
+      - name: Registry complet et installable
+        run: npm run audit:registry
+
       # Les stories SONT les tests : axe y tourne en mode `error`, une
       # violation d'accessibilité fait échouer la marche.
       - name: Stories

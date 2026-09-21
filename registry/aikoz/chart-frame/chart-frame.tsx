@@ -315,22 +315,43 @@ export function ChartFrame<T>({
           titre, le résumé de la courbe, puis la liste des séries. */}
       {!hideLegend && <ChartLegend series={series} style={legendStyle} />}
 
+      {/* Le tableau équivalent, et sa commande.
+
+          Il n'est PAS optionnel : le SVG est `aria-hidden`, le `role="img"`
+          ci-dessus ne porte qu'un résumé. Sans ce tableau, aucune valeur
+          exacte n'existe hors du dessin — ni pour un lecteur d'écran, ni
+          pour qui veut le chiffre plutôt que la tendance. L'enlever ne
+          simplifierait pas la page, ça retirerait le contenu du graphique.
+
+          Ce qui, en revanche, se règle : son POIDS. La commande occupait une
+          ligne pleine de 44 px, en `--secondary` et en `text-sm`, répétée
+          sous chacun des quatre graphiques d'un tableau de bord — quatre
+          appels à l'action pour une note de bas de page. Elle passe à
+          droite, en petit et en gris : même fonction, même cible, mais elle
+          ne se dispute plus la hiérarchie avec le titre du bloc.
+
+          La cible reste à 32 px de haut, au-dessus des 24 px de WCAG 2.5.8 —
+          c'est un contrôle, il se vise. */}
       {tableCollapsed ? (
         <details className="group">
           <summary
             className={cn(
-              "cursor-pointer list-none text-sm font-medium text-[var(--secondary)]",
-              "min-h-11 inline-flex items-center gap-1.5 rounded-[var(--radius)]",
+              "cursor-pointer list-none text-xs text-muted-foreground",
+              // `flex` + `w-fit` + `ml-auto` : un `summary` est un bloc, il
+              // ne se pousse pas à droite autrement. Pas de `float`, qui le
+              // sortirait du flux et ferait passer le tableau dessous.
+              "min-h-8 flex w-fit items-center gap-1 rounded-[var(--radius)]",
+              "ml-auto transition-colors hover:text-foreground",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
             )}
           >
             <svg
               aria-hidden="true"
               viewBox="0 0 12 12"
-              className="size-3 transition-transform group-open:rotate-90 motion-reduce:transition-none"
+              className="size-2.5 transition-transform group-open:rotate-90 motion-reduce:transition-none"
               fill="none"
               stroke="currentColor"
-              strokeWidth="1.75"
+              strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
@@ -338,7 +359,7 @@ export function ChartFrame<T>({
             </svg>
             Voir les données
           </summary>
-          <div className="pt-3">{tableau}</div>
+          <div className="pt-2">{tableau}</div>
         </details>
       ) : (
         tableau

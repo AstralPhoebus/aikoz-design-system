@@ -43,3 +43,10 @@ public/fonts/**/*.woff2
 public/fonts/**/*.ttf
 public/fonts/**/*.otf
 public/fonts/**/*.eot
+
+# Ouvrages sous droits déposés À LA RACINE pour consultation locale.
+# Le dépôt est PUBLIC : un PDF commercial poussé ici serait redistribué.
+# Même raison que les polices sous licence — on s'en sert, on ne le livre pas.
+# Règle limitée à la racine : `references/` et `generated/` portent des PDF
+# qui sont les nôtres et qui restent suivis.
+/*.pdf

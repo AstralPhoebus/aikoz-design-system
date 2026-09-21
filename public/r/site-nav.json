@@ -7,6 +7,9 @@
     "clsx",
     "tailwind-merge"
   ],
+  "registryDependencies": [
+    "brand-mark"
+  ],
   "files": [
     {
       "path": "registry/aikoz/site-nav/site-nav.tsx",

@@ -13,7 +13,8 @@
     "build": "npm run build:tokens && npm run registry:build && vite build",
     "storybook": "storybook dev -p 6006 --no-open",
     "build-storybook": "storybook build",
-    "audit:marques": "python3 scripts/audit-etancheite.py"
+    "audit:marques": "python3 scripts/audit-etancheite.py",
+    "audit:registry": "node scripts/audit-registry.mjs"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.3.1",

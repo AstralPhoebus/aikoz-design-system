@@ -11,8 +11,9 @@
     "@radix-ui/react-slot"
   ],
   "registryDependencies": [
-    "score-stars",
-    "delta-badge"
+    "delta-badge",
+    "progress-bar",
+    "score-stars"
   ],
   "files": [
     {
