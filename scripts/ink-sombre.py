@@ -83,7 +83,7 @@ ECHELLE = {
     '800':  (0.2232, 0.0804),
     '900':  (0.1857, 0.0480),
     '950':  (0.1590, 0.0351),
-    '1000': (0.1334, 0.0203),
+    '1000': (0.1000, 0.0203),
 }
 PALIERS = list(ECHELLE)
 REF   = {p: ECHELLE[p][0] for p in PALIERS}
@@ -99,8 +99,7 @@ for marque, rampe in MARQUES.items():
         source = pas if pas in C[rampe] else '900'
         _, Ch, H = comps(rampe, source)
         L = REF[pas]
-        plafonne = min(Ch, REF_C[pas])
-        Ch2 = chroma_max(L, plafonne, H)
+        Ch2 = chroma_max(L, Ch, H)
         ink[pas] = {"$type": "color", "$value": {
             "colorSpace": "oklch", "components": [L, Ch2, H], "alpha": 1,
             "hex": hexa(L, Ch2, H)},

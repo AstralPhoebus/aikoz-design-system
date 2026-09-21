@@ -26,7 +26,8 @@ PROPRIETAIRE = {
     'generali-amber': 'generali',
 }
 # Familles sans propriétaire : neutres et statuts, communes par construction.
-COMMUNES = {'neutral', 'success', 'warning', 'error', 'info', 'data', 'violet'}
+COMMUNES = {'neutral', 'success', 'warning', 'error', 'info', 'data', 'violet',
+            'rating-gold'}
 
 # Rôles exclus de l'audit : ils PORTENT le statut, donc leur teinte ne dit rien
 # de la marque et ne doit surtout pas en changer.

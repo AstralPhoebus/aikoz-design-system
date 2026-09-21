@@ -11,11 +11,18 @@
   --color-brand-secondary-hover: var(--color-adp-campanula-600);
   --color-brand-secondary-active: var(--color-adp-campanula-700);
   --color-brand-secondary-subtle: var(--color-adp-campanula-100);
-  --color-brand-accent: var(--color-adp-campanula-400);
-  --color-brand-accent-hover: var(--color-adp-campanula-300);
-  --color-brand-accent-active: var(--color-adp-campanula-200);
-  --color-brand-accent-subtle: var(--color-adp-campanula-50);
-  --color-brand-accent-text: var(--color-adp-campanula-500); /** Texte teinté de l'accent — 5.25:1 sur la carte claire. Un palier DISTINCT de `accent` : celui-ci est une surface, clair par construction, et ne tient pas 4,5:1 sous du texte. Choisi comme le plus vif des paliers qui passent le seuil, pour que l'accent garde son caractère. Remplace `aquamarine`, une rampe d'Aikoz, que toutes les marques portaient. */
+  /**
+   * Tangerine Tango (PANTONE Bright Red C). Charte Groupe ADP & Paris Aéroport, avril 2019, p. 13. La charte donne TROIS couleurs — Spectrum Blue, Campanula, Tangerine Tango. La campanule en occupait deux, secondaire ET accent, pendant que le tangerine ne servait dans aucun rôle : une marque à trois couleurs qui n'en emploie que deux.
+   * 
+   * Le palier 400 et pas la valeur de charte (500) : l'accent est la SURFACE d'action en thème sombre, avec l'encre de la marque posée dessus. Le 500 n'y donne que 3,47:1, le 400 donne 4,65:1 et tient encore 3,71:1 comme liseré sur blanc. C'est le seul palier qui satisfait les deux contrats.
+   * 
+   * Au passage, un défaut corrigé : l'ancien accent campanula.400 ne donnait que 4,37:1 sous son propre texte, sous le seuil. Il était passé à 4,74 lors de son audit, avant que `on-accent` ne bascule de `midnight-blue.900` vers l'encre de la marque — je n'avais pas remesuré la paire après ce changement.
+   */
+  --color-brand-accent: var(--color-adp-red-400);
+  --color-brand-accent-hover: var(--color-adp-red-500); /** Tangerine Tango, valeur de charte — un cran plus dense au survol. */
+  --color-brand-accent-active: var(--color-adp-red-600); /** Tangerine Tango assombri — état actif. */
+  --color-brand-accent-subtle: var(--color-adp-red-50); /** Voile de tangerine. */
+  --color-brand-accent-text: var(--color-adp-red-500); /** Texte teinté de l'accent — 4.97:1 sur la carte claire. Un palier DISTINCT de `accent` : celui-ci est une surface, clair par construction, et ne tient pas 4,5:1 sous du texte. Choisi comme le plus vif des paliers qui passent le seuil, pour que l'accent garde son caractère. Remplace `aquamarine`, une rampe d'Aikoz, que toutes les marques portaient. */
   --color-chart-1: var(--color-adp-blue-800); /** Série de données 1 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 14.51:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.160 au pire, en vision normale comme en protanopie et en deutéranopie. */
   --color-chart-2: var(--color-adp-campanula-400); /** Série de données 2 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 3.95:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.160 au pire, en vision normale comme en protanopie et en deutéranopie. */
   --color-chart-3: var(--color-adp-red-400); /** Série de données 3 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 3.71:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.160 au pire, en vision normale comme en protanopie et en deutéranopie. */

@@ -1,0 +1,88 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Design system/Ajouter une marque" />
+
+# Ajouter une marque
+
+Cinq fichiers à fournir, trois scripts à lancer. Rien à redessiner, rien à
+régler à l'œil : les valeurs se dérivent, les seuils se vérifient au build.
+
+## Ce qu'il faut de la marque
+
+| | où ça va | sans ça |
+|---|---|---|
+| **3 rampes de couleur** (primaire, secondaire, accent) | `tokens/primitives.json` | la palette de séries n'a pas six teintes distinctes |
+| **1 rampe de chrome** — souvent la primaire | `tokens/brand/<marque>.json`, clé `ink` | les fonds restent ceux d'Aikoz |
+| **La police** + son repli désigné par la charte | `tokens/brand/<marque>.json`, clé `font` | la marque s'affiche dans la police d'une autre |
+| **Le logo**, version claire | `public/logos/<marque>-clair.svg` | le nom s'écrit à la place |
+
+Les valeurs se reprennent **au hex près** depuis la charte. Les paliers que la
+charte ne donne pas sont dérivés par script, jamais choisis : clarté déplacée,
+teinte et chroma conservés, chroma ramené au gamut sRGB.
+
+## Les trois scripts
+
+```bash
+python3 scripts/generali-secondaires.py   # gabarit : entrer les couleurs de la charte
+python3 scripts/ink-sombre.py             # rampe de chrome sombre, dérivée de l'échelle
+python3 scripts/roles-accent.py           # palier d'accent qui tient comme texte
+python3 scripts/palette-series.py         # palette de séries, mesurée en ΔE
+npm run build:tokens && npm run registry:build
+```
+
+Puis `scripts/logos-normaliser.py` si le SVG n'est pas cadré au plus juste, et
+`scripts/logos-sombres.py` pour la version blanche des fonds sombres.
+
+## Les trois règles, et pourquoi elles existent
+
+### 1. L'échelle de clarté appartient au THÈME, pas à la marque
+
+La marque donne la **teinte**. Le thème fixe la **clarté** de chaque plan :
+page, carte, creux, bordure. Laissée à la charte, la carte d'ADP sortait 30 %
+plus claire que celle d'Aikoz et le thème sombre n'était plus le même d'une
+marque à l'autre.
+
+L'échelle est écrite dans `scripts/ink-sombre.py`. Un garde-fou de build échoue
+si la rampe d'Aikoz s'en écarte — elle s'y conforme comme les autres, elle
+n'en est pas la source.
+
+### 2. L'identité commence à la CARTE, jamais à la page
+
+La page est un quasi-noir **commun**. Ce n'est pas un renoncement, c'est une
+mesure : plus la page descend vers le noir, plus le gamut sRGB se referme en
+pointe et plus les teintes convergent. L'écart minimal entre nos quatre
+marques vaut 0,032 à L=0,133, et **0,010 à L=0,100** — indiscernable. Aucun
+réglage n'y change rien.
+
+En échange, la profondeur page/carte passe à 0,123, au niveau d'Anthropic
+(0,118) : c'est elle qui fait qu'un thème sombre paraît moderne, pas la
+noirceur du fond.
+
+Le build vérifie donc que **les cartes** de deux marques séparent d'au moins
+ΔE 0,05. Si la vôtre se confond avec une existante, il refuse en le disant.
+
+### 3. Aucune marque ne porte la rampe d'une autre
+
+`npm run audit:marques` résout chaque rôle couleur et chaque police jusqu'à la
+primitive et refuse l'emprunt. Il tourne en CI.
+
+Les **statuts** et la **palette de données** — positif, négatif, neutre,
+avertissement, info — en sont exclus : ils sont communs par construction. Une
+hausse doit se lire pareil d'une marque à l'autre. L'or des étoiles aussi :
+une note est dorée par convention, pas par identité.
+
+## Ce que le build refusera
+
+- une carte sombre qui se confond avec celle d'une autre marque (ΔE < 0,05) ;
+- un rôle qui emprunte la rampe ou la police d'une autre marque ;
+- une rampe d'Aikoz qui s'écarte de l'échelle de chrome ;
+- un registry non régénéré après modification d'un composant ;
+- une feuille générée dans `build/` que `index.css` n'importe pas.
+
+## Ce qu'il ne vérifiera pas à votre place
+
+La **palette de séries** est choisie par recherche automatique sous contrainte
+— 3:1 sur la carte, séparation ΔE OKLab maximale en vision normale, protanopie
+et deutéranopie. Le script imprime la séparation obtenue. En dessous de 0,10,
+deux séries voisines deviennent difficiles à distinguer : c'est le signe que la
+charte ne fournit pas assez de teintes, pas un réglage à forcer.

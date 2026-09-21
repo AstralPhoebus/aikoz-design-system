@@ -271,8 +271,6 @@ export function ChartFrame<T>({
         {caption}
       </figcaption>
 
-      {!hideLegend && <ChartLegend series={series} style={legendStyle} />}
-
       <div
         role="img"
         aria-label={`${summary} Les valeurs exactes sont dans le tableau qui suit.`}
@@ -303,6 +301,15 @@ export function ChartFrame<T>({
           })}
         </div>
       </div>
+
+      {/* La légende SOUS le graphique, pas au-dessus.
+          Placée avant, elle s'interpose entre le titre et la donnée : l'œil
+          doit traverser une liste de noms pour atteindre ce qu'il est venu
+          voir. Placée après, elle ne sert qu'à ceux qui en ont besoin, au
+          moment où ils en ont besoin — quand une courbe les interroge.
+          L'ordre du DOM suit l'ordre visuel : un lecteur d'écran entend le
+          titre, le résumé de la courbe, puis la liste des séries. */}
+      {!hideLegend && <ChartLegend series={series} style={legendStyle} />}
 
       {tableCollapsed ? (
         <details className="group">

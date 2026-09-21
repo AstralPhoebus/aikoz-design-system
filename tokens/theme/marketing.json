@@ -4,8 +4,8 @@
     "surface": {
       "page": {
         "$type": "color",
-        "$value": "{color.ink.900}",
-        "$description": "Fond de page. Le midnight de marque lui-même, là où le dashboard dark descend en .950 : le site assume la couleur de marque en fond plein, le produit non."
+        "$value": "{color.ink.950}",
+        "$description": "Page du registre marketing en sombre. Descend d'un palier, pour la même raison que le produit : l'écart page/carte n'était que de 0,038, tout se lisait comme un aplat. Il passe à 0,064. Le marketing reste un cran plus clair que le produit — c'est la distinction du registre, pas un oubli."
       },
       "default": {
         "$type": "color",
@@ -29,8 +29,8 @@
       },
       "sunken": {
         "$type": "color",
-        "$value": "{color.ink.950}",
-        "$description": "Creux — champs de saisie, en-têtes."
+        "$value": "{color.ink.1000}",
+        "$description": "Creux — au même palier que la page."
       },
       "hover": {
         "$type": "color",
@@ -360,8 +360,8 @@
     "rating": {
       "default": {
         "$type": "color",
-        "$value": "{color.warning.400}",
-        "$description": "Étoiles pleines sur fond sombre. Palier 400 et non 600 : sur du midnight c'est le clair qui contraste."
+        "$value": "{color.rating-gold.400}",
+        "$description": "Étoile pleine — l'or de notation, famille à part. Pointait sur la rampe `warning` : une note n'est pas une alerte."
       },
       "empty": {
         "$type": "color",

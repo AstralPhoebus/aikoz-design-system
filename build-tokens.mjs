@@ -439,7 +439,7 @@ const ECHELLE_CHROME = {
   800: [0.2232, 0.0804],
   900: [0.1857, 0.048],
   950: [0.159, 0.0351],
-  1000: [0.1334, 0.0203],
+  1000: [0.1, 0.0203],
 };
 {
   const prim = JSON.parse(fs.readFileSync('tokens/primitives.json', 'utf8'));
@@ -454,6 +454,70 @@ const ECHELLE_CHROME = {
           `respectent. Corriger la rampe, ou mettre à jour l'échelle dans ` +
           `scripts/ink-sombre.py ET ici, puis relancer scripts/ink-sombre.py.`,
       );
+    }
+  }
+}
+
+// Garde-fou : deux marques ne doivent pas se confondre SUR LA CARTE.
+//
+// La page ne peut pas porter l'identité, et c'est mesuré, pas décrété : plus
+// elle descend vers le noir, plus le gamut sRGB se referme en pointe et plus
+// les teintes convergent. À L=0,133 l'écart minimal entre nos quatre marques
+// valait 0,032 ; à L=0,100 il vaut 0,010 — indiscernable. Aucun réglage n'y
+// change quoi que ce soit.
+//
+// L'identité commence donc à la CARTE, et c'est là qu'on la vérifie. Le seuil
+// est 0,05 : au-dessus de ~0,02 deux aplats se distinguent, 0,05 laisse une
+// marge. Le seuil catégoriel de 0,10 ne s'applique pas ici — il sert à
+// distinguer six séries côte à côte, pas deux marques qu'on ne voit jamais
+// ensemble.
+//
+// C'est ce contrôle qui rend l'ajout d'une marque mécanique : fournir ses
+// rampes, relancer les scripts, et si sa carte se confond avec une existante,
+// le build refuse en le disant.
+const SEUIL_MARQUES = 0.05;
+{
+  const oklab = (L, C, H) => {
+    const h = (H * Math.PI) / 180;
+    return [L, C * Math.cos(h), C * Math.sin(h)];
+  };
+  const ecart = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]);
+  const prim = JSON.parse(fs.readFileSync('tokens/primitives.json', 'utf8'));
+  const PAS_CARTE = '800';
+
+  // La carte de chaque marque : le palier 800 de sa rampe de chrome, lue dans
+  // son fichier sombre quand il existe, sinon dans son fichier clair.
+  const cartes = {};
+  for (const m of ['aikoz', 'adp', 'extime', 'generali']) {
+    for (const f of [`tokens/brand/${m}-dark.json`, `tokens/brand/${m}.json`]) {
+      if (!fs.existsSync(f)) continue;
+      const j = JSON.parse(fs.readFileSync(f, 'utf8'));
+      const t = j.color?.ink?.[PAS_CARTE];
+      if (!t) continue;
+      const v = t.$value;
+      if (typeof v === 'string') {
+        const ref = v.replace(/[{}]/g, '').split('.');       // {color.x.y}
+        const prime = prim.color?.[ref[1]]?.[ref[2]];
+        if (prime) cartes[m] = prime.$value.components;
+      } else if (v?.components) {
+        cartes[m] = v.components;
+      }
+      if (cartes[m]) break;
+    }
+  }
+  const noms = Object.keys(cartes);
+  for (let i = 0; i < noms.length; i++) {
+    for (let j = i + 1; j < noms.length; j++) {
+      const [a, b] = [noms[i], noms[j]];
+      const d = ecart(oklab(...cartes[a]), oklab(...cartes[b]));
+      if (d < SEUIL_MARQUES) {
+        echecs.push(
+          `les cartes sombres de « ${a} » et « ${b} » se confondent : ΔE ${d.toFixed(3)} ` +
+            `pour un seuil de ${SEUIL_MARQUES}. La page ne peut pas porter l'identité ` +
+            `(elle converge vers le noir), donc si la carte ne la porte pas non plus, ` +
+            `la marque blanche ne se voit nulle part.`,
+        );
+      }
     }
   }
 }

@@ -160,14 +160,14 @@
         "$value": {
           "colorSpace": "oklch",
           "components": [
-            0.1334,
+            0.1,
             0.0203,
             258.025
           ],
           "alpha": 1,
-          "hex": "#040810"
+          "hex": "#010309"
         },
-        "$description": "Bleu nuit quasi noir — palette de marque primaire, sans rôle sémantique dédié."
+        "$description": "Barreau le plus bas de l'échelle de chrome sombre — le QUASI-NOIR de la page. Descendu de 0,1334 à 0,100 : l'écart page/carte passe de 0,090 à 0,123, au niveau d'Anthropic (0,118). C'est cette profondeur qui fait qu'un thème sombre paraît moderne, pas la noirceur du fond.\n\nConséquence mesurée et ASSUMÉE : plus la page descend, plus les marques s'y confondent — l'écart minimal entre les quatre passe de 0,032 à 0,010. C'est le gamut sRGB qui se referme en pointe vers le noir, aucun réglage n'y change rien. L'identité de marque ne vit donc PAS sur la page : elle commence à la carte."
       }
     },
     "ultramarine": {
@@ -2736,6 +2736,36 @@
           "hex": "#00171C"
         },
         "$description": "Palier DÉRIVÉ de Vert malachite, couleur identitaire Extime (#004650, palier 600) : clarté portée à 0.186, teinte et chroma conservés, chroma ramené de 0.0627 à 0.035 pour rester dans le gamut sRGB. La charte ne donne qu'une valeur ; une rampe en demande dix."
+      }
+    },
+    "rating-gold": {
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8352,
+            0.1649,
+            91.67
+          ],
+          "alpha": 1,
+          "hex": "#F0C420"
+        },
+        "$description": "Or d'une étoile de notation. Famille à part, et c'est le sujet : ce rôle pointait sur la rampe `warning`, c'est-à-dire sur le jaune d'AVERTISSEMENT. Une note de 4,2 sur 5 n'est pas une alerte. Le défaut est le même que celui relevé sur la palette des graphiques — un token employé pour un rôle qu'il n'a pas — et il avait une conséquence concrète : retoucher le jaune d'avertissement déplaçait les étoiles.\n\nL'or reste COMMUN aux quatre marques. Une étoile est dorée par convention, pas par identité : Google, Trustpilot et Amazon emploient le même or sous des marques différentes. Une étoile aigue-marine chez Aikoz ne se lirait plus comme une note.\n\nLes valeurs sont celles déjà en place, au hex près : rien ne bouge à l'œil, seul le lien sémantique est coupé. Palier du thème sombre."
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.7576,
+            0.1549,
+            88.059
+          ],
+          "alpha": 1,
+          "hex": "#D9A900"
+        },
+        "$description": "Or d'une étoile de notation. Famille à part, et c'est le sujet : ce rôle pointait sur la rampe `warning`, c'est-à-dire sur le jaune d'AVERTISSEMENT. Une note de 4,2 sur 5 n'est pas une alerte. Le défaut est le même que celui relevé sur la palette des graphiques — un token employé pour un rôle qu'il n'a pas — et il avait une conséquence concrète : retoucher le jaune d'avertissement déplaçait les étoiles.\n\nL'or reste COMMUN aux quatre marques. Une étoile est dorée par convention, pas par identité : Google, Trustpilot et Amazon emploient le même or sous des marques différentes. Une étoile aigue-marine chez Aikoz ne se lirait plus comme une note.\n\nLes valeurs sont celles déjà en place, au hex près : rien ne bouge à l'œil, seul le lien sémantique est coupé. Palier du thème clair."
       }
     }
   },

@@ -350,8 +350,8 @@
     "rating": {
       "default": {
         "$type": "color",
-        "$value": "{color.warning.500}",
-        "$description": "Couleur de notation — étoiles pleines. ARBITRAGE DESIGN ASSUMÉ, décidé par Alice le 10/09/2026 : l'équipe trouvait warning.700 trop terne. warning.500 mesure 2,18:1 sur --card et 2,00:1 sur --background — SOUS le seuil 3:1 de WCAG 1.4.11. Le doré prime ici sur la conformité, en connaissance de cause. Ce que ça n'entame pas : l'information n'est pas portée par la seule couleur — l'étoile pleine et l'étoile vide diffèrent par la FORME (aplat contre contour), et ScoreStars expose la note en aria-label. Ce qui reste dégradé : un utilisateur malvoyant peut peiner à percevoir les étoiles elles-mêmes. Le dark n'est pas concerné, il reste conforme."
+        "$value": "{color.rating-gold.500}",
+        "$description": "Étoile pleine — l'or de notation, famille à part. Pointait sur la rampe `warning` : une note n'est pas une alerte."
       },
       "empty": {
         "$type": "color",
