@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, within } from "storybook/test";
 import { Card } from "./card";
 
 const meta = {
@@ -90,4 +91,39 @@ export const LaCarteAContreTheme: Story = {
       </Card>
     </div>
   ),
+};
+
+export const LaBaliseSuitLeSens: Story = {
+  name: "La balise suit le sens, pas la mise en page",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "`as` n'est pas un réglage cosmétique : il change les repères de " +
+          "navigation d'un lecteur d'écran. Une carte qui présente un " +
+          "contenu autonome — un avis, un article — sort en `article` ; une " +
+          "carte qui regroupe une section nommée sort en `section`, et ne " +
+          "devient un repère QUE si elle est nommée.\n\n" +
+          "Et pas de `CardTitle` : le niveau de titre dépend du plan de la " +
+          "page, pas de la carte. Un `h3` figé casserait la hiérarchie dès " +
+          "qu'on réutilise la carte ailleurs.",
+      },
+    },
+  },
+  render: () => (
+    <div className="flex flex-col gap-4">
+      <Card as="article">Un avis, contenu autonome</Card>
+      <Card as="section" aria-label="Derniers avis">Une section nommée</Card>
+      <Card>Un simple conteneur</Card>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole("article")).toHaveTextContent("contenu autonome");
+    // Une `section` n'est un repère que NOMMÉE — c'est la règle ARIA, et
+    // c'est pourquoi le composant ne pose pas `section` par défaut.
+    await expect(canvas.getByRole("region", { name: "Derniers avis" })).toBeInTheDocument();
+    // La carte nue ne crée aucun repère : elle ne prétend rien.
+    await expect(canvas.getByText("Un simple conteneur").tagName).toBe("DIV");
+  },
 };

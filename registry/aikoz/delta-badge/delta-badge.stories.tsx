@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, within } from "storybook/test";
 import { DeltaBadge } from "./delta-badge";
 
 const meta = {
@@ -35,5 +36,29 @@ export const ZeroNestPasUneHausse: Story = {
           "mouvement qui n'a pas eu lieu. La flèche disparaît, le signe aussi.",
       },
     },
+  },
+};
+
+export const LeSensNeTientPasALaCouleur: Story = {
+  name: "Le sens de la variation ne tient pas à la couleur",
+  args: { value: 18, unit: "%" },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "WCAG 1.4.1 vérifié plutôt qu'affirmé : une flèche haut/bas double " +
+          "le ton, et `aria-label` donne le sens en toutes lettres. En " +
+          "niveaux de gris, une hausse et une baisse restent distinctes — la " +
+          "couleur ne fait que renforcer.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const pastille = within(canvasElement).getByRole("img");
+    await expect(pastille).toHaveAccessibleName(/hausse/);
+    // Le signe est aussi écrit, pas seulement coloré.
+    await expect(pastille).toHaveTextContent(/\+18/);
+    // Et la flèche existe comme forme, en plus du texte.
+    await expect(pastille.querySelector("svg")).not.toBeNull();
   },
 };

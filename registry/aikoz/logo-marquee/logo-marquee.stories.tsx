@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from "storybook/test";
 import { LogoMarquee } from "./logo-marquee";
 import { BRANDS } from "../brand-logo/brands";
 
@@ -31,5 +32,16 @@ export const IlNeDefilePas: Story = {
           "ce qui règle le reflow au passage.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    // Vérifié plutôt qu'affirmé : aucune animation ne tourne. Une classe
+    // d'animation qui ne produit rien parce que son plugin n'est pas
+    // installé passerait inaperçue autrement — c'est exactement ce qui était
+    // arrivé à `Dialog`.
+    const anime = [...canvasElement.querySelectorAll("*")].filter((e) => {
+      const st = getComputedStyle(e);
+      return st.animationName !== "none" || st.transitionProperty.includes("transform");
+    });
+    await expect(anime).toHaveLength(0);
   },
 };

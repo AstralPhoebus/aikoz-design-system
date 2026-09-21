@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, within } from "storybook/test";
 import { Leaderboard } from "./leaderboard";
 
 const meta = {
@@ -38,5 +39,32 @@ export const LePodiumNeTientPasALaCouleur: Story = {
           "de cellule, pas un composant.",
       },
     },
+  },
+};
+
+export const LeRangNeTientPasALaCouleur: Story = {
+  name: "Le rang ne tient pas à la couleur de la pastille",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Les trois premières pastilles sont teintées — or, argent, bronze. " +
+          "Le rang est malgré tout **écrit dans la pastille** : sans le " +
+          "chiffre, un podium en niveaux de gris devient trois ronds " +
+          "identiques.\n\n" +
+          "Le classement est un vrai tableau : chaque ligne porte son " +
+          "en-tête, donc chaque cellule s'annonce avec le nom du site " +
+          "auquel elle appartient.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const tableau = canvas.getByRole("table");
+    await expect(tableau).toHaveAccessibleName();
+    // Le rang est du TEXTE, dans la pastille.
+    await expect(within(tableau).getByText("1")).toBeInTheDocument();
+    // Et chaque ligne se nomme.
+    await expect(within(tableau).getAllByRole("rowheader").length).toBeGreaterThan(2);
   },
 };

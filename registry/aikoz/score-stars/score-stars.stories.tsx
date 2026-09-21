@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, within } from "storybook/test";
 import { ScoreStars } from "./score-stars";
 
 const meta = {
@@ -39,5 +40,29 @@ export const Silencieuse: Story = {
           "englobante porte déjà l'énoncé complet — sinon la note est annoncée deux fois.",
       },
     },
+  },
+};
+
+export const LaNoteSeLitSansVoirLesEtoiles: Story = {
+  name: "La note se lit sans voir les étoiles",
+  args: { value: 4.2, max: 5 },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Le nombre d'étoiles pleines porte la note à l'œil ; `aria-label` " +
+          "la donne en toutes lettres. Les étoiles elles-mêmes sont hors de " +
+          "l'arbre d'accessibilité — sans quoi un lecteur d'écran annoncerait " +
+          "cinq images sans alternative au lieu d'une note.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const note = within(canvasElement).getByRole("img");
+    await expect(note).toHaveAccessibleName(/4,2/);
+    // Aucune étoile ne s'annonce séparément.
+    for (const svg of canvasElement.querySelectorAll("svg")) {
+      await expect(svg.closest('[aria-hidden="true"]') ?? svg.getAttribute("aria-hidden")).toBeTruthy();
+    }
   },
 };
