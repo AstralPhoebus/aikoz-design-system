@@ -81,7 +81,7 @@ const PAIRES: Array<{
   { avant: "--muted-foreground", fond: "--card", seuil: 4.5, nature: "texte", quoi: "texte atténué sur carte" },
   { avant: "--muted-foreground", fond: "--background", seuil: 4.5, nature: "texte", quoi: "texte atténué sur page" },
   { avant: "--card-foreground", fond: "--card", seuil: 4.5, nature: "texte", quoi: "texte de carte" },
-  { avant: "--primary-foreground", fond: "--primary", seuil: 4.5, nature: "texte", quoi: "texte sur action primaire", dette: 38 /* blanc sur le bleu primaire : c'est la COULEUR DE MARQUE qu'il faudrait bouger, pas un token de chrome */ },
+  { avant: "--primary-foreground", fond: "--primary", seuil: 4.5, nature: "texte", quoi: "texte sur action primaire" },
   { avant: "--accent-foreground", fond: "--accent", seuil: 4.5, nature: "texte", quoi: "texte sur accent", dette: 37 /* idem — l'orange d'ADP, le vert d'Extime */ },
   { avant: "--color-text-accent", fond: "--card", seuil: 4.5, nature: "texte", quoi: "texte d'accent sur carte", dette: 35 /* l'accent employé comme texte sur la carte */ },
   { avant: "--color-nav-on", fond: "--nav-surface", seuil: 4.5, nature: "texte", quoi: "texte de navigation" },

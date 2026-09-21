@@ -89,6 +89,11 @@
         "$type": "color",
         "$value": "{color.ink.900}",
         "$description": "Texte porté par `surface.inverse`. Existe déjà sous le nom `text.inverse` ; ce token le nomme depuis le rôle de surface, pour qu'on ne puisse pas poser l'un sans l'autre."
+      },
+      "action-edge": {
+        "$type": "color",
+        "$value": "{color.brand.primary-edge}",
+        "$description": "Liseré de l'action primaire — voir le thème produit."
       }
     },
     "text": {

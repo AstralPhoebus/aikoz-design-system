@@ -24,7 +24,17 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: [
+          // Le liseré n'est PAS décoratif. En thème sombre, le fond de l'action
+          // primaire est une couleur de marque vive, donc à peine plus claire
+          // que la carte : le libellé se lit (APCA 84 à 90) mais la FORME du
+          // bouton ne se détache pas du bloc — sous le seuil de 45 d'un
+          // élément d'interface. Le liseré la rend identifiable sans toucher
+          // au fond, donc sans rien céder sur la vivacité de la marque.
+          //
+          // En clair, `--primary-edge` vaut `--primary` : le liseré existe,
+          // ne se voit pas, et ne coûte rien.
           "bg-[var(--primary)] text-[var(--primary-foreground)]",
+          "border border-[var(--primary-edge)]",
           "hover:bg-[color-mix(in_oklch,var(--primary),transparent_10%)] active:bg-[color-mix(in_oklch,var(--primary),transparent_20%)]",
         ],
         secondary: [

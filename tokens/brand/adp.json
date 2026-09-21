@@ -17,6 +17,11 @@
         "$type": "color",
         "$value": "{color.adp-blue.100}"
       },
+      "primary-edge": {
+        "$type": "color",
+        "$value": "{color.adp-blue.800}",
+        "$description": "Liseré de l'action primaire — égal au fond en thème clair, donc invisible. Il n'existe que pour le sombre, où un fond vif ne se détache pas seul de la carte."
+      },
       "secondary": {
         "$type": "color",
         "$value": "{color.adp-campanula.500}"

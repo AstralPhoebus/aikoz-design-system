@@ -4,6 +4,7 @@
 
 .dark {
   --color-text-primary: oklch(1 0 0);
+  --color-text-on-action: oklch(1 0 0); /** Libellé de l'action primaire — BLANC, comme en clair. Il valait l'encre sombre parce que le fond de l'action était l'accent, clair par construction. Le fond étant redevenu la couleur primaire de la marque, vive, le blanc reprend sa place et tient APCA 84 à 90 selon la marque. */
   --color-nav-on: oklch(1 0 0);
   --color-surface-track: var(--color-neutral-700); /** Piste d'une jauge — repère d'échelle. 1,60:1 sur --card. Ne pas utiliser --muted ici : en dark il vaut exactement la couleur de --card (1,00:1), la piste y serait strictement invisible. */
   --color-surface-inverse-to: var(--color-neutral-50); /** Second arrêt du dégradé de `surface.inverse`. Même rampe, deux paliers d'écart : un dégradé qui change de teinte se lit comme une image, pas comme une surface. */
@@ -48,15 +49,15 @@
   --color-surface-brand-active: var(--color-brand-primary-active);
   --color-surface-brand-subtle: var(--color-ink-800);
   --color-surface-accent: var(--color-brand-accent-subtle);
-  --color-surface-action: var(--color-brand-accent); /** Surface d'action principale (bouton default). Midnight en light, aquamarine en dark. */
+  --color-surface-action: var(--color-brand-primary); /** Fond de l'action primaire — `oklch(0.1857 0.048 268.675)`, comme en clair. Il pointait sur `oklch(0.9098 0.1389 170.506)`, ce qui écrasait les trois couleurs de marque en une seule. */
   --color-surface-action-secondary: var(--color-brand-secondary-subtle); /** Aplat d'action secondaire. Pointait sur `ultramarine.225`, une rampe d'AIKOZ. Passe par le palier discret de la SECONDAIRE de la marque, qui existait déjà. */
   --color-surface-inverse: var(--color-ink-50); /** Fond d'une carte à CONTRE-THÈME : sombre en thème clair, clair en thème sombre. Premier arrêt du dégradé. Sa raison d'être est la hiérarchie — une seule carte par écran doit primer sur toutes les autres, et l'inversion y arrive sans ajouter de couleur. */
   --color-surface-on-inverse: var(--color-ink-900); /** Texte porté par `surface.inverse`. Existe déjà sous le nom `text.inverse` ; ce token le nomme depuis le rôle de surface, pour qu'on ne puisse pas poser l'un sans l'autre. */
+  --color-surface-action-edge: var(--color-brand-primary-edge); /** Liseré de l'action primaire, pour que sa forme se détache de la carte sombre. */
   --color-text-inverse: var(--color-ink-900);
   --color-text-brand: var(--color-brand-secondary);
   --color-text-brand-hover: var(--color-brand-secondary-hover);
   --color-text-accent: var(--color-brand-accent-text); /** Texte teinté de l'accent. Pointait sur `aquamarine`, une rampe d'AIKOZ, sous toutes les marques. Passe par `brand.accent-text`, un palier de la rampe d'accent de la marque choisi par la mesure — `brand.accent` ne convient pas, c'est une SURFACE et elle est claire par construction. */
-  --color-text-on-action: var(--color-ink-900); /** Texte sur surface.action. Blanc en light, midnight en dark. */
   --color-text-on-action-secondary: var(--color-ink-900); /** Texte sur surface.action-secondary. Blanc en light, midnight en dark. */
   --color-border-default: var(--color-ink-700);
   --color-border-subtle: var(--color-ink-800);

@@ -10,7 +10,23 @@
   --color-ink-900: oklch(0.1857 0.0133 271.174); /** Chrome sombre, palier 900 — **identique pour les quatre marques**, comme en thème clair. Clarté de l'échelle du thème (0.1857), teinte et chroma interpolés sur la rampe NEUTRE (0.0133 / 271.174°), celle qui fait déjà les fonds en clair. Le fond ne porte pas la marque : la marque se lit sur les ÉLÉMENTS — bouton, accent, focus, séries, lueur, logo. L'échelle est déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque ; un garde-fou de build échoue si un fichier sombre s'en écarte. */
   --color-ink-950: oklch(0.159 0.0116 271.323); /** Chrome sombre, palier 950 — **identique pour les quatre marques**, comme en thème clair. Clarté de l'échelle du thème (0.159), teinte et chroma interpolés sur la rampe NEUTRE (0.0116 / 271.323°), celle qui fait déjà les fonds en clair. Le fond ne porte pas la marque : la marque se lit sur les ÉLÉMENTS — bouton, accent, focus, séries, lueur, logo. L'échelle est déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque ; un garde-fou de build échoue si un fichier sombre s'en écarte. */
   --color-ink-1000: oklch(0.1 0.0062 274.32); /** Chrome sombre, palier 1000 — **identique pour les quatre marques**, comme en thème clair. Clarté de l'échelle du thème (0.1), teinte et chroma interpolés sur la rampe NEUTRE (0.0062 / 274.32°), celle qui fait déjà les fonds en clair. Le fond ne porte pas la marque : la marque se lit sur les ÉLÉMENTS — bouton, accent, focus, séries, lueur, logo. L'échelle est déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque ; un garde-fou de build échoue si un fichier sombre s'en écarte. */
+  /**
+   * Action primaire en thème SOMBRE — le palier 500 de la rampe primaire, avec un libellé BLANC.
+   * 
+   * Avant, le sombre pointait `surface.action` sur l'ACCENT : `--primary`, `--accent`, `--ring` et le trait de l'entrée courante valaient tous la même couleur. Les trois couleurs de marque n'en faisaient plus qu'une — et chez Generali c'était du blanc.
+   * 
+   * Le palier est mesuré : le plus chromé qui tient **APCA 84 à 90** sous un libellé blanc. Un fond pâle avec du texte sombre marchait aussi, mais il effaçait la marque, ce qui est l'inverse du but.
+   */
+  --color-brand-primary: var(--color-midnight-blue-500);
+  --color-brand-primary-hover: var(--color-midnight-blue-600); /** Survol de l'action primaire en sombre. */
+  --color-brand-primary-active: var(--color-midnight-blue-700); /** Pression de l'action primaire en sombre. */
   --color-brand-accent-text: var(--color-aquamarine-600); /** Texte teinté de l'accent, thème sombre — 5.12:1 sur la carte de la marque. */
+  /**
+   * Liseré de l'action primaire. Un fond vif est à peine plus clair que la carte sombre — mesuré, moins de 20 en APCA, sous le seuil de 45 d'un élément d'interface : le bouton se lit, mais sa FORME ne se détache pas du bloc. Le liseré (midnight-blue.300) la rend identifiable sans toucher au fond, donc sans rien céder sur la vivacité.
+   * 
+   * En thème clair il vaut la couleur du fond : le bouton s'y détache déjà seul, le liseré y est invisible et ne coûte rien.
+   */
+  --color-brand-primary-edge: var(--color-midnight-blue-300);
   --color-chart-1: var(--color-ultramarine-200); /** Série de données 1 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 9.66:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.115 au pire, en vision normale comme en protanopie et en deutéranopie. */
   --color-chart-2: var(--color-aquamarine-500); /** Série de données 2 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 8.07:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.115 au pire, en vision normale comme en protanopie et en deutéranopie. */
   --color-chart-3: var(--color-midnight-blue-50); /** Série de données 3 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 15.26:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.115 au pire, en vision normale comme en protanopie et en deutéranopie. */

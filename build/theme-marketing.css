@@ -52,6 +52,7 @@
   --color-surface-action-secondary: var(--color-brand-secondary-subtle); /** Aplat d'action secondaire — palier discret de la secondaire de la marque. */
   --color-surface-inverse: var(--color-ink-50); /** Fond d'une carte à CONTRE-THÈME : sombre en thème clair, clair en thème sombre. Premier arrêt du dégradé. Sa raison d'être est la hiérarchie — une seule carte par écran doit primer sur toutes les autres, et l'inversion y arrive sans ajouter de couleur. */
   --color-surface-on-inverse: var(--color-ink-900); /** Texte porté par `surface.inverse`. Existe déjà sous le nom `text.inverse` ; ce token le nomme depuis le rôle de surface, pour qu'on ne puisse pas poser l'un sans l'autre. */
+  --color-surface-action-edge: var(--color-brand-primary-edge); /** Liseré de l'action primaire — voir le thème produit. */
   --color-text-tertiary: var(--color-ink-300); /** Légendes, dates, mentions. */
   --color-text-disabled: var(--color-ink-500);
   --color-text-inverse: var(--color-ink-900); /** Texte sur les rares surfaces claires. */

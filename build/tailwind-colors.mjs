@@ -38,6 +38,7 @@ export default {
   "popover": "var(--popover)",
   "popover-foreground": "var(--popover-foreground)",
   "primary": "var(--primary)",
+  "primary-edge": "var(--primary-edge)",
   "primary-foreground": "var(--primary-foreground)",
   "rating": "var(--rating)",
   "rating-empty": "var(--rating-empty)",

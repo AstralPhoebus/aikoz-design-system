@@ -39,6 +39,11 @@
     "$value": "{color.text.on-action}",
     "$description": "shadcn --primary-foreground"
   },
+  "primary-edge": {
+    "$type": "color",
+    "$value": "{color.surface.action-edge}",
+    "$description": "Liseré de l'action primaire — invisible en clair, indispensable en sombre où un fond vif ne se détache pas seul de la carte."
+  },
   "secondary": {
     "$type": "color",
     "$value": "{color.surface.action-secondary}",

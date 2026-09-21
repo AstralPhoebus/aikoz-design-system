@@ -133,10 +133,30 @@
       }
     },
     "brand": {
+      "primary": {
+        "$type": "color",
+        "$value": "{color.generali-red.500}",
+        "$description": "Action primaire en thème SOMBRE — le palier 500 de la rampe primaire, avec un libellé BLANC.\n\nAvant, le sombre pointait `surface.action` sur l'ACCENT : `--primary`, `--accent`, `--ring` et le trait de l'entrée courante valaient tous la même couleur. Les trois couleurs de marque n'en faisaient plus qu'une — et chez Generali c'était du blanc.\n\nLe palier est mesuré : le plus chromé qui tient **APCA 84 à 90** sous un libellé blanc. Un fond pâle avec du texte sombre marchait aussi, mais il effaçait la marque, ce qui est l'inverse du but."
+      },
+      "primary-hover": {
+        "$type": "color",
+        "$value": "{color.generali-red.600}",
+        "$description": "Survol de l'action primaire en sombre."
+      },
+      "primary-active": {
+        "$type": "color",
+        "$value": "{color.generali-red.700}",
+        "$description": "Pression de l'action primaire en sombre."
+      },
       "accent-text": {
         "$type": "color",
         "$value": "{color.generali-red.400}",
         "$description": "Texte teinté de l'accent, thème sombre — 5.69:1 sur la carte de la marque."
+      },
+      "primary-edge": {
+        "$type": "color",
+        "$value": "{color.generali-red.300}",
+        "$description": "Liseré de l'action primaire. Un fond vif est à peine plus clair que la carte sombre — mesuré, moins de 20 en APCA, sous le seuil de 45 d'un élément d'interface : le bouton se lit, mais sa FORME ne se détache pas du bloc. Le liseré (generali-red.300) la rend identifiable sans toucher au fond, donc sans rien céder sur la vivacité.\n\nEn thème clair il vaut la couleur du fond : le bouton s'y détache déjà seul, le liseré y est invisible et ne coûte rien."
       }
     }
   }

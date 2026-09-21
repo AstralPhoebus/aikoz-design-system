@@ -56,6 +56,7 @@
   --card-foreground: var(--color-text-primary); /** shadcn --card-foreground */
   --popover-foreground: var(--color-text-primary); /** shadcn --popover-foreground */
   --primary: var(--color-surface-action); /** shadcn --primary */
+  --primary-edge: var(--color-surface-action-edge); /** Liseré de l'action primaire — invisible en clair, indispensable en sombre où un fond vif ne se détache pas seul de la carte. */
   --secondary: var(--color-surface-action-secondary); /** shadcn --secondary */
   --ring: var(--color-border-focus); /** shadcn --ring */
   --nav-on: var(--color-nav-on); /** extension DS — texte de la navigation */
@@ -74,6 +75,7 @@
   --foreground: var(--color-text-primary); /** shadcn --foreground */
   --card-foreground: var(--color-text-primary); /** shadcn --card-foreground */
   --popover-foreground: var(--color-text-primary); /** shadcn --popover-foreground */
+  --primary-foreground: var(--color-text-on-action); /** shadcn --primary-foreground */
   --nav-on: var(--color-nav-on); /** extension DS — texte de la navigation */
   --muted-foreground: var(--color-text-muted); /** shadcn --muted-foreground */
   --accent: var(--color-brand-accent); /** shadcn --accent */
@@ -108,7 +110,7 @@
   --card: var(--color-surface-raised); /** shadcn --card */
   --popover: var(--color-surface-overlay); /** Fond des surfaces qui FLOTTENT — menu, boîte de dialogue, infobulle. Il pointait sur surface.raised, c'est-à-dire sur la carte : en clair l'ombre faisait la séparation, en sombre rien ne la faisait, et tout ce qui flottait était collé au bloc derrière. Il pointe maintenant sur surface.overlay, le palier au-dessus de la carte. */
   --primary: var(--color-surface-action); /** shadcn --primary */
-  --primary-foreground: var(--color-text-on-action); /** shadcn --primary-foreground */
+  --primary-edge: var(--color-surface-action-edge); /** Liseré de l'action primaire — invisible en clair, indispensable en sombre où un fond vif ne se détache pas seul de la carte. */
   --secondary: var(--color-surface-action-secondary); /** shadcn --secondary */
   --secondary-foreground: var(--color-text-on-action-secondary); /** shadcn --secondary-foreground */
   --muted: var(--color-surface-sunken); /** shadcn --muted */
@@ -181,6 +183,7 @@
   --card-foreground: var(--color-text-primary); /** shadcn --card-foreground */
   --popover-foreground: var(--color-text-primary); /** shadcn --popover-foreground */
   --primary: var(--color-surface-action); /** shadcn --primary */
+  --primary-edge: var(--color-surface-action-edge); /** Liseré de l'action primaire — invisible en clair, indispensable en sombre où un fond vif ne se détache pas seul de la carte. */
   --secondary: var(--color-surface-action-secondary); /** shadcn --secondary */
   --muted-foreground: var(--color-text-muted); /** shadcn --muted-foreground */
   --ring: var(--color-border-focus); /** shadcn --ring */
@@ -233,6 +236,7 @@
   --popover: var(--color-surface-overlay); /** Fond des surfaces qui FLOTTENT — menu, boîte de dialogue, infobulle. Il pointait sur surface.raised, c'est-à-dire sur la carte : en clair l'ombre faisait la séparation, en sombre rien ne la faisait, et tout ce qui flottait était collé au bloc derrière. Il pointe maintenant sur surface.overlay, le palier au-dessus de la carte. */
   --primary: var(--color-surface-action); /** shadcn --primary */
   --primary-foreground: var(--color-text-on-action); /** shadcn --primary-foreground */
+  --primary-edge: var(--color-surface-action-edge); /** Liseré de l'action primaire — invisible en clair, indispensable en sombre où un fond vif ne se détache pas seul de la carte. */
   --secondary: var(--color-surface-action-secondary); /** shadcn --secondary */
   --secondary-foreground: var(--color-text-on-action-secondary); /** shadcn --secondary-foreground */
   --muted: var(--color-surface-sunken); /** shadcn --muted */

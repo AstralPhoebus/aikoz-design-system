@@ -7,6 +7,7 @@
   --color-brand-primary-hover: var(--color-midnight-blue-800);
   --color-brand-primary-active: var(--color-midnight-blue-700);
   --color-brand-primary-subtle: var(--color-midnight-blue-100);
+  --color-brand-primary-edge: var(--color-midnight-blue-900); /** Liseré de l'action primaire — égal au fond en thème clair, donc invisible. Il n'existe que pour le sombre, où un fond vif ne se détache pas seul de la carte. */
   --color-brand-secondary: var(--color-ultramarine-500);
   --color-brand-secondary-hover: var(--color-ultramarine-600);
   --color-brand-secondary-active: var(--color-ultramarine-700);

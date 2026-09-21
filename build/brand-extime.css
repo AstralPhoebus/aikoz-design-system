@@ -7,6 +7,7 @@
   --color-brand-primary-hover: var(--color-extime-malachite-700); /** Malachite assombri d'un palier. */
   --color-brand-primary-active: var(--color-extime-malachite-800); /** Malachite assombri de deux paliers. */
   --color-brand-primary-subtle: var(--color-extime-malachite-100); /** Voile de malachite. */
+  --color-brand-primary-edge: var(--color-extime-malachite-600); /** Liseré de l'action primaire — égal au fond en thème clair, donc invisible. Il n'existe que pour le sombre, où un fond vif ne se détache pas seul de la carte. */
   --color-brand-secondary: var(--color-extime-green-500); /** Vert Forêt #007279, un des neuf verts secondaires. Charte Extime p. 10. Interdit n°1 p. 11 : un vert secondaire ne s'emploie jamais sans le malachite à proximité — ici il l'est, la primaire EST le malachite. */
   --color-brand-secondary-hover: var(--color-extime-green-525); /** Vert Empire, la teinte voisine en clarté. */
   --color-brand-secondary-active: var(--color-extime-malachite-700); /** Retour au malachite : la charte n'offre pas d'état actif plus sombre dans les verts secondaires. */
