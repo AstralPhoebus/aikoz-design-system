@@ -50,3 +50,21 @@ public/fonts/**/*.eot
 # Règle limitée à la racine : `references/` et `generated/` portent des PDF
 # qui sont les nôtres et qui restent suivis.
 /*.pdf
+
+# ── Sortis du dépôt le 21/09/2026 ────────────────────────────────────────────
+# Le dépôt est PUBLIC. Ces fichiers étaient tous téléchargeables par n'importe
+# qui (vérifié, HTTP 200). Ils restent en local, ils ne sont plus suivis.
+#
+#   Fonts/, fonts-web/PPRadioGrotesk-*  polices sous licence
+#   logos/marque/typo extime.zip        contient Gotham, que la charte ADP dit
+#                                       d'acheter
+#   references/, generated/             présentations clients et documents
+#                                       internes
+#
+# `aikoz-ds-contexte.md` disait déjà « generated/ jamais committé » : la règle
+# existait, elle n'était pas tenue. Elle l'est maintenant par le .gitignore.
+Fonts/
+fonts-web/PPRadioGrotesk-*
+logos/marque/*.zip
+references/
+generated/
