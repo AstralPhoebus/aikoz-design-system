@@ -12,7 +12,7 @@
   --color-brand-secondary-active: var(--color-adp-campanula-700);
   --color-brand-secondary-subtle: var(--color-adp-campanula-100);
   /**
-   * Tangerine Tango (PANTONE Bright Red C). Charte Groupe ADP & Paris Aéroport, avril 2019, p. 13. La charte donne TROIS couleurs — Spectrum Blue, Campanula, Tangerine Tango. La campanule en occupait deux, secondaire ET accent, pendant que le tangerine ne servait dans aucun rôle : une marque à trois couleurs qui n'en emploie que deux.
+   * Tangerine Tango (PANTONE Bright Red C). Charte Groupe ADP & Paris Aéroport, avril 2017, p. 13. La charte donne TROIS couleurs — Spectrum Blue, Campanula, Tangerine Tango. La campanule en occupait deux, secondaire ET accent, pendant que le tangerine ne servait dans aucun rôle : une marque à trois couleurs qui n'en emploie que deux.
    * 
    * Le palier 400 et pas la valeur de charte (500) : l'accent est la SURFACE d'action en thème sombre, avec l'encre de la marque posée dessus. Le 500 n'y donne que 3,47:1, le 400 donne 4,65:1 et tient encore 3,71:1 comme liseré sur blanc. C'est le seul palier qui satisfait les deux contrats.
    * 

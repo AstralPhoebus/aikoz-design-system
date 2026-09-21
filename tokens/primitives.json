@@ -1671,7 +1671,7 @@
           "alpha": 1,
           "hex": "#031F73"
         },
-        "$description": "PANTONE 2748 C · Spectrum Blue · RAL 5022 — **valeur officielle de la charte ADP**, relevée dans le brand book (Groupe ADP & Paris Aéroport Style Guide, avril 2019, p. 13). Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+        "$description": "PANTONE 2748 C · Spectrum Blue · RAL 5022 — **valeur officielle de la charte ADP**, relevée dans le brand book (Groupe ADP and Paris Aéroport Style Guide, avril 2017, version 1, p. 13). Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
       },
       "900": {
         "$type": "color",
@@ -1799,7 +1799,7 @@
           "alpha": 1,
           "hex": "#376DB3"
         },
-        "$description": "PANTONE 2144 C · Campanula · RAL 5015 — **valeur officielle de la charte ADP**, relevée dans le brand book (Groupe ADP & Paris Aéroport Style Guide, avril 2019, p. 13). Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+        "$description": "PANTONE 2144 C · Campanula · RAL 5015 — **valeur officielle de la charte ADP**, relevée dans le brand book (Groupe ADP and Paris Aéroport Style Guide, avril 2017, version 1, p. 13). Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
       },
       "600": {
         "$type": "color",
@@ -1941,7 +1941,7 @@
           "alpha": 1,
           "hex": "#C84118"
         },
-        "$description": "PANTONE Bright Red C · Tangerine Tango · RAL 3024 — **valeur officielle de la charte ADP**, relevée dans le brand book (Groupe ADP & Paris Aéroport Style Guide, avril 2019, p. 13). Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+        "$description": "PANTONE Bright Red C · Tangerine Tango · RAL 3024 — **valeur officielle de la charte ADP**, relevée dans le brand book (Groupe ADP and Paris Aéroport Style Guide, avril 2017, version 1, p. 13). Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
       },
       "600": {
         "$type": "color",
@@ -2797,8 +2797,8 @@
     },
     "gotham": {
       "$type": "fontFamily",
-      "$value": "Gotham, 'Century Gothic', sans-serif",
-      "$description": "Police du Groupe ADP. Charte ADP, section 2 « Typefaces » : Gotham est la police print ET « also used for all digital supports: internet and intranet sites, apps ». Elle est commerciale (Hœfler & Co) : le repli n'est pas choisi au hasard, c'est Century Gothic, le substitut que la charte elle-même désigne « to avoid technical problems relating to compatibility »."
+      "$value": "Gotham, 'Century Gothic', Montserrat, sans-serif",
+      "$description": "Police du Groupe ADP. Charte « Groupe ADP and Paris Aéroport Style Guide », avril 2017, version 1, section 2 « Typefaces », p. 22-24. Elle est sans ambiguïté : Gotham pour le print « in all thicknesses », et « Gotham is also used for all digital supports: internet and intranet sites, apps, and promotional supports ». Century Gothic n'y est PAS un repli web — la charte le réserve explicitement à la bureautique, « only used in the following office-automation documents: Word, PowerPoint, Excel ».\n\n**Aucun site d'ADP ne charge pourtant Gotham.** Mesuré en production : groupeadp.fr rend en `CenturyGothicW01`, parisaeroport.fr en `montserrat` 400/700 — et la chaîne « gotham » n'apparaît ni dans leur HTML rendu ni dans leurs trois feuilles de style principales. La charte exige une police que « you must purchase [...] to obtain the user licence » ; huit ans plus tard, l'usage a tranché autrement.\n\nLa pile respecte les deux niveaux. Gotham en tête : c'est ce que la charte demande, et un poste licencié l'obtient. Century Gothic ensuite : hors de son périmètre de charte, mais c'est ce que rend le site corporate. Montserrat en dernier : ce que rend le site passagers, et la seule des trois librement chargeable sur le web. Trois géométriques de la même famille — la substitution ne change pas le caractère de la marque."
     },
     "extime": {
       "$type": "fontFamily",
