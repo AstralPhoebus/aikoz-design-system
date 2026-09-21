@@ -1,4 +1,4 @@
-import json, itertools, math
+import json, itertools, math, os
 
 P = json.load(open('tokens/primitives.json'))['color']
 
@@ -47,30 +47,27 @@ def dE(a,b,kind):
     return math.dist(x,y)
 
 # La carte SOMBRE n'est plus la même pour toutes les marques : depuis que le
-# chrome suit `data-brand`, elle garde la clarté du thème (celle de
-# midnight-blue.800) mais prend la teinte de la marque. Auditer les six séries
-# contre la carte d'Aikoz laissait passer un écart — la sixième série d'Extime
-# tombait à 2,99:1 sur SA carte, sous le seuil de 3:1.
-def carte_sombre(rampes):
-    """Reproduit la règle de `ink-sombre.py` : clarté du thème, teinte de la marque."""
-    L_ref = P['midnight-blue']['800']['$value']['components'][0]
-    C_ref = P['midnight-blue']['800']['$value']['components'][1]
-    rampe = rampes[0]
-    source = '800' if '800' in P[rampe] else '900'
-    _, Ch, H = P[rampe][source]['$value']['components']
-    # Même plafond de chroma que `ink-sombre.py`. Sans lui, les séries étaient
-    # auditées contre une carte plus saturée que celle qui est rendue.
-    Ch = min(Ch, C_ref)
-    def gamut(c):
-        return all(-0.0005 <= x <= 1.0005 for x in _oklch_lin(L_ref, c, H))
-    if not gamut(Ch):
-        bas, haut = 0.0, Ch
-        for _ in range(40):
-            mid = (bas+haut)/2
-            if gamut(mid): bas = mid
-            else: haut = mid
-        Ch = bas
-    return _oklch_srgb(L_ref, Ch, H)
+# chrome suit `data-brand`, elle garde la clarté du thème mais prend la teinte
+# de la marque. Auditer les six séries contre la carte d'Aikoz laissait passer
+# un écart — la sixième série d'Extime tombait à 2,99:1 sur SA carte.
+#
+# Elle est LUE dans le token émis par `ink-sombre.py`, plus re-dérivée ici.
+# La version précédente recopiait la règle de dérivation, plafond de chroma
+# compris — un plafond qu'`ink-sombre.py` n'applique plus. On auditait donc
+# contre une carte qui n'est pas celle qui est rendue. Une règle recopiée
+# vieillit à part ; un token lu, non.
+def carte_sombre(marque):
+    for f in (f'tokens/brand/{marque}-dark.json', f'tokens/brand/{marque}.json'):
+        if not os.path.exists(f):
+            continue
+        v = json.load(open(f)).get('color', {}).get('ink', {}).get('800', {}).get('$value')
+        if v is None:
+            continue
+        if isinstance(v, str):                       # {color.rampe.pas}
+            _, rampe, pas = v.strip('{}').split('.')
+            return srgb(P[rampe][pas]['$value']['hex'])
+        return srgb(v['hex'])
+    raise SystemExit(f'{marque} : pas de ink.800, carte sombre introuvable')
 
 def _oklch_lin(L, Ch, H):
     h = math.radians(H); a = Ch*math.cos(h); b = Ch*math.sin(h)
@@ -97,8 +94,8 @@ def separation(cols):
             pire = min(pire, dE(a,b,k))
     return pire
 
-def choisir(rampes, theme, n=6, seuil=3.0):
-    CARTE['dark'] = carte_sombre(rampes)
+def choisir(marque, rampes, theme, n=6, seuil=3.0):
+    CARTE['dark'] = carte_sombre(marque)
     """Les trois premieres series viennent des trois rampes de MARQUE, dans
     l'ordre primary / secondary / accent : une palette optimisee librement
     maximise la separation mais peut abandonner le vert d'Extime au profit de
@@ -139,13 +136,12 @@ for marque, rampes in [
 ]:
     print('###', marque)
     for theme in ('light','dark'):
-        s,sel = choisir(rampes, theme)
+        s,sel = choisir(marque, rampes, theme)
         print(f'  {theme}: séparation min ΔE = {s:.3f}')
         for nom,c in sel:
             print(f'    {nom:24s} contraste carte {ratio(c,CARTE[theme]):.2f}:1')
 
 # ─── Émission ────────────────────────────────────────────────────────────────
-import os
 DESC = ("Série de données {i} de la marque. Les trois premières viennent des "
         "trois rampes de marque (primary, secondary, accent) : une palette "
         "optimisée librement sépare mieux mais peut abandonner une couleur "
@@ -154,12 +150,18 @@ DESC = ("Série de données {i} de la marque. Les trois premières viennent des 
         "comme en protanopie et en deutéranopie.")
 
 for marque, rampes in [
+    # Aikoz est une marque comme les autres. Ses séries vivaient dans
+    # `tokens/theme/{light,dark}.json`, qui nommaient donc `ultramarine`,
+    # `aquamarine` et `violet` — des primitives d'Aikoz dans la couche THÈME,
+    # exactement le défaut corrigé sur l'échelle de chrome. Elles descendent
+    # ici, et le thème ne porte plus de palette de séries.
+    ('aikoz',   ['ultramarine','aquamarine','midnight-blue','neutral','violet']),
     ('adp',     ['adp-blue','adp-campanula','adp-red','neutral']),
     ('extime',  ['extime-malachite','extime-green','extime-gold','neutral']),
     ('generali',['generali-red','generali-slate','generali-green','generali-periwinkle','generali-amber','neutral']),
 ]:
     for theme in ('light','dark'):
-        s,sel = choisir(rampes, theme)
+        s,sel = choisir(marque, rampes, theme)
         chart={}
         for i,(nom,c) in enumerate(sel,1):
             chart[str(i)]={"$type":"color","$value":"{color.%s}"%nom,
@@ -176,7 +178,6 @@ for marque, rampes in [
             # posée par `ink-sombre.py`. Un `json.dump` d'un dictionnaire neuf
             # l'effaçait, et le chrome sombre repartait sur la clarté de la
             # charte sans que rien ne le signale.
-            import os
             base = json.load(open(p)) if os.path.exists(p) else {"color":{}}
             base.setdefault("color",{})["chart"]=chart
             json.dump(base,open(p,'w'),ensure_ascii=False,indent=2)

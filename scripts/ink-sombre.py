@@ -104,14 +104,16 @@ for marque, rampe in MARQUES.items():
             "colorSpace": "oklch", "components": [L, Ch2, H], "alpha": 1,
             "hex": hexa(L, Ch2, H)},
             "$description":
-                f"Chrome sombre, palier {pas} — clarté et chroma de l'ÉCHELLE DU THÈME "
-                f"({L} / plafond {REF_C[pas]}), teinte de la marque ({H}°). L'échelle est "
+                f"Chrome sombre, palier {pas} — clarté de l'ÉCHELLE DU THÈME "
+                f"({L}, référence de chroma {REF_C[pas]}), teinte et chroma de la marque "
+                f"({H}°). L'échelle est "
                 f"déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque : "
                 f"laissée à la charte, la carte d'ADP sortait 30 % plus claire et trois fois "
                 f"plus saturée que celle d'Aikoz."
-                + (f" Chroma plafonné par la référence : {Ch} -> {Ch2}. Une surface sombre "
-                   f"très chromée ne se lit pas comme profonde mais comme un voile de couleur "
-                   f"posé sur du noir. L'intensité appartient à l'échelle, la teinte à la marque."
+                + (f" Chroma ramené de {Ch} à {Ch2} : c'est le maximum atteignable dans le "
+                   f"gamut sRGB à cette clarté, pas un plafond de style. Il n'y a PAS de "
+                   f"plafond de chroma — deux marques ne se distingueraient plus sur la carte "
+                   f"(essayé, ADP et Aikoz tombaient à ΔE 0,008)."
                    if Ch2 < Ch else "")}
         print(f"{marque:8} ink.{pas:<5} L={L:<6} C={Ch}->{Ch2:<7} {hexa(L, Ch2, H)}")
     d['color']['ink'] = ink

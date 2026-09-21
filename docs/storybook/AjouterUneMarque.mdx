@@ -74,15 +74,35 @@ une note est dorée par convention, pas par identité.
 ## Ce que le build refusera
 
 - une carte sombre qui se confond avec celle d'une autre marque (ΔE < 0,05) ;
+- deux séries de données qui se confondent (ΔE < 0,10), **y compris en
+  protanopie et en deutéranopie** ;
+- une série qui ne tient pas 3:1 sur la carte de sa propre marque ;
+- une marque sans palette de séries — le script n'a pas été lancé ;
 - un rôle qui emprunte la rampe ou la police d'une autre marque ;
 - une rampe d'Aikoz qui s'écarte de l'échelle de chrome ;
 - un registry non régénéré après modification d'un composant ;
 - une feuille générée dans `build/` que `index.css` n'importe pas.
 
-## Ce qu'il ne vérifiera pas à votre place
+### Sur la séparation des séries
 
-La **palette de séries** est choisie par recherche automatique sous contrainte
-— 3:1 sur la carte, séparation ΔE OKLab maximale en vision normale, protanopie
-et deutéranopie. Le script imprime la séparation obtenue. En dessous de 0,10,
-deux séries voisines deviennent difficiles à distinguer : c'est le signe que la
-charte ne fournit pas assez de teintes, pas un réglage à forcer.
+Deux métriques, et ce n'est pas un détail : la **séparation** entre deux
+tracés se mesure en ΔE OKLab, jamais en ratio WCAG. Deux teintes de même
+clarté — un rouge et un vert, par exemple — ont un ratio de 1:1 tout en étant
+parfaitement distinctes. Le ratio ne sert qu'à vérifier qu'un tracé se détache
+de la **carte** (WCAG 1.4.11, 3:1).
+
+La mesure est faite trois fois : vision normale, protanopie, deutéranopie
+(matrices Viénot/Brettel/Mollon 1999). Une palette qui sépare bien en
+trichromie peut s'effondrer en deutéranopie, qui touche environ 6 % des
+hommes ; le rouge et le vert de même clarté en sont le cas d'école.
+
+Si le build refuse, ce n'est pas un seuil à baisser : c'est que la charte ne
+fournit pas assez de teintes pour six séries. Trois issues, dans cet ordre —
+réduire le nombre de séries affichées, ajouter une rampe secondaire à la
+charte, ou doubler la couleur par une forme (tirets, marqueurs), ce que le
+design system fait déjà.
+
+Aikoz est soumise à la même règle que les autres : c'est ce contrôle qui a
+montré que ses séries 5 et 6 se confondaient en sombre (ΔE 0,062 en
+deutéranopie), parce que sa palette était la seule à n'avoir jamais été
+calculée.
