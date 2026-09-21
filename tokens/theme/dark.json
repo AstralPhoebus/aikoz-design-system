@@ -347,8 +347,8 @@
     "rating": {
       "default": {
         "$type": "color",
-        "$value": "{color.warning.400}",
-        "$description": "Étoiles pleines. Passé de .600 à .400 : l'étoile était plus TERNE que la barre de progression du même thème, soit l'inverse exact du clair. Les deux tokens avaient dérivé l'un de l'autre au fil des correctifs. .400 tient 10,45:1 contre la carte — le changement est gratuit."
+        "$value": "{color.rating-gold.400}",
+        "$description": "Étoile pleine — l'or de notation, famille à part. Pointait sur la rampe `warning` : une note n'est pas une alerte."
       },
       "empty": {
         "$type": "color",

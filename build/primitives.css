@@ -195,6 +195,22 @@
   --color-extime-malachite-700: oklch(0.272 0.0485 210.845); /** Palier DÉRIVÉ de Vert malachite, couleur identitaire Extime (#004650, palier 600) : clarté portée à 0.272, teinte et chroma conservés, chroma ramené de 0.0627 à 0.0485 pour rester dans le gamut sRGB. La charte ne donne qu'une valeur ; une rampe en demande dix. */
   --color-extime-malachite-800: oklch(0.223 0.0406 210.845); /** Palier DÉRIVÉ de Vert malachite, couleur identitaire Extime (#004650, palier 600) : clarté portée à 0.223, teinte et chroma conservés, chroma ramené de 0.0627 à 0.0406 pour rester dans le gamut sRGB. La charte ne donne qu'une valeur ; une rampe en demande dix. */
   --color-extime-malachite-900: oklch(0.186 0.035 210.845); /** Palier DÉRIVÉ de Vert malachite, couleur identitaire Extime (#004650, palier 600) : clarté portée à 0.186, teinte et chroma conservés, chroma ramené de 0.0627 à 0.035 pour rester dans le gamut sRGB. La charte ne donne qu'une valeur ; une rampe en demande dix. */
+  /**
+   * Or d'une étoile de notation. Famille à part, et c'est le sujet : ce rôle pointait sur la rampe `warning`, c'est-à-dire sur le jaune d'AVERTISSEMENT. Une note de 4,2 sur 5 n'est pas une alerte. Le défaut est le même que celui relevé sur la palette des graphiques — un token employé pour un rôle qu'il n'a pas — et il avait une conséquence concrète : retoucher le jaune d'avertissement déplaçait les étoiles.
+   * 
+   * L'or reste COMMUN aux quatre marques. Une étoile est dorée par convention, pas par identité : Google, Trustpilot et Amazon emploient le même or sous des marques différentes. Une étoile aigue-marine chez Aikoz ne se lirait plus comme une note.
+   * 
+   * Les valeurs sont celles déjà en place, au hex près : rien ne bouge à l'œil, seul le lien sémantique est coupé. Palier du thème sombre.
+   */
+  --color-rating-gold-400: oklch(0.8352 0.1649 91.67);
+  /**
+   * Or d'une étoile de notation. Famille à part, et c'est le sujet : ce rôle pointait sur la rampe `warning`, c'est-à-dire sur le jaune d'AVERTISSEMENT. Une note de 4,2 sur 5 n'est pas une alerte. Le défaut est le même que celui relevé sur la palette des graphiques — un token employé pour un rôle qu'il n'a pas — et il avait une conséquence concrète : retoucher le jaune d'avertissement déplaçait les étoiles.
+   * 
+   * L'or reste COMMUN aux quatre marques. Une étoile est dorée par convention, pas par identité : Google, Trustpilot et Amazon emploient le même or sous des marques différentes. Une étoile aigue-marine chez Aikoz ne se lirait plus comme une note.
+   * 
+   * Les valeurs sont celles déjà en place, au hex près : rien ne bouge à l'œil, seul le lien sémantique est coupé. Palier du thème clair.
+   */
+  --color-rating-gold-500: oklch(0.7576 0.1549 88.059);
   --font-family-heading: 'PP Radio Grotesk', sans-serif; /** Titres / slides / print */
   --font-family-body: Inter, sans-serif; /** UI / web / dashboard (DA recente) */
   --font-family-mono: 'JetBrains Mono', monospace; /** KPI / chiffres */

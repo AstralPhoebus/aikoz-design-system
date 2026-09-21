@@ -360,8 +360,8 @@
     "rating": {
       "default": {
         "$type": "color",
-        "$value": "{color.warning.400}",
-        "$description": "Étoiles pleines sur fond sombre. Palier 400 et non 600 : sur du midnight c'est le clair qui contraste."
+        "$value": "{color.rating-gold.400}",
+        "$description": "Étoile pleine — l'or de notation, famille à part. Pointait sur la rampe `warning` : une note n'est pas une alerte."
       },
       "empty": {
         "$type": "color",
