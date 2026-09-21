@@ -80,6 +80,25 @@ export const AlignementDansUneGrille: Story = {
     const hauts = valeurs.slice(0, 3).map((v) => Math.round(v.getBoundingClientRect().top));
     // Toutes les valeurs démarrent à la même hauteur, à 1px près.
     await expect(Math.max(...hauts) - Math.min(...hauts)).toBeLessThanOrEqual(1);
+
+    // L'alignement horizontal, lui, dépend de la chasse des chiffres. Vérifié
+    // sur le RENDU, pas sur la classe : une police sans jeu tabulaire ferait
+    // passer `font-variant-numeric` sans rien aligner. On mesure donc la
+    // largeur réelle de « 1111 » et de « 8888 » dans le style de la valeur —
+    // c'est le seul test qui reste vrai si la police de marque change.
+    const style = getComputedStyle(valeurs[0]);
+    await expect(style.fontVariantNumeric).toBe("tabular-nums");
+
+    const sonde = document.createElement("span");
+    sonde.style.cssText = `position:absolute;visibility:hidden;white-space:pre;font:${style.font};font-variant-numeric:${style.fontVariantNumeric}`;
+    document.body.appendChild(sonde);
+    const largeur = (t: string) => {
+      sonde.textContent = t;
+      return sonde.getBoundingClientRect().width;
+    };
+    const ecart = Math.abs(largeur("1111") - largeur("8888"));
+    sonde.remove();
+    await expect(ecart).toBeLessThan(0.5);
   },
 };
 

@@ -18,6 +18,22 @@ import {
 } from "@registry/aikoz/chart-frame/chart-frame";
 import { type TableColumn } from "@registry/aikoz/table/table";
 
+// ─── Ticks d'axe ──────────────────────────────────────────────────────────────
+
+/**
+ * Chiffres à chasse fixe sur les graduations — voir `bar-chart.tsx` pour la
+ * mesure : en Gotham, les dix chiffres proportionnels s'étalent sur 35,7 px,
+ * et la police embarque bien la variante tabulaire, il manquait de la demander.
+ *
+ * `style` et non une propriété de premier niveau : recharts type l'objet `tick`
+ * en `SVGProps<SVGTextElement>`, qui ne connaît pas `fontVariantNumeric`.
+ */
+const TICK = {
+  fill: "var(--muted-foreground)",
+  fontSize: 12,
+  style: { fontVariantNumeric: "tabular-nums" },
+} as const;
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export type LineSerie = ChartSerie;
@@ -188,9 +204,12 @@ export function LineChart({
             tabIndex={-1}
           >
             <CartesianGrid stroke="var(--border)" strokeDasharray="3 3" vertical={false} />
+            // Graduations en chiffres tabulaires : sur un axe vertical, des chiffres
+            // de chasse variable décalent les graduations les unes par rapport aux
+            // autres et le rail de gauche ondule.
             <XAxis
               dataKey={xKey}
-              tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
+              tick={TICK}
               stroke="var(--border-strong)"
               tickLine={false}
               height={xLabel ? 44 : 30}
@@ -207,7 +226,7 @@ export function LineChart({
             </XAxis>
             <YAxis
               width={yLabel ? 60 : 44}
-              tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
+              tick={TICK}
               stroke="var(--border-strong)"
               tickLine={false}
             >

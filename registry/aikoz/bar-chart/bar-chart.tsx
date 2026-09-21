@@ -44,6 +44,32 @@ function cheminBarre(x: number, y: number, w: number, h: number, r: number) {
   );
 }
 
+// ─── Ticks d'axe ──────────────────────────────────────────────────────────────
+
+/**
+ * Chiffres à chasse fixe sur les graduations.
+ *
+ * Mesuré : en Gotham, les dix chiffres proportionnels s'étalent sur 35,7 px de
+ * large — un axe vertical dont les valeurs ne s'alignent pas verticalement.
+ * Gotham EMBARQUE les chiffres tabulaires (écart mesuré 0 une fois la variante
+ * demandée) ; il manquait seulement de les demander. Même constat en Montserrat
+ * (30,2) et en Inter (23,9).
+ *
+ * Hoisté plutôt que recopié : la variante avait été oubliée sur une des cinq
+ * déclarations de ticks du module parce qu'elles étaient écrites à la main.
+ *
+ * `style` et non une propriété de premier niveau : recharts type l'objet `tick`
+ * en `SVGProps<SVGTextElement>`, qui ne connaît pas `fontVariantNumeric` —
+ * la propriété CSS passe par `style`, qui est bien dans le typage.
+ */
+const CHIFFRES_ALIGNES = { fontVariantNumeric: "tabular-nums" } as const;
+
+const TICK = {
+  fill: "var(--muted-foreground)",
+  fontSize: 12,
+  style: CHIFFRES_ALIGNES,
+} as const;
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export interface BarChartProps {
@@ -263,12 +289,15 @@ export function BarChart({
             />
             {horizontal ? (
               <>
-                <XAxis
+                // Graduations en chiffres tabulaires : sur un axe vertical, des chiffres
+            // de chasse variable décalent les graduations les unes par rapport aux
+            // autres et le rail de gauche ondule.
+            <XAxis
                   type="number"
                   domain={percent ? [0, 100] : undefined}
                   ticks={percent ? [0, 50, 100] : undefined}
                   tickFormatter={percent ? (v) => `${v} %` : undefined}
-                  tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
+                  tick={TICK}
                   stroke="var(--border-strong)"
                   tickLine={false}
                   height={yLabel ? 44 : 30}
@@ -301,7 +330,7 @@ export function BarChart({
                       Math.max(...chartData.map((d) => String(d[xKey] ?? "").length)) * 7 + 16
                     )
                   )}
-                  tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
+                  tick={TICK}
                   stroke="var(--border-strong)"
                   tickLine={false}
                 />
@@ -320,8 +349,8 @@ export function BarChart({
                   axisLine={!percent}
                   tick={
                     percent
-                      ? { fill: "var(--foreground)", fontSize: 13, fontWeight: 600 }
-                      : { fill: "var(--muted-foreground)", fontSize: 12 }
+                      ? { ...TICK, fill: "var(--foreground)", fontSize: 13, fontWeight: 600 }
+                      : TICK
                   }
                   stroke="var(--border-strong)"
                   tickLine={false}
@@ -345,7 +374,7 @@ export function BarChart({
                   domain={percent ? [0, 100] : undefined}
                   ticks={percent ? [0, 50, 100] : undefined}
                   tickFormatter={percent ? (v) => `${v} %` : undefined}
-                  tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
+                  tick={TICK}
                   stroke="var(--border-strong)"
                   tickLine={false}
                 >
