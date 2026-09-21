@@ -108,14 +108,14 @@
         "$value": {
           "colorSpace": "oklch",
           "components": [
-            0.1334,
-            0.064,
+            0.1,
+            0.0571,
             28.706
           ],
           "alpha": 1,
-          "hex": "#1B0000"
+          "hex": "#110000"
         },
-        "$description": "Chrome sombre, palier 1000 — clarté et chroma de l'ÉCHELLE DU THÈME (0.1334 / plafond 0.0203), teinte de la marque (28.706°). L'échelle est déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque : laissée à la charte, la carte d'ADP sortait 30 % plus claire et trois fois plus saturée que celle d'Aikoz. Chroma plafonné par la référence : 0.0844 -> 0.064. Une surface sombre très chromée ne se lit pas comme profonde mais comme un voile de couleur posé sur du noir. L'intensité appartient à l'échelle, la teinte à la marque."
+        "$description": "Chrome sombre, palier 1000 — clarté et chroma de l'ÉCHELLE DU THÈME (0.1 / plafond 0.0203), teinte de la marque (28.706°). L'échelle est déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque : laissée à la charte, la carte d'ADP sortait 30 % plus claire et trois fois plus saturée que celle d'Aikoz. Chroma plafonné par la référence : 0.0844 -> 0.0571. Une surface sombre très chromée ne se lit pas comme profonde mais comme un voile de couleur posé sur du noir. L'intensité appartient à l'échelle, la teinte à la marque."
       }
     },
     "brand": {

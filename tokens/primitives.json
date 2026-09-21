@@ -160,14 +160,14 @@
         "$value": {
           "colorSpace": "oklch",
           "components": [
-            0.1334,
+            0.1,
             0.0203,
             258.025
           ],
           "alpha": 1,
-          "hex": "#040810"
+          "hex": "#010309"
         },
-        "$description": "Bleu nuit quasi noir — palette de marque primaire, sans rôle sémantique dédié."
+        "$description": "Barreau le plus bas de l'échelle de chrome sombre — le QUASI-NOIR de la page. Descendu de 0,1334 à 0,100 : l'écart page/carte passe de 0,090 à 0,123, au niveau d'Anthropic (0,118). C'est cette profondeur qui fait qu'un thème sombre paraît moderne, pas la noirceur du fond.\n\nConséquence mesurée et ASSUMÉE : plus la page descend, plus les marques s'y confondent — l'écart minimal entre les quatre passe de 0,032 à 0,010. C'est le gamut sRGB qui se referme en pointe vers le noir, aucun réglage n'y change rien. L'identité de marque ne vit donc PAS sur la page : elle commence à la carte."
       }
     },
     "ultramarine": {

@@ -14,7 +14,12 @@
   --color-midnight-blue-800: oklch(0.2232 0.0804 270.354); /** Bleu nuit foncé — primaire survolé (brand.primary-hover) ; surfaces élevées et fonds en dark. */
   --color-midnight-blue-900: oklch(0.1857 0.048 268.675); /** Bleu nuit — couleur primaire de marque : texte principal en light, fond de page en dark. */
   --color-midnight-blue-950: oklch(0.159 0.0351 268.372); /** Bleu nuit profond — fond de page et surface creux en dark (surface.page/sunken). */
-  --color-midnight-blue-1000: oklch(0.1334 0.0203 258.025); /** Bleu nuit quasi noir — palette de marque primaire, sans rôle sémantique dédié. */
+  /**
+   * Barreau le plus bas de l'échelle de chrome sombre — le QUASI-NOIR de la page. Descendu de 0,1334 à 0,100 : l'écart page/carte passe de 0,090 à 0,123, au niveau d'Anthropic (0,118). C'est cette profondeur qui fait qu'un thème sombre paraît moderne, pas la noirceur du fond.
+   * 
+   * Conséquence mesurée et ASSUMÉE : plus la page descend, plus les marques s'y confondent — l'écart minimal entre les quatre passe de 0,032 à 0,010. C'est le gamut sRGB qui se referme en pointe vers le noir, aucun réglage n'y change rien. L'identité de marque ne vit donc PAS sur la page : elle commence à la carte.
+   */
+  --color-midnight-blue-1000: oklch(0.1 0.0203 258.025);
   --color-ultramarine-50: oklch(0.9594 0.0094 279.688); /** Bleu outremer — palette de marque secondaire, sans rôle sémantique dédié. */
   --color-ultramarine-100: oklch(0.91 0.0289 277.22); /** Bleu outremer — fond secondaire subtil (brand.secondary-subtle). */
   --color-ultramarine-200: oklch(0.8174 0.0662 281.012); /** Bleu outremer clair — palette de marque secondaire, sans rôle sémantique dédié. */
