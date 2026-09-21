@@ -38,6 +38,7 @@
   --info-subtle: var(--color-status-info-subtle); /** extension DS — fond tres pale d'un statut ; PORTE le texte du meme statut, donc audite a 4,5:1 contre lui */
   --chart-1: var(--color-chart-1); /** extension DS — tracé série de données 1 */
   --chart-2: var(--color-chart-2); /** extension DS — trace de la serie 2 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
+  --chart-3: var(--color-chart-3); /** extension DS — trace de la serie 3 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-4: var(--color-chart-4); /** extension DS — trace de la serie 4 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-5: var(--color-chart-5); /** extension DS — trace de la serie 5 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-6: var(--color-chart-6); /** extension DS — trace de la serie 6 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
@@ -59,7 +60,6 @@
   --ring: var(--color-border-focus); /** shadcn --ring */
   --nav-on: var(--color-nav-on); /** extension DS — texte de la navigation */
   --nav-accent: var(--color-nav-accent); /** extension DS — trait de l'entree courante ; ultramarine en clair, aquamarine en sombre — c'est LUI qui porte l'etat */
-  --chart-3: var(--color-chart-3); /** extension DS — trace de la serie 3 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --surface-inverse: var(--color-surface-inverse); /** extension DS — fond a contre-theme, premier arret du degrade */
   --surface-inverse-to: var(--color-surface-inverse-to); /** extension DS — second arret du degrade a contre-theme */
   --on-inverse: var(--color-surface-on-inverse); /** extension DS — texte porte par --surface-inverse */
@@ -93,6 +93,7 @@
   --chart-2: var(--color-chart-2); /** extension DS — trace de la serie 2 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-3: var(--color-chart-3); /** extension DS — trace de la serie 3 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-4: var(--color-chart-4); /** extension DS — trace de la serie 4 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
+  --chart-5: var(--color-chart-5); /** extension DS — trace de la serie 5 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-6: var(--color-chart-6); /** extension DS — trace de la serie 6 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --track: var(--color-surface-track); /** extension DS — piste d'une jauge ; PAS --muted, identique à --card en dark */
   --warning: var(--color-status-warning-text); /** extension DS — texte/emphase avertissement, et remplissage du niveau intermédiaire de ProgressBar */
@@ -121,7 +122,6 @@
   --nav-surface-active: var(--color-nav-surface-active); /** extension DS — voile de l'entree courante ; NE PORTE PAS l'etat a lui seul (1,19:1 en clair) */
   --nav-border: var(--color-nav-border); /** extension DS — separateur de la barre de navigation */
   --nav-accent: var(--color-nav-accent); /** extension DS — trait de l'entree courante ; ultramarine en clair, aquamarine en sombre — c'est LUI qui porte l'etat */
-  --chart-5: var(--color-chart-5); /** extension DS — trace de la serie 5 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --surface-inverse: var(--color-surface-inverse); /** extension DS — fond a contre-theme, premier arret du degrade */
   --on-inverse: var(--color-surface-on-inverse); /** extension DS — texte porte par --surface-inverse */
   --neutral-text: var(--color-status-neutral-text); /** extension DS — variation neutre d'un indicateur (DeltaBadge ton neutre) */
@@ -163,6 +163,7 @@
   --info-subtle: var(--color-status-info-subtle); /** extension DS — fond tres pale d'un statut ; PORTE le texte du meme statut, donc audite a 4,5:1 contre lui */
   --chart-1: var(--color-chart-1); /** extension DS — tracé série de données 1 */
   --chart-2: var(--color-chart-2); /** extension DS — trace de la serie 2 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
+  --chart-3: var(--color-chart-3); /** extension DS — trace de la serie 3 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-4: var(--color-chart-4); /** extension DS — trace de la serie 4 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-5: var(--color-chart-5); /** extension DS — trace de la serie 5 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-6: var(--color-chart-6); /** extension DS — trace de la serie 6 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
@@ -185,7 +186,6 @@
   --ring: var(--color-border-focus); /** shadcn --ring */
   --nav-on: var(--color-nav-on); /** extension DS — texte de la navigation */
   --nav-accent: var(--color-nav-accent); /** extension DS — trait de l'entree courante ; ultramarine en clair, aquamarine en sombre — c'est LUI qui porte l'etat */
-  --chart-3: var(--color-chart-3); /** extension DS — trace de la serie 3 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --surface-inverse: var(--color-surface-inverse); /** extension DS — fond a contre-theme, premier arret du degrade */
   --surface-inverse-to: var(--color-surface-inverse-to); /** extension DS — second arret du degrade a contre-theme */
   --on-inverse: var(--color-surface-on-inverse); /** extension DS — texte porte par --surface-inverse */
@@ -219,6 +219,7 @@
   --chart-2: var(--color-chart-2); /** extension DS — trace de la serie 2 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-3: var(--color-chart-3); /** extension DS — trace de la serie 3 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-4: var(--color-chart-4); /** extension DS — trace de la serie 4 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
+  --chart-5: var(--color-chart-5); /** extension DS — trace de la serie 5 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --chart-6: var(--color-chart-6); /** extension DS — trace de la serie 6 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --warning: var(--color-status-warning-text); /** extension DS — texte/emphase avertissement, et remplissage du niveau intermédiaire de ProgressBar */
   --info: var(--color-status-info-text); /** extension DS — texte/emphase information, ton `info` de Badge */
@@ -245,7 +246,6 @@
   --nav-surface-active: var(--color-nav-surface-active); /** extension DS — voile de l'entree courante ; NE PORTE PAS l'etat a lui seul (1,19:1 en clair) */
   --nav-border: var(--color-nav-border); /** extension DS — separateur de la barre de navigation */
   --nav-accent: var(--color-nav-accent); /** extension DS — trait de l'entree courante ; ultramarine en clair, aquamarine en sombre — c'est LUI qui porte l'etat */
-  --chart-5: var(--color-chart-5); /** extension DS — trace de la serie 5 ; la couleur ne distingue PAS les series a elle seule, cf. le token */
   --track: var(--color-surface-track); /** extension DS — piste d'une jauge ; PAS --muted, identique à --card en dark */
   --rating-empty: var(--color-rating-empty); /** extension DS — étoile vide, repère décoratif de l'échelle */
   --surface-inverse: var(--color-surface-inverse); /** extension DS — fond a contre-theme, premier arret du degrade */

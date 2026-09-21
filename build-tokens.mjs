@@ -522,6 +522,177 @@ const SEUIL_MARQUES = 0.05;
   }
 }
 
+// Garde-fou : six séries de données doivent rester distinguables, y compris
+// en vision dichromate.
+//
+// C'est le dernier contrôle du plan de test, et celui qui manquait le plus :
+// les palettes de séries sont CALCULÉES par `scripts/palette-series.py`, donc
+// personne ne les relit. Rien n'empêchait de retoucher un palier de rampe —
+// ou d'ajouter une marque — et de faire tomber deux courbes l'une sur
+// l'autre. Le défaut ne se voit pas sur un composant : il se voit sur un
+// graphique à six séries, chez quelqu'un d'autre.
+//
+// Deux critères, deux métriques — c'est le point :
+//
+//   • SÉPARATION entre séries : ΔE OKLab, seuil 0,10. Un ratio WCAG ne dit
+//     RIEN ici : deux teintes de même clarté ont un ratio de 1:1 et peuvent
+//     être un rouge et un vert parfaitement distincts. Le seuil catégoriel
+//     usuel est ~0,10 ; en dessous de 0,02 deux aplats se confondent.
+//   • LISIBILITÉ sur la carte : ratio WCAG, seuil 3:1 (1.4.11 — un tracé est
+//     un objet graphique porteur d'information).
+//
+// Et la séparation est mesurée trois fois : vision normale, protanopie,
+// deutéranopie (matrices Viénot/Brettel/Mollon 1999). Une palette qui sépare
+// bien en trichromie peut s'effondrer en deutéranopie, qui touche ~6 % des
+// hommes — c'est le cas d'école du rouge et du vert de même clarté.
+//
+// La carte sombre est LUE dans le token émis (`ink.800` de la marque), pas
+// re-dérivée : une règle de dérivation recopiée ici vieillirait à part et on
+// mesurerait contre une carte qui n'est pas celle qui est rendue. C'est
+// exactement ce qui s'est produit dans `palette-series.py`, qui plafonnait
+// encore le chroma alors que `ink-sombre.py` ne le plafonne plus.
+const SEUIL_SERIES = 0.1;
+const SEUIL_TRACE = 3.0;
+{
+  const lin = (c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
+  const delin = (c) => {
+    c = Math.max(0, Math.min(1, c));
+    return c <= 0.0031308 ? 12.92 * c : 1.055 * c ** (1 / 2.4) - 0.055;
+  };
+  const srgb = (hex) => {
+    const h = hex.replace('#', '');
+    return [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16) / 255);
+  };
+  const lum = ([r, g, b]) => 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+  const ratio = (a, b) => {
+    const [x, y] = [lum(a), lum(b)];
+    return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
+  };
+  const oklab = (rgb) => {
+    const [r, g, b] = rgb.map(lin);
+    const l = Math.cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b);
+    const m = Math.cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b);
+    const s = Math.cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b);
+    return [
+      0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s,
+      1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s,
+      0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s,
+    ];
+  };
+  // Viénot/Brettel/Mollon 1999, en LMS linéaire.
+  const cvd = (rgb, type) => {
+    if (type === 'normal') return rgb;
+    const [r, g, b] = rgb.map(lin);
+    let L = 17.8824 * r + 43.5161 * g + 4.11935 * b;
+    let M = 3.45565 * r + 27.1554 * g + 3.86714 * b;
+    let S = 0.0299566 * r + 0.184309 * g + 1.46709 * b;
+    if (type === 'prot') L = 2.02344 * M - 2.52581 * S;
+    else M = 0.494207 * L + 1.24827 * S;
+    return [
+      0.080944 * L - 0.130504 * M + 0.116721 * S,
+      -0.0102485 * L + 0.0540194 * M - 0.113615 * S,
+      -0.000365294 * L - 0.00412163 * M + 0.693513 * S,
+    ].map(delin);
+  };
+  const dE = (a, b, type) => {
+    const [x, y] = [oklab(cvd(a, type)), oklab(cvd(b, type))];
+    return Math.hypot(x[0] - y[0], x[1] - y[1], x[2] - y[2]);
+  };
+
+  const prim = JSON.parse(fs.readFileSync('tokens/primitives.json', 'utf8')).color;
+  const lire = (f) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : null);
+  const themes = {
+    light: lire('tokens/theme/light.json'),
+    dark: lire('tokens/theme/dark.json'),
+  };
+
+  for (const marque of ['aikoz', 'adp', 'extime', 'generali']) {
+    const clair = lire(`tokens/brand/${marque}.json`);
+    const sombre = lire(`tokens/brand/${marque}-dark.json`);
+
+    // `{color.ink.X}` est une référence de MARQUE : le thème la pose, la
+    // marque la résout. Sans ce passage, on auditerait la palette d'ADP avec
+    // le bleu nuit d'Aikoz.
+    const resoudre = (ref, brand) => {
+      const [, rampe, pas] = ref.replace(/[{}]/g, '').split('.');
+      if (rampe === 'ink') {
+        const cible =
+          brand?.color?.ink?.[pas]?.$value ?? clair?.color?.ink?.[pas]?.$value;
+        if (!cible) return null;
+        return typeof cible === 'string' ? resoudre(cible, brand) : srgb(cible.hex);
+      }
+      const t = prim[rampe]?.[pas];
+      return t ? srgb(t.$value.hex) : null;
+    };
+
+    for (const theme of ['light', 'dark']) {
+      const source = theme === 'dark' ? sombre : clair;
+      // La marque redéfinit ses séries, ou hérite de celles du thème.
+      const series = source?.color?.chart ?? themes[theme]?.color?.chart;
+      if (!series) {
+        echecs.push(`« ${marque} » n'a aucune série de données en thème ${theme}`);
+        continue;
+      }
+      const cols = Object.keys(series)
+        .sort((a, b) => Number(a) - Number(b))
+        .map((k) => {
+          const v = series[k].$value;
+          return [k, typeof v === 'string' ? resoudre(v, source) : srgb(v.hex)];
+        });
+      const manquantes = cols.filter(([, c]) => !c).map(([k]) => k);
+      if (manquantes.length) {
+        echecs.push(
+          `« ${marque} » ${theme} : les séries ${manquantes.join(', ')} pointent vers ` +
+            `une primitive absente — le graphique rendrait sans couleur.`,
+        );
+        continue;
+      }
+
+      // La carte : blanc en clair, le palier 800 du chrome de la marque en
+      // sombre — LU, pas re-dérivé.
+      const ink800 = sombre?.color?.ink?.['800']?.$value ?? clair?.color?.ink?.['800']?.$value;
+      const carte =
+        theme === 'light'
+          ? srgb('#FFFFFF')
+          : typeof ink800 === 'string'
+          ? resoudre(ink800, sombre)
+          : ink800
+          ? srgb(ink800.hex)
+          : null;
+      if (!carte) {
+        echecs.push(`« ${marque} » ${theme} : carte introuvable, séries non auditables`);
+        continue;
+      }
+
+      for (const [k, c] of cols) {
+        const r = ratio(c, carte);
+        if (r < SEUIL_TRACE) {
+          echecs.push(
+            `« ${marque} » ${theme} : la série ${k} tient ${r.toFixed(2)}:1 sur la carte, ` +
+              `pour un seuil de ${SEUIL_TRACE}:1 (WCAG 1.4.11 — un tracé porte l'information). ` +
+              `Relancer scripts/palette-series.py.`,
+          );
+        }
+      }
+      for (let i = 0; i < cols.length; i++) {
+        for (let j = i + 1; j < cols.length; j++) {
+          for (const vision of ['normal', 'prot', 'deut']) {
+            const d = dE(cols[i][1], cols[j][1], vision);
+            if (d < SEUIL_SERIES) {
+              echecs.push(
+                `« ${marque} » ${theme} : les séries ${cols[i][0]} et ${cols[j][0]} se ` +
+                  `confondent en vision ${vision} — ΔE ${d.toFixed(3)} pour un seuil de ` +
+                  `${SEUIL_SERIES}. Un ratio WCAG ne verrait rien (deux teintes de même ` +
+                  `clarté valent 1:1). Relancer scripts/palette-series.py.`,
+              );
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 const configTw = fs.readFileSync('tailwind.config.ts', 'utf8');
 if (!/from\s+["'].\/build\/tailwind-colors\.mjs["']/.test(configTw)) {
   echecs.push(
