@@ -208,8 +208,12 @@ export interface ChartFrameProps<T> {
  *    retrouver une, ni copier quoi que ce soit. Le `aria-label` donne le
  *    résumé, le tableau donne la donnée — et il réutilise `Table`, donc ses
  *    en-têtes de ligne et de colonne.
- * 2. **La légende arrive AVANT le graphique.** Elle en est la clé de
- *    lecture ; en dessous, elle arrive trop tard.
+ * 2. **La légende arrive APRÈS le graphique.** Placée avant, elle
+ *    s'interposait entre le titre et la donnée : l'œil devait traverser une
+ *    liste de noms pour atteindre ce qu'il venait voir. En dessous, elle ne
+ *    sert qu'à ceux qui en ont besoin, au moment où une courbe les
+ *    interroge. Et `LineChart` la masque carrément quand ses courbes portent
+ *    déjà leur nom au bout du tracé.
  * 3. **Trois canaux par série**, jamais la couleur seule (WCAG 1.4.1).
  * 4. **Aucune animation** (WCAG 2.3.3).
  *
