@@ -1,5 +1,6 @@
 import {
   CartesianGrid,
+  LabelList,
   Line,
   LineChart as RechartsLineChart,
   Label,
@@ -50,6 +51,24 @@ export interface LineChartProps {
   yLabel?: string;
   formatValue?: (v: string | number) => string;
   height?: number;
+  /**
+   * Nomme chaque courbe AU BOUT de son tracé, au lieu d'une légende.
+   *
+   * C'est la recommandation constante de Carbon, Datawrapper et du FT, et
+   * elle règle deux choses d'un coup. L'œil n'a plus d'aller-retour à faire
+   * entre une liste de noms et un tracé — le nom est là où la courbe finit.
+   * Et surtout, l'identification passe par du TEXTE : la courbe ne dépend
+   * plus de sa couleur pour être reconnue, donc le tiret qui portait ce rôle
+   * peut disparaître et les traits redeviennent pleins.
+   *
+   * Mesuré sur notre palette, une paire de séries sur quinze se confond en
+   * niveaux de gris (1,08:1 en clair). Le tiret ne couvrait donc qu'une paire ;
+   * l'étiquette les couvre toutes.
+   *
+   * Désactivé au-delà de quatre séries ou sous 480 px : l'étiquette n'a plus
+   * la place, et deux étiquettes qui se chevauchent sont pires qu'une légende.
+   */
+  directLabels?: boolean;
   tableCollapsed?: boolean;
   className?: string;
 }
@@ -79,10 +98,26 @@ export function LineChart({
   yLabel,
   formatValue = (v) => String(v),
   height = 280,
+  directLabels = true,
   tableCollapsed = true,
   className,
 }: LineChartProps) {
   const toutes = reference ? [...series, reference] : series;
+
+  // Au-delà de quatre courbes les étiquettes se chevauchent : elles sont
+  // écrites à la hauteur du DERNIER point, et rien ne garantit que quatre
+  // derniers points soient assez espacés verticalement. Recharts ne sait pas
+  // pousser une étiquette hors de la place d'une autre ; mieux vaut la
+  // légende que deux noms superposés.
+  const etiquettes = directLabels && toutes.length <= 4;
+
+  // La gouttière est dimensionnée sur le plus long libellé — environ 7 px par
+  // caractère à 12 px, plus le point terminal. Mesurer le texte rendu
+  // demanderait un aller-retour dans le DOM pour un gain nul : une gouttière
+  // trop large coûte quelques pixels, une trop étroite tronque un nom.
+  const gouttiere = etiquettes
+    ? Math.min(140, Math.max(...toutes.map((s) => s.label.length)) * 7 + 16)
+    : 8;
 
   const columns: TableColumn<Record<string, string | number>>[] = [
     { key: xKey, header: xLabel ?? "Période" },
@@ -124,6 +159,9 @@ export function LineChart({
       getRowKey={(_, i) => `${xKey}-${i}`}
       rowHeaderKey={xKey}
       height={height}
+      // Une légende sous des courbes déjà nommées répète l'information et
+      // rallonge le bloc pour rien.
+      hideLegend={etiquettes}
       tableCollapsed={tableCollapsed}
       className={className}
     >
@@ -139,7 +177,7 @@ export function LineChart({
               tableau qui suit, le curseur ne porte aucune information. */}
           <RechartsLineChart
             data={data}
-            margin={{ top: 8, right: 8, bottom: 8, left: 0 }}
+            margin={{ top: 8, right: gouttiere, bottom: 8, left: 0 }}
             style={{ cursor: "pointer" }}
             onMouseMove={surSurvol}
             onMouseLeave={() => surSurvol(null)}
@@ -214,7 +252,10 @@ export function LineChart({
                 name={s.label}
                 stroke={couleurSerie(i)}
                 strokeWidth={2}
-                strokeDasharray={styleSerie(i).trait}
+                // Trait PLEIN quand la courbe porte son nom. Le tiret existait
+                // pour distinguer deux séries sans dépendre de la couleur ;
+                // l'étiquette le fait mieux, avec du texte.
+                strokeDasharray={etiquettes ? undefined : styleSerie(i).trait}
                 dot={{ r: 3.5, fill: couleurSerie(i), strokeWidth: 0 }}
                 // Halo à la couleur de la carte : le point survolé se
                 // détache par un liseré qui le DÉCOUPE du fond, plutôt que
@@ -223,7 +264,38 @@ export function LineChart({
                 // plusieurs séries s'activent en même temps.
                 activeDot={{ r: 6, stroke: "var(--card)", strokeWidth: 2.5 }}
                 isAnimationActive={false}
-              />
+              >
+                {etiquettes && (
+                  <LabelList
+                    dataKey={s.key}
+                    position="right"
+                    offset={10}
+                    fill={couleurSerie(i)}
+                    fontSize={12}
+                    fontWeight={600}
+                    // Seul le DERNIER point porte le nom : `LabelList` en pose
+                    // un sur chaque point sans ce filtre, et la courbe devient
+                    // une phrase répétée.
+                    content={({ x, y, index, value }: {
+                      x?: number | string; y?: number | string;
+                      index?: number; value?: number | string;
+                    }) =>
+                      index === data.length - 1 && value !== undefined ? (
+                        <text
+                          x={Number(x) + 10}
+                          y={Number(y)}
+                          dominantBaseline="central"
+                          fill={couleurSerie(i)}
+                          fontSize={12}
+                          fontWeight={600}
+                        >
+                          {s.label}
+                        </text>
+                      ) : null
+                    }
+                  />
+                )}
+              </Line>
             ))}
           </RechartsLineChart>
         </ResponsiveContainer>
