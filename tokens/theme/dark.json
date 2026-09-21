@@ -3,7 +3,8 @@
     "surface": {
       "page": {
         "$type": "color",
-        "$value": "{color.ink.950}"
+        "$value": "{color.ink.1000}",
+        "$description": "La PAGE descend au palier le plus bas de l'échelle (L=0,133) et la carte reste au 800 (L=0,223). Ce n'est pas la page qui était trop claire — mesurée contre les références, elle était déjà plus sombre que toutes : GitHub Primer 0,176 · Anthropic 0,191 · OpenCode 0,234 · Mistral 0,239. C'était l'ÉCART page/carte qui manquait : 0,064 chez nous contre 0,118 chez Anthropic. Un thème sombre paraît moderne par la PROFONDEUR de ses plans, pas par la noirceur de son fond ; à écart trop faible, tout se lit comme un aplat terne. Le nouvel écart vaut 0,090."
       },
       "default": {
         "$type": "color",
@@ -24,7 +25,8 @@
       },
       "sunken": {
         "$type": "color",
-        "$value": "{color.ink.950}"
+        "$value": "{color.ink.1000}",
+        "$description": "Creux — au même palier que la page, cf. `surface.page`."
       },
       "hover": {
         "$type": "color",
