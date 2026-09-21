@@ -2549,6 +2549,62 @@
       }
     },
     "generali-green": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.959,
+            0.0763,
+            140.886
+          ],
+          "alpha": 1,
+          "hex": "#D6FFCF"
+        },
+        "$description": "Palier DÉRIVÉ du palier 400 de la charte : clarté portée à 0.959 sur le profil de `extime-gold`, teinte et chroma conservés. Chroma ramené de 0.1479 à 0.0763 pour rester dans le gamut sRGB. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.909,
+            0.1479,
+            140.886
+          ],
+          "alpha": 1,
+          "hex": "#A9F99B"
+        },
+        "$description": "Palier DÉRIVÉ du palier 400 de la charte : clarté portée à 0.909 sur le profil de `extime-gold`, teinte et chroma conservés. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.824,
+            0.1479,
+            140.886
+          ],
+          "alpha": 1,
+          "hex": "#8DDD80"
+        },
+        "$description": "Palier DÉRIVÉ du palier 400 de la charte : clarté portée à 0.824 sur le profil de `extime-gold`, teinte et chroma conservés. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.7031,
+            0.1479,
+            140.886
+          ],
+          "alpha": 1,
+          "hex": "#68B65B"
+        },
+        "$description": "Palier DÉRIVÉ du palier 400 de la charte : clarté portée à 0.7031 sur le profil de `extime-gold`, teinte et chroma conservés. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
+      },
       "400": {
         "$type": "color",
         "$value": {
@@ -2576,9 +2632,121 @@
           "hex": "#42804F"
         },
         "$description": "Couleur secondaire de la charte Generali (page 202, « Palette de couleurs » du style illustratif). Valeur de la charte, reprise au hex près ; le numéro de palier est déduit de sa clarté OKLCH, aucune teinte n'est inventée."
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.355,
+            0.0997,
+            148.996
+          ],
+          "alpha": 1,
+          "hex": "#01491B"
+        },
+        "$description": "Palier DÉRIVÉ du palier 500 de la charte : clarté portée à 0.355 sur le profil de `extime-gold`, teinte et chroma conservés. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.272,
+            0.0788,
+            148.996
+          ],
+          "alpha": 1,
+          "hex": "#00310F"
+        },
+        "$description": "Palier DÉRIVÉ du palier 500 de la charte : clarté portée à 0.272 sur le profil de `extime-gold`, teinte et chroma conservés. Chroma ramené de 0.0997 à 0.0788 pour rester dans le gamut sRGB. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.223,
+            0.066,
+            148.996
+          ],
+          "alpha": 1,
+          "hex": "#002308"
+        },
+        "$description": "Palier DÉRIVÉ du palier 500 de la charte : clarté portée à 0.223 sur le profil de `extime-gold`, teinte et chroma conservés. Chroma ramené de 0.0997 à 0.066 pour rester dans le gamut sRGB. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.186,
+            0.0569,
+            148.996
+          ],
+          "alpha": 1,
+          "hex": "#001904"
+        },
+        "$description": "Palier DÉRIVÉ du palier 500 de la charte : clarté portée à 0.186 sur le profil de `extime-gold`, teinte et chroma conservés. Chroma ramené de 0.0997 à 0.0569 pour rester dans le gamut sRGB. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
       }
     },
     "generali-periwinkle": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.959,
+            0.0195,
+            273.961
+          ],
+          "alpha": 1,
+          "hex": "#EDF1FF"
+        },
+        "$description": "Palier DÉRIVÉ du palier 400 de la charte : clarté portée à 0.959 sur le profil de `extime-gold`, teinte et chroma conservés. Chroma ramené de 0.0768 à 0.0195 pour rester dans le gamut sRGB. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.909,
+            0.044,
+            273.961
+          ],
+          "alpha": 1,
+          "hex": "#D7E0FF"
+        },
+        "$description": "Palier DÉRIVÉ du palier 400 de la charte : clarté portée à 0.909 sur le profil de `extime-gold`, teinte et chroma conservés. Chroma ramené de 0.0768 à 0.044 pour rester dans le gamut sRGB. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.824,
+            0.0768,
+            273.961
+          ],
+          "alpha": 1,
+          "hex": "#B5C2F8"
+        },
+        "$description": "Palier DÉRIVÉ du palier 400 de la charte : clarté portée à 0.824 sur le profil de `extime-gold`, teinte et chroma conservés. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.7031,
+            0.0768,
+            273.961
+          ],
+          "alpha": 1,
+          "hex": "#909CD0"
+        },
+        "$description": "Palier DÉRIVÉ du palier 400 de la charte : clarté portée à 0.7031 sur le profil de `extime-gold`, teinte et chroma conservés. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
+      },
       "400": {
         "$type": "color",
         "$value": {
@@ -2606,9 +2774,107 @@
           "hex": "#4F62A8"
         },
         "$description": "Couleur secondaire de la charte Generali (page 202, « Palette de couleurs » du style illustratif). Valeur de la charte, reprise au hex près ; le numéro de palier est déduit de sa clarté OKLCH, aucune teinte n'est inventée."
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.355,
+            0.1132,
+            270.562
+          ],
+          "alpha": 1,
+          "hex": "#273476"
+        },
+        "$description": "Palier DÉRIVÉ du palier 500 de la charte : clarté portée à 0.355 sur le profil de `extime-gold`, teinte et chroma conservés. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.272,
+            0.1132,
+            270.562
+          ],
+          "alpha": 1,
+          "hex": "#141D5D"
+        },
+        "$description": "Palier DÉRIVÉ du palier 500 de la charte : clarté portée à 0.272 sur le profil de `extime-gold`, teinte et chroma conservés. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.223,
+            0.1132,
+            270.562
+          ],
+          "alpha": 1,
+          "hex": "#0B0F4F"
+        },
+        "$description": "Palier DÉRIVÉ du palier 500 de la charte : clarté portée à 0.223 sur le profil de `extime-gold`, teinte et chroma conservés. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.186,
+            0.1132,
+            270.562
+          ],
+          "alpha": 1,
+          "hex": "#070344"
+        },
+        "$description": "Palier DÉRIVÉ du palier 500 de la charte : clarté portée à 0.186 sur le profil de `extime-gold`, teinte et chroma conservés. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
       }
     },
     "generali-amber": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.959,
+            0.0364,
+            78.836
+          ],
+          "alpha": 1,
+          "hex": "#FFEFD7"
+        },
+        "$description": "Palier DÉRIVÉ du palier 300 de la charte : clarté portée à 0.959 sur le profil de `extime-gold`, teinte et chroma conservés. Chroma ramené de 0.1353 à 0.0364 pour rester dans le gamut sRGB. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.909,
+            0.0827,
+            78.836
+          ],
+          "alpha": 1,
+          "hex": "#FFDBA2"
+        },
+        "$description": "Palier DÉRIVÉ du palier 300 de la charte : clarté portée à 0.909 sur le profil de `extime-gold`, teinte et chroma conservés. Chroma ramené de 0.1353 à 0.0827 pour rester dans le gamut sRGB. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.824,
+            0.1353,
+            78.836
+          ],
+          "alpha": 1,
+          "hex": "#F4BA54"
+        },
+        "$description": "Palier DÉRIVÉ du palier 300 de la charte : clarté portée à 0.824 sur le profil de `extime-gold`, teinte et chroma conservés. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
+      },
       "300": {
         "$type": "color",
         "$value": {
@@ -2622,6 +2888,90 @@
           "hex": "#D9A036"
         },
         "$description": "Couleur secondaire de la charte Generali (page 202, « Palette de couleurs » du style illustratif). Valeur de la charte, reprise au hex près ; le numéro de palier est déduit de sa clarté OKLCH, aucune teinte n'est inventée."
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.586,
+            0.1222,
+            78.836
+          ],
+          "alpha": 1,
+          "hex": "#A37200"
+        },
+        "$description": "Palier DÉRIVÉ du palier 300 de la charte : clarté portée à 0.586 sur le profil de `extime-gold`, teinte et chroma conservés. Chroma ramené de 0.1353 à 0.1222 pour rester dans le gamut sRGB. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.458,
+            0.0959,
+            78.836
+          ],
+          "alpha": 1,
+          "hex": "#745000"
+        },
+        "$description": "Palier DÉRIVÉ du palier 300 de la charte : clarté portée à 0.458 sur le profil de `extime-gold`, teinte et chroma conservés. Chroma ramené de 0.1353 à 0.0959 pour rester dans le gamut sRGB. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.355,
+            0.075,
+            78.836
+          ],
+          "alpha": 1,
+          "hex": "#513600"
+        },
+        "$description": "Palier DÉRIVÉ du palier 300 de la charte : clarté portée à 0.355 sur le profil de `extime-gold`, teinte et chroma conservés. Chroma ramené de 0.1353 à 0.075 pour rester dans le gamut sRGB. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.272,
+            0.0586,
+            78.836
+          ],
+          "alpha": 1,
+          "hex": "#362300"
+        },
+        "$description": "Palier DÉRIVÉ du palier 300 de la charte : clarté portée à 0.272 sur le profil de `extime-gold`, teinte et chroma conservés. Chroma ramené de 0.1353 à 0.0586 pour rester dans le gamut sRGB. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.223,
+            0.0494,
+            78.836
+          ],
+          "alpha": 1,
+          "hex": "#271800"
+        },
+        "$description": "Palier DÉRIVÉ du palier 300 de la charte : clarté portée à 0.223 sur le profil de `extime-gold`, teinte et chroma conservés. Chroma ramené de 0.1353 à 0.0494 pour rester dans le gamut sRGB. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.186,
+            0.0431,
+            78.836
+          ],
+          "alpha": 1,
+          "hex": "#1D1000"
+        },
+        "$description": "Palier DÉRIVÉ du palier 300 de la charte : clarté portée à 0.186 sur le profil de `extime-gold`, teinte et chroma conservés. Chroma ramené de 0.1353 à 0.0431 pour rester dans le gamut sRGB. La charte Generali ne donne qu'une ou deux valeurs pour cette couleur ; une palette catégorielle en demande plus. Depuis que les fonds sombres sont communs aux marques, le vivier de Generali était tombé à 18 teintes et sa séparation de séries à ΔE 0,092, sous le seuil de 0,10 — vérifié par recherche exhaustive : il manquait des couleurs, pas un meilleur algorithme."
       }
     },
     "extime-malachite": {

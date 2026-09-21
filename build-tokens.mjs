@@ -420,104 +420,96 @@ for (const [nom, L] of fonds) {
   }
 }
 
-// Garde-fou : la rampe d'Aikoz ne doit pas s'écarter de l'ÉCHELLE de chrome
-// sombre.
+// Garde-fou : le chrome sombre est le MÊME pour toutes les marques.
 //
-// L'échelle est déclarée dans `scripts/ink-sombre.py` et sert à dériver le
-// chrome sombre de chaque marque. Aikoz, lui, y arrive par sa propre rampe
-// `midnight-blue` : son fichier de marque mappe `ink.X` dessus directement.
-// Les deux coïncident aujourd'hui, et ce garde-fou existe pour que ça reste
-// vrai — sinon Aikoz dériverait de l'échelle que toutes les autres marques
-// respectent, et « le thème sombre est le même partout » deviendrait faux
-// sans qu'aucun test ne bouge.
+// Le 21/09/2026 le sombre a été aligné sur le clair. En clair, les quatre
+// marques partagent exactement le même fond (`neutral.50`, chroma 0,0029) et
+// la marque ne se lit que sur les ÉLÉMENTS. En sombre, le fond portait la
+// marque — chroma de la carte de 0,041 à 0,147, jusqu'à cinquante fois le
+// clair. Deux modèles opposés dans un même système.
 //
-// Le sens de la dépendance est là, explicite : l'échelle ne LIT pas Aikoz,
-// c'est Aikoz qui doit s'y conformer.
-const ECHELLE_CHROME = {
-  400: [0.5856, 0.0957],
-  600: [0.3552, 0.117],
-  700: [0.272, 0.0982],
-  800: [0.2232, 0.0804],
-  900: [0.1857, 0.048],
-  950: [0.159, 0.0351],
-  1000: [0.1, 0.0203],
+// Les deux garde-fous précédents disparaissent avec ce changement :
+//
+//   - « la rampe d'Aikoz ne doit pas s'écarter de l'échelle » n'a plus d'objet :
+//     l'échelle ne vient plus d'une rampe de marque, elle est interpolée sur
+//     la rampe neutre.
+//   - « deux marques ne doivent pas se confondre sur la carte » est INVERSÉ :
+//     elles doivent maintenant se confondre, et c'est la règle.
+//
+// Ce qui les remplace est plus simple à tenir : le chrome sombre est une
+// valeur unique, et on vérifie qu'aucun fichier de marque ne s'en écarte.
+// Ajouter une marque n'a donc plus rien à dériver côté fonds.
+const ECHELLE_SOMBRE = {
+  400: [0.5856, 0.0139, 260.879],
+  600: [0.3552, 0.0146, 269.371],
+  700: [0.272, 0.0171, 270.767],
+  800: [0.2232, 0.0146, 272.351],
+  900: [0.1857, 0.0133, 271.174],
+  950: [0.159, 0.0116, 271.323],
+  1000: [0.1, 0.0062, 274.32],
 };
 {
-  const prim = JSON.parse(fs.readFileSync('tokens/primitives.json', 'utf8'));
-  for (const [pas, [L, C]] of Object.entries(ECHELLE_CHROME)) {
-    const t = prim.color['midnight-blue'][pas];
-    if (!t) { echecs.push(`midnight-blue.${pas} manque — l'échelle de chrome sombre l'attend`); continue; }
-    const [l, c] = t.$value.components;
-    if (Math.abs(l - L) > 0.001 || Math.abs(c - C) > 0.001) {
-      echecs.push(
-        `midnight-blue.${pas} (L=${l} C=${c}) s'écarte de l'échelle de chrome sombre ` +
-          `(L=${L} C=${C}). Aikoz ne suivrait plus l'échelle que les autres marques ` +
-          `respectent. Corriger la rampe, ou mettre à jour l'échelle dans ` +
-          `scripts/ink-sombre.py ET ici, puis relancer scripts/ink-sombre.py.`,
-      );
+  for (const m of ['aikoz', 'adp', 'extime', 'generali']) {
+    const f = `tokens/brand/${m}-dark.json`;
+    if (!fs.existsSync(f)) { echecs.push(`${f} manque — le chrome sombre y est écrit`); continue; }
+    const ink = JSON.parse(fs.readFileSync(f, 'utf8')).color?.ink ?? {};
+    for (const [pas, attendu] of Object.entries(ECHELLE_SOMBRE)) {
+      const t = ink[pas];
+      if (!t) { echecs.push(`« ${m} » n'a pas de chrome sombre au palier ${pas}`); continue; }
+      const v = t.$value?.components;
+      if (!v || attendu.some((x, i) => Math.abs(v[i] - x) > 0.001)) {
+        echecs.push(
+          `« ${m} » s'écarte du chrome sombre au palier ${pas} : [${v}] au lieu de ` +
+            `[${attendu}]. Le fond ne porte PAS la marque — c'est la règle depuis que le ` +
+            `sombre suit le clair. Relancer scripts/ink-sombre.py.`,
+        );
+      }
     }
   }
 }
 
-// Garde-fou : deux marques ne doivent pas se confondre SUR LA CARTE.
+// Garde-fou : la marque doit se lire sur les ÉLÉMENTS.
 //
-// La page ne peut pas porter l'identité, et c'est mesuré, pas décrété : plus
-// elle descend vers le noir, plus le gamut sRGB se referme en pointe et plus
-// les teintes convergent. À L=0,133 l'écart minimal entre nos quatre marques
-// valait 0,032 ; à L=0,100 il vaut 0,010 — indiscernable. Aucun réglage n'y
-// change quoi que ce soit.
-//
-// L'identité commence donc à la CARTE, et c'est là qu'on la vérifie. Le seuil
-// est 0,05 : au-dessus de ~0,02 deux aplats se distinguent, 0,05 laisse une
-// marge. Le seuil catégoriel de 0,10 ne s'applique pas ici — il sert à
-// distinguer six séries côte à côte, pas deux marques qu'on ne voit jamais
-// ensemble.
-//
-// C'est ce contrôle qui rend l'ajout d'une marque mécanique : fournir ses
-// rampes, relancer les scripts, et si sa carte se confond avec une existante,
-// le build refuse en le disant.
-const SEUIL_MARQUES = 0.05;
+// C'est la contrepartie du précédent, et il devient portant : puisque les
+// fonds ne distinguent plus rien, tout repose sur l'accent et le primaire.
+// Si deux marques ont aussi les mêmes éléments, la marque blanche ne se voit
+// plus nulle part — et cette fois rien ne le signalerait.
+const SEUIL_ELEMENTS = 0.08;
 {
   const oklab = (L, C, H) => {
     const h = (H * Math.PI) / 180;
     return [L, C * Math.cos(h), C * Math.sin(h)];
   };
   const ecart = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]);
-  const prim = JSON.parse(fs.readFileSync('tokens/primitives.json', 'utf8'));
-  const PAS_CARTE = '800';
+  const prim = JSON.parse(fs.readFileSync('tokens/primitives.json', 'utf8')).color;
+  const resoudre = (v, brandLight) => {
+    if (!v) return null;
+    if (typeof v !== 'string') return v.components;
+    const [, rampe, pas] = v.replace(/[{}]/g, '').split('.');
+    if (rampe === 'ink') return resoudre(brandLight?.color?.ink?.[pas]?.$value, brandLight);
+    return prim[rampe]?.[pas]?.$value?.components ?? null;
+  };
 
-  // La carte de chaque marque : le palier 800 de sa rampe de chrome, lue dans
-  // son fichier sombre quand il existe, sinon dans son fichier clair.
-  const cartes = {};
-  for (const m of ['aikoz', 'adp', 'extime', 'generali']) {
-    for (const f of [`tokens/brand/${m}-dark.json`, `tokens/brand/${m}.json`]) {
+  for (const role of ['primary', 'accent']) {
+    const vus = {};
+    for (const m of ['aikoz', 'adp', 'extime', 'generali']) {
+      const f = `tokens/brand/${m}.json`;
       if (!fs.existsSync(f)) continue;
       const j = JSON.parse(fs.readFileSync(f, 'utf8'));
-      const t = j.color?.ink?.[PAS_CARTE];
-      if (!t) continue;
-      const v = t.$value;
-      if (typeof v === 'string') {
-        const ref = v.replace(/[{}]/g, '').split('.');       // {color.x.y}
-        const prime = prim.color?.[ref[1]]?.[ref[2]];
-        if (prime) cartes[m] = prime.$value.components;
-      } else if (v?.components) {
-        cartes[m] = v.components;
-      }
-      if (cartes[m]) break;
+      const c = resoudre(j.color?.brand?.[role]?.$value, j);
+      if (c) vus[m] = c;
     }
-  }
-  const noms = Object.keys(cartes);
-  for (let i = 0; i < noms.length; i++) {
-    for (let j = i + 1; j < noms.length; j++) {
-      const [a, b] = [noms[i], noms[j]];
-      const d = ecart(oklab(...cartes[a]), oklab(...cartes[b]));
-      if (d < SEUIL_MARQUES) {
-        echecs.push(
-          `les cartes sombres de « ${a} » et « ${b} » se confondent : ΔE ${d.toFixed(3)} ` +
-            `pour un seuil de ${SEUIL_MARQUES}. La page ne peut pas porter l'identité ` +
-            `(elle converge vers le noir), donc si la carte ne la porte pas non plus, ` +
-            `la marque blanche ne se voit nulle part.`,
-        );
+    const noms = Object.keys(vus);
+    for (let i = 0; i < noms.length; i++) {
+      for (let j = i + 1; j < noms.length; j++) {
+        const d = ecart(oklab(...vus[noms[i]]), oklab(...vus[noms[j]]));
+        if (d < SEUIL_ELEMENTS) {
+          echecs.push(
+            `« ${noms[i]} » et « ${noms[j]} » ont le même ${role} : ΔE ${d.toFixed(3)} ` +
+              `pour un seuil de ${SEUIL_ELEMENTS}. Depuis que les fonds sont communs, ` +
+              `c'est l'accent et le primaire qui portent SEULS l'identité.`,
+          );
+        }
       }
     }
   }

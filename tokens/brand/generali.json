@@ -73,33 +73,33 @@
     "chart": {
       "1": {
         "$type": "color",
-        "$value": "{color.generali-red.800}",
-        "$description": "Série de données 1 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 13.57:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.100 au pire, en vision normale comme en protanopie et en deutéranopie."
+        "$value": "{color.generali-red.500}",
+        "$description": "Série de données 1 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 6.06:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.138 au pire, en vision normale comme en protanopie et en deutéranopie."
       },
       "2": {
         "$type": "color",
-        "$value": "{color.generali-slate.600}",
-        "$description": "Série de données 2 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 7.46:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.100 au pire, en vision normale comme en protanopie et en deutéranopie."
+        "$value": "{color.generali-slate.400}",
+        "$description": "Série de données 2 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 3.67:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.138 au pire, en vision normale comme en protanopie et en deutéranopie."
       },
       "3": {
         "$type": "color",
-        "$value": "{color.generali-green.500}",
-        "$description": "Série de données 3 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 4.74:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.100 au pire, en vision normale comme en protanopie et en deutéranopie."
+        "$value": "{color.generali-green.800}",
+        "$description": "Série de données 3 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 16.88:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.138 au pire, en vision normale comme en protanopie et en deutéranopie."
       },
       "4": {
         "$type": "color",
-        "$value": "{color.neutral.1000}",
-        "$description": "Série de données 4 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 20.02:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.100 au pire, en vision normale comme en protanopie et en deutéranopie."
+        "$value": "{color.generali-periwinkle.600}",
+        "$description": "Série de données 4 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 11.42:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.138 au pire, en vision normale comme en protanopie et en deutéranopie."
       },
       "5": {
         "$type": "color",
-        "$value": "{color.generali-periwinkle.500}",
-        "$description": "Série de données 5 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 5.76:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.100 au pire, en vision normale comme en protanopie et en deutéranopie."
+        "$value": "{color.generali-periwinkle.900}",
+        "$description": "Série de données 5 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 19.00:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.138 au pire, en vision normale comme en protanopie et en deutéranopie."
       },
       "6": {
         "$type": "color",
-        "$value": "{color.generali-slate.800}",
-        "$description": "Série de données 6 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 11.40:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.100 au pire, en vision normale comme en protanopie et en deutéranopie."
+        "$value": "{color.generali-periwinkle.500}",
+        "$description": "Série de données 6 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 5.76:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.138 au pire, en vision normale comme en protanopie et en deutéranopie."
       }
     },
     "ink": {

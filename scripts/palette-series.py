@@ -95,38 +95,79 @@ def separation(cols):
     return pire
 
 def choisir(marque, rampes, theme, n=6, seuil=3.0):
+    """Les six séries : les trois premières viennent des trois rampes de MARQUE
+    (primary / secondary / accent), les trois suivantes sont libres.
+
+    Une palette optimisée sans contrainte sépare mieux mais peut abandonner le
+    vert d'Extime au profit de quatre ors — mathématiquement meilleur,
+    illisible comme identité.
+
+    La recherche est un FAISCEAU, plus une simple descente gloutonne. Le
+    glouton prend le meilleur candidat à chaque pas et ne revient jamais
+    dessus ; il est tombé à ΔE 0,092 sur Generali en sombre, sous le seuil de
+    0,10, alors qu'une solution à 0,101 existait deux coups plus loin. Les
+    écarts par paire sont précalculés une fois, ce qui rend le faisceau moins
+    cher que l'ancien glouton.
+    """
     CARTE['dark'] = carte_sombre(marque)
-    """Les trois premieres series viennent des trois rampes de MARQUE, dans
-    l'ordre primary / secondary / accent : une palette optimisee librement
-    maximise la separation mais peut abandonner le vert d'Extime au profit de
-    quatre ors — mathematiquement meilleur, illisible comme identite. Les trois
-    suivantes sont libres."""
     fond = CARTE[theme]
+
     def pool_de(rs):
-        out=[]
+        out = []
         for r in rs:
             for st in P[r]:
-                h=hex_of(r,st); c=srgb(h)
-                if ratio(c,fond) >= seuil:
+                h = hex_of(r, st); c = srgb(h)
+                if ratio(c, fond) >= seuil:
                     out.append((f'{r}.{st}', c))
         return out
+
     pool = pool_de(rampes)
-    imposees = rampes[:3]
-    best=(0,None)
-    for tete in itertools.product(*[pool_de([r]) for r in imposees]):
-        if len(set(x[0] for x in tete))<3: continue
-        sel=list(tete)
-        if separation([x[1] for x in sel]) < 0.06: continue
-        while len(sel)<n:
-            cand=max((c for c in pool if c not in sel),
-                     key=lambda c: separation([x[1] for x in sel]+[c[1]]),
-                     default=None)
-            if cand is None: break
-            sel.append(cand)
-        if len(sel)==n:
-            sc=separation([x[1] for x in sel])
-            if sc>best[0]: best=(sc,sel)
+    index = {nom: i for i, (nom, _) in enumerate(pool)}
+    # Matrice des écarts, pire des trois visions. Calculée une fois : c'est
+    # elle qui rend la recherche abordable.
+    D = [[0.0]*len(pool) for _ in pool]
+    for i in range(len(pool)):
+        for j in range(i+1, len(pool)):
+            d = min(dE(pool[i][1], pool[j][1], k) for k in ('normal', 'prot', 'deut'))
+            D[i][j] = D[j][i] = d
+
+    def sep(idx):
+        return min((D[a][b] for a, b in itertools.combinations(idx, 2)), default=9)
+
+    LARGEUR = 400
+    best = (0, None)
+    for tete in itertools.product(*[pool_de([r]) for r in rampes[:3]]):
+        if len({x[0] for x in tete}) < 3:
+            continue
+        depart = [index[x[0]] for x in tete]
+        if sep(depart) < 0.06:
+            continue
+        faisceau = [depart]
+        for _ in range(n - 3):
+            suivants = []
+            for sel in faisceau:
+                for c in range(len(pool)):
+                    if c in sel:
+                        continue
+                    suivants.append((min(sep(sel), min(D[c][x] for x in sel)), sel + [c]))
+            if not suivants:
+                faisceau = []
+                break
+            suivants.sort(key=lambda x: -x[0])
+            vus, faisceau = set(), []
+            for sc, sel in suivants:
+                cle = tuple(sorted(sel))
+                if cle in vus:
+                    continue
+                vus.add(cle); faisceau.append(sel)
+                if len(faisceau) >= LARGEUR:
+                    break
+        for sel in faisceau:
+            sc = sep(sel)
+            if sc > best[0]:
+                best = (sc, [pool[i] for i in sel])
     return best
+
 
 for marque, rampes in [
     ('aikoz',   ['ultramarine','aquamarine','midnight-blue','neutral','violet']),

@@ -3,33 +3,33 @@
     "chart": {
       "1": {
         "$type": "color",
-        "$value": "{color.extime-malachite.400}",
-        "$description": "Série de données 1 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 4.16:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.135 au pire, en vision normale comme en protanopie et en deutéranopie."
+        "$value": "{color.extime-malachite.50}",
+        "$description": "Série de données 1 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 15.46:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.135 au pire, en vision normale comme en protanopie et en deutéranopie."
       },
       "2": {
         "$type": "color",
         "$value": "{color.extime-green.350}",
-        "$description": "Série de données 2 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 6.52:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.135 au pire, en vision normale comme en protanopie et en deutéranopie."
+        "$description": "Série de données 2 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 6.59:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.135 au pire, en vision normale comme en protanopie et en deutéranopie."
       },
       "3": {
         "$type": "color",
         "$value": "{color.extime-gold.100}",
-        "$description": "Série de données 3 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 12.94:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.135 au pire, en vision normale comme en protanopie et en deutéranopie."
+        "$description": "Série de données 3 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 13.08:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.135 au pire, en vision normale comme en protanopie et en deutéranopie."
       },
       "4": {
         "$type": "color",
-        "$value": "{color.neutral.300}",
-        "$description": "Série de données 4 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 8.86:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.135 au pire, en vision normale comme en protanopie et en deutéranopie."
+        "$value": "{color.extime-malachite.300}",
+        "$description": "Série de données 4 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 6.88:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.135 au pire, en vision normale comme en protanopie et en deutéranopie."
       },
       "5": {
         "$type": "color",
-        "$value": "{color.extime-malachite.50}",
-        "$description": "Série de données 5 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 15.30:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.135 au pire, en vision normale comme en protanopie et en deutéranopie."
+        "$value": "{color.extime-green.500}",
+        "$description": "Série de données 5 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 3.02:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.135 au pire, en vision normale comme en protanopie et en deutéranopie."
       },
       "6": {
         "$type": "color",
         "$value": "{color.extime-green.400}",
-        "$description": "Série de données 6 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 3.76:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.135 au pire, en vision normale comme en protanopie et en deutéranopie."
+        "$description": "Série de données 6 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 3.80:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.135 au pire, en vision normale comme en protanopie et en deutéranopie."
       }
     },
     "ink": {
@@ -39,13 +39,13 @@
           "colorSpace": "oklch",
           "components": [
             0.5856,
-            0.0627,
-            210.845
+            0.0139,
+            260.879
           ],
           "alpha": 1,
-          "hex": "#4C8691"
+          "hex": "#777C84"
         },
-        "$description": "Chrome sombre, palier 400 — clarté de l'ÉCHELLE DU THÈME (0.5856, référence de chroma 0.0957), teinte et chroma de la marque (210.845°). L'échelle est déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque : laissée à la charte, la carte d'ADP sortait 30 % plus claire et trois fois plus saturée que celle d'Aikoz."
+        "$description": "Chrome sombre, palier 400 — **identique pour les quatre marques**, comme en thème clair. Clarté de l'échelle du thème (0.5856), teinte et chroma interpolés sur la rampe NEUTRE (0.0139 / 260.879°), celle qui fait déjà les fonds en clair. Le fond ne porte pas la marque : la marque se lit sur les ÉLÉMENTS — bouton, accent, focus, séries, lueur, logo. L'échelle est déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque ; un garde-fou de build échoue si un fichier sombre s'en écarte."
       },
       "600": {
         "$type": "color",
@@ -53,13 +53,13 @@
           "colorSpace": "oklch",
           "components": [
             0.3552,
-            0.0624,
-            210.845
+            0.0146,
+            269.371
           ],
           "alpha": 1,
-          "hex": "#00444E"
+          "hex": "#393C44"
         },
-        "$description": "Chrome sombre, palier 600 — clarté de l'ÉCHELLE DU THÈME (0.3552, référence de chroma 0.117), teinte et chroma de la marque (210.845°). L'échelle est déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque : laissée à la charte, la carte d'ADP sortait 30 % plus claire et trois fois plus saturée que celle d'Aikoz. Chroma ramené de 0.0627 à 0.0624 : c'est le maximum atteignable dans le gamut sRGB à cette clarté, pas un plafond de style. Il n'y a PAS de plafond de chroma — deux marques ne se distingueraient plus sur la carte (essayé, ADP et Aikoz tombaient à ΔE 0,008)."
+        "$description": "Chrome sombre, palier 600 — **identique pour les quatre marques**, comme en thème clair. Clarté de l'échelle du thème (0.3552), teinte et chroma interpolés sur la rampe NEUTRE (0.0146 / 269.371°), celle qui fait déjà les fonds en clair. Le fond ne porte pas la marque : la marque se lit sur les ÉLÉMENTS — bouton, accent, focus, séries, lueur, logo. L'échelle est déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque ; un garde-fou de build échoue si un fichier sombre s'en écarte."
       },
       "700": {
         "$type": "color",
@@ -67,13 +67,13 @@
           "colorSpace": "oklch",
           "components": [
             0.272,
-            0.0485,
-            210.845
+            0.0171,
+            270.767
           ],
           "alpha": 1,
-          "hex": "#002D34"
+          "hex": "#242730"
         },
-        "$description": "Chrome sombre, palier 700 — clarté de l'ÉCHELLE DU THÈME (0.272, référence de chroma 0.0982), teinte et chroma de la marque (210.845°). L'échelle est déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque : laissée à la charte, la carte d'ADP sortait 30 % plus claire et trois fois plus saturée que celle d'Aikoz."
+        "$description": "Chrome sombre, palier 700 — **identique pour les quatre marques**, comme en thème clair. Clarté de l'échelle du thème (0.272), teinte et chroma interpolés sur la rampe NEUTRE (0.0171 / 270.767°), celle qui fait déjà les fonds en clair. Le fond ne porte pas la marque : la marque se lit sur les ÉLÉMENTS — bouton, accent, focus, séries, lueur, logo. L'échelle est déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque ; un garde-fou de build échoue si un fichier sombre s'en écarte."
       },
       "800": {
         "$type": "color",
@@ -81,13 +81,13 @@
           "colorSpace": "oklch",
           "components": [
             0.2232,
-            0.0406,
-            210.845
+            0.0146,
+            272.351
           ],
           "alpha": 1,
-          "hex": "#002026"
+          "hex": "#191B22"
         },
-        "$description": "Chrome sombre, palier 800 — clarté de l'ÉCHELLE DU THÈME (0.2232, référence de chroma 0.0804), teinte et chroma de la marque (210.845°). L'échelle est déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque : laissée à la charte, la carte d'ADP sortait 30 % plus claire et trois fois plus saturée que celle d'Aikoz."
+        "$description": "Chrome sombre, palier 800 — **identique pour les quatre marques**, comme en thème clair. Clarté de l'échelle du thème (0.2232), teinte et chroma interpolés sur la rampe NEUTRE (0.0146 / 272.351°), celle qui fait déjà les fonds en clair. Le fond ne porte pas la marque : la marque se lit sur les ÉLÉMENTS — bouton, accent, focus, séries, lueur, logo. L'échelle est déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque ; un garde-fou de build échoue si un fichier sombre s'en écarte."
       },
       "900": {
         "$type": "color",
@@ -95,13 +95,13 @@
           "colorSpace": "oklch",
           "components": [
             0.1857,
-            0.035,
-            210.845
+            0.0133,
+            271.174
           ],
           "alpha": 1,
-          "hex": "#00171C"
+          "hex": "#111319"
         },
-        "$description": "Chrome sombre, palier 900 — clarté de l'ÉCHELLE DU THÈME (0.1857, référence de chroma 0.048), teinte et chroma de la marque (210.845°). L'échelle est déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque : laissée à la charte, la carte d'ADP sortait 30 % plus claire et trois fois plus saturée que celle d'Aikoz."
+        "$description": "Chrome sombre, palier 900 — **identique pour les quatre marques**, comme en thème clair. Clarté de l'échelle du thème (0.1857), teinte et chroma interpolés sur la rampe NEUTRE (0.0133 / 271.174°), celle qui fait déjà les fonds en clair. Le fond ne porte pas la marque : la marque se lit sur les ÉLÉMENTS — bouton, accent, focus, séries, lueur, logo. L'échelle est déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque ; un garde-fou de build échoue si un fichier sombre s'en écarte."
       },
       "950": {
         "$type": "color",
@@ -109,13 +109,13 @@
           "colorSpace": "oklch",
           "components": [
             0.159,
-            0.0313,
-            210.845
+            0.0116,
+            271.323
           ],
           "alpha": 1,
-          "hex": "#001015"
+          "hex": "#0B0D12"
         },
-        "$description": "Chrome sombre, palier 950 — clarté de l'ÉCHELLE DU THÈME (0.159, référence de chroma 0.0351), teinte et chroma de la marque (210.845°). L'échelle est déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque : laissée à la charte, la carte d'ADP sortait 30 % plus claire et trois fois plus saturée que celle d'Aikoz. Chroma ramené de 0.035 à 0.0313 : c'est le maximum atteignable dans le gamut sRGB à cette clarté, pas un plafond de style. Il n'y a PAS de plafond de chroma — deux marques ne se distingueraient plus sur la carte (essayé, ADP et Aikoz tombaient à ΔE 0,008)."
+        "$description": "Chrome sombre, palier 950 — **identique pour les quatre marques**, comme en thème clair. Clarté de l'échelle du thème (0.159), teinte et chroma interpolés sur la rampe NEUTRE (0.0116 / 271.323°), celle qui fait déjà les fonds en clair. Le fond ne porte pas la marque : la marque se lit sur les ÉLÉMENTS — bouton, accent, focus, séries, lueur, logo. L'échelle est déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque ; un garde-fou de build échoue si un fichier sombre s'en écarte."
       },
       "1000": {
         "$type": "color",
@@ -123,13 +123,13 @@
           "colorSpace": "oklch",
           "components": [
             0.1,
-            0.0272,
-            210.845
+            0.0062,
+            274.32
           ],
           "alpha": 1,
-          "hex": "#000507"
+          "hex": "#030305"
         },
-        "$description": "Chrome sombre, palier 1000 — clarté de l'ÉCHELLE DU THÈME (0.1, référence de chroma 0.0203), teinte et chroma de la marque (210.845°). L'échelle est déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque : laissée à la charte, la carte d'ADP sortait 30 % plus claire et trois fois plus saturée que celle d'Aikoz. Chroma ramené de 0.035 à 0.0272 : c'est le maximum atteignable dans le gamut sRGB à cette clarté, pas un plafond de style. Il n'y a PAS de plafond de chroma — deux marques ne se distingueraient plus sur la carte (essayé, ADP et Aikoz tombaient à ΔE 0,008)."
+        "$description": "Chrome sombre, palier 1000 — **identique pour les quatre marques**, comme en thème clair. Clarté de l'échelle du thème (0.1), teinte et chroma interpolés sur la rampe NEUTRE (0.0062 / 274.32°), celle qui fait déjà les fonds en clair. Le fond ne porte pas la marque : la marque se lit sur les ÉLÉMENTS — bouton, accent, focus, séries, lueur, logo. L'échelle est déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque ; un garde-fou de build échoue si un fichier sombre s'en écarte."
       }
     },
     "brand": {

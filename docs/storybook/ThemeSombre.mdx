@@ -4,8 +4,45 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 # Thème sombre
 
-Cinq plans, deux mesures. Tout ce qui suit est vérifié en CI — rien ici n'est
-une intention.
+Cinq plans, deux mesures, **un seul chrome pour toutes les marques**. Tout ce
+qui suit est vérifié en CI — rien ici n'est une intention.
+
+## La règle avant tout le reste : le sombre suit le clair
+
+En thème clair, les quatre marques partagent **exactement** le même fond, et
+la marque ne se lit que sur les ÉLÉMENTS — bouton, lien, accent, focus,
+séries. Le sombre faisait l'inverse : le fond portait la marque.
+
+|  | clair, page | clair, carte | sombre, page | sombre, carte |
+|---|---|---|---|---|
+| aikoz | 0,0029 | 0,0000 | 0,0203 | 0,0804 |
+| adp | 0,0029 | 0,0000 | 0,0822 | **0,1465** |
+| extime | 0,0029 | 0,0000 | 0,0272 | 0,0406 |
+| generali | 0,0029 | 0,0000 | 0,0571 | 0,0949 |
+
+*(chroma OKLCH des surfaces)*
+
+Jusqu'à **cinquante fois** le chroma du clair. Deux modèles opposés dans un
+même système. Depuis le 21/09/2026, le sombre suit le clair : un seul chrome,
+interpolé sur la rampe neutre, identique au hex près pour les quatre marques.
+
+**Ça inverse une décision antérieure, et c'est assumé.** Le 18/09/2026,
+« ADP et Aikoz ont le même bleu en sombre » était un défaut — parce que cette
+identité était SUBIE : le gamut se referme vers le noir et les teintes
+convergeaient sans qu'on l'ait voulu. Elle est maintenant une RÈGLE, la même
+qu'en clair.
+
+Ce qui reste à la marque en sombre, et qui suffit à la reconnaître :
+`--primary`, `--accent`, `--ring`, le trait de l'entrée courante, les six
+séries de graphiques, la lueur de la carte héroïne, le logo.
+
+Deux garde-fous encadrent la règle :
+- le chrome sombre de chaque marque doit être **identique** à l'échelle du
+  thème (avant, on vérifiait qu'ils étaient DIFFÉRENTS — le contrôle est
+  inversé) ;
+- l'accent et le primaire de deux marques doivent séparer d'au moins
+  ΔE 0,08. C'est devenu le contrôle portant : les fonds ne distinguant plus
+  rien, tout repose sur les éléments.
 
 ## Cinq plans, et pourquoi cinq
 
@@ -23,8 +60,8 @@ l'interface.
 | surplomb | `--popover` | 0,355 | menu, boîte de dialogue, infobulle |
 
 L'échelle appartient au **thème**, pas à une marque : elle est écrite dans
-`scripts/ink-sombre.py`, et un garde-fou de build échoue si la rampe d'Aikoz
-s'en écarte. Chaque marque y pose sa teinte, jamais sa clarté.
+`scripts/ink-sombre.py` et un garde-fou de build échoue si un fichier de
+marque s'en écarte. Aucune marque n'y pose quoi que ce soit.
 
 ### Le creux monte au lieu de descendre
 
@@ -87,10 +124,10 @@ clair, et la séparation s'effondre :
 
 | marque | ΔE actuel | ΔE si on exige APCA ≥ 45 |
 |---|---|---|
-| aikoz | 0,117 | 0,081 |
+| aikoz | 0,115 | 0,081 |
 | adp | 0,154 | 0,086 |
 | extime | 0,135 | 0,085 |
-| generali | 0,125 | 0,056 |
+| generali | 0,119 | 0,056 |
 
 Le vivier passe de 31 à 13 teintes. **C'est une propriété du gamut, pas un
 réglage** : sur un fond sombre, six couleurs toutes très contrastées sont

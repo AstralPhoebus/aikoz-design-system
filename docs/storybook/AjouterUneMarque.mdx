@@ -12,7 +12,7 @@ régler à l'œil : les valeurs se dérivent, les seuils se vérifient au build.
 | | où ça va | sans ça |
 |---|---|---|
 | **3 rampes de couleur** (primaire, secondaire, accent) | `tokens/primitives.json` | la palette de séries n'a pas six teintes distinctes |
-| **1 rampe de chrome** — souvent la primaire | `tokens/brand/<marque>.json`, clé `ink` | les fonds restent ceux d'Aikoz |
+| **1 rampe de chrome** — souvent la primaire | `tokens/brand/<marque>.json`, clé `ink` | les fonds CLAIRS restent ceux d'Aikoz (le sombre, lui, est commun) |
 | **La police** + son repli désigné par la charte | `tokens/brand/<marque>.json`, clé `font` | la marque s'affiche dans la police d'une autre |
 | **Le logo**, version claire | `public/logos/<marque>-clair.svg` | le nom s'écrit à la place |
 
@@ -24,7 +24,7 @@ teinte et chroma conservés, chroma ramené au gamut sRGB.
 
 ```bash
 python3 scripts/generali-secondaires.py   # gabarit : entrer les couleurs de la charte
-python3 scripts/ink-sombre.py             # rampe de chrome sombre, dérivée de l'échelle
+python3 scripts/ink-sombre.py             # chrome sombre — le même pour tous, rien à dériver
 python3 scripts/roles-accent.py           # palier d'accent qui tient comme texte
 python3 scripts/palette-series.py         # palette de séries, mesurée en ΔE
 npm run build:tokens && npm run registry:build
@@ -58,8 +58,20 @@ En échange, la profondeur page/carte passe à 0,123, au niveau d'Anthropic
 (0,118) : c'est elle qui fait qu'un thème sombre paraît moderne, pas la
 noirceur du fond.
 
-Le build vérifie donc que **les cartes** de deux marques séparent d'au moins
-ΔE 0,05. Si la vôtre se confond avec une existante, il refuse en le disant.
+### Et le fond ne porte PAS la marque
+
+C'est la règle depuis le 21/09/2026, et c'est celle du thème clair : les
+quatre marques partagent exactement le même chrome sombre, au hex près. La
+marque se lit sur les **éléments** — bouton, accent, focus, trait de l'entrée
+courante, séries de graphiques, lueur, logo.
+
+Vous n'avez donc **rien à fournir ni à dériver** pour les fonds sombres.
+`scripts/ink-sombre.py` écrit la même échelle dans le fichier sombre de
+chaque marque, et le build refuse toute valeur qui s'en écarte.
+
+En revanche le build vérifie que votre **accent** et votre **primaire** se
+séparent d'au moins ΔE 0,08 de ceux des autres marques : puisque les fonds ne
+distinguent plus rien, ce sont eux qui portent seuls l'identité.
 
 ### 3. Aucune marque ne porte la rampe d'une autre
 
@@ -73,7 +85,10 @@ une note est dorée par convention, pas par identité.
 
 ## Ce que le build refusera
 
-- une carte sombre qui se confond avec celle d'une autre marque (ΔE < 0,05) ;
+- un chrome sombre qui s'écarte de l'échelle du thème — il est commun à
+  toutes les marques, il n'y a rien à y régler ;
+- un accent ou un primaire qui se confond avec celui d'une autre marque
+  (ΔE < 0,08) — c'est là, et seulement là, que l'identité se joue ;
 - deux séries de données qui se confondent (ΔE < 0,10), **y compris en
   protanopie et en deutéranopie** ;
 - une série qui ne tient pas 3:1 sur la carte de sa propre marque ;
