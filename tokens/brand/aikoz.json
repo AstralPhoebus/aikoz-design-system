@@ -58,6 +58,16 @@
         "$type": "color",
         "$value": "{color.aquamarine.700}",
         "$description": "Texte teinté de l'accent — 5.45:1 sur la carte claire. Un palier DISTINCT de `accent` : celui-ci est une surface, clair par construction, et ne tient pas 4,5:1 sous du texte. Choisi comme le plus vif des paliers qui passent le seuil, pour que l'accent garde son caractère. Remplace `aquamarine`, une rampe d'Aikoz, que toutes les marques portaient."
+      },
+      "glow-from": {
+        "$type": "color",
+        "$value": "{color.midnight-blue.900}",
+        "$description": "Point de DÉPART de la lueur de marque — le fond sur lequel elle s'ouvre. Le plus sombre de la rampe identitaire."
+      },
+      "glow-to": {
+        "$type": "color",
+        "$value": "{color.ultramarine.700}",
+        "$description": "Point d'ARRIVÉE de la lueur de marque. C'est lui qu'on voit : le composant `BrandGlow` pose un dégradé radial de cette teinte vers le transparent, en thème sombre uniquement. Sur un fond clair une lueur n'a rien à éclairer, elle sature."
       }
     },
     "ink": {

@@ -16,6 +16,8 @@
   --color-brand-accent-active: var(--color-aquamarine-500);
   --color-brand-accent-subtle: var(--color-aquamarine-50);
   --color-brand-accent-text: var(--color-aquamarine-700); /** Texte teinté de l'accent — 5.45:1 sur la carte claire. Un palier DISTINCT de `accent` : celui-ci est une surface, clair par construction, et ne tient pas 4,5:1 sous du texte. Choisi comme le plus vif des paliers qui passent le seuil, pour que l'accent garde son caractère. Remplace `aquamarine`, une rampe d'Aikoz, que toutes les marques portaient. */
+  --color-brand-glow-from: var(--color-midnight-blue-900); /** Point de DÉPART de la lueur de marque — le fond sur lequel elle s'ouvre. Le plus sombre de la rampe identitaire. */
+  --color-brand-glow-to: var(--color-ultramarine-700); /** Point d'ARRIVÉE de la lueur de marque. C'est lui qu'on voit : le composant `BrandGlow` pose un dégradé radial de cette teinte vers le transparent, en thème sombre uniquement. Sur un fond clair une lueur n'a rien à éclairer, elle sature. */
   --color-ink-50: var(--color-midnight-blue-50); /** Rampe de CHROME de la marque — fonds, bordures, navigation en thème sombre. C'est l'indirection qui manquait : le thème pointait directement `midnight-blue`, une primitive Aikoz, donc toute marque gardait le bleu nuit d'Aikoz sous ses propres couleurs. */
   --color-ink-100: var(--color-midnight-blue-100); /** Palier 100 de la rampe de chrome (midnight-blue). */
   --color-ink-200: var(--color-midnight-blue-200); /** Palier 200 de la rampe de chrome (midnight-blue). */
