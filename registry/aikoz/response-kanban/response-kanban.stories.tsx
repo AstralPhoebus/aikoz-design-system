@@ -50,6 +50,19 @@ export const Defaut: Story = {
       <ResponseKanban {...args} />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    // Un commentaire `//` posé au milieu d'enfants JSX n'est pas un
+    // commentaire : c'est du texte, et il s'affichait ici — trois lignes de
+    // code au-dessus de chaque réponse automatique, visibles seulement sur
+    // le tableau de bord complet. Aucun test ne le voyait parce qu'aucun ne
+    // regardait le texte qui n'était pas attendu.
+    const fuites = [...canvasElement.querySelectorAll("*")]
+      .flatMap((e) => [...e.childNodes])
+      .filter((n) => n.nodeType === Node.TEXT_NODE)
+      .map((n) => (n.textContent ?? "").trim())
+      .filter((t) => t.startsWith("//") || t.startsWith("/*"));
+    await expect(fuites).toHaveLength(0);
+  },
 };
 
 export const TroisColonnesNommees: Story = {
