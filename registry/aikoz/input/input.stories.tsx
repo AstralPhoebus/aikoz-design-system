@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within } from "storybook/test";
 import { Input } from "./input";
 
 const meta = {
@@ -78,5 +79,65 @@ export const LectureSeuleEnTirete: Story = {
           "`readOnly`, pas `disabled` : la valeur reste focusable, donc découvrable.",
       },
     },
+  },
+};
+
+export const LeChampEstBienDecritParSonErreur: Story = {
+  name: "Le champ est relié à son erreur et à sa consigne",
+  args: {
+    label: "Adresse e-mail",
+    type: "email",
+    required: true,
+    description: "Utilisée pour l'envoi du rapport hebdomadaire.",
+    defaultValue: "camille.brun",
+    error: "L'adresse doit contenir un domaine, par exemple camille.brun@neoassur.fr",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Un message d'erreur affiché à côté d'un champ n'est pas un message " +
+          "d'erreur : rien ne dit à un lecteur d'écran qu'il s'y rapporte. Ce " +
+          "test vérifie le lien lui-même — `aria-describedby` pointe sur la " +
+          "consigne ET sur l'erreur, `aria-invalid` est posé, et le message " +
+          "est en `role=\"alert\"` puisqu'il apparaît après coup.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const champ = canvas.getByLabelText(/Adresse e-mail/);
+    await expect(champ).toHaveAttribute("aria-invalid", "true");
+
+    // `aria-describedby` doit désigner les DEUX textes : une consigne qu'on
+    // perd à l'apparition de l'erreur, c'est le format attendu qui disparaît
+    // au moment précis où l'utilisateur en a besoin.
+    const ids = (champ.getAttribute("aria-describedby") ?? "").split(/\s+/).filter(Boolean);
+    await expect(ids.length).toBe(2);
+    const textes = ids.map((id) => canvasElement.querySelector(`#${CSS.escape(id)}`)?.textContent ?? "");
+    await expect(textes.some((t) => t.includes("rapport hebdomadaire"))).toBe(true);
+    await expect(textes.some((t) => t.includes("doit contenir un domaine"))).toBe(true);
+
+    await expect(canvas.getByRole("alert")).toHaveTextContent(/doit contenir un domaine/);
+  },
+};
+
+export const LaSaisieAtteintLeChamp: Story = {
+  name: "Ce qu'on tape arrive dans le champ",
+  args: { label: "Nom de l'agence" },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Le test le plus bête du lot, et le seul qui attrape un champ rendu " +
+          "inerte par un `readOnly` oublié ou un `pointer-events: none` hérité.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const champ = canvas.getByLabelText("Nom de l'agence");
+    await userEvent.type(champ, "Orly 4");
+    await expect(champ).toHaveValue("Orly 4");
   },
 };
