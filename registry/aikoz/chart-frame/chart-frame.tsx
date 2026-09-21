@@ -185,7 +185,17 @@ export interface ChartFrameProps<T> {
   hideLegend?: boolean;
   /** Aplats plutôt que tracés : la légende montre des pastilles pleines. */
   legendStyle?: "trait" | "aplat";
-  tableCollapsed?: boolean;
+  /**
+   * Comment le tableau équivalent cohabite avec le graphique.
+   *
+   * `"bascule"` (défaut) — deux vues du MÊME bloc, commutées par un
+   * sélecteur posé sur la ligne du titre. La zone garde exactement la même
+   * hauteur, donc afficher les valeurs ne déplace rien sur la page.
+   *
+   * `"dessous"` — le tableau est rendu sous le graphique, toujours visible.
+   * Pour les pages où il EST le contenu, comme le forage territorial.
+   */
+  tableau?: "bascule" | "dessous";
   className?: string;
 }
 
@@ -232,10 +242,11 @@ export function ChartFrame<T>({
   height = 280,
   hideLegend = false,
   legendStyle = "trait",
-  tableCollapsed = true,
+  tableau = "bascule",
   className,
 }: ChartFrameProps<T>) {
   const uid = useId().replace(/:/g, "");
+  const [vue, setVue] = useState<"graphique" | "tableau">("graphique");
 
   // ── Survol : l'infobulle et l'emphase ────────────────────────────────────
   //
@@ -257,7 +268,7 @@ export function ChartFrame<T>({
     return () => document.removeEventListener("keydown", auClavier);
   }, [survol, ecartee]);
 
-  const tableau = (
+  const tableauRendu = (
     <Table
       caption={caption}
       captionHidden
@@ -269,41 +280,117 @@ export function ChartFrame<T>({
     />
   );
 
+  // ── Graphique OU tableau, jamais l'un qui pousse l'autre ────────────────
+  //
+  // Le tableau était replié dans un `details` sous le graphique. Mesuré sur
+  // le tableau de bord : l'ouvrir faisait passer le bloc de 378 à 650 px
+  // (+72 %) et décalait de 272 px tout ce qui suit. Sur une grille à deux
+  // colonnes, la rangée se désaligne en plus.
+  //
+  // Deux VUES du même bloc à la place, commutées sur la ligne du titre. La
+  // zone garde la hauteur du graphique, le tableau défile à l'intérieur :
+  // afficher les valeurs ne déplace plus rien.
+  //
+  // Et non, l'export ne remplace pas ce tableau. C'est un autre parcours,
+  // qui produit un fichier : WCAG 1.1.1 demande l'équivalent DANS la page.
+  // Le SVG est `aria-hidden` — sans ce tableau, les valeurs exactes
+  // n'existent nulle part pour qui ne voit pas le dessin.
+  const bascule = tableau === "bascule";
+  const onglet = (cle: "graphique" | "tableau", libelle: string) => (
+    <button
+      type="button"
+      role="tab"
+      id={`${uid}-onglet-${cle}`}
+      aria-selected={vue === cle}
+      aria-controls={`${uid}-vue`}
+      // Un seul arrêt de tabulation pour le groupe, les flèches font le
+      // reste : c'est le patron ARIA des onglets.
+      tabIndex={vue === cle ? 0 : -1}
+      onClick={() => setVue(cle)}
+      onKeyDown={(e) => {
+        if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+        e.preventDefault();
+        setVue(cle === "graphique" ? "tableau" : "graphique");
+      }}
+      className={cn(
+        "min-h-8 rounded-full px-2.5 text-xs transition-colors",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]",
+        "focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--card)]",
+        vue === cle
+          ? "bg-muted font-medium text-foreground"
+          : "text-muted-foreground hover:text-foreground",
+      )}
+    >
+      {libelle}
+    </button>
+  );
+
   return (
     <figure className={cn("m-0 flex flex-col gap-4", className)}>
-      <figcaption className="text-sm font-medium text-foreground">
-        {caption}
-      </figcaption>
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+        <figcaption className="text-sm font-medium text-foreground">
+          {caption}
+        </figcaption>
+        {bascule && (
+          <div
+            role="tablist"
+            aria-label={`Affichage de « ${caption} »`}
+            className="flex shrink-0 items-center gap-0.5 rounded-full bg-[color-mix(in_oklch,var(--muted),transparent_55%)] p-0.5"
+          >
+            {onglet("graphique", "Graphique")}
+            {onglet("tableau", "Tableau")}
+          </div>
+        )}
+      </div>
 
       <div
-        role="img"
-        aria-label={`${summary} Les valeurs exactes sont dans le tableau qui suit.`}
+        id={bascule ? `${uid}-vue` : undefined}
+        role={bascule ? "tabpanel" : undefined}
+        aria-labelledby={bascule ? `${uid}-onglet-${vue}` : undefined}
+        // La hauteur est portée ICI, pas par le graphique : c'est elle qui
+        // garantit que la bascule ne déplace rien.
         style={{ height }}
         className="w-full"
       >
-        {/*
-          Le SVG est masqué, et ce n'est pas une redondance avec le `role="img"`
-          du parent. Recharts pose `role="img"` sur CHAQUE secteur et chaque
-          tracé, sans nom accessible : axe y voit autant d'images sans
-          alternative. Le parent porte le nom, le tableau porte la donnée.
-        */}
-        <div
-          aria-hidden="true"
-          className="h-full w-full"
-          onMouseEnter={() => setSurvol(true)}
-          onMouseLeave={() => {
-            setSurvol(false);
-            setEcartee(false);
-            setIndexActif(null);
-          }}
-        >
-          {children({
-            idTrames: uid,
-            infobulleActive: survol && !ecartee,
-            indexActif,
-            surSurvol: (etat) => setIndexActif(etat?.activeTooltipIndex ?? null),
-          })}
-        </div>
+        {bascule && vue === "tableau" ? (
+          <div className="h-full overflow-auto">{tableauRendu}</div>
+        ) : (
+          <div
+            role="img"
+            aria-label={
+              bascule
+                ? `${summary} Les valeurs exactes sont dans la vue « Tableau ».`
+                : `${summary} Les valeurs exactes sont dans le tableau qui suit.`
+            }
+            className="h-full w-full"
+          >
+            {/*
+              Le SVG est masqué, et ce n'est pas une redondance avec le
+              `role="img"` du parent. Recharts pose `role="img"` sur CHAQUE
+              secteur et chaque tracé, sans nom accessible : axe y voit autant
+              d'images sans alternative. Le parent porte le nom, le tableau
+              porte la donnée.
+            */}
+            <div
+              aria-hidden="true"
+              className="h-full w-full"
+              onMouseEnter={() => setSurvol(true)}
+              onMouseLeave={() => {
+                setSurvol(false);
+                setEcartee(false);
+                setIndexActif(null);
+              }}
+            >
+              {children({
+                idTrames: uid,
+                infobulleActive: survol && !ecartee,
+                indexActif,
+                surSurvol: (etat) =>
+                  setIndexActif(etat?.activeTooltipIndex ?? null),
+              })}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* La légende SOUS le graphique, pas au-dessus.
@@ -311,59 +398,13 @@ export function ChartFrame<T>({
           doit traverser une liste de noms pour atteindre ce qu'il est venu
           voir. Placée après, elle ne sert qu'à ceux qui en ont besoin, au
           moment où ils en ont besoin — quand une courbe les interroge.
-          L'ordre du DOM suit l'ordre visuel : un lecteur d'écran entend le
-          titre, le résumé de la courbe, puis la liste des séries. */}
+
+          Elle reste affichée dans la vue tableau : la retirer ferait
+          exactement le saut de mise en page qu'on vient de supprimer, et
+          elle reste juste, les colonnes portant les mêmes séries. */}
       {!hideLegend && <ChartLegend series={series} style={legendStyle} />}
 
-      {/* Le tableau équivalent, et sa commande.
-
-          Il n'est PAS optionnel : le SVG est `aria-hidden`, le `role="img"`
-          ci-dessus ne porte qu'un résumé. Sans ce tableau, aucune valeur
-          exacte n'existe hors du dessin — ni pour un lecteur d'écran, ni
-          pour qui veut le chiffre plutôt que la tendance. L'enlever ne
-          simplifierait pas la page, ça retirerait le contenu du graphique.
-
-          Ce qui, en revanche, se règle : son POIDS. La commande occupait une
-          ligne pleine de 44 px, en `--secondary` et en `text-sm`, répétée
-          sous chacun des quatre graphiques d'un tableau de bord — quatre
-          appels à l'action pour une note de bas de page. Elle passe à
-          droite, en petit et en gris : même fonction, même cible, mais elle
-          ne se dispute plus la hiérarchie avec le titre du bloc.
-
-          La cible reste à 32 px de haut, au-dessus des 24 px de WCAG 2.5.8 —
-          c'est un contrôle, il se vise. */}
-      {tableCollapsed ? (
-        <details className="group">
-          <summary
-            className={cn(
-              "cursor-pointer list-none text-xs text-muted-foreground",
-              // `flex` + `w-fit` + `ml-auto` : un `summary` est un bloc, il
-              // ne se pousse pas à droite autrement. Pas de `float`, qui le
-              // sortirait du flux et ferait passer le tableau dessous.
-              "min-h-8 flex w-fit items-center gap-1 rounded-[var(--radius)]",
-              "ml-auto transition-colors hover:text-foreground",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
-            )}
-          >
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 12 12"
-              className="size-2.5 transition-transform group-open:rotate-90 motion-reduce:transition-none"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M4.5 2.5 8 6l-3.5 3.5" />
-            </svg>
-            Voir les données
-          </summary>
-          <div className="pt-2">{tableau}</div>
-        </details>
-      ) : (
-        tableau
-      )}
+      {!bascule && tableauRendu}
     </figure>
   );
 }

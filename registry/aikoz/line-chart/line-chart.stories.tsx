@@ -37,15 +37,18 @@ export const Defaut: Story = { name: "Par défaut" };
 
 export const LeTableauEstLeContenu: Story = {
   name: "Le graphique est masqué, le tableau est le contenu",
-  play: async ({ canvas }) => {
-    // Le résumé énoncé renvoie explicitement au tableau.
+  play: async ({ canvas, userEvent }) => {
+    // Le résumé énoncé renvoie explicitement à la vue tableau.
     await expect(canvas.getByRole("img")).toHaveAccessibleName(/4 séries sur 6 points/);
-    await expect(canvas.getByRole("table")).toBeInTheDocument();
+    await expect(canvas.getByRole("img")).toHaveAccessibleName(/vue « Tableau »/);
     // Zéro animation : recharts en met par défaut, une courbe qui se dessine
     // retarde la lecture sans rien apprendre (WCAG 2.3.3).
     const animes = [...canvas.getByRole("img").querySelectorAll("*")]
       .filter((e) => getComputedStyle(e).animationName !== "none");
     await expect(animes).toHaveLength(0);
+    // Et les valeurs exactes sont à un clic, dans le même bloc.
+    await userEvent.click(canvas.getByRole("tab", { name: "Tableau" }));
+    await expect(canvas.getByRole("table")).toBeInTheDocument();
   },
   parameters: {
     docs: {

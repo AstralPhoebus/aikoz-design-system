@@ -131,7 +131,7 @@ export function GeoDrilldown({
             series={[{ key: "valeur", label: valueLabel }]}
             formatValue={(v) => formatValue(Number(v))}
             height={height}
-            tableCollapsed={false}
+            tableau="dessous"
             onBarClick={(ligne: Record<string, string | number>) => {
               const z = zoneParLabel.get(String(ligne.zone));
               if (z?.children?.length) aller([...chemin, z]);

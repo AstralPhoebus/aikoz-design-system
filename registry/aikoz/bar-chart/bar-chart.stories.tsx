@@ -34,7 +34,7 @@ export const Empile: Story = { name: "Empilé" };
 export const LeTotalALaColonne: Story = {
   name: "En empilé, le total a sa colonne",
   play: async ({ canvas, userEvent }) => {
-    await userEvent.click(canvas.getByText("Voir les données"));
+    await userEvent.click(canvas.getByRole("tab", { name: "Tableau" }));
     await expect(canvas.getByRole("columnheader", { name: "Total" })).toBeInTheDocument();
   },
   parameters: {

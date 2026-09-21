@@ -85,7 +85,12 @@ export interface LineChartProps {
    * la place, et deux étiquettes qui se chevauchent sont pires qu'une légende.
    */
   directLabels?: boolean;
-  tableCollapsed?: boolean;
+  /**
+   * Comment le tableau équivalent cohabite avec le graphique — voir
+   * `ChartFrame`. `"bascule"` par défaut : deux vues du même bloc, à hauteur
+   * constante.
+   */
+  tableau?: "bascule" | "dessous";
   className?: string;
 }
 
@@ -115,7 +120,7 @@ export function LineChart({
   formatValue = (v) => String(v),
   height = 280,
   directLabels = true,
-  tableCollapsed = true,
+  tableau = "bascule",
   className,
 }: LineChartProps) {
   const toutes = reference ? [...series, reference] : series;
@@ -178,7 +183,7 @@ export function LineChart({
       // Une légende sous des courbes déjà nommées répète l'information et
       // rallonge le bloc pour rien.
       hideLegend={etiquettes}
-      tableCollapsed={tableCollapsed}
+      tableau={tableau}
       className={className}
     >
       {({ infobulleActive, surSurvol }) => (

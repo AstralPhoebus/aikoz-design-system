@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, within } from "storybook/test";
+import { expect, userEvent, within } from "storybook/test";
 import { ChartFrame, ChartLegend, couleurSerie, type ChartFrameProps } from "./chart-frame";
 
 type Point = { mois: string; google: number; trustpilot: number };
@@ -82,18 +82,18 @@ export const LeTableauEstLeContenu: Story = {
     // Le résumé est porté par un role="img" nommé — pas par le SVG.
     const resume = canvas.getByRole("img");
     await expect(resume).toHaveAccessibleName(/Deux séries sur trois points/);
-    await expect(resume).toHaveAccessibleName(/tableau qui suit/);
+    await expect(resume).toHaveAccessibleName(/vue « Tableau »/);
 
     // Le tracé lui-même est hors de l'arbre d'accessibilité.
     const svg = canvasElement.querySelector("svg");
     await expect(svg).not.toBeNull();
     await expect(svg!.closest('[aria-hidden="true"]')).not.toBeNull();
 
-    // Et le tableau, lui, est bien là avec ses relations — replié, mais
-    // présent dans le document, donc lu.
-    const tableau = canvas.getByRole("table", { hidden: true });
-    await expect(within(tableau).getAllByRole("columnheader", { hidden: true })).toHaveLength(3);
-    await expect(within(tableau).getAllByRole("rowheader", { hidden: true })).toHaveLength(DONNEES.length);
+    // Et le tableau, lui, est à un clic, avec ses relations intactes.
+    await userEvent.click(canvas.getByRole("tab", { name: "Tableau" }));
+    const tableau = canvas.getByRole("table");
+    await expect(within(tableau).getAllByRole("columnheader")).toHaveLength(3);
+    await expect(within(tableau).getAllByRole("rowheader")).toHaveLength(DONNEES.length);
   },
 };
 
@@ -114,15 +114,54 @@ export const LOrdreDeLecture: Story = {
   },
   play: async ({ canvasElement }) => {
     const figure = canvasElement.querySelector("figure")!;
-    const roles = [...figure.children].map((e) => e.tagName);
-    await expect(roles[0]).toBe("FIGCAPTION");
-    await expect(roles[roles.length - 1]).toBe("DETAILS");
+    // Le titre ouvre la figure — il partage sa ligne avec le sélecteur de vue,
+    // qui ne coûte donc aucune hauteur.
+    await expect(figure.querySelector("figcaption")).toBe(
+      figure.firstElementChild!.firstElementChild
+    );
     // La légende est après le tracé, jamais avant.
     const legende = figure.querySelector("ul")!;
     const trace = figure.querySelector('[role="img"]')!;
     await expect(
       trace.compareDocumentPosition(legende) & Node.DOCUMENT_POSITION_FOLLOWING
     ).toBeTruthy();
+  },
+};
+
+export const LaBasculeNeDeplaceRien: Story = {
+  name: "Passer au tableau ne déplace rien sur la page",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Le tableau était replié dans un `details` sous le graphique. " +
+          "Mesuré sur le tableau de bord, l'ouvrir faisait passer le bloc de " +
+          "378 à 650 px — **+72 %** — et décalait de 272 px tout ce qui suit. " +
+          "Sur une grille à deux colonnes, la rangée se désalignait en plus.\n\n" +
+          "Les deux vues partagent maintenant la même zone, à la hauteur du " +
+          "graphique ; le tableau défile à l'intérieur. Cette histoire mesure " +
+          "la figure avant et après la bascule : l'écart doit être nul.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const figure = canvasElement.querySelector("figure")!;
+    const avant = figure.getBoundingClientRect().height;
+
+    await userEvent.click(canvas.getByRole("tab", { name: "Tableau" }));
+    await expect(canvas.getByRole("table")).toBeInTheDocument();
+    const apres = figure.getBoundingClientRect().height;
+
+    // Mesuré sur le rendu, pas déduit du CSS : c'est le saut lui-même qui
+    // était le défaut, pas la règle qui le produisait.
+    await expect(Math.abs(apres - avant)).toBeLessThanOrEqual(1);
+
+    // Et le retour au graphique ne déplace rien non plus.
+    await userEvent.click(canvas.getByRole("tab", { name: "Graphique" }));
+    await expect(
+      Math.abs(figure.getBoundingClientRect().height - avant)
+    ).toBeLessThanOrEqual(1);
   },
 };
 

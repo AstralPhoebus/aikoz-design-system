@@ -121,7 +121,12 @@ export interface BarChartProps {
    */
   onBarClick?: (ligne: Record<string, string | number>) => void;
   /** Déplie le tableau équivalent au lieu de le replier dans un `details`. */
-  tableCollapsed?: boolean;
+  /**
+   * Comment le tableau équivalent cohabite avec le graphique — voir
+   * `ChartFrame`. `"bascule"` par défaut : deux vues du même bloc, à hauteur
+   * constante.
+   */
+  tableau?: "bascule" | "dessous";
   className?: string;
 }
 
@@ -154,7 +159,7 @@ export function BarChart({
   yLabel,
   extraColumns,
   onBarClick,
-  tableCollapsed = true,
+  tableau = "bascule",
   formatValue = (v) => String(v),
   height = 300,
   className,
@@ -224,7 +229,7 @@ export function BarChart({
       rowHeaderKey={xKey}
       height={height}
       legendStyle="aplat"
-      tableCollapsed={tableCollapsed}
+      tableau={tableau}
       className={className}
     >
       {({ infobulleActive, indexActif, surSurvol }) => (
