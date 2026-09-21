@@ -22,9 +22,13 @@ const badgeVariants = cva(
           "border-[var(--destructive-text)] text-[var(--destructive-text)]",
           "bg-[color-mix(in_oklch,var(--destructive-text),transparent_92%)]",
         ],
+        // `--neutral-text`, pas `--muted-foreground` : ce dernier est le gris du
+        // texte SECONDAIRE, emprunté faute de rôle. Une variation stable est
+        // une donnée, au même titre qu'une hausse ou une baisse — elle mérite
+        // son rôle, et il est désormais bleu ardoise plutôt que gris.
         neutral: [
-          "border-[var(--muted-foreground)] text-[var(--muted-foreground)]",
-          "bg-[color-mix(in_oklch,var(--muted-foreground),transparent_92%)]",
+          "border-[var(--neutral-text)] text-[var(--neutral-text)]",
+          "bg-[color-mix(in_oklch,var(--neutral-text),transparent_92%)]",
         ],
       },
       size: {

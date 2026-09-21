@@ -1686,6 +1686,34 @@
           "hex": "#03154D"
         },
         "$description": "PANTONE 2748 C · Spectrum Blue · RAL 5022 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
+      },
+      "950": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.2029,
+            0.1059,
+            263.85
+          ],
+          "alpha": 1,
+          "hex": "#010D46"
+        },
+        "$description": "Prolongement DÉRIVÉ de la rampe, absent de la charte de la marque : la clarté descend de 0.027 en OKLCH, teinte et chroma inchangés. Nécessaire parce que le thème sombre sépare la page, la carte et le creux sur trois niveaux, là où la charte s'arrête à 900."
+      },
+      "1000": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.1769,
+            0.1059,
+            263.85
+          ],
+          "alpha": 1,
+          "hex": "#00053E"
+        },
+        "$description": "Prolongement DÉRIVÉ de la rampe, absent de la charte de la marque : la clarté descend de 0.053 en OKLCH, teinte et chroma inchangés. Nécessaire parce que le thème sombre sépare la page, la carte et le creux sur trois niveaux, là où la charte s'arrête à 900."
       }
     },
     "adp-campanula": {
@@ -2112,6 +2140,34 @@
           "hex": "#001E28"
         },
         "$description": "Extime « Primary Colors / Black » #001E28 — **valeur officielle**, relevée dans les variables du fichier Figma « Extime Design System ». Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+      },
+      "950": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.1913,
+            0.0408,
+            223.562
+          ],
+          "alpha": 1,
+          "hex": "#001821"
+        },
+        "$description": "Prolongement DÉRIVÉ de la rampe, absent de la charte de la marque : la clarté descend de 0.027 en OKLCH, teinte et chroma inchangés. Nécessaire parce que le thème sombre sépare la page, la carte et le creux sur trois niveaux, là où la charte s'arrête à 900."
+      },
+      "1000": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.1653,
+            0.0408,
+            223.562
+          ],
+          "alpha": 1,
+          "hex": "#00121B"
+        },
+        "$description": "Prolongement DÉRIVÉ de la rampe, absent de la charte de la marque : la clarté descend de 0.053 en OKLCH, teinte et chroma inchangés. Nécessaire parce que le thème sombre sépare la page, la carte et le creux sur trois niveaux, là où la charte s'arrête à 900."
       }
     },
     "extime-green": {
@@ -2396,6 +2452,184 @@
           "hex": "#362C00"
         },
         "$description": "Extime « Accent / Yellow » #F4D651 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante. La chroma des crans foncés est bornée par le gamut sRGB, pas par le profil : un jaune ne tient pas 0,15 de chroma à 0,30 de clarté, et forcer le produit vire au brun. Chaque cran prend donc le maximum atteignable à sa clarté."
+      }
+    },
+    "data": {
+      "positive": {
+        "fill": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.67,
+              0.1104,
+              171.703
+            ],
+            "alpha": 1,
+            "hex": "#3BAB8D"
+          },
+          "$description": "Aplat de la donnée POSITIVE en thème clair — teinte choisie par Alice, reprise au hex près. 2,53:1 sur la piste : l'aplat ne porte pas WCAG 1.4.11 tout seul, c'est le contour qui le fait. Même dispositif que le jaune, déjà en place depuis ProgressBar."
+        },
+        "edge": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.61,
+              0.1104,
+              171.703
+            ],
+            "alpha": 1,
+            "hex": "#21987B"
+          },
+          "$description": "Contour de l'aplat positif — 3,00:1 sur la piste (#EAEBEE), mesuré sur le rendu. Clarté descendue de 0,060 depuis l'aplat, teinte et chroma inchangés : le liseré se lit comme le bord de la MÊME couleur."
+        },
+        "text": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.458,
+              0.1104,
+              171.703
+            ],
+            "alpha": 1,
+            "hex": "#006A50"
+          },
+          "$description": "Texte et emphase positive — 4,5:1 au pire point. La surface la plus sombre où ce rôle atterrit n'est pas la carte : c'est le VOILE de pastille à 8 % posé sur la LIGNE MISE EN AVANT d'un classement (#DFE1E8). Calé sur la carte seule, il donnait 3,85:1 là — et c'est le test d'accessibilité du Leaderboard qui l'a dit, pas mon audit, qui avait oublié cette surface. L'aplat d'Alice (#3BAB8D) reste intact ; seul l'usage TEXTE est assombri."
+        }
+      },
+      "negative": {
+        "fill": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.6765,
+              0.1602,
+              30.474
+            ],
+            "alpha": 1,
+            "hex": "#E96B58"
+          },
+          "$description": "Aplat de la donnée NÉGATIVE en thème clair — hex d'Alice. 2,79:1 sur la piste, le contour porte la limite."
+        },
+        "edge": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.6425,
+              0.1602,
+              30.474
+            ],
+            "alpha": 1,
+            "hex": "#DD604E"
+          },
+          "$description": "Contour de l'aplat négatif — 3,00:1 sur la piste."
+        },
+        "text": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4965,
+              0.1602,
+              30.474
+            ],
+            "alpha": 1,
+            "hex": "#AA3122"
+          },
+          "$description": "Texte et emphase négative — 4,5:1 au pire point. La surface la plus sombre où ce rôle atterrit n'est pas la carte : c'est le VOILE de pastille à 8 % posé sur la LIGNE MISE EN AVANT d'un classement (#DFE1E8). Calé sur la carte seule, il donnait 3,85:1 là — et c'est le test d'accessibilité du Leaderboard qui l'a dit, pas mon audit, qui avait oublié cette surface. L'aplat d'Alice (#E96B58) reste intact ; seul l'usage TEXTE est assombri."
+        }
+      },
+      "neutral": {
+        "fill": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.5603,
+              0.0766,
+              271.29
+            ],
+            "alpha": 1,
+            "hex": "#6472A2"
+          },
+          "$description": "Aplat de la donnée NEUTRE en thème clair — hex d'Alice. Seul des quatre à tenir 4,19:1 sur la piste sans être assombri : il n'a pas besoin de contour."
+        },
+        "edge": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.5603,
+              0.0766,
+              271.29
+            ],
+            "alpha": 1,
+            "hex": "#6472A2"
+          },
+          "$description": "Contour du neutre — identique à l'aplat, qui tient déjà la limite."
+        },
+        "text": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4823,
+              0.0766,
+              271.29
+            ],
+            "alpha": 1,
+            "hex": "#4E5B8A"
+          },
+          "$description": "Texte et emphase neutre — 4,5:1 au pire point. La surface la plus sombre où ce rôle atterrit n'est pas la carte : c'est le VOILE de pastille à 8 % posé sur la LIGNE MISE EN AVANT d'un classement (#DFE1E8). Calé sur la carte seule, il donnait 3,85:1 là — et c'est le test d'accessibilité du Leaderboard qui l'a dit, pas mon audit, qui avait oublié cette surface. L'aplat d'Alice (#6472A2) reste intact ; seul l'usage TEXTE est assombri."
+        }
+      },
+      "warning": {
+        "fill": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.8412,
+              0.1355,
+              93.928
+            ],
+            "alpha": 1,
+            "hex": "#E8C958"
+          },
+          "$description": "Aplat de l'AVERTISSEMENT en thème clair — hex d'Alice. 1,45:1 sur la piste : le jaune est intrinsèquement faible sur clair, aucun jaune ne passe 3:1 sans virer au brun. C'est précisément pourquoi le contour existe."
+        },
+        "edge": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.6232,
+              0.1355,
+              93.928
+            ],
+            "alpha": 1,
+            "hex": "#A28400"
+          },
+          "$description": "Contour de l'aplat d'avertissement — 3,00:1 sur la piste."
+        },
+        "text": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "oklch",
+            "components": [
+              0.4792,
+              0.1355,
+              93.928
+            ],
+            "alpha": 1,
+            "hex": "#775900"
+          },
+          "$description": "Texte et emphase d'avertissement — 4,5:1 au pire point. La surface la plus sombre où ce rôle atterrit n'est pas la carte : c'est le VOILE de pastille à 8 % posé sur la LIGNE MISE EN AVANT d'un classement (#DFE1E8). Calé sur la carte seule, il donnait 3,85:1 là — et c'est le test d'accessibilité du Leaderboard qui l'a dit, pas mon audit, qui avait oublié cette surface. L'aplat d'Alice (#E8C958) reste intact ; seul l'usage TEXTE est assombri."
+        }
       }
     }
   },

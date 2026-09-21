@@ -2,7 +2,7 @@
  * Do not edit directly, this file was auto-generated.
  */
 
-[data-brand="adp"] {
+:root[data-brand="adp"] {
   --color-brand-primary: var(--color-adp-blue-800);
   --color-brand-primary-hover: var(--color-adp-blue-700);
   --color-brand-primary-active: var(--color-adp-blue-600);
@@ -16,4 +16,22 @@
   --color-brand-accent-active: var(--color-adp-campanula-200);
   --color-brand-accent-subtle: var(--color-adp-campanula-50);
   --color-brand-on-accent: var(--color-midnight-blue-900);
+  --color-chart-1: var(--color-adp-blue-800); /** Série de données 1 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 14.51:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.160 au pire, en vision normale comme en protanopie et en deutéranopie. */
+  --color-chart-2: var(--color-adp-campanula-400); /** Série de données 2 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 3.95:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.160 au pire, en vision normale comme en protanopie et en deutéranopie. */
+  --color-chart-3: var(--color-adp-red-400); /** Série de données 3 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 3.71:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.160 au pire, en vision normale comme en protanopie et en deutéranopie. */
+  --color-chart-4: var(--color-adp-red-700); /** Série de données 4 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 9.21:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.160 au pire, en vision normale comme en protanopie et en deutéranopie. */
+  --color-chart-5: var(--color-neutral-1000); /** Série de données 5 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 20.02:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.160 au pire, en vision normale comme en protanopie et en deutéranopie. */
+  --color-chart-6: var(--color-adp-blue-600); /** Série de données 6 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 8.01:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.160 au pire, en vision normale comme en protanopie et en deutéranopie. */
+  --color-ink-50: var(--color-adp-blue-50); /** Rampe de CHROME de la marque — fonds, bordures, navigation en thème sombre. C'est l'indirection qui manquait : le thème pointait directement `midnight-blue`, une primitive Aikoz, donc toute marque gardait le bleu nuit d'Aikoz sous ses propres couleurs. */
+  --color-ink-100: var(--color-adp-blue-100); /** Palier 100 de la rampe de chrome (adp-blue). */
+  --color-ink-200: var(--color-adp-blue-200); /** Palier 200 de la rampe de chrome (adp-blue). */
+  --color-ink-300: var(--color-adp-blue-300); /** Palier 300 de la rampe de chrome (adp-blue). */
+  --color-ink-400: var(--color-adp-blue-400); /** Palier 400 de la rampe de chrome (adp-blue). */
+  --color-ink-500: var(--color-adp-blue-500); /** Palier 500 de la rampe de chrome (adp-blue). */
+  --color-ink-600: var(--color-adp-blue-600); /** Palier 600 de la rampe de chrome (adp-blue). */
+  --color-ink-700: var(--color-adp-blue-700); /** Palier 700 de la rampe de chrome (adp-blue). */
+  --color-ink-800: var(--color-adp-blue-800); /** Palier 800 de la rampe de chrome (adp-blue). */
+  --color-ink-900: var(--color-adp-blue-900); /** Palier 900 de la rampe de chrome (adp-blue). */
+  --color-ink-950: var(--color-adp-blue-950); /** Palier 950 de la rampe de chrome (adp-blue). */
+  --color-ink-1000: var(--color-adp-blue-1000); /** Palier 1000 de la rampe de chrome (adp-blue). */
 }

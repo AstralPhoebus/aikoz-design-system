@@ -2,7 +2,7 @@
  * Do not edit directly, this file was auto-generated.
  */
 
-[data-brand="extime"] {
+:root[data-brand="extime"] {
   --color-brand-primary: var(--color-extime-ink-900);
   --color-brand-primary-hover: var(--color-extime-ink-800);
   --color-brand-primary-active: var(--color-extime-ink-700);
@@ -16,4 +16,22 @@
   --color-brand-accent-active: var(--color-extime-gold-400);
   --color-brand-accent-subtle: var(--color-extime-gold-50);
   --color-brand-on-accent: var(--color-extime-ink-900);
+  --color-chart-1: var(--color-extime-ink-600); /** Série de données 1 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 7.83:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.137 au pire, en vision normale comme en protanopie et en deutéranopie. */
+  --color-chart-2: var(--color-extime-green-400); /** Série de données 2 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 4.42:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.137 au pire, en vision normale comme en protanopie et en deutéranopie. */
+  --color-chart-3: var(--color-extime-gold-400); /** Série de données 3 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 3.25:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.137 au pire, en vision normale comme en protanopie et en deutéranopie. */
+  --color-chart-4: var(--color-extime-ink-800); /** Série de données 4 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 14.25:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.137 au pire, en vision normale comme en protanopie et en deutéranopie. */
+  --color-chart-5: var(--color-extime-gold-700); /** Série de données 5 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 7.94:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.137 au pire, en vision normale comme en protanopie et en deutéranopie. */
+  --color-chart-6: var(--color-neutral-1000); /** Série de données 6 de la marque. Les trois premières viennent des trois rampes de marque (primary, secondary, accent) : une palette optimisée librement sépare mieux mais peut abandonner une couleur d'identité. Chaque teinte tient 20.02:1 sur la carte (WCAG 1.4.11, seuil 3:1) et la palette sépare de ΔE 0.137 au pire, en vision normale comme en protanopie et en deutéranopie. */
+  --color-ink-50: var(--color-extime-ink-50); /** Rampe de CHROME de la marque — fonds, bordures, navigation en thème sombre. C'est l'indirection qui manquait : le thème pointait directement `midnight-blue`, une primitive Aikoz, donc toute marque gardait le bleu nuit d'Aikoz sous ses propres couleurs. */
+  --color-ink-100: var(--color-extime-ink-100); /** Palier 100 de la rampe de chrome (extime-ink). */
+  --color-ink-200: var(--color-extime-ink-200); /** Palier 200 de la rampe de chrome (extime-ink). */
+  --color-ink-300: var(--color-extime-ink-300); /** Palier 300 de la rampe de chrome (extime-ink). */
+  --color-ink-400: var(--color-extime-ink-400); /** Palier 400 de la rampe de chrome (extime-ink). */
+  --color-ink-500: var(--color-extime-ink-500); /** Palier 500 de la rampe de chrome (extime-ink). */
+  --color-ink-600: var(--color-extime-ink-600); /** Palier 600 de la rampe de chrome (extime-ink). */
+  --color-ink-700: var(--color-extime-ink-700); /** Palier 700 de la rampe de chrome (extime-ink). */
+  --color-ink-800: var(--color-extime-ink-800); /** Palier 800 de la rampe de chrome (extime-ink). */
+  --color-ink-900: var(--color-extime-ink-900); /** Palier 900 de la rampe de chrome (extime-ink). */
+  --color-ink-950: var(--color-extime-ink-950); /** Palier 950 de la rampe de chrome (extime-ink). */
+  --color-ink-1000: var(--color-extime-ink-1000); /** Palier 1000 de la rampe de chrome (extime-ink). */
 }

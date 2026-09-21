@@ -187,7 +187,7 @@
   "chart-1": {
     "$type": "color",
     "$value": "{color.chart.1}",
-    "$description": "extension DS — trace de la serie 1 ; la couleur ne distingue PAS les series a elle seule, cf. le token"
+    "$description": "extension DS — tracé série de données 1"
   },
   "chart-2": {
     "$type": "color",
@@ -249,14 +249,34 @@
     "$value": "{color.rating.empty}",
     "$description": "extension DS — étoile vide, repère décoratif de l'échelle"
   },
-  "chart-1": {
-    "$type": "color",
-    "$value": "{color.chart.1}",
-    "$description": "extension DS — tracé série de données 1"
-  },
   "radius": {
     "$type": "dimension",
     "$value": "{role.radius.default}",
     "$description": "extension DS — rayon de base (shadcn --radius, dérivé en lg/md/sm par Tailwind)"
+  },
+  "surface-inverse": {
+    "$type": "color",
+    "$value": "{color.surface.inverse}",
+    "$description": "extension DS — fond a contre-theme, premier arret du degrade"
+  },
+  "surface-inverse-to": {
+    "$type": "color",
+    "$value": "{color.surface.inverse-to}",
+    "$description": "extension DS — second arret du degrade a contre-theme"
+  },
+  "on-inverse": {
+    "$type": "color",
+    "$value": "{color.surface.on-inverse}",
+    "$description": "extension DS — texte porte par --surface-inverse"
+  },
+  "neutral-text": {
+    "$type": "color",
+    "$value": "{color.status.neutral-text}",
+    "$description": "extension DS — variation neutre d'un indicateur (DeltaBadge ton neutre)"
+  },
+  "neutral-fill": {
+    "$type": "color",
+    "$value": "{color.status.neutral-fill}",
+    "$description": "extension DS — aplat neutre d'un indicateur"
   }
 }

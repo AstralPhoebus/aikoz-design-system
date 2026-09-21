@@ -5,9 +5,16 @@ import couleurs from "./build/tailwind-colors.mjs";
 
 const config: Config = {
   darkMode: "class",
+  // `docs` et `.storybook` sont scannés eux aussi. Sans eux, toute classe
+  // utilisée UNIQUEMENT dans une histoire de vitrine était silencieusement
+  // absente du CSS : `lg:col-span-2` ne faisait rien, et la page sur laquelle
+  // on juge le design system ne rendait pas ce qu'elle déclarait. Même angle
+  // mort que le `tsconfig` qui n'incluait pas `docs`.
   content: [
     "./registry/**/*.{ts,tsx}",
     "./playground/**/*.{ts,tsx}",
+    "./docs/**/*.{ts,tsx,mdx}",
+    "./.storybook/**/*.{ts,tsx}",
   ],
   theme: {
     extend: {

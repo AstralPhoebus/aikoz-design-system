@@ -1,6 +1,6 @@
-import { type ElementType, type ReactNode } from "react";
+import { useId, type ElementType, type ReactNode } from "react";
 import { cva } from "class-variance-authority";
-import { LineChart, Line, ResponsiveContainer } from "recharts";
+import { Area, AreaChart, ResponsiveContainer } from "recharts";
 import { cn } from "@registry/aikoz/lib/utils";
 import { ScoreStars } from "@registry/aikoz/score-stars/score-stars";
 import { DeltaBadge, type DeltaTone } from "@registry/aikoz/delta-badge/delta-badge";
@@ -132,6 +132,10 @@ export function KpiCard({
   onClick,
   href,
 }: KpiCardProps) {
+  // Le dégradé de la courbe est défini dans le SVG de la carte : sans
+  // identifiant unique, deux cartes sur la même page partageraient le même
+  // `<linearGradient>` et la seconde reprendrait la couleur de la première.
+  const degradeId = useId().replace(/:/g, "");
   const scale = max ?? (variant === "rating" ? 5 : 100);
 
   // Une note se lit « 4,2 », un volume « 312 » : la décimale ne se force que
@@ -209,7 +213,22 @@ export function KpiCard({
       aria-label={isInteractive ? spoken : undefined}
       {...compProps}
     >
-      <div className="flex items-start justify-between gap-2">
+      {/* L'icône AVANT le libellé, sur sa ligne, nue.
+          J'avais d'abord posé une puce arrondie en haut à droite. C'est le
+          geste d'Impro AI et des pastilles d'agents — pas celui des cartes de
+          KPI : chez Pillio comme chez QORE, l'icône est un glyphe filaire
+          discret posé à gauche du libellé, et c'est le CHIFFRE qui occupe la
+          carte. Une puce de 32px en haut à droite met l'icône au même rang
+          visuel que la valeur, alors qu'elle ne fait que nommer la ligne. */}
+      <div className="flex items-start gap-2">
+        {icon && (
+          <span
+            aria-hidden="true"
+            className="mt-px shrink-0 text-muted-foreground [&>svg]:size-4"
+          >
+            {icon}
+          </span>
+        )}
         {/* `min-h-8` : deux lignes de `text-xs`, réservées que le libellé
             tienne sur une ligne ou deux. Sans ça, la valeur et le repère de
             comparaison qui suivent démarrent à des hauteurs différentes
@@ -219,27 +238,27 @@ export function KpiCard({
         <span className="min-h-8 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
           {label}
         </span>
-        {trend !== undefined ? (
+      </div>
+
+      {/* Le chiffre et sa variation sur UNE ligne. Séparés, l'œil fait deux
+          arrêts pour une seule information ; côte à côte, « 87 % ↑ 4,2 pts »
+          se lit d'un trait. C'est le motif de toutes les références. */}
+      <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+        <span className={valueVariants({ density })}>{formatted}</span>
+        {suffix && (
+          <span className="text-base font-medium text-muted-foreground">{suffix}</span>
+        )}
+        {trend !== undefined && (
           <DeltaBadge
             value={trend}
             unit={trendUnit}
             tone={trendTone}
             size="sm"
+            className="self-center"
             /* Décoratif seulement si la carte parle : sur une carte statique le
                badge reste le seul porteur du sens de la variation. */
             label={isInteractive ? null : undefined}
           />
-        ) : icon ? (
-          <span className="text-muted-foreground" aria-hidden="true">
-            {icon}
-          </span>
-        ) : null}
-      </div>
-
-      <div className="flex items-baseline gap-1">
-        <span className={valueVariants({ density })}>{formatted}</span>
-        {suffix && (
-          <span className="text-base font-medium text-muted-foreground">{suffix}</span>
         )}
       </div>
 
@@ -253,33 +272,78 @@ export function KpiCard({
       )}
 
       {variant === "target" && (
-        <ProgressBar
-          value={value}
-          max={scale}
-          level={resolvedLevel}
-          size={density === "compact" ? "sm" : density === "large" ? "lg" : "md"}
-          label={null}
-        />
+        <div className="flex flex-col gap-1.5">
+          <ProgressBar
+            value={value}
+            max={scale}
+            level={resolvedLevel}
+            marker={target}
+            size={density === "compact" ? "sm" : density === "large" ? "lg" : "md"}
+            label={null}
+          />
+          {/* L'objectif n'existait que dans l'annonce vocale. À l'écran, une
+              barre aux trois quarts ne dit pas si le quart manquant est un
+              retard ou une avance — l'encoche le montre, ce texte le nomme. */}
+          {target !== undefined && (
+            <span className="text-xs text-muted-foreground">
+              objectif {target.toLocaleString("fr-FR", { maximumFractionDigits: 1 })}
+              {unit ?? ""}
+            </span>
+          )}
+        </div>
       )}
 
       {variant === "trend" && data && data.length > 1 && (
         <ResponsiveContainer
           width="100%"
-          height={density === "compact" ? 32 : density === "large" ? 64 : 48}
+          height={density === "compact" ? 36 : density === "large" ? 76 : 56}
         >
-          <LineChart
-            data={data.map((v) => ({ v }))}
-            margin={{ top: 4, right: 4, left: 4, bottom: 4 }}
+          {/* Une AIRE, pas un trait. Un filet de 2px posé au milieu d'une carte
+              ne dit pas de quel côté est le « plus » ; la surface sous la
+              courbe donne au tracé un sol et un sens de lecture. Le dégradé
+              s'éteint vers le bas pour que l'aire n'entre pas en concurrence
+              avec le chiffre, qui reste l'information principale.
+
+              Le dernier point est marqué : sans lui, l'œil ne sait pas où la
+              série s'arrête et la courbe se lit comme un ornement. */}
+          <AreaChart
+            data={data.map((v, i) => ({ v, i }))}
+            margin={{ top: 6, right: 8, left: 2, bottom: 2 }}
           >
-            <Line
+            <defs>
+              <linearGradient id={`kpi-aire-${degradeId}`} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="var(--chart-1)" stopOpacity={0.45} />
+                <stop offset="100%" stopColor="var(--chart-1)" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <Area
               type="monotone"
               dataKey="v"
               stroke="var(--chart-1)"
               strokeWidth={2}
-              dot={false}
+              strokeLinecap="round"
+              fill={`url(#kpi-aire-${degradeId})`}
               isAnimationActive={false}
+              activeDot={false}
+              // Le point terminal porte un anneau de la couleur de la carte :
+              // sans lui, il se confond avec l'aire quand la courbe finit bas.
+              dot={(props: { cx?: number; cy?: number; index?: number }) =>
+                props.index === data.length - 1 && props.cx != null && props.cy != null ? (
+                  <circle
+                    key="fin"
+                    cx={props.cx}
+                    cy={props.cy}
+                    r={3}
+                    fill="var(--chart-1)"
+                    stroke="var(--card)"
+                    strokeWidth={2}
+                  />
+                ) : (
+                  <g key={`vide-${props.index}`} />
+                )
+              }
             />
-          </LineChart>
+          </AreaChart>
         </ResponsiveContainer>
       )}
 
