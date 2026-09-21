@@ -2000,316 +2000,132 @@
         "$description": "PANTONE Bright Red C · Tangerine Tango · RAL 3024 Les autres pas sont dérivés : clarté et chroma suivent le profil de la rampe ultramarine Aikoz, pour que la marque blanche « respire » comme la maison. Teinte constante."
       }
     },
-    "extime-ink": {
-      "50": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "oklch",
-          "components": [
-            0.9415,
-            0.0042,
-            223.562
-          ],
-          "alpha": 1,
-          "hex": "#E9ECEE"
-        },
-        "$description": "Extime « Primary Colors / Black » #001E28 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
-      },
-      "100": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "oklch",
-          "components": [
-            0.8921,
-            0.0128,
-            223.562
-          ],
-          "alpha": 1,
-          "hex": "#D3DDE2"
-        },
-        "$description": "Extime « Primary Colors / Black » #001E28 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
-      },
-      "200": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "oklch",
-          "components": [
-            0.7995,
-            0.0293,
-            223.562
-          ],
-          "alpha": 1,
-          "hex": "#AAC2CC"
-        },
-        "$description": "Extime « Primary Colors / Black » #001E28 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
-      },
-      "300": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "oklch",
-          "components": [
-            0.6782,
-            0.0512,
-            223.562
-          ],
-          "alpha": 1,
-          "hex": "#759FAF"
-        },
-        "$description": "Extime « Primary Colors / Black » #001E28 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
-      },
-      "400": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "oklch",
-          "components": [
-            0.5684,
-            0.0705,
-            223.562
-          ],
-          "alpha": 1,
-          "hex": "#448096"
-        },
-        "$description": "Extime « Primary Colors / Black » #001E28 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
-      },
-      "500": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "oklch",
-          "components": [
-            0.5011,
-            0.0793,
-            223.562
-          ],
-          "alpha": 1,
-          "hex": "#246D85"
-        },
-        "$description": "Extime « Primary Colors / Black » #001E28 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
-      },
-      "600": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "oklch",
-          "components": [
-            0.4327,
-            0.0752,
-            223.562
-          ],
-          "alpha": 1,
-          "hex": "#10596F"
-        },
-        "$description": "Extime « Primary Colors / Black » #001E28 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
-      },
-      "700": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "oklch",
-          "components": [
-            0.3548,
-            0.068,
-            223.562
-          ],
-          "alpha": 1,
-          "hex": "#004356"
-        },
-        "$description": "Extime « Primary Colors / Black » #001E28 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
-      },
-      "800": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "oklch",
-          "components": [
-            0.2809,
-            0.0565,
-            223.562
-          ],
-          "alpha": 1,
-          "hex": "#002F3D"
-        },
-        "$description": "Extime « Primary Colors / Black » #001E28 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
-      },
-      "900": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "oklch",
-          "components": [
-            0.2183,
-            0.0408,
-            223.562
-          ],
-          "alpha": 1,
-          "hex": "#001E28"
-        },
-        "$description": "Extime « Primary Colors / Black » #001E28 — **valeur officielle**, relevée dans les variables du fichier Figma « Extime Design System ». Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
-      },
-      "950": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "oklch",
-          "components": [
-            0.1913,
-            0.0408,
-            223.562
-          ],
-          "alpha": 1,
-          "hex": "#001821"
-        },
-        "$description": "Prolongement DÉRIVÉ de la rampe, absent de la charte de la marque : la clarté descend de 0.027 en OKLCH, teinte et chroma inchangés. Nécessaire parce que le thème sombre sépare la page, la carte et le creux sur trois niveaux, là où la charte s'arrête à 900."
-      },
-      "1000": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "oklch",
-          "components": [
-            0.1653,
-            0.0408,
-            223.562
-          ],
-          "alpha": 1,
-          "hex": "#00121B"
-        },
-        "$description": "Prolongement DÉRIVÉ de la rampe, absent de la charte de la marque : la clarté descend de 0.053 en OKLCH, teinte et chroma inchangés. Nécessaire parce que le thème sombre sépare la page, la carte et le creux sur trois niveaux, là où la charte s'arrête à 900."
-      }
-    },
     "extime-green": {
-      "50": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "oklch",
-          "components": [
-            0.9369,
-            0.0046,
-            185.323
-          ],
-          "alpha": 1,
-          "hex": "#E7EBEA"
-        },
-        "$description": "Extime « Secondary / Green 1 » #007269 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
-      },
-      "100": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "oklch",
-          "components": [
-            0.8875,
-            0.0141,
-            185.323
-          ],
-          "alpha": 1,
-          "hex": "#D0DDDB"
-        },
-        "$description": "Extime « Secondary / Green 1 » #007269 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
-      },
-      "200": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "oklch",
-          "components": [
-            0.7949,
-            0.0323,
-            185.323
-          ],
-          "alpha": 1,
-          "hex": "#A6C3BF"
-        },
-        "$description": "Extime « Secondary / Green 1 » #007269 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
-      },
       "300": {
         "$type": "color",
         "$value": {
           "colorSpace": "oklch",
           "components": [
-            0.6736,
-            0.0565,
-            185.323
+            0.6676,
+            0.1141,
+            141.48
           ],
           "alpha": 1,
-          "hex": "#6EA29B"
+          "hex": "#6BA663"
         },
-        "$description": "Extime « Secondary / Green 1 » #007269 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+        "$description": "Vert Céladon — un des neuf verts secondaires de la charte Extime (page 10), repris au hex près. Ce n'est pas une rampe mais une PALETTE : chaque vert a sa teinte propre, le numéro ne range que par clarté. Interdit n°1 de la page 11 : ne jamais employer un vert secondaire sans le vert malachite à proximité."
+      },
+      "325": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.6674,
+            0.0979,
+            172.416
+          ],
+          "alpha": 1,
+          "hex": "#4AA88E"
+        },
+        "$description": "Vert Jade — un des neuf verts secondaires de la charte Extime (page 10), repris au hex près. Ce n'est pas une rampe mais une PALETTE : chaque vert a sa teinte propre, le numéro ne range que par clarté. Interdit n°1 de la page 11 : ne jamais employer un vert secondaire sans le vert malachite à proximité."
+      },
+      "350": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.6912,
+            0.1805,
+            135.158
+          ],
+          "alpha": 1,
+          "hex": "#66B32E"
+        },
+        "$description": "Vert Printemps — un des neuf verts secondaires de la charte Extime (page 10), repris au hex près. Ce n'est pas une rampe mais une PALETTE : chaque vert a sa teinte propre, le numéro ne range que par clarté. Interdit n°1 de la page 11 : ne jamais employer un vert secondaire sans le vert malachite à proximité."
+      },
+      "375": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.6975,
+            0.154,
+            151.548
+          ],
+          "alpha": 1,
+          "hex": "#42B86B"
+        },
+        "$description": "Vert Menthe — un des neuf verts secondaires de la charte Extime (page 10), repris au hex près. Ce n'est pas une rampe mais une PALETTE : chaque vert a sa teinte propre, le numéro ne range que par clarté. Interdit n°1 de la page 11 : ne jamais employer un vert secondaire sans le vert malachite à proximité."
       },
       "400": {
         "$type": "color",
         "$value": {
           "colorSpace": "oklch",
           "components": [
-            0.5638,
-            0.0777,
-            185.323
+            0.5495,
+            0.1809,
+            143.51
           ],
           "alpha": 1,
-          "hex": "#36847C"
+          "hex": "#008A14"
         },
-        "$description": "Extime « Secondary / Green 1 » #007269 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+        "$description": "Vert Prairie — un des neuf verts secondaires de la charte Extime (page 10), repris au hex près. Ce n'est pas une rampe mais une PALETTE : chaque vert a sa teinte propre, le numéro ne range que par clarté. Interdit n°1 de la page 11 : ne jamais employer un vert secondaire sans le vert malachite à proximité."
+      },
+      "425": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.6004,
+            0.1434,
+            120.564
+          ],
+          "alpha": 1,
+          "hex": "#758C00"
+        },
+        "$description": "Vert Olive — un des neuf verts secondaires de la charte Extime (page 10), repris au hex près. Ce n'est pas une rampe mais une PALETTE : chaque vert a sa teinte propre, le numéro ne range que par clarté. Interdit n°1 de la page 11 : ne jamais employer un vert secondaire sans le vert malachite à proximité."
+      },
+      "450": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.5689,
+            0.1011,
+            183.365
+          ],
+          "alpha": 1,
+          "hex": "#008A7D"
+        },
+        "$description": "Vert Émeraude — un des neuf verts secondaires de la charte Extime (page 10), repris au hex près. Ce n'est pas une rampe mais une PALETTE : chaque vert a sa teinte propre, le numéro ne range que par clarté. Interdit n°1 de la page 11 : ne jamais employer un vert secondaire sans le vert malachite à proximité."
       },
       "500": {
         "$type": "color",
         "$value": {
           "colorSpace": "oklch",
           "components": [
-            0.4965,
-            0.0874,
-            185.323
+            0.5027,
+            0.0855,
+            202.279
           ],
           "alpha": 1,
-          "hex": "#007269"
+          "hex": "#007279"
         },
-        "$description": "Extime « Secondary / Green 1 » #007269 — **valeur officielle**, relevée dans les variables du fichier Figma « Extime Design System ». Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+        "$description": "Vert Forêt — un des neuf verts secondaires de la charte Extime (page 10), repris au hex près. Ce n'est pas une rampe mais une PALETTE : chaque vert a sa teinte propre, le numéro ne range que par clarté. Interdit n°1 de la page 11 : ne jamais employer un vert secondaire sans le vert malachite à proximité."
       },
-      "600": {
+      "525": {
         "$type": "color",
         "$value": {
           "colorSpace": "oklch",
           "components": [
-            0.4281,
-            0.0829,
-            185.323
+            0.5028,
+            0.1253,
+            154.588
           ],
           "alpha": 1,
-          "hex": "#005D55"
+          "hex": "#007842"
         },
-        "$description": "Extime « Secondary / Green 1 » #007269 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
-      },
-      "700": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "oklch",
-          "components": [
-            0.3502,
-            0.0749,
-            185.323
-          ],
-          "alpha": 1,
-          "hex": "#004740"
-        },
-        "$description": "Extime « Secondary / Green 1 » #007269 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
-      },
-      "800": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "oklch",
-          "components": [
-            0.2763,
-            0.0622,
-            185.323
-          ],
-          "alpha": 1,
-          "hex": "#00312C"
-        },
-        "$description": "Extime « Secondary / Green 1 » #007269 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
-      },
-      "900": {
-        "$type": "color",
-        "$value": {
-          "colorSpace": "oklch",
-          "components": [
-            0.2137,
-            0.045,
-            185.323
-          ],
-          "alpha": 1,
-          "hex": "#00201C"
-        },
-        "$description": "Extime « Secondary / Green 1 » #007269 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante."
+        "$description": "Vert Empire — un des neuf verts secondaires de la charte Extime (page 10), repris au hex près. Ce n'est pas une rampe mais une PALETTE : chaque vert a sa teinte propre, le numéro ne range que par clarté. Interdit n°1 de la page 11 : ne jamais employer un vert secondaire sans le vert malachite à proximité."
       }
     },
     "extime-gold": {
@@ -2318,140 +2134,140 @@
         "$value": {
           "colorSpace": "oklch",
           "components": [
-            0.9846,
-            0.0227,
-            96.335
+            0.959,
+            0.0476,
+            87.604
           ],
           "alpha": 1,
-          "hex": "#FEFAE9"
+          "hex": "#FFF0CE"
         },
-        "$description": "Extime « Accent / Yellow » #F4D651 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante. La chroma des crans foncés est bornée par le gamut sRGB, pas par le profil : un jaune ne tient pas 0,15 de chroma à 0,30 de clarté, et forcer le produit vire au brun. Chaque cran prend donc le maximum atteignable à sa clarté."
+        "$description": "Palier DÉRIVÉ de Doré classique (#BC9B48, palier 300) : clarté portée à 0.959, teinte et chroma conservés, chroma ramené de 0.109 à 0.0476 pour rester dans le gamut sRGB. La charte ne donne qu'une valeur ; une rampe en demande dix."
       },
       "100": {
         "$type": "color",
         "$value": {
           "colorSpace": "oklch",
           "components": [
-            0.9703,
-            0.061,
-            96.335
+            0.909,
+            0.107,
+            87.604
           ],
           "alpha": 1,
-          "hex": "#FFF6C7"
+          "hex": "#FFDD8C"
         },
-        "$description": "Extime « Accent / Yellow » #F4D651 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante. La chroma des crans foncés est bornée par le gamut sRGB, pas par le profil : un jaune ne tient pas 0,15 de chroma à 0,30 de clarté, et forcer le produit vire au brun. Chaque cran prend donc le maximum atteignable à sa clarté."
+        "$description": "Palier DÉRIVÉ de Doré classique (#BC9B48, palier 300) : clarté portée à 0.909, teinte et chroma conservés, chroma ramené de 0.109 à 0.107 pour rester dans le gamut sRGB. La charte ne donne qu'une valeur ; une rampe en demande dix."
       },
       "200": {
         "$type": "color",
         "$value": {
           "colorSpace": "oklch",
           "components": [
-            0.8777,
-            0.1515,
-            96.335
+            0.824,
+            0.109,
+            87.604
           ],
           "alpha": 1,
-          "hex": "#F4D651"
+          "hex": "#E3C16F"
         },
-        "$description": "Extime « Accent / Yellow » #F4D651 — **valeur officielle**, relevée dans les variables du fichier Figma « Extime Design System ». Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante. La chroma des crans foncés est bornée par le gamut sRGB, pas par le profil : un jaune ne tient pas 0,15 de chroma à 0,30 de clarté, et forcer le produit vire au brun. Chaque cran prend donc le maximum atteignable à sa clarté."
+        "$description": "Palier DÉRIVÉ de Doré classique (#BC9B48, palier 300) : clarté portée à 0.824, teinte et chroma conservés. La charte ne donne qu'une valeur ; une rampe en demande dix."
       },
       "300": {
         "$type": "color",
         "$value": {
           "colorSpace": "oklch",
           "components": [
-            0.7564,
-            0.1515,
-            96.335
+            0.7031,
+            0.109,
+            87.604
           ],
           "alpha": 1,
-          "hex": "#CCAF17"
+          "hex": "#BC9B48"
         },
-        "$description": "Extime « Accent / Yellow » #F4D651 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante. La chroma des crans foncés est bornée par le gamut sRGB, pas par le profil : un jaune ne tient pas 0,15 de chroma à 0,30 de clarté, et forcer le produit vire au brun. Chaque cran prend donc le maximum atteignable à sa clarté."
+        "$description": "Doré classique — valeur de la charte Extime (page 10), reprise au hex près."
       },
       "400": {
         "$type": "color",
         "$value": {
           "colorSpace": "oklch",
           "components": [
-            0.6466,
-            0.1373,
-            96.335
+            0.586,
+            0.109,
+            87.604
           ],
           "alpha": 1,
-          "hex": "#A78D00"
+          "hex": "#97771E"
         },
-        "$description": "Extime « Accent / Yellow » #F4D651 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante. La chroma des crans foncés est bornée par le gamut sRGB, pas par le profil : un jaune ne tient pas 0,15 de chroma à 0,30 de clarté, et forcer le produit vire au brun. Chaque cran prend donc le maximum atteignable à sa clarté."
+        "$description": "Palier DÉRIVÉ de Doré classique (#BC9B48, palier 300) : clarté portée à 0.586, teinte et chroma conservés. La charte ne donne qu'une valeur ; une rampe en demande dix."
       },
       "500": {
         "$type": "color",
         "$value": {
           "colorSpace": "oklch",
           "components": [
-            0.5793,
-            0.1233,
-            96.335
+            0.458,
+            0.0943,
+            87.604
           ],
           "alpha": 1,
-          "hex": "#907900"
+          "hex": "#6E5300"
         },
-        "$description": "Extime « Accent / Yellow » #F4D651 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante. La chroma des crans foncés est bornée par le gamut sRGB, pas par le profil : un jaune ne tient pas 0,15 de chroma à 0,30 de clarté, et forcer le produit vire au brun. Chaque cran prend donc le maximum atteignable à sa clarté."
+        "$description": "Palier DÉRIVÉ de Doré classique (#BC9B48, palier 300) : clarté portée à 0.458, teinte et chroma conservés, chroma ramené de 0.109 à 0.0943 pour rester dans le gamut sRGB. La charte ne donne qu'une valeur ; une rampe en demande dix."
       },
       "600": {
         "$type": "color",
         "$value": {
           "colorSpace": "oklch",
           "components": [
-            0.5109,
-            0.109,
-            96.335
+            0.355,
+            0.0737,
+            87.604
           ],
           "alpha": 1,
-          "hex": "#796500"
+          "hex": "#4C3900"
         },
-        "$description": "Extime « Accent / Yellow » #F4D651 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante. La chroma des crans foncés est bornée par le gamut sRGB, pas par le profil : un jaune ne tient pas 0,15 de chroma à 0,30 de clarté, et forcer le produit vire au brun. Chaque cran prend donc le maximum atteignable à sa clarté."
+        "$description": "Palier DÉRIVÉ de Doré classique (#BC9B48, palier 300) : clarté portée à 0.355, teinte et chroma conservés, chroma ramené de 0.109 à 0.0737 pour rester dans le gamut sRGB. La charte ne donne qu'une valeur ; une rampe en demande dix."
       },
       "700": {
         "$type": "color",
         "$value": {
           "colorSpace": "oklch",
           "components": [
-            0.433,
-            0.0933,
-            96.335
+            0.272,
+            0.0576,
+            87.604
           ],
           "alpha": 1,
-          "hex": "#605000"
+          "hex": "#332500"
         },
-        "$description": "Extime « Accent / Yellow » #F4D651 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante. La chroma des crans foncés est bornée par le gamut sRGB, pas par le profil : un jaune ne tient pas 0,15 de chroma à 0,30 de clarté, et forcer le produit vire au brun. Chaque cran prend donc le maximum atteignable à sa clarté."
+        "$description": "Palier DÉRIVÉ de Doré classique (#BC9B48, palier 300) : clarté portée à 0.272, teinte et chroma conservés, chroma ramené de 0.109 à 0.0576 pour rester dans le gamut sRGB. La charte ne donne qu'une valeur ; une rampe en demande dix."
       },
       "800": {
         "$type": "color",
         "$value": {
           "colorSpace": "oklch",
           "components": [
-            0.3591,
-            0.0778,
-            96.335
+            0.223,
+            0.0486,
+            87.604
           ],
           "alpha": 1,
-          "hex": "#493C00"
+          "hex": "#251900"
         },
-        "$description": "Extime « Accent / Yellow » #F4D651 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante. La chroma des crans foncés est bornée par le gamut sRGB, pas par le profil : un jaune ne tient pas 0,15 de chroma à 0,30 de clarté, et forcer le produit vire au brun. Chaque cran prend donc le maximum atteignable à sa clarté."
+        "$description": "Palier DÉRIVÉ de Doré classique (#BC9B48, palier 300) : clarté portée à 0.223, teinte et chroma conservés, chroma ramené de 0.109 à 0.0486 pour rester dans le gamut sRGB. La charte ne donne qu'une valeur ; une rampe en demande dix."
       },
       "900": {
         "$type": "color",
         "$value": {
           "colorSpace": "oklch",
           "components": [
-            0.2965,
-            0.0647,
-            96.335
+            0.186,
+            0.0424,
+            87.604
           ],
           "alpha": 1,
-          "hex": "#362C00"
+          "hex": "#1B1100"
         },
-        "$description": "Extime « Accent / Yellow » #F4D651 Les autres pas sont dérivés : clarté suivant le profil de la rampe ultramarine Aikoz, teinte constante. La chroma des crans foncés est bornée par le gamut sRGB, pas par le profil : un jaune ne tient pas 0,15 de chroma à 0,30 de clarté, et forcer le produit vire au brun. Chaque cran prend donc le maximum atteignable à sa clarté."
+        "$description": "Palier DÉRIVÉ de Doré classique (#BC9B48, palier 300) : clarté portée à 0.186, teinte et chroma conservés, chroma ramené de 0.109 à 0.0424 pour rester dans le gamut sRGB. La charte ne donne qu'une valeur ; une rampe en demande dix."
       }
     },
     "data": {
@@ -2489,12 +2305,12 @@
           "$value": {
             "colorSpace": "oklch",
             "components": [
-              0.458,
+              0.426,
               0.1104,
               171.703
             ],
             "alpha": 1,
-            "hex": "#006A50"
+            "hex": "#006147"
           },
           "$description": "Texte et emphase positive — 4,5:1 au pire point. La surface la plus sombre où ce rôle atterrit n'est pas la carte : c'est le VOILE de pastille à 8 % posé sur la LIGNE MISE EN AVANT d'un classement (#DFE1E8). Calé sur la carte seule, il donnait 3,85:1 là — et c'est le test d'accessibilité du Leaderboard qui l'a dit, pas mon audit, qui avait oublié cette surface. L'aplat d'Alice (#3BAB8D) reste intact ; seul l'usage TEXTE est assombri."
         }
@@ -2533,12 +2349,12 @@
           "$value": {
             "colorSpace": "oklch",
             "components": [
-              0.4965,
+              0.464,
               0.1602,
               30.474
             ],
             "alpha": 1,
-            "hex": "#AA3122"
+            "hex": "#9F2618"
           },
           "$description": "Texte et emphase négative — 4,5:1 au pire point. La surface la plus sombre où ce rôle atterrit n'est pas la carte : c'est le VOILE de pastille à 8 % posé sur la LIGNE MISE EN AVANT d'un classement (#DFE1E8). Calé sur la carte seule, il donnait 3,85:1 là — et c'est le test d'accessibilité du Leaderboard qui l'a dit, pas mon audit, qui avait oublié cette surface. L'aplat d'Alice (#E96B58) reste intact ; seul l'usage TEXTE est assombri."
         }
@@ -2577,12 +2393,12 @@
           "$value": {
             "colorSpace": "oklch",
             "components": [
-              0.4823,
+              0.456,
               0.0766,
               271.29
             ],
             "alpha": 1,
-            "hex": "#4E5B8A"
+            "hex": "#475482"
           },
           "$description": "Texte et emphase neutre — 4,5:1 au pire point. La surface la plus sombre où ce rôle atterrit n'est pas la carte : c'est le VOILE de pastille à 8 % posé sur la LIGNE MISE EN AVANT d'un classement (#DFE1E8). Calé sur la carte seule, il donnait 3,85:1 là — et c'est le test d'accessibilité du Leaderboard qui l'a dit, pas mon audit, qui avait oublié cette surface. L'aplat d'Alice (#6472A2) reste intact ; seul l'usage TEXTE est assombri."
         }
@@ -2621,15 +2437,305 @@
           "$value": {
             "colorSpace": "oklch",
             "components": [
-              0.4792,
+              0.449,
               0.1355,
               93.928
             ],
             "alpha": 1,
-            "hex": "#775900"
+            "hex": "#6E5100"
           },
           "$description": "Texte et emphase d'avertissement — 4,5:1 au pire point. La surface la plus sombre où ce rôle atterrit n'est pas la carte : c'est le VOILE de pastille à 8 % posé sur la LIGNE MISE EN AVANT d'un classement (#DFE1E8). Calé sur la carte seule, il donnait 3,85:1 là — et c'est le test d'accessibilité du Leaderboard qui l'a dit, pas mon audit, qui avait oublié cette surface. L'aplat d'Alice (#E8C958) reste intact ; seul l'usage TEXTE est assombri."
         }
+      }
+    },
+    "generali-slate": {
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.9401,
+            0.0,
+            89.876
+          ],
+          "alpha": 1,
+          "hex": "#EBEBEB"
+        },
+        "$description": "Couleur secondaire de la charte Generali (page 202, « Palette de couleurs » du style illustratif). Valeur de la charte, reprise au hex près ; le numéro de palier est déduit de sa clarté OKLCH, aucune teinte n'est inventée."
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8281,
+            0.0243,
+            216.768
+          ],
+          "alpha": 1,
+          "hex": "#B6CBD1"
+        },
+        "$description": "Couleur secondaire de la charte Generali (page 202, « Palette de couleurs » du style illustratif). Valeur de la charte, reprise au hex près ; le numéro de palier est déduit de sa clarté OKLCH, aucune teinte n'est inventée."
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.6149,
+            0.0325,
+            215.254
+          ],
+          "alpha": 1,
+          "hex": "#6F8A91"
+        },
+        "$description": "Couleur secondaire de la charte Generali (page 202, « Palette de couleurs » du style illustratif). Valeur de la charte, reprise au hex près ; le numéro de palier est déduit de sa clarté OKLCH, aucune teinte n'est inventée."
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.4457,
+            0.0426,
+            218.399
+          ],
+          "alpha": 1,
+          "hex": "#385A64"
+        },
+        "$description": "Couleur secondaire de la charte Generali (page 202, « Palette de couleurs » du style illustratif). Valeur de la charte, reprise au hex près ; le numéro de palier est déduit de sa clarté OKLCH, aucune teinte n'est inventée."
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.3445,
+            0.0391,
+            219.356
+          ],
+          "alpha": 1,
+          "hex": "#203E47"
+        },
+        "$description": "Couleur secondaire de la charte Generali (page 202, « Palette de couleurs » du style illustratif). Valeur de la charte, reprise au hex près ; le numéro de palier est déduit de sa clarté OKLCH, aucune teinte n'est inventée."
+      }
+    },
+    "generali-green": {
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.7046,
+            0.1479,
+            140.886
+          ],
+          "alpha": 1,
+          "hex": "#68B65B"
+        },
+        "$description": "Couleur secondaire de la charte Generali (page 202, « Palette de couleurs » du style illustratif). Valeur de la charte, reprise au hex près ; le numéro de palier est déduit de sa clarté OKLCH, aucune teinte n'est inventée."
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.5448,
+            0.0997,
+            148.996
+          ],
+          "alpha": 1,
+          "hex": "#42804F"
+        },
+        "$description": "Couleur secondaire de la charte Generali (page 202, « Palette de couleurs » du style illustratif). Valeur de la charte, reprise au hex près ; le numéro de palier est déduit de sa clarté OKLCH, aucune teinte n'est inventée."
+      }
+    },
+    "generali-periwinkle": {
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.6794,
+            0.0768,
+            273.961
+          ],
+          "alpha": 1,
+          "hex": "#8995C8"
+        },
+        "$description": "Couleur secondaire de la charte Generali (page 202, « Palette de couleurs » du style illustratif). Valeur de la charte, reprise au hex près ; le numéro de palier est déduit de sa clarté OKLCH, aucune teinte n'est inventée."
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.5143,
+            0.1132,
+            270.562
+          ],
+          "alpha": 1,
+          "hex": "#4F62A8"
+        },
+        "$description": "Couleur secondaire de la charte Generali (page 202, « Palette de couleurs » du style illustratif). Valeur de la charte, reprise au hex près ; le numéro de palier est déduit de sa clarté OKLCH, aucune teinte n'est inventée."
+      }
+    },
+    "generali-amber": {
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.742,
+            0.1353,
+            78.836
+          ],
+          "alpha": 1,
+          "hex": "#D9A036"
+        },
+        "$description": "Couleur secondaire de la charte Generali (page 202, « Palette de couleurs » du style illustratif). Valeur de la charte, reprise au hex près ; le numéro de palier est déduit de sa clarté OKLCH, aucune teinte n'est inventée."
+      }
+    },
+    "extime-malachite": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.959,
+            0.0355,
+            210.845
+          ],
+          "alpha": 1,
+          "hex": "#D7F9FF"
+        },
+        "$description": "Palier DÉRIVÉ de Vert malachite, couleur identitaire Extime (#004650, palier 600) : clarté portée à 0.959, teinte et chroma conservés, chroma ramené de 0.0627 à 0.0355 pour rester dans le gamut sRGB. La charte ne donne qu'une valeur ; une rampe en demande dix."
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.909,
+            0.0627,
+            210.845
+          ],
+          "alpha": 1,
+          "hex": "#B1EDF9"
+        },
+        "$description": "Palier DÉRIVÉ de Vert malachite, couleur identitaire Extime (#004650, palier 600) : clarté portée à 0.909, teinte et chroma conservés. La charte ne donne qu'une valeur ; une rampe en demande dix."
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.824,
+            0.0627,
+            210.845
+          ],
+          "alpha": 1,
+          "hex": "#96D1DC"
+        },
+        "$description": "Palier DÉRIVÉ de Vert malachite, couleur identitaire Extime (#004650, palier 600) : clarté portée à 0.824, teinte et chroma conservés. La charte ne donne qu'une valeur ; une rampe en demande dix."
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.713,
+            0.0627,
+            210.845
+          ],
+          "alpha": 1,
+          "hex": "#73ADB9"
+        },
+        "$description": "Palier DÉRIVÉ de Vert malachite, couleur identitaire Extime (#004650, palier 600) : clarté portée à 0.713, teinte et chroma conservés. La charte ne donne qu'une valeur ; une rampe en demande dix."
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.586,
+            0.0627,
+            210.845
+          ],
+          "alpha": 1,
+          "hex": "#4D8691"
+        },
+        "$description": "Palier DÉRIVÉ de Vert malachite, couleur identitaire Extime (#004650, palier 600) : clarté portée à 0.586, teinte et chroma conservés. La charte ne donne qu'une valeur ; une rampe en demande dix."
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.458,
+            0.0627,
+            210.845
+          ],
+          "alpha": 1,
+          "hex": "#26616B"
+        },
+        "$description": "Palier DÉRIVÉ de Vert malachite, couleur identitaire Extime (#004650, palier 600) : clarté portée à 0.458, teinte et chroma conservés. La charte ne donne qu'une valeur ; une rampe en demande dix."
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.3614,
+            0.0627,
+            210.845
+          ],
+          "alpha": 1,
+          "hex": "#004650"
+        },
+        "$description": "Vert malachite, couleur identitaire Extime — valeur de la charte Extime (page 10), reprise au hex près."
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.272,
+            0.0485,
+            210.845
+          ],
+          "alpha": 1,
+          "hex": "#002D34"
+        },
+        "$description": "Palier DÉRIVÉ de Vert malachite, couleur identitaire Extime (#004650, palier 600) : clarté portée à 0.272, teinte et chroma conservés, chroma ramené de 0.0627 à 0.0485 pour rester dans le gamut sRGB. La charte ne donne qu'une valeur ; une rampe en demande dix."
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.223,
+            0.0406,
+            210.845
+          ],
+          "alpha": 1,
+          "hex": "#002026"
+        },
+        "$description": "Palier DÉRIVÉ de Vert malachite, couleur identitaire Extime (#004650, palier 600) : clarté portée à 0.223, teinte et chroma conservés, chroma ramené de 0.0627 à 0.0406 pour rester dans le gamut sRGB. La charte ne donne qu'une valeur ; une rampe en demande dix."
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.186,
+            0.035,
+            210.845
+          ],
+          "alpha": 1,
+          "hex": "#00171C"
+        },
+        "$description": "Palier DÉRIVÉ de Vert malachite, couleur identitaire Extime (#004650, palier 600) : clarté portée à 0.186, teinte et chroma conservés, chroma ramené de 0.0627 à 0.035 pour rester dans le gamut sRGB. La charte ne donne qu'une valeur ; une rampe en demande dix."
       }
     }
   },
@@ -2648,6 +2754,26 @@
       "$type": "fontFamily",
       "$value": "JetBrains Mono, monospace",
       "$description": "KPI / chiffres"
+    },
+    "roboto": {
+      "$type": "fontFamily",
+      "$value": "Roboto, Arial, sans-serif",
+      "$description": "Police des outils digitaux Generali. Charte Generali p. 32 : « Roboto est la police utilisée pour tous les outils digitaux SOE ». Repli Arial, la seconde police autorisée par la même charte."
+    },
+    "systeme": {
+      "$type": "fontFamily",
+      "$value": "ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif",
+      "$description": "Pile système. Défaut d'une marque dont la charte typographique n'est pas encore connue — mieux vaut une pile neutre qu'emprunter la police d'une autre marque."
+    },
+    "gotham": {
+      "$type": "fontFamily",
+      "$value": "Gotham, 'Century Gothic', sans-serif",
+      "$description": "Police du Groupe ADP. Charte ADP, section 2 « Typefaces » : Gotham est la police print ET « also used for all digital supports: internet and intranet sites, apps ». Elle est commerciale (Hœfler & Co) : le repli n'est pas choisi au hasard, c'est Century Gothic, le substitut que la charte elle-même désigne « to avoid technical problems relating to compatibility »."
+    },
+    "extime": {
+      "$type": "fontFamily",
+      "$value": "Extime, Arial, sans-serif",
+      "$description": "Police propriétaire d'Extime, dessinée pour la marque — quatre graisses : Thin, Light, Regular, Bold. Charte Extime p. 12 : « Elle doit être utilisée sur tous les documents Extime », et l'interdit n°1 de la page 13 est explicite : « Ne pas utiliser d'autres typographies qu'Extime ». Le repli est Arial, la substitution que la même page désigne pour la bureautique — pas un choix de notre part. Le fichier de police se récupère sur le brand center Extime ; sans lui, l'aperçu rend en Arial."
     }
   },
   "font-weight": {

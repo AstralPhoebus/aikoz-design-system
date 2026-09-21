@@ -7,28 +7,43 @@ import { cn } from "@registry/aikoz/lib/utils";
 const badgeVariants = cva(
   [
     "inline-flex items-center gap-0.5 shrink-0",
-    "rounded-full border font-semibold whitespace-nowrap",
+    "rounded-full font-semibold whitespace-nowrap",
   ],
   {
     variants: {
       tone: {
-        // La bordure porte la couleur en plus du fond : sur fond très clair le
-        // seul aplat ne tient pas le 3:1 conteneur/fond de WCAG 1.4.11.
+        // PLUS DE BORDURE, et un voile deux fois plus dense (16 % au lieu de 8).
+        //
+        // Le contour était justifié par WCAG 1.4.11, « 3:1 conteneur/fond ».
+        // Relu, le critère ne s'applique pas ici : il vise les COMPOSANTS
+        // d'interface — ce qui permet d'identifier un contrôle et son état —
+        // et les objets graphiques nécessaires à la compréhension. Une pastille
+        // de variation n'est ni l'un ni l'autre : elle n'est pas interactive,
+        // et son sens est entièrement porté par sa flèche et son texte, qui
+        // tiennent 4,5:1. La pastille elle-même n'ajoute aucune information.
+        //
+        // Tenir un seuil là où il ne s'applique pas n'est pas de la prudence,
+        // c'est du bruit : deux traits par carte que rien n'exige. Le voile
+        // densifié suffit à faire lire la forme.
+        //
+        // Le texte descend de 0,03 en clarté pour compenser le voile plus
+        // sombre — mesuré sur le pire fond, la ligne mise en avant d'un
+        // classement.
         positive: [
-          "border-[var(--success)] text-[var(--success)]",
-          "bg-[color-mix(in_oklch,var(--success),transparent_92%)]",
+          "text-[var(--success)]",
+          "bg-[color-mix(in_oklch,var(--success),transparent_84%)]",
         ],
         negative: [
-          "border-[var(--destructive-text)] text-[var(--destructive-text)]",
-          "bg-[color-mix(in_oklch,var(--destructive-text),transparent_92%)]",
+          "text-[var(--destructive-text)]",
+          "bg-[color-mix(in_oklch,var(--destructive-text),transparent_84%)]",
         ],
         // `--neutral-text`, pas `--muted-foreground` : ce dernier est le gris du
         // texte SECONDAIRE, emprunté faute de rôle. Une variation stable est
         // une donnée, au même titre qu'une hausse ou une baisse — elle mérite
         // son rôle, et il est désormais bleu ardoise plutôt que gris.
         neutral: [
-          "border-[var(--neutral-text)] text-[var(--neutral-text)]",
-          "bg-[color-mix(in_oklch,var(--neutral-text),transparent_92%)]",
+          "text-[var(--neutral-text)]",
+          "bg-[color-mix(in_oklch,var(--neutral-text),transparent_84%)]",
         ],
       },
       size: {

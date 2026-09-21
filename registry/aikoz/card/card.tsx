@@ -18,7 +18,18 @@ const cardVariants = cva("flex flex-col", {
        * remplacerait. La carte disparaîtrait.
        */
       raised: [
-        "bg-card text-card-foreground",
+        "text-card-foreground",
+        // La surface n'est plus un APLAT. Un dégradé très court, de `--card`
+        // vers 30 % du fond de page, suffit à donner à la carte un haut et un
+        // bas — c'est ce qui sépare les tableaux de bord récents de ceux qui
+        // font vieux, et c'est le seul geste de la référence QORE qui tienne
+        // en produit sans devenir décoratif.
+        //
+        // Le sens est imposé par le thème et non choisi : le mélange va vers
+        // la PAGE, donc en clair le bas se grise à peine et en sombre il
+        // s'assombrit. Un dégradé écrit en dur aurait éclairci le haut, ce qui
+        // est impossible en clair où la carte est déjà blanche.
+        "[background:linear-gradient(180deg,var(--card)_0%,color-mix(in_oklch,var(--card),var(--background)_30%)_100%)]",
         // Propriété arbitraire `[box-shadow:…]`, et NON l'utilitaire
         // `shadow-…`. Deux échecs successifs l'ont imposé : `shadow-[var(…)]`
         // fait prendre à Tailwind un `var()` nu pour une COULEUR d'ombre — il

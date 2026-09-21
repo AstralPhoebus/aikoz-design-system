@@ -156,6 +156,15 @@ await make('brand-extime.css', [PRIM, brand('extime')], { selector: ':root[data-
 // Palettes de séries en thème sombre — une marque ne peut pas tenir les deux
 // thèmes avec les mêmes teintes : ce qui se lit sur du blanc disparaît sur du
 // bleu nuit.
+// Aikoz a lui aussi un fichier sombre, sur `:root.dark` (0,2,0) : les autres
+// marques, en `:root[data-brand=x].dark` (0,3,0), passent devant. Sans ça
+// Aikoz restait le cas particulier — ses valeurs sombres vivaient dans le
+// thème, donc toute marque qui ne les redéfinissait pas héritait des siennes.
+await make('brand-aikoz-dark.css', [PRIM, brand('aikoz-dark')], {
+  selector: ':root.dark',
+  filter: inPath('brand/aikoz-dark'),
+  transforms: cssOklch,
+}).buildAllPlatforms();
 for (const m of ['generali', 'adp', 'extime']) {
   await make(`brand-${m}-dark.css`, [PRIM, brand(`${m}-dark`)], {
     selector: `:root[data-brand="${m}"].dark`,
@@ -197,7 +206,12 @@ await make('theme-marketing.css', [PRIM, brand('aikoz'), theme('marketing')], {
 // Format maison : les rôles typographiques sortent en longhand (5 variables),
 // les autres en une variable. Les alias sont posés directement en var(--…),
 // donc outputReferences est inutile ici — et surtout inoffensif.
-await make('semantics.css', [PRIM, SEM], {
+// `brand('aikoz')` en source : les rôles typographiques pointent désormais sur
+// `{font.heading}` et `{font.body}`, qui vivent dans la couche MARQUE. Le
+// fichier de marque n'est là que pour résoudre la référence — `outputReferences`
+// fait que la feuille émet `var(--font-heading)`, donc la valeur suit bien
+// `data-brand` au rendu, elle n'est pas figée sur Aikoz.
+await make('semantics.css', [PRIM, brand('aikoz'), SEM], {
   selector: ':root', filter: (t) => t.filePath.includes('tokens/semantics.json'),
   format: 'css/variables-aikoz-semantics',
 }).buildAllPlatforms();
@@ -401,6 +415,44 @@ for (const [nom, L] of fonds) {
       echecs.push(
         `build/index.css n'importe pas ${f} — ce qu'il déclare serait inerte. ` +
         `Ajouter : @import "./${f}";`
+      );
+    }
+  }
+}
+
+// Garde-fou : la rampe d'Aikoz ne doit pas s'écarter de l'ÉCHELLE de chrome
+// sombre.
+//
+// L'échelle est déclarée dans `scripts/ink-sombre.py` et sert à dériver le
+// chrome sombre de chaque marque. Aikoz, lui, y arrive par sa propre rampe
+// `midnight-blue` : son fichier de marque mappe `ink.X` dessus directement.
+// Les deux coïncident aujourd'hui, et ce garde-fou existe pour que ça reste
+// vrai — sinon Aikoz dériverait de l'échelle que toutes les autres marques
+// respectent, et « le thème sombre est le même partout » deviendrait faux
+// sans qu'aucun test ne bouge.
+//
+// Le sens de la dépendance est là, explicite : l'échelle ne LIT pas Aikoz,
+// c'est Aikoz qui doit s'y conformer.
+const ECHELLE_CHROME = {
+  400: [0.5856, 0.0957],
+  700: [0.272, 0.0982],
+  800: [0.2232, 0.0804],
+  900: [0.1857, 0.048],
+  950: [0.159, 0.0351],
+  1000: [0.1334, 0.0203],
+};
+{
+  const prim = JSON.parse(fs.readFileSync('tokens/primitives.json', 'utf8'));
+  for (const [pas, [L, C]] of Object.entries(ECHELLE_CHROME)) {
+    const t = prim.color['midnight-blue'][pas];
+    if (!t) { echecs.push(`midnight-blue.${pas} manque — l'échelle de chrome sombre l'attend`); continue; }
+    const [l, c] = t.$value.components;
+    if (Math.abs(l - L) > 0.001 || Math.abs(c - C) > 0.001) {
+      echecs.push(
+        `midnight-blue.${pas} (L=${l} C=${c}) s'écarte de l'échelle de chrome sombre ` +
+          `(L=${L} C=${C}). Aikoz ne suivrait plus l'échelle que les autres marques ` +
+          `respectent. Corriger la rampe, ou mettre à jour l'échelle dans ` +
+          `scripts/ink-sombre.py ET ici, puis relancer scripts/ink-sombre.py.`,
       );
     }
   }

@@ -62,8 +62,8 @@
       },
       "action-secondary": {
         "$type": "color",
-        "$value": "{color.ultramarine.225}",
-        "$description": "Surface d'action secondaire. Ultramarine en light, bleu pâle en dark."
+        "$value": "{color.brand.secondary-subtle}",
+        "$description": "Aplat d'action secondaire. Pointait sur `ultramarine.225`, une rampe d'AIKOZ. Passe par le palier discret de la SECONDAIRE de la marque, qui existait déjà."
       },
       "inverse": {
         "$type": "color",
@@ -117,7 +117,8 @@
       },
       "accent": {
         "$type": "color",
-        "$value": "{color.aquamarine.300}"
+        "$value": "{color.brand.accent-text}",
+        "$description": "Texte teinté de l'accent. Pointait sur `aquamarine`, une rampe d'AIKOZ, sous toutes les marques. Passe par `brand.accent-text`, un palier de la rampe d'accent de la marque choisi par la mesure — `brand.accent` ne convient pas, c'est une SURFACE et elle est claire par construction."
       },
       "on-accent": {
         "$type": "color",
@@ -301,7 +302,8 @@
       },
       "on-muted": {
         "$type": "color",
-        "$value": "{color.ultramarine.300}"
+        "$value": "{color.neutral.400}",
+        "$description": "Texte secondaire de la navigation. Pointait sur `ultramarine.300`, une rampe d'AIKOZ. Passe au neutre commun, comme le fait déjà le thème clair avec `neutral.600` — un gris de second plan n'a pas à porter la marque."
       },
       "accent": {
         "$type": "color",

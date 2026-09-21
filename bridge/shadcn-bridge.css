@@ -56,7 +56,6 @@
   --popover-foreground: var(--color-text-primary); /** shadcn --popover-foreground */
   --primary: var(--color-surface-action); /** shadcn --primary */
   --secondary: var(--color-surface-action-secondary); /** shadcn --secondary */
-  --accent-foreground: var(--color-text-on-accent); /** shadcn --accent-foreground */
   --ring: var(--color-border-focus); /** shadcn --ring */
   --nav-on: var(--color-nav-on); /** extension DS — texte de la navigation */
   --nav-accent: var(--color-nav-accent); /** extension DS — trait de l'entree courante ; ultramarine en clair, aquamarine en sombre — c'est LUI qui porte l'etat */
@@ -64,6 +63,7 @@
   --surface-inverse: var(--color-surface-inverse); /** extension DS — fond a contre-theme, premier arret du degrade */
   --surface-inverse-to: var(--color-surface-inverse-to); /** extension DS — second arret du degrade a contre-theme */
   --on-inverse: var(--color-surface-on-inverse); /** extension DS — texte porte par --surface-inverse */
+  --accent-foreground: var(--color-text-on-accent); /** shadcn --accent-foreground */
 }
 
 /**
@@ -75,7 +75,6 @@
   --card-foreground: var(--color-text-primary); /** shadcn --card-foreground */
   --popover-foreground: var(--color-text-primary); /** shadcn --popover-foreground */
   --nav-on: var(--color-nav-on); /** extension DS — texte de la navigation */
-  --secondary: var(--color-surface-action-secondary); /** shadcn --secondary */
   --muted-foreground: var(--color-text-muted); /** shadcn --muted-foreground */
   --accent: var(--color-brand-accent); /** shadcn --accent */
   --destructive: var(--color-status-error); /** shadcn --destructive */
@@ -109,10 +108,10 @@
   --popover: var(--color-surface-raised); /** shadcn --popover */
   --primary: var(--color-surface-action); /** shadcn --primary */
   --primary-foreground: var(--color-text-on-action); /** shadcn --primary-foreground */
+  --secondary: var(--color-surface-action-secondary); /** shadcn --secondary */
   --secondary-foreground: var(--color-text-on-action-secondary); /** shadcn --secondary-foreground */
   --muted: var(--color-surface-sunken); /** shadcn --muted */
   --surface-hover: var(--color-surface-hover); /** extension DS — fond au survol d'une surface. Rôle qui manquait : les composants détournaient --muted, qui est un CREUX décoratif et non un état. */
-  --accent-foreground: var(--color-text-on-accent); /** shadcn --accent-foreground */
   --destructive-foreground: var(--color-text-inverse); /** shadcn --destructive-foreground — à auditer */
   --border: var(--color-border-default); /** shadcn --border */
   --border-strong: var(--color-border-strong); /** extension DS — bordure porteuse, >= 3:1 contre la page. Porte le survol des boutons sans fond. */
@@ -127,6 +126,7 @@
   --on-inverse: var(--color-surface-on-inverse); /** extension DS — texte porte par --surface-inverse */
   --neutral-text: var(--color-status-neutral-text); /** extension DS — variation neutre d'un indicateur (DeltaBadge ton neutre) */
   --neutral-fill: var(--color-status-neutral-fill); /** extension DS — aplat neutre d'un indicateur */
+  --accent-foreground: var(--color-text-on-accent); /** shadcn --accent-foreground */
 }
 
 /**
@@ -182,7 +182,6 @@
   --primary: var(--color-surface-action); /** shadcn --primary */
   --secondary: var(--color-surface-action-secondary); /** shadcn --secondary */
   --muted-foreground: var(--color-text-muted); /** shadcn --muted-foreground */
-  --accent-foreground: var(--color-text-on-accent); /** shadcn --accent-foreground */
   --ring: var(--color-border-focus); /** shadcn --ring */
   --nav-on: var(--color-nav-on); /** extension DS — texte de la navigation */
   --nav-accent: var(--color-nav-accent); /** extension DS — trait de l'entree courante ; ultramarine en clair, aquamarine en sombre — c'est LUI qui porte l'etat */
@@ -190,6 +189,7 @@
   --surface-inverse: var(--color-surface-inverse); /** extension DS — fond a contre-theme, premier arret du degrade */
   --surface-inverse-to: var(--color-surface-inverse-to); /** extension DS — second arret du degrade a contre-theme */
   --on-inverse: var(--color-surface-on-inverse); /** extension DS — texte porte par --surface-inverse */
+  --accent-foreground: var(--color-text-on-accent); /** shadcn --accent-foreground */
 }
 
 /**
@@ -201,7 +201,6 @@
   --card-foreground: var(--color-text-primary); /** shadcn --card-foreground */
   --popover-foreground: var(--color-text-primary); /** shadcn --popover-foreground */
   --nav-on: var(--color-nav-on); /** extension DS — texte de la navigation */
-  --secondary: var(--color-surface-action-secondary); /** shadcn --secondary */
   --muted-foreground: var(--color-text-muted); /** shadcn --muted-foreground */
   --accent: var(--color-brand-accent); /** shadcn --accent */
   --destructive: var(--color-status-error); /** shadcn --destructive */
@@ -233,10 +232,10 @@
   --popover: var(--color-surface-raised); /** shadcn --popover */
   --primary: var(--color-surface-action); /** shadcn --primary */
   --primary-foreground: var(--color-text-on-action); /** shadcn --primary-foreground */
+  --secondary: var(--color-surface-action-secondary); /** shadcn --secondary */
   --secondary-foreground: var(--color-text-on-action-secondary); /** shadcn --secondary-foreground */
   --muted: var(--color-surface-sunken); /** shadcn --muted */
   --surface-hover: var(--color-surface-hover); /** extension DS — fond au survol d'une surface. Rôle qui manquait : les composants détournaient --muted, qui est un CREUX décoratif et non un état. */
-  --accent-foreground: var(--color-text-on-accent); /** shadcn --accent-foreground */
   --destructive-foreground: var(--color-text-inverse); /** shadcn --destructive-foreground — à auditer */
   --border: var(--color-border-default); /** shadcn --border */
   --border-strong: var(--color-border-strong); /** extension DS — bordure porteuse, >= 3:1 contre la page. Porte le survol des boutons sans fond. */
@@ -253,4 +252,5 @@
   --on-inverse: var(--color-surface-on-inverse); /** extension DS — texte porte par --surface-inverse */
   --neutral-text: var(--color-status-neutral-text); /** extension DS — variation neutre d'un indicateur (DeltaBadge ton neutre) */
   --neutral-fill: var(--color-status-neutral-fill); /** extension DS — aplat neutre d'un indicateur */
+  --accent-foreground: var(--color-text-on-accent); /** shadcn --accent-foreground */
 }

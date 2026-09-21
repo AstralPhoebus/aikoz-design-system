@@ -1,0 +1,11 @@
+{
+  "color": {
+    "brand": {
+      "accent-text": {
+        "$type": "color",
+        "$value": "{color.aquamarine.600}",
+        "$description": "Texte teinté de l'accent, thème sombre — 5.12:1 sur la carte de la marque."
+      }
+    }
+  }
+}

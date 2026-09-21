@@ -72,8 +72,8 @@
       },
       "action-secondary": {
         "$type": "color",
-        "$value": "{color.ultramarine.225}",
-        "$description": "Surface d'action secondaire. ultramarine.225 comme en produit sombre, et non la teinte de marque : sur une carte sombre, ultramarine.500 ne donne que 3,02:1 — sous le seuil de 4,5 dès qu'on s'en sert comme couleur de TEXTE, ce que fait tout lien secondaire. Le registre marketing avait gardé la valeur claire par omission ; le thème sombre l'éclaircissait déjà, le registre ne suivait pas."
+        "$value": "{color.brand.secondary-subtle}",
+        "$description": "Aplat d'action secondaire — palier discret de la secondaire de la marque."
       },
       "inverse": {
         "$type": "color",
@@ -132,8 +132,8 @@
       },
       "accent": {
         "$type": "color",
-        "$value": "{color.aquamarine.300}",
-        "$description": "Texte d'accent — chiffres de section, mots mis en exergue. Réservé, jamais du texte courant."
+        "$value": "{color.brand.accent-text}",
+        "$description": "Texte teinté de l'accent. Pointait sur `aquamarine`, une rampe d'AIKOZ, sous toutes les marques. Passe par `brand.accent-text`, un palier de la rampe d'accent de la marque choisi par la mesure — `brand.accent` ne convient pas, c'est une SURFACE et elle est claire par construction."
       },
       "on-accent": {
         "$type": "color",
@@ -316,8 +316,8 @@
       },
       "on-muted": {
         "$type": "color",
-        "$value": "{color.ultramarine.300}",
-        "$description": "Entrée de nav inactive."
+        "$value": "{color.neutral.400}",
+        "$description": "Texte secondaire de la navigation — neutre commun."
       },
       "accent": {
         "$type": "color",

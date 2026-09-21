@@ -15,7 +15,7 @@
   --color-brand-accent-hover: var(--color-aquamarine-400);
   --color-brand-accent-active: var(--color-aquamarine-500);
   --color-brand-accent-subtle: var(--color-aquamarine-50);
-  --color-brand-on-accent: var(--color-midnight-blue-900);
+  --color-brand-accent-text: var(--color-aquamarine-700); /** Texte teinté de l'accent — 5.45:1 sur la carte claire. Un palier DISTINCT de `accent` : celui-ci est une surface, clair par construction, et ne tient pas 4,5:1 sous du texte. Choisi comme le plus vif des paliers qui passent le seuil, pour que l'accent garde son caractère. Remplace `aquamarine`, une rampe d'Aikoz, que toutes les marques portaient. */
   --color-ink-50: var(--color-midnight-blue-50); /** Rampe de CHROME de la marque — fonds, bordures, navigation en thème sombre. C'est l'indirection qui manquait : le thème pointait directement `midnight-blue`, une primitive Aikoz, donc toute marque gardait le bleu nuit d'Aikoz sous ses propres couleurs. */
   --color-ink-100: var(--color-midnight-blue-100); /** Palier 100 de la rampe de chrome (midnight-blue). */
   --color-ink-200: var(--color-midnight-blue-200); /** Palier 200 de la rampe de chrome (midnight-blue). */
@@ -28,4 +28,8 @@
   --color-ink-900: var(--color-midnight-blue-900); /** Palier 900 de la rampe de chrome (midnight-blue). */
   --color-ink-950: var(--color-midnight-blue-950); /** Palier 950 de la rampe de chrome (midnight-blue). */
   --color-ink-1000: var(--color-midnight-blue-1000); /** Palier 1000 de la rampe de chrome (midnight-blue). */
+  --font-heading: var(--font-family-heading); /** Police de la marque Aikoz — PP Radio Grotesk pour les titres, Inter pour l'interface. */
+  --font-body: var(--font-family-body); /** Police d'interface de la marque. */
+  --font-mono: var(--font-family-mono); /** Chiffres tabulaires — commune, aucune charte n'en impose. */
+  --color-brand-on-accent: var(--color-ink-900); /** Texte posé sur l'aplat d'accent. Pointait sur `midnight-blue.900`, une primitive d'AIKOZ, y compris sous ADP et Extime. Passe par `ink`, la rampe de chrome de la marque — même valeur pour Aikoz, sa propre rampe. */
 }

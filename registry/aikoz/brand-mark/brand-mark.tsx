@@ -8,8 +8,17 @@ export interface LogoMarque {
   nom: string;
   /** Fichier posé sur fond clair. */
   clair: string;
-  /** Fichier posé sur fond sombre. */
-  sombre: string;
+  /**
+   * Fichier posé sur fond sombre. **Facultatif, et son absence se voit** : en
+   * thème sombre la marque retombe alors sur son nom écrit.
+   *
+   * Réutiliser le fichier clair serait pire qu'un nom : mesuré contre les
+   * cartes sombres réelles, l'encre d'ADP donne 1,31:1 et les trois teintes
+   * principales du logo Extime 1,14 à 1,19 — le logo ne disparaîtrait pas
+   * franchement, il deviendrait une tache illisible que personne ne
+   * signalerait avant la démonstration client.
+   */
+  sombre?: string;
 }
 
 /**
@@ -30,9 +39,28 @@ export const LOGOS: Record<string, LogoMarque> = {
     clair: "./logos/aikoz-clair.svg",
     sombre: "./logos/aikoz-sombre.svg",
   },
-  // ⚠ ADP n'a pas encore son fichier officiel. Tant qu'il manque, la marque
-  // retombe sur son nom écrit — visible, donc réclamé. Un logo approximatif,
-  // découpé dans un PDF de charte, serait pire : il passerait inaperçu.
+  // Les versions sombres sont DÉRIVÉES des fichiers clairs fournis, en
+  // monochrome blanc (`scripts/logos-sombres.py`) : aucune forme n'est
+  // touchée, seules les valeurs de remplissage. C'est la variante que toute
+  // charte prévoit pour les fonds sombres. Reprendre le fichier clair, lui,
+  // donnait une tache illisible — 1,31:1 pour l'encre d'ADP, 1,14 à 1,62 pour
+  // les trois teintes principales d'Extime, mesuré sur les cartes réelles.
+  // À remplacer par les fichiers officiels dès qu'ils sont transmis.
+  adp: {
+    nom: "Groupe ADP",
+    clair: "./logos/adp-clair.svg",
+    sombre: "./logos/adp-sombre.svg",
+  },
+  extime: {
+    nom: "Extime",
+    clair: "./logos/extime-clair.svg",
+    sombre: "./logos/extime-sombre.svg",
+  },
+  generali: {
+    nom: "Generali",
+    clair: "./logos/generali-clair.svg",
+    sombre: "./logos/generali-sombre.svg",
+  },
 };
 
 // ─── Composant ────────────────────────────────────────────────────────────────
@@ -43,7 +71,10 @@ export interface BrandMarkProps {
    * document — le composant suit donc la bascule sans qu'on la lui passe.
    */
   brand?: string;
-  /** Hauteur du logo. `h-7` par défaut. */
+  /**
+   * Classes de la BOÎTE, pas du logo. `h-8 max-w-[160px]` par défaut — cf. la
+   * note du composant sur le cadrage.
+   */
   className?: string;
 }
 
@@ -79,6 +110,13 @@ export function BrandMark({ brand, className }: BrandMarkProps) {
   }, [brand]);
 
   const logo = LOGOS[courante];
+  // Le nom écrit sert deux cas : marque inconnue, et marque sans version
+  // sombre quand le thème sombre est actif.
+  const nomEcrit = (
+    <span className={cn("text-base font-bold", className)}>
+      {LOGOS[courante]?.nom ?? courante.charAt(0).toUpperCase() + courante.slice(1)}
+    </span>
+  );
 
   if (!logo) {
     return (
@@ -88,10 +126,32 @@ export function BrandMark({ brand, className }: BrandMarkProps) {
     );
   }
 
+  // ── RÈGLE DE CADRAGE ──────────────────────────────────────────────────
+  //
+  // Un logo s'inscrit dans une BOÎTE, il n'est pas calé sur sa seule hauteur.
+  //
+  // Caler sur la hauteur suppose que tous les logos ont le même rapport
+  // largeur/hauteur. Ils ne l'ont pas : mesuré après recadrage, 2,9 pour Aikoz
+  // et le Groupe ADP, 3,8 pour le verrou Extime, 7,3 pour Generali. À hauteur
+  // égale, Generali est deux fois et demie plus large que les autres — il
+  // écrase la barre, et à côté de lui les marques compactes paraissent
+  // minuscules. C'est exactement ce qu'Alice a vu sur ADP et Extime.
+  //
+  // Avec une boîte, chaque logo prend toute la place que son rapport lui
+  // permet : les marques compactes atteignent la hauteur, les verrous larges
+  // butent sur la largeur. `object-contain` garantit qu'aucun n'est déformé —
+  // toutes les chartes l'interdisent.
+  const boite = className ?? "h-8 max-w-[160px]";
+  const commun = "w-auto shrink-0 object-contain object-left";
+
   return (
     <>
-      <img src={logo.clair} alt="" className={cn("w-auto shrink-0 dark:hidden", className ?? "h-7")} />
-      <img src={logo.sombre} alt="" className={cn("hidden w-auto shrink-0 dark:block", className ?? "h-7")} />
+      <img src={logo.clair} alt="" className={cn(commun, "dark:hidden", boite)} />
+      {logo.sombre ? (
+        <img src={logo.sombre} alt="" className={cn(commun, "hidden dark:block", boite)} />
+      ) : (
+        <span className="hidden dark:inline-flex">{nomEcrit}</span>
+      )}
     </>
   );
 }

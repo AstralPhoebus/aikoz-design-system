@@ -18,6 +18,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      // Les utilitaires `font-sans` / `font-mono` passent par le pont, donc par
+      // la couche marque : `font-sans` suit `data-brand`. Sans ça, `font-sans`
+      // servait la pile par défaut de Tailwind et court-circuitait les tokens.
+      fontFamily: {
+        sans: 'var(--font-body)',
+        heading: 'var(--font-heading)',
+        mono: 'var(--font-mono)',
+      },
       // Généré par `npm run build:tokens` depuis le bridge. Ne pas lister
       // les couleurs à la main ici : c'est exactement ce qui avait fait
       // diverger la config du CSS — `card`, `popover`, `input` et `ring`

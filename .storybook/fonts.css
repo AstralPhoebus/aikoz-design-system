@@ -1,0 +1,89 @@
+/* Les polices de marque, déclarées ici et déposées en local.
+ *
+ * Les binaires ne sont pas versionnés — dépôt public, polices sous licence
+ * (cf. public/fonts/LISEZ-MOI.md). Absents, `local()` tente d'abord la police
+ * installée sur le poste, puis la pile de repli du token prend le relais :
+ * Century Gothic pour ADP, Arial pour Extime, exactement ce que les chartes
+ * prévoient.
+ *
+ * `font-display: swap` : le texte s'affiche tout de suite dans le repli et
+ * bascule à l'arrivée de la police. Sans lui, un poste sans les fichiers
+ * attendrait trois secondes devant du texte invisible. */
+
+@font-face {
+  font-family: "Gotham";
+  src: local("Gotham Book"), local("Gotham-Book"),
+    url("/fonts/gotham/Gotham-Book.woff2") format("woff2"),
+    url("/fonts/gotham/Gotham-Book.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Gotham";
+  src: local("Gotham Medium"), local("Gotham-Medium"),
+    url("/fonts/gotham/Gotham-Medium.woff2") format("woff2"),
+    url("/fonts/gotham/Gotham-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Gotham";
+  src: local("Gotham Bold"), local("Gotham-Bold"),
+    url("/fonts/gotham/Gotham-Bold.woff2") format("woff2"),
+    url("/fonts/gotham/Gotham-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Gotham";
+  src: local("Gotham Black"), local("Gotham-Black"),
+    url("/fonts/gotham/Gotham-Black.woff2") format("woff2"),
+    url("/fonts/gotham/Gotham-Black.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Gotham";
+  src: local("Gotham Light"), local("Gotham-Light"),
+    url("/fonts/gotham/Gotham-Light.woff2") format("woff2"),
+    url("/fonts/gotham/Gotham-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Extime — quatre graisses selon la charte p. 12 : Thin, Light, Regular, Bold.
+ * Les fichiers n'ont pas encore été fournis ; les déclarations les attendent. */
+@font-face {
+  font-family: "Extime";
+  src: local("Extime Thin"), url("/fonts/extime/Extime-Thin.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Extime";
+  src: local("Extime Light"), url("/fonts/extime/Extime-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Extime";
+  src: local("Extime Regular"), local("Extime"),
+    url("/fonts/extime/Extime-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Extime";
+  src: local("Extime Bold"), url("/fonts/extime/Extime-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
