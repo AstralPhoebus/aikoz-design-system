@@ -99,8 +99,7 @@ for marque, rampe in MARQUES.items():
         source = pas if pas in C[rampe] else '900'
         _, Ch, H = comps(rampe, source)
         L = REF[pas]
-        plafonne = min(Ch, REF_C[pas])
-        Ch2 = chroma_max(L, plafonne, H)
+        Ch2 = chroma_max(L, Ch, H)
         ink[pas] = {"$type": "color", "$value": {
             "colorSpace": "oklch", "components": [L, Ch2, H], "alpha": 1,
             "hex": hexa(L, Ch2, H)},
