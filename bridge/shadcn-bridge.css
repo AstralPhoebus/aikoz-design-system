@@ -9,7 +9,7 @@
 
 :root, .light {
   --card: var(--color-surface-raised); /** shadcn --card */
-  --popover: var(--color-surface-raised); /** shadcn --popover */
+  --popover: var(--color-surface-overlay); /** Fond des surfaces qui FLOTTENT — menu, boîte de dialogue, infobulle. Il pointait sur surface.raised, c'est-à-dire sur la carte : en clair l'ombre faisait la séparation, en sombre rien ne la faisait, et tout ce qui flottait était collé au bloc derrière. Il pointe maintenant sur surface.overlay, le palier au-dessus de la carte. */
   --primary-foreground: var(--color-text-on-action); /** shadcn --primary-foreground */
   --secondary-foreground: var(--color-text-on-action-secondary); /** shadcn --secondary-foreground */
   --destructive-foreground: var(--color-text-inverse); /** shadcn --destructive-foreground — à auditer */
@@ -106,7 +106,7 @@
   --surface-inverse-to: var(--color-surface-inverse-to); /** extension DS — second arret du degrade a contre-theme */
   --background: var(--color-surface-page); /** shadcn --background */
   --card: var(--color-surface-raised); /** shadcn --card */
-  --popover: var(--color-surface-raised); /** shadcn --popover */
+  --popover: var(--color-surface-overlay); /** Fond des surfaces qui FLOTTENT — menu, boîte de dialogue, infobulle. Il pointait sur surface.raised, c'est-à-dire sur la carte : en clair l'ombre faisait la séparation, en sombre rien ne la faisait, et tout ce qui flottait était collé au bloc derrière. Il pointe maintenant sur surface.overlay, le palier au-dessus de la carte. */
   --primary: var(--color-surface-action); /** shadcn --primary */
   --primary-foreground: var(--color-text-on-action); /** shadcn --primary-foreground */
   --secondary: var(--color-surface-action-secondary); /** shadcn --secondary */
@@ -135,12 +135,12 @@
 
 [data-register="marketing"] {
   --background: var(--color-surface-page); /** shadcn --background */
+  --popover: var(--color-surface-overlay); /** Fond des surfaces qui FLOTTENT — menu, boîte de dialogue, infobulle. Il pointait sur surface.raised, c'est-à-dire sur la carte : en clair l'ombre faisait la séparation, en sombre rien ne la faisait, et tout ce qui flottait était collé au bloc derrière. Il pointe maintenant sur surface.overlay, le palier au-dessus de la carte. */
   --primary-foreground: var(--color-text-on-action); /** shadcn --primary-foreground */
   --secondary-foreground: var(--color-text-on-action-secondary); /** shadcn --secondary-foreground */
   --destructive-foreground: var(--color-text-inverse); /** shadcn --destructive-foreground — à auditer */
   --nav-surface: var(--color-nav-surface); /** extension DS — fond de la barre de navigation ; distinct de --card, elle ne suit pas forcement la carte */
   --card: var(--color-surface-raised); /** shadcn --card */
-  --popover: var(--color-surface-raised); /** shadcn --popover */
   --muted: var(--color-surface-sunken); /** shadcn --muted */
   --surface-hover: var(--color-surface-hover); /** extension DS — fond au survol d'une surface. Rôle qui manquait : les composants détournaient --muted, qui est un CREUX décoratif et non un état. */
   --accent: var(--color-brand-accent); /** shadcn --accent */
@@ -230,7 +230,7 @@
   --surface-inverse-to: var(--color-surface-inverse-to); /** extension DS — second arret du degrade a contre-theme */
   --background: var(--color-surface-page); /** shadcn --background */
   --card: var(--color-surface-raised); /** shadcn --card */
-  --popover: var(--color-surface-raised); /** shadcn --popover */
+  --popover: var(--color-surface-overlay); /** Fond des surfaces qui FLOTTENT — menu, boîte de dialogue, infobulle. Il pointait sur surface.raised, c'est-à-dire sur la carte : en clair l'ombre faisait la séparation, en sombre rien ne la faisait, et tout ce qui flottait était collé au bloc derrière. Il pointe maintenant sur surface.overlay, le palier au-dessus de la carte. */
   --primary: var(--color-surface-action); /** shadcn --primary */
   --primary-foreground: var(--color-text-on-action); /** shadcn --primary-foreground */
   --secondary: var(--color-surface-action-secondary); /** shadcn --secondary */

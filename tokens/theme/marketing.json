@@ -19,8 +19,8 @@
       },
       "overlay": {
         "$type": "color",
-        "$value": "{color.ink.700}",
-        "$description": "Modale, popover — un cran plus clair que les cartes pour s'en détacher."
+        "$value": "{color.ink.600}",
+        "$description": "SURPLOMB — menus, boîtes de dialogue, infobulles. En sombre il doit être PLUS CLAIR que la carte : les ombres ne se voient pas sur fond sombre, c'est la clarté qui porte l'élévation. Il pointait sur le même palier que la carte (ink.800) : tout ce qui flottait était collé au bloc derrière. L'échelle sombre a maintenant cinq plans — page 0,100 < creux 0,159 < carte 0,223 < survol 0,272 < surplomb 0,355."
       },
       "track": {
         "$type": "color",
@@ -29,8 +29,8 @@
       },
       "sunken": {
         "$type": "color",
-        "$value": "{color.ink.1000}",
-        "$description": "Creux — au même palier que la page."
+        "$value": "{color.ink.950}",
+        "$description": "CREUX. En sombre il MONTE au lieu de descendre, et c'est assumé : la page est déjà à 0,100, il n'y a plus de place en dessous sans virer au noir. Ce qui compte est qu'il se distingue de la page — ce qu'il fait en clair (0,9402 contre 0,97) et ce qu'il ne faisait plus en sombre, où il valait exactement la page. Une zone en creux existait en clair et disparaissait en sombre."
       },
       "hover": {
         "$type": "color",
@@ -205,7 +205,8 @@
       },
       "success-text": {
         "$type": "color",
-        "$value": "{color.success.400}"
+        "$value": "{color.success.200}",
+        "$description": "Relevé au seuil **APCA 82** sur la carte sombre des quatre marques (il valait 56,0). WCAG 2 ne voyait rien : la paire tenait 7,53:1, c'est-à-dire « très bien » — mais WCAG 2 est mauvais sur fond sombre, c'est documenté. Seuil retenu : 75 pour un rôle de texte, 45 pour un objet graphique."
       },
       "success-fill": {
         "$type": "color",
@@ -230,7 +231,8 @@
       },
       "warning-text": {
         "$type": "color",
-        "$value": "{color.warning.400}"
+        "$value": "{color.warning.300}",
+        "$description": "Relevé au seuil **APCA 82** sur la carte sombre des quatre marques (il valait 71,7). WCAG 2 ne voyait rien : la paire tenait 10,22:1, c'est-à-dire « très bien » — mais WCAG 2 est mauvais sur fond sombre, c'est documenté. Seuil retenu : 75 pour un rôle de texte, 45 pour un objet graphique."
       },
       "warning-fill": {
         "$type": "color",
@@ -255,8 +257,8 @@
       },
       "error-text": {
         "$type": "color",
-        "$value": "{color.error.400}",
-        "$description": "Rouge lisible sur fond sombre. Louis avait raison sur ce point : le bundle marketing n'avait pas de rouge pensé pour le sombre, son #FF4D6D mesurait mieux que le #DC2626 du système. error.400 remplit ce rôle sans quitter la palette."
+        "$value": "{color.error.150}",
+        "$description": "Relevé au seuil **APCA 82** sur la carte sombre des quatre marques (il valait 40,2). WCAG 2 ne voyait rien : la paire tenait 5,21:1, c'est-à-dire « très bien » — mais WCAG 2 est mauvais sur fond sombre, c'est documenté. Seuil retenu : 75 pour un rôle de texte, 45 pour un objet graphique."
       },
       "error-fill": {
         "$type": "color",
@@ -273,8 +275,8 @@
       },
       "info-text": {
         "$type": "color",
-        "$value": "{color.info.400}",
-        "$description": "Texte/emphase information (info.600 light, .400 dark), aligné sur success-text, warning-text et error-text. Mappé sur --info. Il manquait : les quatre statuts n'avaient pas tous leur déclinaison texte."
+        "$value": "{color.info.150}",
+        "$description": "Relevé au seuil **APCA 82** sur la carte sombre des quatre marques (il valait 41,0). WCAG 2 ne voyait rien : la paire tenait 5,34:1, c'est-à-dire « très bien » — mais WCAG 2 est mauvais sur fond sombre, c'est documenté. Seuil retenu : 75 pour un rôle de texte, 45 pour un objet graphique."
       },
       "info-subtle": {
         "$type": "color",
@@ -286,8 +288,8 @@
       },
       "neutral-text": {
         "$type": "color",
-        "$value": "{color.ink.200}",
-        "$description": "Variation NEUTRE d'un indicateur — registre marketing."
+        "$value": "{color.ink.100}",
+        "$description": "Relevé au seuil **APCA 82** sur la carte sombre des quatre marques (il valait 66,8). WCAG 2 ne voyait rien : la paire tenait 8,86:1, c'est-à-dire « très bien » — mais WCAG 2 est mauvais sur fond sombre, c'est documenté. Seuil retenu : 75 pour un rôle de texte, 45 pour un objet graphique."
       },
       "neutral-fill": {
         "$type": "color",

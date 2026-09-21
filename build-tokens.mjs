@@ -435,6 +435,7 @@ for (const [nom, L] of fonds) {
 // c'est Aikoz qui doit s'y conformer.
 const ECHELLE_CHROME = {
   400: [0.5856, 0.0957],
+  600: [0.3552, 0.117],
   700: [0.272, 0.0982],
   800: [0.2232, 0.0804],
   900: [0.1857, 0.048],

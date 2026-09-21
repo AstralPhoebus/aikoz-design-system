@@ -28,13 +28,24 @@ const countBadgeVariants = cva(
           "bg-transparent text-muted-foreground",
         ],
       },
-      // N'affecte que `variant="count"` (cf. `compoundVariants`) — mesuré au
-      // contraste WCAG (colorjs.io) avant d'être fixé, pas choisi à l'œil :
-      // `--info`/`--warning` contre `--primary-foreground` >= 4,5:1 light ET
-      // dark (le token bascule déjà blanc/encre selon le thème, comme sur
-      // `--primary`). `error` réutilise la paire native shadcn
-      // `--destructive`/`--destructive-foreground`, déjà auditée ailleurs
-      // dans le DS plutôt que `--destructive-text` (rôle "texte", pas aplat).
+      // N'affecte que `variant="count"` (cf. `compoundVariants`) — mesuré,
+      // pas choisi à l'œil.
+      //
+      // `info` et `warning` passent du PLEIN au VOILÉ, et ce n'est pas une
+      // question de goût. Ils posaient du blanc sur `--info` / `--warning`,
+      // qui sont les rôles TEXTE. Ça tenait tant que ces rôles restaient
+      // sombres en thème sombre ; relevés au seuil perceptuel ils
+      // s'éclaircissent, et du blanc dessus ne tient plus.
+      //
+      // Un aplat dédié a été essayé puis retiré : mesuré, `status.warning`
+      // ne marche avec AUCUN texte dans les deux thèmes (blanc 2,18:1 en
+      // clair, encre 45 en APCA sombre pour `info`). Un jaune vif est un
+      // mauvais fond de pastille, point.
+      //
+      // Le voile, lui, tient partout : `--warning` sur `--warning-subtle`
+      // vaut APCA 83 en clair comme en sombre, `--info` 75 et 83. Et il
+      // range la hiérarchie — `primary` et `error` restent pleins, ce qui
+      // les distingue enfin d'un simple compteur d'information.
       tone: {
         primary: "",
         info: "",
@@ -44,8 +55,8 @@ const countBadgeVariants = cva(
     },
     compoundVariants: [
       { variant: "count", tone: "primary", class: "bg-[var(--primary)] text-[var(--primary-foreground)]" },
-      { variant: "count", tone: "info", class: "bg-[var(--info)] text-[var(--primary-foreground)]" },
-      { variant: "count", tone: "warning", class: "bg-[var(--warning)] text-[var(--primary-foreground)]" },
+      { variant: "count", tone: "info", class: "bg-[var(--info-subtle)] text-[var(--info)]" },
+      { variant: "count", tone: "warning", class: "bg-[var(--warning-subtle)] text-[var(--warning)]" },
       { variant: "count", tone: "error", class: "bg-[var(--destructive)] text-[var(--destructive-foreground)]" },
     ],
     defaultVariants: { variant: "count", tone: "primary" },

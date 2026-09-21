@@ -1063,6 +1063,20 @@
         },
         "$description": "Rouge erreur clair — palette de statut, sans rôle sémantique dédié."
       },
+      "150": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8924,
+            0.0452,
+            36.177
+          ],
+          "alpha": 1,
+          "hex": "#F8D2C7"
+        },
+        "$description": "Palier DÉRIVÉ, absent de la charte : la clarté est celle qui atteint **APCA 82** sur la carte sombre des quatre marques, teinte conservée, chroma interpolé entre les paliers 100 et 200 puis ramené au gamut sRGB. Il existe parce que le palier 400, utilisé jusqu'ici pour le texte en thème sombre, ne valait que 40,2 en APCA — WCAG 2 ne le voyait pas (il donnait 5,21:1). Le 200 s'arrête à 74,9, sous le seuil de 75 ; le 100 passe à 90 mais ne se lit plus comme une couleur de statut."
+      },
       "200": {
         "$type": "color",
         "$value": {
@@ -1232,6 +1246,20 @@
           "hex": "#D9E9F8"
         },
         "$description": "Bleu information clair — palette de statut, sans rôle sémantique dédié."
+      },
+      "150": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.8868,
+            0.045,
+            248.581
+          ],
+          "alpha": 1,
+          "hex": "#C3DDF7"
+        },
+        "$description": "Palier DÉRIVÉ, absent de la charte : la clarté est celle qui atteint **APCA 82** sur la carte sombre des quatre marques, teinte conservée, chroma interpolé entre les paliers 100 et 200 puis ramené au gamut sRGB. Il existe parce que le palier 400, utilisé jusqu'ici pour le texte en thème sombre, ne valait que 41,0 en APCA — WCAG 2 ne le voyait pas (il donnait 5,34:1). Le 200 s'arrête à 74,9, sous le seuil de 75 ; le 100 passe à 90 mais ne se lit plus comme une couleur de statut."
       },
       "200": {
         "$type": "color",

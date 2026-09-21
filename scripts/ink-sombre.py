@@ -79,6 +79,13 @@ def chroma_max(L, Ch, H):
 # profonde, elle se lit comme un voile de couleur posé sur du noir.
 ECHELLE = {
     '400':  (0.5856, 0.0957),
+    # Le SURPLOMB. Ajouté le 21/09/2026 : `surface.overlay` pointait sur le
+    # même palier que la carte, donc un menu ou une boîte de dialogue flottait
+    # exactement à la clarté du bloc derrière lui. En clair l'ombre fait la
+    # séparation ; en sombre elle ne se voit pas, c'est la CLARTÉ qui doit
+    # porter l'élévation. L'échelle a désormais cinq plans : page 0,100 <
+    # creux 0,159 < carte 0,223 < survol 0,272 < surplomb 0,355.
+    '600':  (0.3552, 0.1170),
     '700':  (0.2720, 0.0982),
     '800':  (0.2232, 0.0804),
     '900':  (0.1857, 0.0480),

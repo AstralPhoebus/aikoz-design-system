@@ -21,8 +21,8 @@
   },
   "popover": {
     "$type": "color",
-    "$value": "{color.surface.raised}",
-    "$description": "shadcn --popover"
+    "$value": "{color.surface.overlay}",
+    "$description": "Fond des surfaces qui FLOTTENT — menu, boîte de dialogue, infobulle. Il pointait sur surface.raised, c'est-à-dire sur la carte : en clair l'ombre faisait la séparation, en sombre rien ne la faisait, et tout ce qui flottait était collé au bloc derrière. Il pointe maintenant sur surface.overlay, le palier au-dessus de la carte."
   },
   "popover-foreground": {
     "$type": "color",

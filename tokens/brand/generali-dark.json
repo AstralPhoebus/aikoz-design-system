@@ -47,6 +47,20 @@
         },
         "$description": "Chrome sombre, palier 400 — clarté de l'ÉCHELLE DU THÈME (0.5856, référence de chroma 0.0957), teinte et chroma de la marque (28.8°). L'échelle est déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque : laissée à la charte, la carte d'ADP sortait 30 % plus claire et trois fois plus saturée que celle d'Aikoz."
       },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.3552,
+            0.1467,
+            28.298
+          ],
+          "alpha": 1,
+          "hex": "#760002"
+        },
+        "$description": "Chrome sombre, palier 600 — clarté de l'ÉCHELLE DU THÈME (0.3552, référence de chroma 0.117), teinte et chroma de la marque (28.298°). L'échelle est déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque : laissée à la charte, la carte d'ADP sortait 30 % plus claire et trois fois plus saturée que celle d'Aikoz. Chroma ramené de 0.1779 à 0.1467 : c'est le maximum atteignable dans le gamut sRGB à cette clarté, pas un plafond de style. Il n'y a PAS de plafond de chroma — deux marques ne se distingueraient plus sur la carte (essayé, ADP et Aikoz tombaient à ΔE 0,008)."
+      },
       "700": {
         "$type": "color",
         "$value": {
