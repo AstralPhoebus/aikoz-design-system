@@ -175,10 +175,16 @@ function AutomatedColumn({
             ref={estAncre ? ancreRevelee : undefined}
             className="outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] rounded-[var(--radius)]"
           >
-          // `text=""` : ces avis sont, par construction (cf. spec), 4-5 étoiles
-          // SANS commentaire — VerbatimCard exige `text`, on lui passe la
-          // chaîne vide plutôt que d'inventer un texte qui n'existe pas.
-          <VerbatimCard rating={item.rating} author={item.author} date={item.date} text="" density="compact">
+            {/* `text=""` : ces avis sont, par construction (cf. spec), 4-5
+                étoiles SANS commentaire — VerbatimCard exige `text`, on lui
+                passe la chaîne vide plutôt que d'inventer un texte qui
+                n'existe pas.
+
+                Ce commentaire était écrit en `//` au milieu d'enfants JSX :
+                il s'AFFICHAIT, trois lignes de code au-dessus de chaque
+                réponse automatique. Dans du JSX, seule la forme accolade +
+                bloc est un commentaire ; `//` est du texte. */}
+            <VerbatimCard rating={item.rating} author={item.author} date={item.date} text="" density="compact">
             {isEditing ? (
               <div className="flex flex-col gap-2">
                 <Textarea
