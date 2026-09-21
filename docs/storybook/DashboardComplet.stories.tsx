@@ -24,6 +24,7 @@ import { Table, type TableColumn, type TableSort } from "@registry/aikoz/table/t
 import { ScoreStars } from "@registry/aikoz/score-stars/score-stars";
 import { CountBadge } from "@registry/aikoz/count-badge/count-badge";
 import { GeoDrilldown, type ZoneGeo } from "@registry/aikoz/geo-drilldown/geo-drilldown";
+import { FranceMap } from "@registry/aikoz/france-map/france-map";
 import { ResponseKanban } from "@registry/aikoz/response-kanban/response-kanban";
 import { EmptyState } from "@registry/aikoz/empty-state/empty-state";
 import { Accordion } from "@registry/aikoz/accordion/accordion";
@@ -103,11 +104,14 @@ const SERIES = [
 ];
 
 // Le maillage territorial. Trois niveaux : France > région > département.
-// Ce jeu sert aussi de banc d'essai au chantier cartographie — c'est la forme
-// de données qu'une carte devra consommer, `id` compris.
+//
+// Les `id` sont les codes INSEE — « 11 » l'Île-de-France, « 75 » Paris. Ce
+// n'est pas une convention interne : c'est ce qui relie ce jeu à la
+// géométrie de `FranceMap`, qui porte les mêmes codes. Un identifiant maison
+// obligerait à maintenir une table de correspondance, et elle vieillirait.
 const TERRITOIRES: ZoneGeo[] = [
   {
-    id: "idf",
+    id: "11",
     label: "Île-de-France",
     value: 1284,
     children: [
@@ -118,7 +122,7 @@ const TERRITOIRES: ZoneGeo[] = [
     ],
   },
   {
-    id: "ara",
+    id: "84",
     label: "Auvergne-Rhône-Alpes",
     value: 866,
     children: [
@@ -128,7 +132,7 @@ const TERRITOIRES: ZoneGeo[] = [
     ],
   },
   {
-    id: "paca",
+    id: "93",
     label: "Provence-Alpes-Côte d'Azur",
     value: 604,
     children: [
@@ -137,7 +141,7 @@ const TERRITOIRES: ZoneGeo[] = [
     ],
   },
   {
-    id: "occ",
+    id: "76",
     label: "Occitanie",
     value: 447,
     children: [
@@ -145,10 +149,18 @@ const TERRITOIRES: ZoneGeo[] = [
       { id: "34", label: "Hérault", value: 179 },
     ],
   },
-  { id: "naq", label: "Nouvelle-Aquitaine", value: 392 },
-  { id: "hdf", label: "Hauts-de-France", value: 288 },
-  { id: "bre", label: "Bretagne", value: 175 },
+  { id: "75", label: "Nouvelle-Aquitaine", value: 392 },
+  { id: "32", label: "Hauts-de-France", value: 288 },
+  { id: "53", label: "Bretagne", value: 175 },
 ];
+
+/** Les mêmes valeurs, à plat par code INSEE : ce que la carte consomme. */
+const VALEURS_REGION: Record<string, number> = Object.fromEntries(
+  TERRITOIRES.flatMap((r) => [
+    [r.id, r.value] as const,
+    ...(r.children ?? []).map((d) => [d.id, d.value] as const),
+  ])
+);
 
 interface LigneAvis {
   id: string;
@@ -476,22 +488,43 @@ function VueAvis() {
 // ─── Vue « Territoires » ─────────────────────────────────────────────────────
 
 function VueTerritoires() {
+  // La carte peut se restreindre à une région ; le classement, lui, garde son
+  // propre forage. Deux vues de la même donnée, chacune avec sa question —
+  // les lier de force ferait que cliquer sur la carte déplacerait le
+  // classement sous les yeux de quelqu'un qui ne l'a pas demandé.
+  const [regionActive, setRegionActive] = useState<string | null>(null);
+
   return (
     <div className="flex flex-col gap-5">
       <InfoBanner tone="info">
-        Le forage territorial descend jusqu'au département. La représentation
-        cartographique est le prochain chantier ; la structure de données est
-        déjà celle qu'elle consommera.
+        Deux vues de la même donnée, deux questions. La carte dit <strong>où</strong> —
+        cliquez une région pour descendre à ses départements. Le classement dit
+        <strong> combien</strong>, et il se lit sans être daltonien ni voyant.
       </InfoBanner>
 
-      <Card as="section" aria-label="Répartition territoriale">
-        <GeoDrilldown
-          rootLabel="France"
-          zones={TERRITOIRES}
-          valueLabel="Avis reçus"
-          height={340}
-        />
-      </Card>
+      <div className="grid gap-4 lg:grid-cols-2">
+        <Card as="section" aria-label="Carte de la répartition">
+          <h2 className="m-0 mb-3 text-base font-semibold">Où sont les avis</h2>
+          <FranceMap
+            valueLabel="Avis reçus"
+            values={VALEURS_REGION}
+            region={regionActive ?? undefined}
+            selected={regionActive ?? undefined}
+            onSelect={(code) => setRegionActive(code === regionActive ? null : code)}
+            height={320}
+          />
+        </Card>
+
+        <Card as="section" aria-label="Classement territorial">
+          <h2 className="m-0 mb-3 text-base font-semibold">Combien, et qui devant qui</h2>
+          <GeoDrilldown
+            rootLabel="France"
+            zones={TERRITOIRES}
+            valueLabel="Avis reçus"
+            height={280}
+          />
+        </Card>
+      </div>
 
       <div className="grid gap-4 lg:grid-cols-3">
         <KpiCard label="Régions couvertes" value={7} unit=" / 13" variant="raw" icon={<Ico d={ICO.sites} />} />
