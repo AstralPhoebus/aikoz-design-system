@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, screen, userEvent, waitFor, within } from "storybook/test";
 import { Select } from "./select";
 
 const meta = {
@@ -62,6 +63,42 @@ export const QuandPreferrerLeNatif: Story = {
           "Le natif reste supérieur sur un point : il ouvre le sélecteur du système sur " +
           "mobile. Pour un choix long et sans mise en forme — un pays, une année — " +
           "préférer le natif.",
+      },
+    },
+  },
+};
+
+export const LeChoixSeFaitAuClavier: Story = {
+  name: "Le choix se fait au clavier, et le libellé nomme le champ",
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const declencheur = canvas.getByRole("combobox");
+
+    // Le libellé visible EST le nom accessible : c'est ce que garantit le
+    // prop obligatoire, et c'est ce qui distingue « Période » de « champ ».
+    await expect(declencheur).toHaveAccessibleName(/Période/);
+
+    declencheur.focus();
+    await userEvent.keyboard("{Enter}");
+    const liste = await screen.findByRole("listbox");
+    await expect(liste).toBeInTheDocument();
+
+    // Navigation puis validation : un select qui ne s'ouvre qu'à la souris
+    // exclut la moitié de ses utilisateurs, et rien à l'écran ne le montre.
+    await userEvent.keyboard("{ArrowDown}");
+    await userEvent.keyboard("{Enter}");
+    await waitFor(() => expect(screen.queryByRole("listbox")).toBeNull());
+    await waitFor(() => expect(document.activeElement).toBe(declencheur));
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Ouvrir, parcourir, choisir, refermer — au clavier seul. Un select " +
+          "qui ne s'ouvre qu'à la souris exclut la moitié de ses " +
+          "utilisateurs, et rien à l'écran ne le montre. Le focus revient au " +
+          "déclencheur après la fermeture, sinon la tabulation repart du " +
+          "début du document.",
       },
     },
   },

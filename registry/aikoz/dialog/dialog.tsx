@@ -73,8 +73,17 @@ export interface DialogProps extends VariantProps<typeof contentVariants> {
  *
  * Bâti sur Radix, qui fournit ce qu'on rate presque toujours à la main : le
  * piège de focus, le retour du focus au déclencheur à la fermeture, la touche
- * Échap, le verrouillage du défilement de la page, et `aria-modal` avec le
- * masquage du reste du document.
+ * Échap, le verrouillage du défilement de la page, et le masquage du reste du
+ * document.
+ *
+ * **Le masquage passe par `aria-hidden` sur les frères, pas par
+ * `aria-modal`.** Ce commentaire annonçait l'attribut ; vérifié au rendu, il
+ * n'y est pas — Radix ne le pose plus. Ce n'est pas un manque : `aria-modal`
+ * a une histoire de bogues dans les lecteurs d'écran, et masquer réellement
+ * le reste du document est la technique plus sûre, celle que l'APG privilégie
+ * désormais. Mesuré à l'ouverture : tous les frères du conteneur de la modale
+ * portent `aria-hidden="true"`, et la modale n'est elle-même dans aucun
+ * conteneur masqué.
  *
  * Le titre est un prop obligatoire, pas un enfant libre : c'est la seule façon
  * de garantir que la modale a un nom accessible.
