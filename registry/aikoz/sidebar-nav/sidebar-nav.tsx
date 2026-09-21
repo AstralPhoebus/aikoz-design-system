@@ -82,11 +82,28 @@ export function SidebarNav({
       className={cn(
         "flex flex-col gap-4 w-full sm:w-60 shrink-0",
         "bg-[var(--nav-surface)] p-3",
-        // `--border-strong` et non `--nav-border` : la surface de la barre ne
-        // se détache de la page que de 1,09:1, c'est donc ce trait, et lui
-        // seul, qui délimite la région. `--nav-border` reste réservé aux
-        // séparations INTERNES, où la discrétion est voulue.
-        "border-r border-[var(--border-strong)]",
+        // `--border`, et non `--border-strong`.
+        //
+        // Le choix précédent reposait sur une MAUVAISE MÉTRIQUE — la même que
+        // celle déjà corrigée sur la palette des graphiques. Il disait : « la
+        // surface de la barre ne se détache de la page que de 1,09:1, c'est
+        // donc ce trait qui délimite la région ». Mais 1,09 est un ratio WCAG,
+        // fait pour poser du texte sur un fond, pas pour comparer deux
+        // surfaces voisines — près du noir il s'écrase quelle que soit la
+        // différence réelle.
+        //
+        // Mesurée à la bonne échelle, l'écart perceptuel entre la barre et la
+        // page vaut ΔE 0,030 en clair et 0,082 en sombre : la surface fait
+        // déjà une partie du travail. Et le trait fort pesait ΔE 0,43 contre
+        // la barre — trois fois et demie la bordure standard. D'où l'effet de
+        // trait posé par-dessus le dessin.
+        //
+        // `--border` donne ΔE 0,12, encore six fois le seuil où deux tons se
+        // distinguent. Le séparateur de région n'est ni un composant
+        // d'interface ni un objet graphique nécessaire à la compréhension :
+        // WCAG 1.4.11 ne lui impose pas 3:1, c'est le landmark `nav` et ses
+        // liens qui identifient la région.
+        "border-r border-border",
         className
       )}
     >
