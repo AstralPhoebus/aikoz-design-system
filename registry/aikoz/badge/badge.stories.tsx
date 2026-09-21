@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, within } from "storybook/test";
 import { Badge } from "./badge";
 
 const meta = {
@@ -38,5 +39,29 @@ export const LIconeDoubleLaCouleur: Story = {
           "1,19:1 sur la carte, il est décoratif.",
       },
     },
+  },
+};
+
+export const LEtatNeTientPasALaCouleur: Story = {
+  name: "L'état ne tient pas à la seule couleur",
+  args: { tone: "warning", icon: "!", children: "3 sans réponse" },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Cinq tons, et aucun ne porte son sens par la couleur seule : " +
+          "l'intitulé l'écrit, et l'icône le double pour qui balaie du " +
+          "regard. En niveaux de gris, un avertissement reste un " +
+          "avertissement.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const badge = within(canvasElement).getByText(/3 sans réponse/);
+    // L'icône est décorative : c'est le texte qui porte le sens, elle ne
+    // fait que le doubler visuellement.
+    const icone = badge.querySelector('[aria-hidden="true"]');
+    await expect(icone).not.toBeNull();
+    await expect(badge).toHaveTextContent("3 sans réponse");
   },
 };

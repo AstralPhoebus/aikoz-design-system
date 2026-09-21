@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from "storybook/test";
 import { BrandLogo } from "./brand-logo";
 import { BRANDS } from "./brands";
 
@@ -75,5 +76,26 @@ export const LEncreEstMesuree: Story = {
           "illisible.",
       },
     },
+  },
+};
+
+export const LaFormeDecideDeCeQuiEstAffiche: Story = {
+  name: "La forme décide de ce qui est affiché",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Ce n'est pas un réglage esthétique, c'est le constat d'un essai " +
+          "raté : masquer un logotype horizontal dans un rond de 40 px le " +
+          "réduit à une tache. La forme ronde affiche donc autre chose que " +
+          "la forme large.\n\n" +
+          "Dans les deux cas, la marque reste NOMMÉE — une pastille sans nom " +
+          "n'est qu'un carré coloré.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const nommes = canvasElement.querySelectorAll("[aria-label], img[alt]:not([alt=''])");
+    await expect(nommes.length).toBeGreaterThan(0);
   },
 };

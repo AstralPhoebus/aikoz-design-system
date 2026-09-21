@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, within } from "storybook/test";
 import { Avatar } from "./avatar";
 
 const meta = {
@@ -56,5 +57,45 @@ export const Decoratif: Story = {
           "aux lecteurs d'écran, qui l'entendraient sinon deux fois.",
       },
     },
+  },
+};
+
+export const LesInitialesPrennentLeRelais: Story = {
+  name: "Sans image, les initiales — et le nom reste annoncé",
+  args: { name: "Alice Maréchaud" },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Une image absente ou en échec ne doit pas laisser un trou : les " +
+          "initiales prennent le relais. Le nom, lui, reste porté par " +
+          "`aria-label` dans les deux cas — un avatar sans nom n'est qu'une " +
+          "pastille colorée.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const avatar = canvas.getByRole("img", { name: "Alice Maréchaud" });
+    await expect(avatar).toHaveTextContent("AM");
+  },
+};
+
+export const DecoratifQuandLeNomEstDejaLa: Story = {
+  name: "Décoratif quand le nom est déjà écrit à côté",
+  args: { name: "Alice Maréchaud", decorative: true },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Dans une ligne de classement où le nom est déjà écrit, l'avatar " +
+          "l'annoncerait une seconde fois. `decorative` le sort de l'arbre " +
+          "d'accessibilité — il reste visible, il cesse d'être lu.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    await expect(within(canvasElement).queryByRole("img")).toBeNull();
+    await expect(canvasElement.querySelector('[aria-hidden="true"]')).not.toBeNull();
   },
 };

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, within } from "storybook/test";
 import { VerbatimCard } from "./verbatim-card";
 
 const meta = {
@@ -46,5 +47,30 @@ export const Tronquee: Story = {
           "d'écran et par la recherche du navigateur. Ne jamais tronquer la chaîne en amont.",
       },
     },
+  },
+};
+
+export const LAvisEstUnContenuAutonome: Story = {
+  name: "Un avis est un contenu autonome, et sa note se lit",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Un avis se tient seul : il sort en `article`, ce qui en fait un " +
+          "repère de navigation et permet de passer d'un avis au suivant " +
+          "sans traverser leur contenu.\n\n" +
+          "La note en étoiles est portée par `ScoreStars`, donc annoncée en " +
+          "toutes lettres — deux étoiles pleines ne disent rien à qui ne les " +
+          "voit pas.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const avis = canvas.getByRole("article");
+    await expect(avis).toBeInTheDocument();
+    // La note s'annonce, elle ne se compte pas.
+    const note = within(avis).queryByRole("img");
+    if (note) await expect(note).toHaveAccessibleName(/\d/);
   },
 };
