@@ -172,8 +172,8 @@
       },
       "input": {
         "$type": "color",
-        "$value": "{color.ink.400}",
-        "$description": "Bordure de champ — 4,09:1 sur carte, 4,58 sur page (seuil 3:1, WCAG 1.4.11 : le trait porte l'information « ici on saisit »). Le palier des séparateurs ne donnait que 1,14:1, une bordure de champ invisible. Défaut systémique relevé en auditant les quatre combinaisons registre × thème — il touchait produit clair, produit sombre et marketing clair, seul le marketing sombre avait déjà été corrigé."
+        "$value": "{color.ink.300}",
+        "$description": "Bordure de champ de saisie. Relevée de ink.400 à ink.300 : le 400 ne valait que 29 en APCA sur la carte sombre, sous le seuil de 45 d'un ÉLÉMENT D'INTERFACE — et la bordure est ce qui identifie un champ comme un champ. Elle tenait pourtant 4,09:1 en WCAG 2. Le 300 vaut 46. Inchangée en clair."
       }
     },
     "status": {
@@ -250,8 +250,8 @@
       },
       "error-fill-edge": {
         "$type": "color",
-        "$value": "{color.error.400}",
-        "$description": "Contour de l'aplat d'une jauge — il porte le 3:1 là où l'aplat ne peut pas. en sombre les aplats passent déjà (4,81 à 6,53:1) : le contour vaut l'aplat, donc invisible"
+        "$value": "{color.error.300}",
+        "$description": "Contour de jauge au niveau critique. Relevé de error.400 à error.300 : le 400 valait 33 en APCA sur la piste, sous le seuil de 45. Les contours `success` (49) et `warning` (65) passaient déjà — l'erreur était la seule en dessous, et c'est le niveau qu'on a le plus besoin de voir. Le 300 vaut 50."
       },
       "error-text": {
         "$type": "color",
@@ -306,8 +306,8 @@
       },
       "on-muted": {
         "$type": "color",
-        "$value": "{color.neutral.400}",
-        "$description": "Texte secondaire de la navigation. Pointait sur `ultramarine.300`, une rampe d'AIKOZ. Passe au neutre commun, comme le fait déjà le thème clair avec `neutral.600` — un gris de second plan n'a pas à porter la marque."
+        "$value": "{color.neutral.200}",
+        "$description": "Texte de navigation atténué. Relevé de neutral.400 à neutral.200 : le 400 valait 47 en APCA sur la surface de navigation, sous le plancher de 75 d'un rôle de texte, alors qu'il tenait 6,7:1 en WCAG 2. Le 300 ne suffit pas non plus (65) ; le 200 vaut 81."
       },
       "accent": {
         "$type": "color",

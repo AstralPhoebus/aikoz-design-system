@@ -1,0 +1,137 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Design system/Thème sombre" />
+
+# Thème sombre
+
+Cinq plans, deux mesures. Tout ce qui suit est vérifié en CI — rien ici n'est
+une intention.
+
+## Cinq plans, et pourquoi cinq
+
+En thème clair, une ombre suffit à faire flotter une carte au-dessus de la
+page. **En sombre, l'ombre ne se voit pas.** C'est donc la clarté qui doit
+porter l'élévation, et il faut autant de paliers qu'il y a de niveaux dans
+l'interface.
+
+| plan | rôle | clarté OKLCH | à quoi ça sert |
+|---|---|---|---|
+| page | `--background` | 0,100 | le fond de l'écran |
+| creux | `--muted` | 0,159 | une zone en retrait dans un bloc |
+| carte | `--card` | 0,223 | le bloc lui-même |
+| survol | `--surface-hover` | 0,272 | une ligne ou un item survolé |
+| surplomb | `--popover` | 0,355 | menu, boîte de dialogue, infobulle |
+
+L'échelle appartient au **thème**, pas à une marque : elle est écrite dans
+`scripts/ink-sombre.py`, et un garde-fou de build échoue si la rampe d'Aikoz
+s'en écarte. Chaque marque y pose sa teinte, jamais sa clarté.
+
+### Le creux monte au lieu de descendre
+
+En clair, la zone en creux est **plus sombre** que la page (0,9402 contre
+0,97). En sombre, elle est **plus claire** (0,159 contre 0,100).
+
+Ce n'est pas une incohérence, c'est une contrainte : la page est déjà à 0,100,
+il n'y a plus de place en dessous sans virer au noir. Ce qui compte est que le
+creux se **distingue** de la page — ce qu'il faisait en clair et ne faisait
+plus en sombre, où il valait exactement la page.
+
+### Deux défauts que ça a corrigés
+
+- `--popover` pointait sur `surface.raised`, c'est-à-dire sur la carte : tout
+  ce qui flottait était collé au bloc derrière.
+- `--muted` valait la page : une zone en creux existait en clair et
+  disparaissait en sombre.
+
+## Deux mesures, parce qu'une seule ment
+
+### WCAG 2 ne suffit pas sur fond sombre
+
+C'est documenté, et ça nous est arrivé. Cinq rôles de texte tenaient 5,2 à
+10,7:1 en thème sombre — donc « très bien » — tout en étant nettement moins
+lisibles que leurs équivalents clairs :
+
+| rôle | WCAG 2 | APCA sombre | APCA clair |
+|---|---|---|---|
+| texte d'erreur | 5,21:1 | **40** | 85 |
+| texte d'info | 5,34:1 | **41** | 85 |
+| texte de succès | 7,53:1 | **56** | 86 |
+| texte atténué | 8,86:1 | **64** | 85 |
+| variation neutre | 8,86:1 | **67** | 85 |
+
+Le ratio WCAG ne voyait rien. L'audit mesure donc **les deux**.
+
+### Le seuil APCA dépend de la nature, pas du ratio
+
+| nature | seuil | exemples |
+|---|---|---|
+| texte | **75** | libellés, valeurs, statuts |
+| élément d'interface | **45** | bordure de champ, anneau de focus, marqueur d'état |
+| élément non textuel | **15** | un tracé de courbe |
+
+WCAG 1.4.11 confond les deux dernières catégories sous un même 3:1. APCA ne
+les confond pas, et c'est ce qu'on est venu chercher. Déduire le seuil APCA du
+seuil WCAG — 3:1 ⇒ 45 — a été essayé et retiré : ça mettait les six séries de
+graphiques en dette pour un seuil qui ne les concerne pas.
+
+## Six séries : séparées OU contrastées, pas les deux
+
+Deux gardes tirent en sens inverse sur la palette de séries :
+
+- la **séparation** entre deux tracés, ΔE OKLab ≥ 0,10, mesurée en vision
+  normale, protanopie et deutéranopie ;
+- la **lisibilité** de chaque tracé sur la carte, 3:1 en WCAG.
+
+Exiger en plus APCA ≥ 45 de chaque série force toutes les teintes vers le
+clair, et la séparation s'effondre :
+
+| marque | ΔE actuel | ΔE si on exige APCA ≥ 45 |
+|---|---|---|
+| aikoz | 0,117 | 0,081 |
+| adp | 0,154 | 0,086 |
+| extime | 0,135 | 0,085 |
+| generali | 0,125 | 0,056 |
+
+Le vivier passe de 31 à 13 teintes. **C'est une propriété du gamut, pas un
+réglage** : sur un fond sombre, six couleurs toutes très contrastées sont
+toutes claires, donc proches les unes des autres.
+
+On garde donc la séparation, et les séries sont traitées pour ce qu'elles
+sont — des éléments non textuels, seuil 15. Leur sens ne repose de toute façon
+jamais sur la seule couleur : étiquette en bout de ligne, légende, et tableau
+équivalent.
+
+## La dette, et pourquoi elle ne peut que rétrécir
+
+Six paires ne tiennent pas encore leur seuil perceptuel. Elles sont inscrites
+dans `AuditContraste` avec leur pire valeur mesurée :
+
+| paire | APCA | seuil |
+|---|---|---|
+| `--primary-foreground` sur `--primary` | 38 | 75 |
+| `--accent-foreground` sur `--accent` | 37 | 75 |
+| `--color-text-accent` sur `--card` | 35 | 75 |
+| `--ring` sur `--background` | 37 | 45 |
+| `--ring` sur `--card` | 35 | 45 |
+| `--color-nav-accent` sur `--nav-surface` | 36 | 45 |
+
+Toutes sont **l'accent ou le primaire d'une marque**. Les remonter, c'est
+retoucher une couleur de charte, pas un token de chrome.
+
+Le cliquet marche dans les deux sens : une paire en dette qui **empire**
+échoue, et une paire en dette qui **passe** échoue aussi, pour forcer à
+retirer sa ligne.
+
+## Règles à retenir
+
+1. Un rôle de **texte** n'est pas un fond. `--warning` et `--info` sont des
+   couleurs de texte ; les employer en aplat a cassé `CountBadge` le jour où
+   ils ont été éclaircis.
+2. Un jaune vif est un mauvais fond de pastille : mesuré, `status.warning` ne
+   tient avec **aucun** texte dans les deux thèmes. Le voile, lui, tient
+   partout — `--warning` sur `--warning-subtle` vaut APCA 83 en clair comme en
+   sombre.
+3. Les couleurs de **données** ne suivent pas la marque. Une hausse doit se
+   lire pareil d'une marque à l'autre.
+4. Ne jamais juger une couleur sombre à l'œil ni au seul ratio WCAG. Mesurer
+   les deux, sur le rendu, dans les huit combinaisons.

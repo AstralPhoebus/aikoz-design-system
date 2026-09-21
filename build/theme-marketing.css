@@ -29,12 +29,12 @@
   --color-status-error-border: var(--color-error-700);
   --color-status-error-text: var(--color-error-150); /** Relevé au seuil **APCA 82** sur la carte sombre des quatre marques (il valait 40,2). WCAG 2 ne voyait rien : la paire tenait 5,21:1, c'est-à-dire « très bien » — mais WCAG 2 est mauvais sur fond sombre, c'est documenté. Seuil retenu : 75 pour un rôle de texte, 45 pour un objet graphique. */
   --color-status-error-fill: var(--color-error-400);
-  --color-status-error-fill-edge: var(--color-error-400); /** Contour de l'aplat d'une jauge — il porte le 3:1 là où l'aplat ne peut pas. idem sombre */
+  --color-status-error-fill-edge: var(--color-error-300); /** Contour de jauge au niveau critique. Relevé de error.400 à error.300 : le 400 valait 33 en APCA sur la piste, sous le seuil de 45. Les contours `success` (49) et `warning` (65) passaient déjà — l'erreur était la seule en dessous, et c'est le niveau qu'on a le plus besoin de voir. Le 300 vaut 50. */
   --color-status-info: var(--color-info-400);
   --color-status-info-text: var(--color-info-150); /** Relevé au seuil **APCA 82** sur la carte sombre des quatre marques (il valait 41,0). WCAG 2 ne voyait rien : la paire tenait 5,34:1, c'est-à-dire « très bien » — mais WCAG 2 est mauvais sur fond sombre, c'est documenté. Seuil retenu : 75 pour un rôle de texte, 45 pour un objet graphique. */
   --color-status-info-subtle: var(--color-info-950);
   --color-status-info-border: var(--color-info-700);
-  --color-nav-on-muted: var(--color-neutral-400); /** Texte secondaire de la navigation — neutre commun. */
+  --color-nav-on-muted: var(--color-neutral-200); /** Texte de navigation atténué. Relevé de neutral.400 à neutral.200 : le 400 valait 47 en APCA sur la surface de navigation, sous le plancher de 75 d'un rôle de texte, alors qu'il tenait 6,7:1 en WCAG 2. Le 300 ne suffit pas non plus (65) ; le 200 vaut 81. */
   --color-rating-default: var(--color-rating-gold-400); /** Étoile pleine — l'or de notation, famille à part. Pointait sur la rampe `warning` : une note n'est pas une alerte. */
   --color-surface-page: var(--color-ink-950); /** Page du registre marketing en sombre. Descend d'un palier, pour la même raison que le produit : l'écart page/carte n'était que de 0,038, tout se lisait comme un aplat. Il passe à 0,064. Le marketing reste un cran plus clair que le produit — c'est la distinction du registre, pas un oubli. */
   --color-surface-default: var(--color-ink-800); /** Surface de contenu posée sur la page. */
@@ -64,7 +64,7 @@
   --color-border-focus: var(--color-brand-accent); /** Anneau de focus clavier. */
   --color-border-accent: var(--color-brand-accent); /** Liseré d'accent — le trait gauche d'un bloc mis en avant. */
   --color-border-disabled: var(--color-ink-700); /** Champ désactivé — volontairement en retrait, l'effacement EST l'information. */
-  --color-border-input: var(--color-ink-400); /** Bordure de champ — 4,09:1 sur carte, 4,40:1 sur page (seuil 3:1, WCAG 1.4.11 : le trait porte l'information « ici on saisit »). Le palier .700 des séparateurs ne donnait que 1,53:1. Bleuté et non gris : sur fond midnight un gris rompt la teinte. */
+  --color-border-input: var(--color-ink-300); /** Bordure de champ de saisie. Relevée de ink.400 à ink.300 : le 400 ne valait que 29 en APCA sur la carte sombre, sous le seuil de 45 d'un ÉLÉMENT D'INTERFACE — et la bordure est ce qui identifie un champ comme un champ. Elle tenait pourtant 4,09:1 en WCAG 2. Le 300 vaut 46. Inchangée en clair. */
   --color-status-neutral-text: var(--color-ink-100); /** Relevé au seuil **APCA 82** sur la carte sombre des quatre marques (il valait 66,8). WCAG 2 ne voyait rien : la paire tenait 8,86:1, c'est-à-dire « très bien » — mais WCAG 2 est mauvais sur fond sombre, c'est documenté. Seuil retenu : 75 pour un rôle de texte, 45 pour un objet graphique. */
   --color-status-neutral-fill: var(--color-ink-300); /** Aplat neutre d'un indicateur — registre marketing. */
   --color-nav-surface: var(--color-ink-900); /** Barre de navigation du site — même fond que la page, séparée par un trait. */

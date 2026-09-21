@@ -27,13 +27,13 @@
   --color-status-warning-fill: var(--color-warning-400); /** Remplissage porteur avertissement — 10,45:1 sur la piste. */
   --color-status-warning-fill-edge: var(--color-warning-400); /** Contour de l'aplat d'une jauge — il porte le 3:1 là où l'aplat ne peut pas. en sombre les aplats passent déjà (4,81 à 6,53:1) : le contour vaut l'aplat, donc invisible */
   --color-status-error-fill: var(--color-error-400); /** Remplissage porteur erreur — 5,33:1 sur la piste. */
-  --color-status-error-fill-edge: var(--color-error-400); /** Contour de l'aplat d'une jauge — il porte le 3:1 là où l'aplat ne peut pas. en sombre les aplats passent déjà (4,81 à 6,53:1) : le contour vaut l'aplat, donc invisible */
+  --color-status-error-fill-edge: var(--color-error-300); /** Contour de jauge au niveau critique. Relevé de error.400 à error.300 : le 400 valait 33 en APCA sur la piste, sous le seuil de 45. Les contours `success` (49) et `warning` (65) passaient déjà — l'erreur était la seule en dessous, et c'est le niveau qu'on a le plus besoin de voir. Le 300 vaut 50. */
   --color-status-error-text: var(--color-error-150); /** Relevé au seuil **APCA 82** sur la carte sombre des quatre marques (il valait 40,2). WCAG 2 ne voyait rien : la paire tenait 5,21:1, c'est-à-dire « très bien » — mais WCAG 2 est mauvais sur fond sombre, c'est documenté. Seuil retenu : 75 pour un rôle de texte, 45 pour un objet graphique. */
   --color-status-info: var(--color-info-400);
   --color-status-info-text: var(--color-info-150); /** Relevé au seuil **APCA 82** sur la carte sombre des quatre marques (il valait 41,0). WCAG 2 ne voyait rien : la paire tenait 5,34:1, c'est-à-dire « très bien » — mais WCAG 2 est mauvais sur fond sombre, c'est documenté. Seuil retenu : 75 pour un rôle de texte, 45 pour un objet graphique. */
   --color-status-info-subtle: var(--color-info-950);
   --color-status-info-border: var(--color-info-700);
-  --color-nav-on-muted: var(--color-neutral-400); /** Texte secondaire de la navigation. Pointait sur `ultramarine.300`, une rampe d'AIKOZ. Passe au neutre commun, comme le fait déjà le thème clair avec `neutral.600` — un gris de second plan n'a pas à porter la marque. */
+  --color-nav-on-muted: var(--color-neutral-200); /** Texte de navigation atténué. Relevé de neutral.400 à neutral.200 : le 400 valait 47 en APCA sur la surface de navigation, sous le plancher de 75 d'un rôle de texte, alors qu'il tenait 6,7:1 en WCAG 2. Le 300 ne suffit pas non plus (65) ; le 200 vaut 81. */
   --color-rating-default: var(--color-rating-gold-400); /** Étoile pleine — l'or de notation, famille à part. Pointait sur la rampe `warning` : une note n'est pas une alerte. */
   --color-rating-empty: var(--color-neutral-700); /** Étoile vide — repère de l'échelle. 1,60:1, sous 3:1 : assumé décoratif (aria-hidden, le max figure dans l'aria-label). */
   --color-surface-page: var(--color-ink-1000); /** La PAGE descend au palier le plus bas de l'échelle (L=0,133) et la carte reste au 800 (L=0,223). Ce n'est pas la page qui était trop claire — mesurée contre les références, elle était déjà plus sombre que toutes : GitHub Primer 0,176 · Anthropic 0,191 · OpenCode 0,234 · Mistral 0,239. C'était l'ÉCART page/carte qui manquait : 0,064 chez nous contre 0,118 chez Anthropic. Un thème sombre paraît moderne par la PROFONDEUR de ses plans, pas par la noirceur de son fond ; à écart trop faible, tout se lit comme un aplat terne. Le nouvel écart vaut 0,090. */
@@ -65,7 +65,7 @@
   --color-border-brand: var(--color-brand-primary);
   --color-border-accent: var(--color-brand-accent);
   --color-border-disabled: var(--color-ink-700);
-  --color-border-input: var(--color-ink-400); /** Bordure de champ — 4,09:1 sur carte, 4,58 sur page (seuil 3:1, WCAG 1.4.11 : le trait porte l'information « ici on saisit »). Le palier des séparateurs ne donnait que 1,14:1, une bordure de champ invisible. Défaut systémique relevé en auditant les quatre combinaisons registre × thème — il touchait produit clair, produit sombre et marketing clair, seul le marketing sombre avait déjà été corrigé. */
+  --color-border-input: var(--color-ink-300); /** Bordure de champ de saisie. Relevée de ink.400 à ink.300 : le 400 ne valait que 29 en APCA sur la carte sombre, sous le seuil de 45 d'un ÉLÉMENT D'INTERFACE — et la bordure est ce qui identifie un champ comme un champ. Elle tenait pourtant 4,09:1 en WCAG 2. Le 300 vaut 46. Inchangée en clair. */
   --color-status-neutral-text: var(--color-ink-100); /** Relevé au seuil **APCA 82** sur la carte sombre des quatre marques (il valait 66,8). WCAG 2 ne voyait rien : la paire tenait 8,86:1, c'est-à-dire « très bien » — mais WCAG 2 est mauvais sur fond sombre, c'est documenté. Seuil retenu : 75 pour un rôle de texte, 45 pour un objet graphique. */
   --color-status-neutral-fill: var(--color-ink-300); /** Aplat neutre — pendant sombre du rôle. */
   --color-nav-surface: var(--color-ink-900);
