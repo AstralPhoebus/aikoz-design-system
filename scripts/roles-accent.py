@@ -12,7 +12,7 @@ P = json.load(open('tokens/primitives.json'))['color']
 
 RAMPE_ACCENT = {
     'aikoz': 'aquamarine',
-    'adp': 'adp-campanula',
+    'adp': 'adp-red',
     'extime': 'extime-gold',
     # La charte Generali donne un accent NEUTRE (neutral.50) : il n'y a pas de
     # rampe d'accent chromatique. Le texte d'accent se replie donc sur le rouge,

@@ -121,8 +121,8 @@
     "brand": {
       "accent-text": {
         "$type": "color",
-        "$value": "{color.adp-campanula.300}",
-        "$description": "Texte teinté de l'accent, thème sombre — 6.75:1 sur la carte de la marque."
+        "$value": "{color.adp-red.400}",
+        "$description": "Texte teinté de l'accent, thème sombre — 4.68:1 sur la carte de la marque."
       }
     }
   }

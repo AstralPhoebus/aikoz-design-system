@@ -35,19 +35,23 @@
       },
       "accent": {
         "$type": "color",
-        "$value": "{color.adp-campanula.400}"
+        "$value": "{color.adp-red.400}",
+        "$description": "Tangerine Tango (PANTONE Bright Red C). Charte Groupe ADP & Paris Aéroport, avril 2019, p. 13. La charte donne TROIS couleurs — Spectrum Blue, Campanula, Tangerine Tango. La campanule en occupait deux, secondaire ET accent, pendant que le tangerine ne servait dans aucun rôle : une marque à trois couleurs qui n'en emploie que deux.\n\nLe palier 400 et pas la valeur de charte (500) : l'accent est la SURFACE d'action en thème sombre, avec l'encre de la marque posée dessus. Le 500 n'y donne que 3,47:1, le 400 donne 4,65:1 et tient encore 3,71:1 comme liseré sur blanc. C'est le seul palier qui satisfait les deux contrats.\n\nAu passage, un défaut corrigé : l'ancien accent campanula.400 ne donnait que 4,37:1 sous son propre texte, sous le seuil. Il était passé à 4,74 lors de son audit, avant que `on-accent` ne bascule de `midnight-blue.900` vers l'encre de la marque — je n'avais pas remesuré la paire après ce changement."
       },
       "accent-hover": {
         "$type": "color",
-        "$value": "{color.adp-campanula.300}"
+        "$value": "{color.adp-red.500}",
+        "$description": "Tangerine Tango, valeur de charte — un cran plus dense au survol."
       },
       "accent-active": {
         "$type": "color",
-        "$value": "{color.adp-campanula.200}"
+        "$value": "{color.adp-red.600}",
+        "$description": "Tangerine Tango assombri — état actif."
       },
       "accent-subtle": {
         "$type": "color",
-        "$value": "{color.adp-campanula.50}"
+        "$value": "{color.adp-red.50}",
+        "$description": "Voile de tangerine."
       },
       "on-accent": {
         "$type": "color",
@@ -56,8 +60,8 @@
       },
       "accent-text": {
         "$type": "color",
-        "$value": "{color.adp-campanula.500}",
-        "$description": "Texte teinté de l'accent — 5.25:1 sur la carte claire. Un palier DISTINCT de `accent` : celui-ci est une surface, clair par construction, et ne tient pas 4,5:1 sous du texte. Choisi comme le plus vif des paliers qui passent le seuil, pour que l'accent garde son caractère. Remplace `aquamarine`, une rampe d'Aikoz, que toutes les marques portaient."
+        "$value": "{color.adp-red.500}",
+        "$description": "Texte teinté de l'accent — 4.97:1 sur la carte claire. Un palier DISTINCT de `accent` : celui-ci est une surface, clair par construction, et ne tient pas 4,5:1 sous du texte. Choisi comme le plus vif des paliers qui passent le seuil, pour que l'accent garde son caractère. Remplace `aquamarine`, une rampe d'Aikoz, que toutes les marques portaient."
       }
     },
     "chart": {
