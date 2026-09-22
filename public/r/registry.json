@@ -296,6 +296,26 @@
       ]
     },
     {
+      "name": "checkbox",
+      "type": "registry:component",
+      "title": "Checkbox",
+      "description": "Case a cocher. Un vrai <input type=checkbox> masque en sr-only sous une boite dessinee — jamais un <div role=checkbox> : il reste focusable, se coche a la barre d'espace et participe a l'envoi du formulaire. Elle sait l'etat INDETERMINE, ce qu'aucun autre controle du systeme ne sait dire : Switch est binaire, ChoiceGroup ne connait que des options completes. Checkbox quand l'effet a lieu a l'envoi, Switch quand il a lieu tout de suite. C'est le <label> qui porte la cible, pas la boite de 20 px.",
+      "files": [
+        {
+          "path": "registry/aikoz/checkbox/checkbox.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/aikoz/lib/utils.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ]
+    },
+    {
       "name": "choice-card",
       "type": "registry:component",
       "title": "ChoiceCard",
@@ -456,6 +476,27 @@
         "clsx",
         "tailwind-merge",
         "recharts"
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:component",
+      "title": "DropdownMenu",
+      "description": "Menu de commandes — pas de liens : s'il s'agit d'aller ailleurs, c'est de la navigation. Le contrat clavier du motif ARIA menu (fleches, Echap, frappe, retour du focus sur le declencheur) est delegue a Radix. Le nom est obligatoire : un tableau de bord porte un menu par ligne. La commande destructive est deplacee en DERNIER, apres un filet, ou qu'elle soit declaree. Non modal : un menu n'est pas une boite de dialogue, et masquer l'arriere-plan sans le rendre inert le laisse tabulable.",
+      "files": [
+        {
+          "path": "registry/aikoz/dropdown-menu/dropdown-menu.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/aikoz/lib/utils.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-dropdown-menu",
+        "clsx",
+        "tailwind-merge"
       ]
     },
     {

@@ -18,6 +18,75 @@ de l'API — mais il se voit, donc il est toujours écrit ici.
 
 ---
 
+## [2.3.1] — 2026-09-22
+
+### Corrigé
+
+- **L'introduction annonçait « 37 composants » quand il y en avait 51.** Le
+  chiffre avait été juste une fois, puis quatorze composants sont arrivés et
+  personne n'est retourné éditer la phrase. C'est la première ligne que lit
+  qui découvre le système, et elle mentait d'un tiers.
+
+  Les chiffres de la vitrine sont désormais **comptés** — `chiffres.ts` est
+  généré par `registry:build`, et la CI échoue si le fichier commité ne
+  correspond plus. Même doctrine que le pont Tailwind et `version.json` : on
+  ne déclare pas ce qu'on peut compter.
+
+- **Les tableaux Markdown ne s'affichaient pas dans les pages de
+  documentation.** MDX ne rend pas les tableaux GitHub sans `remark-gfm` :
+  neuf tableaux de la seule page Accessibilité étaient une soupe de barres
+  verticales, et autant ailleurs. Ils l'étaient depuis le début — on relit sa
+  documentation dans l'éditeur, où elle a l'air juste.
+
+---
+
+## [2.3.0] — 2026-09-22
+
+### Ajouté
+
+- **`DropdownMenu`** — les actions par ligne d'un tableau de bord.
+
+  Un menu contient des **commandes, pas des liens** : s'il s'agit d'aller
+  ailleurs, c'est de la navigation. Le contrat clavier du motif ARIA `menu`
+  — flèches, `Échap`, frappe pour atteindre une entrée, **retour du focus sur
+  le déclencheur** — est délégué à Radix ; le réécrire à la main rate presque
+  toujours ce dernier point.
+
+  Le nom est obligatoire : un tableau de bord porte un menu par ligne, et
+  « Actions sur Orly 4 » se distingue là où « Actions » non.
+
+  La commande **destructive est déplacée en dernier**, après un filet, où
+  qu'elle soit déclarée. Une commande irréversible voisine d'une commande
+  anodine se clique par erreur : l'ordre est une protection, pas une
+  convention d'affichage.
+
+  Nouvelle dépendance : `@radix-ui/react-dropdown-menu`.
+
+---
+
+## [2.2.0] — 2026-09-22
+
+### Ajouté
+
+- **`Checkbox`** — un vrai `<input type="checkbox">` masqué en `sr-only` sous
+  une boîte dessinée, jamais un `<div role="checkbox">` : il reste focusable,
+  se coche à la barre d'espace, participe à l'envoi du formulaire et à
+  l'autoremplissage.
+
+  Elle existe pour ce qu'aucun autre contrôle du système ne sait dire :
+  **l'état indéterminé**, celui du « tout sélectionner » quand une partie
+  seulement des lignes est retenue. `Switch` est binaire par nature,
+  `ChoiceGroup` ne connaît que des options complètes.
+
+  Règle d'emploi : `Checkbox` quand l'effet a lieu à l'envoi du formulaire,
+  `Switch` quand il a lieu tout de suite. Un interrupteur qui attend un bouton
+  « Enregistrer » ment sur sa promesse.
+
+  C'est le `<label>` qui porte la cible, pas la boîte de 20 px — elle serait
+  sous le plancher de 24 px du critère WCAG 2.2 AA 2.5.8.
+
+---
+
 ## [2.1.0] — 2026-09-22
 
 ### Ajouté

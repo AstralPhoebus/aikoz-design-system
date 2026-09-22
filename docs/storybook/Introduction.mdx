@@ -1,10 +1,12 @@
 import { Meta } from "@storybook/addon-docs/blocks";
+import { CHIFFRES } from "./chiffres";
 
 <Meta title="Design system/Introduction" />
 
 # Aikoz Design System
 
-Le design system d'Aikoz by Okuden : **37 composants**, des tokens au format DTCG,
+Le design system d'Aikoz by Okuden : **{CHIFFRES.composants} composants** en
+version {CHIFFRES.version}, des tokens au format DTCG,
 et un pont vers shadcn. Ce Storybook en est la seule vitrine — tout ce qui est
 rendu ici est ce qui est publié.
 
@@ -13,9 +15,9 @@ rendu ici est ce qui est publié.
   margin: "1.5rem 0"
 }}>
   {[
-    ["37", "composants au registry"],
-    ["4", "combinaisons registre × thème"],
-    ["19", "marques d'assureurs"],
+    [CHIFFRES.composants, "composants au registry"],
+    [CHIFFRES.combinaisons, "combinaisons registre × thème"],
+    [CHIFFRES.marques, "marques d'assureurs"],
     ["0", "échec de contraste"],
   ].map(([n, l]) => (
     <div key={l} style={{ padding: "1rem", borderRadius: 8, background: "var(--muted)" }}>

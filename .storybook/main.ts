@@ -1,4 +1,5 @@
 import type { StorybookConfig } from "@storybook/react-vite";
+import remarkGfm from "remark-gfm";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -24,7 +25,22 @@ const config: StorybookConfig = {
     // le CONTRASTE RENDU dans les quatre combinaisons, ce qu'axe ne fait pas
     // sur des couleurs composées.
     "@storybook/addon-a11y",
-    "@storybook/addon-docs",
+    // ── Les tableaux Markdown ────────────────────────────────────────────
+    //
+    // MDX ne rend PAS les tableaux GitHub sans `remark-gfm`. Sans lui, un
+    // tableau reste une soupe de barres verticales dans un paragraphe — et
+    // personne ne le voit tant qu'on relit la doc dans l'éditeur.
+    //
+    // Constaté le 22/09/2026 : huit tableaux illisibles sur la seule page
+    // Accessibilité, et autant ailleurs. Ils y étaient depuis le début.
+    {
+      name: "@storybook/addon-docs",
+      options: {
+        mdxPluginOptions: {
+          mdxCompileOptions: { remarkPlugins: [remarkGfm] },
+        },
+      },
+    },
     "@storybook/addon-mcp",
   ],
   framework: "@storybook/react-vite",

@@ -36,7 +36,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # Node 24, comme en local. La CI tournait en 20 avec npm 10 : un
+          # verrou écrit par npm 11 lui est illisible, et elle tombait dès
+          # `npm ci` sur « Missing: vite@8.3.0 », un message qui envoie
+          # chercher du côté des dépendances au lieu de la version de npm.
+          # Node 20 est par ailleurs déprécié sur les runners.
+          node-version: 24
           cache: npm
       - run: npm ci
 

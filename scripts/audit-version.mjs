@@ -19,6 +19,14 @@
  *
  * Une PR qui ne touche qu'à la documentation, aux tests ou à l'outillage ne
  * déclenche rien : elle ne change pas ce que le consommateur installe.
+ *
+ * Il vérifie aussi que **le verrou suit**. Monter la version dans
+ * `package.json` sans relancer `npm install` laisse `package-lock.json` sur
+ * l'ancienne : `npm ci` refuse alors de s'exécuter — « can only install
+ * packages when your package.json and package-lock.json are in sync » — et la
+ * CI tombe dès sa première étape, sur un message qui ne dit pas d'où ça vient.
+ * C'est arrivé le 22/09/2026, sur une montée de version que ce contrôle avait
+ * lui-même exigée.
  */
 import fs from 'node:fs';
 import { execSync } from 'node:child_process';
@@ -67,6 +75,23 @@ if (versionBase && version === versionBase) {
       touchent.slice(0, 6).join('\n    ') +
       (touchent.length > 6 ? `\n    et ${touchent.length - 6} autres` : ''),
   );
+}
+
+// Le verrou porte la version lui aussi. `npm ci` compare les deux et refuse
+// de s'exécuter si elles divergent.
+if (fs.existsSync('package-lock.json')) {
+  const verrou = JSON.parse(fs.readFileSync('package-lock.json', 'utf8'));
+  const versionsVerrou = [verrou.version, verrou.packages?.['']?.version];
+  if (versionsVerrou.some((v) => v && v !== version)) {
+    echecs.push(
+      `package-lock.json est resté en ${versionsVerrou.filter(Boolean).join(' / ')} ` +
+        `alors que package.json est en ${version}. \`npm ci\` refusera de ` +
+        `s'exécuter — « can only install packages when your package.json and ` +
+        `package-lock.json are in sync » — et la CI tombera dès sa première ` +
+        `étape, sur un message qui ne dit pas d'où ça vient. Correctif : ` +
+        `\`npm install\` puis commit du verrou.`,
+    );
+  }
 }
 
 const journal = fs.existsSync('CHANGELOG.md') ? fs.readFileSync('CHANGELOG.md', 'utf8') : '';
