@@ -1,6 +1,6 @@
 import { useId, useMemo, useState } from "react";
 import { cn } from "@registry/aikoz/lib/utils";
-import { BOITE, REGIONS, DEPARTEMENTS, DEPARTEMENTS_PAR_REGION, type ZoneCarte } from "./geometrie";
+import { BOITE, REGIONS, DEPARTEMENTS, DEPARTEMENTS_PAR_REGION, OUTRE_MER, type ZoneCarte } from "./geometrie";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -20,6 +20,12 @@ export interface FranceMapProps {
   formatValue?: (v: number) => string;
   /** Nombre de classes de couleur. 5 par défaut ; au-delà de 6 on ne les distingue plus. */
   classes?: number;
+  /**
+   * Affiche les cartouches d'outre-mer. `true` par défaut au niveau national.
+   * Ils disparaissent quand on est descendu dans une région de métropole :
+   * ils n'y ont rien à faire.
+   */
+  outreMer?: boolean;
   height?: number;
   className?: string;
 }
@@ -107,6 +113,7 @@ export function FranceMap({
   selected,
   formatValue = (v) => v.toLocaleString("fr-FR"),
   classes = 5,
+  outreMer = true,
   height = 360,
   className,
 }: FranceMapProps) {
@@ -121,10 +128,19 @@ export function FranceMap({
     return level === "region" ? REGIONS : DEPARTEMENTS;
   }, [level, region]);
 
+  // Les cartouches comptent dans les quantiles. Ils portent la même échelle
+  // de couleur que la métropole — les exclure du calcul les tasserait tous
+  // dans la classe la plus basse, ce qui se lirait comme « rien outre-mer ».
   const seuils = useMemo(() => {
-    const v = zones.map((z) => values[z.code]).filter((x): x is number => typeof x === "number");
+    const codes = [
+      ...zones.map((z) => z.code),
+      ...(outreMer && !region
+        ? OUTRE_MER.map((t) => (level === "region" ? t.codeRegion : t.code))
+        : []),
+    ];
+    const v = codes.map((c) => values[c]).filter((x): x is number => typeof x === "number");
     return bornes(v, classes);
-  }, [zones, values, classes]);
+  }, [zones, values, classes, outreMer, region, level]);
 
   const classeDe = (code: string): number | null => {
     const v = values[code];
@@ -134,11 +150,43 @@ export function FranceMap({
     return c;
   };
 
-  const renseignees = zones.filter((z) => typeof values[z.code] === "number");
-  const total = renseignees.reduce((s, z) => s + values[z.code], 0);
+  // (déplacé plus haut : les seuils en dépendent)
+  // Les cartouches n'apparaissent qu'au niveau national : descendus dans une
+  // région de métropole, ils n'ont rien à y faire.
+  const cartouches = outreMer && !region ? OUTRE_MER : [];
+  const codeDrom = (t: (typeof OUTRE_MER)[number]) =>
+    level === "region" ? t.codeRegion : t.code;
+
+  const comptees = [
+    ...zones.map((z) => values[z.code]),
+    ...cartouches.map((t) => values[codeDrom(t)]),
+  ].filter((v): v is number => typeof v === "number");
+  const total = comptees.reduce((s, v) => s + v, 0);
+  const renseignees = { length: comptees.length };
 
   return (
     <figure className={cn("m-0 flex flex-col gap-3", className)}>
+      {/* Les motifs, dans leur propre `<svg>` de taille nulle.
+          Ils étaient dans la carte principale, et les cartouches d'outre-mer
+          y faisaient référence depuis un AUTRE `<svg>`. Ça marche dans la
+          plupart des navigateurs — les identifiants sont ceux du document —
+          mais ça a toujours été le genre de détail qui casse quelque part.
+          Défini une fois, hors des deux, la question ne se pose plus. */}
+      <svg aria-hidden="true" width="0" height="0" className="absolute">
+        <defs>
+          <pattern
+            id={`${uid}-vide`}
+            width="6"
+            height="6"
+            patternUnits="userSpaceOnUse"
+            patternTransform="rotate(45)"
+          >
+            <rect width="6" height="6" fill="var(--muted)" />
+            <line x1="0" y1="0" x2="0" y2="6" stroke="var(--border)" strokeWidth="2" />
+          </pattern>
+        </defs>
+      </svg>
+
       {/* Le résumé énoncé, comme sur les graphiques : c'est lui que le
           lecteur d'écran entend, pas le dessin. */}
       <div
@@ -146,13 +194,18 @@ export function FranceMap({
         aria-label={
           `Carte de France — ${valueLabel}. ${renseignees.length} zone` +
           `${renseignees.length > 1 ? "s" : ""} renseignée${renseignees.length > 1 ? "s" : ""} sur ` +
-          `${zones.length}, total ${formatValue(total)}. La carte montre la répartition ; ` +
+          `${zones.length + cartouches.length}, total ${formatValue(total)}. ` +
+          `La carte montre la répartition ; ` +
           `les valeurs exactes sont dans le tableau.`
         }
         style={{ height }}
         className="w-full"
       >
         <svg
+          // Repère stable : la figure contient plusieurs `<svg>` — les motifs,
+          // la métropole, et un cartouche par territoire. Les distinguer par
+          // leur ordre dans le DOM rendrait les tests faux au premier ajout.
+          data-carte="metropole"
           viewBox={`0 0 ${BOITE.largeur} ${BOITE.hauteur}`}
           className="h-full w-full"
           // Masqué : recharts nous a appris la leçon, un dessin composé de
@@ -205,14 +258,60 @@ export function FranceMap({
               />
             );
           })}
-          <defs>
-            <pattern id={`${uid}-vide`} width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-              <rect width="6" height="6" fill="var(--muted)" />
-              <line x1="0" y1="0" x2="0" y2="6" stroke="var(--border)" strokeWidth="2" />
-            </pattern>
-          </defs>
         </svg>
       </div>
+
+      {/* Les cartouches d'outre-mer.
+          Chacun à SA propre échelle : la Guyane fait quinze fois la
+          Martinique, et à l'échelle de la métropole Mayotte serait un point
+          de deux pixels. C'est la convention des cartes françaises, et elle
+          n'est honnête que si on l'annonce — d'où la mention sous la rangée.
+
+          Chacun dans son propre `<svg>` : imbriquer six boîtes différentes
+          dans une seule demanderait six transformations calculées à la main,
+          pour le même résultat. */}
+      {cartouches.length > 0 && (
+        <div aria-hidden="true" className="flex flex-wrap items-end gap-x-4 gap-y-2">
+          {cartouches.map((t) => {
+            const code = codeDrom(t);
+            const c = classeDe(code);
+            const actif = selected === code || survol?.code === code;
+            return (
+              <button
+                key={t.code}
+                type="button"
+                tabIndex={-1}
+                onMouseEnter={() => setSurvol({ code, nom: t.nom, niveau: level, d: t.d })}
+                onMouseLeave={() => setSurvol(null)}
+                onClick={() => onSelect?.(code, t.nom)}
+                className={cn(
+                  "flex flex-col items-center gap-0.5 rounded-[var(--radius)] p-1",
+                  onSelect && "cursor-pointer",
+                )}
+              >
+                <svg
+                  data-carte="outre-mer"
+                  viewBox={`0 0 ${t.boite.largeur} ${t.boite.hauteur}`}
+                  className="h-10 w-auto"
+                  style={{ maxWidth: 56 }}
+                >
+                  <path
+                    d={t.d}
+                    fill={c === null ? `url(#${uid}-vide)` : teinte(c, classes)}
+                    stroke={actif ? "var(--foreground)" : "var(--card)"}
+                    strokeWidth={actif ? 3 : 1.5}
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                <span className="text-[10px] leading-none text-muted-foreground">{t.nom}</span>
+              </button>
+            );
+          })}
+          <span className="self-center text-[10px] leading-tight text-muted-foreground">
+            Cartouches à leur propre échelle
+          </span>
+        </div>
+      )}
 
       {/* Ce que le survol révèle. Une ligne réservée en permanence : sans
           elle, la carte sauterait de quelques pixels à chaque survol. */}

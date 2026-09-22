@@ -104,6 +104,29 @@ def anneaux(geom):
     raise ValueError(geom["type"])
 
 
+# ─── Outre-mer ────────────────────────────────────────────────────────────────
+#
+# Lambert-93 n'est valable QUE pour la métropole : appliquée à la Réunion, elle
+# renvoie des coordonnées absurdes. Et même bien projeté, un territoire de
+# quarante kilomètres placé à sa vraie position serait un point invisible à
+# huit mille kilomètres du reste.
+#
+# Convention des cartes françaises : des CARTOUCHES, chacun à sa propre
+# échelle, posés à côté de la métropole. Chaque territoire est donc projeté
+# localement — équirectangulaire corrigée de la latitude, ce qui est exact à
+# l'échelle d'une île — puis normalisé dans sa propre boîte.
+DROM_REGION = {"01": "Guadeloupe", "02": "Martinique", "03": "Guyane",
+               "04": "La Réunion", "06": "Mayotte"}
+DROM_DEPARTEMENT = {"971": "Guadeloupe", "972": "Martinique", "973": "Guyane",
+                    "974": "La Réunion", "976": "Mayotte"}
+
+
+def locale(anneaux_, lat_moy):
+    """Projection locale : x corrigé par cos(latitude), y tel quel."""
+    k = math.cos(math.radians(lat_moy))
+    return [[(x * k, y) for x, y in a] for a in anneaux_]
+
+
 def charger(chemin):
     d = json.load(open(chemin))
     out = []
@@ -114,10 +137,34 @@ def charger(chemin):
     return out
 
 
+def charger_brut(chemin, codes):
+    """Les entités demandées, en degrés — pas de Lambert-93 ici."""
+    d = json.load(open(chemin))
+    out = []
+    for f in d["features"]:
+        p = f["properties"]
+        if p["code"] not in codes:
+            continue
+        out.append({"code": p["code"], "nom": codes[p["code"]],
+                    "anneaux": anneaux(f["geometry"])})
+    return out
+
+
 def main(dossier):
     dossier = pathlib.Path(dossier)
     regions = charger(dossier / "regions-version-simplifiee.geojson")
     departements = charger(dossier / "departements-version-simplifiee.geojson")
+    # La géométrie d'un territoire d'outre-mer est la MÊME au niveau région et
+    # au niveau département — la Guadeloupe région et la Guadeloupe département
+    # ont le même contour. On ne la stocke donc qu'une fois, avec ses deux
+    # codes INSEE : l'émettre deux fois doublait douze kilo-octets pour rien.
+    drom = []
+    f_dep = dossier / "departements-avec-outre-mer.geojson"
+    if f_dep.exists():
+        vers_region = {"971": "01", "972": "02", "973": "03", "974": "04", "976": "06"}
+        for e in charger_brut(f_dep, DROM_DEPARTEMENT):
+            e["codeRegion"] = vers_region[e["code"]]
+            drom.append(e)
 
     # Une seule boîte englobante pour les deux niveaux : sans ça, passer des
     # régions aux départements ferait sauter la carte d'une échelle à l'autre.
@@ -166,6 +213,47 @@ def main(dossier):
             morceaux.append("".join(bouts) + "Z")
         return "".join(morceaux)
 
+    def bloc_drom(jeu):
+        lignes = []
+        for e in sorted(jeu, key=lambda e: e["code"]):
+            pts = [p for a in e["anneaux"] for p in a]
+            lat_moy = sum(p[1] for p in pts) / len(pts)
+            proj = locale(e["anneaux"], lat_moy)
+            tous_ = [p for a in proj for p in a]
+            x0 = min(p[0] for p in tous_); x1 = max(p[0] for p in tous_)
+            y0 = min(p[1] for p in tous_); y1 = max(p[1] for p in tous_)
+            # Chaque cartouche a sa propre boîte de 100 de large : les
+            # territoires ne sont PAS à la même échelle entre eux, et la
+            # légende doit le dire. Les mettre à l'échelle commune ferait de
+            # Mayotte un point de deux pixels à côté de la Guyane.
+            LARG = 100.0
+            ech = LARG / (x1 - x0)
+            haut = round((y1 - y0) * ech, 1)
+            morceaux = []
+            for a in proj:
+                brut = [((x - x0) * ech, (y1 - y) * ech) for x, y in a]
+                # Tolérance proportionnelle : la boîte fait 100 unités, pas 1000.
+                simple = douglas_peucker(brut, 0.35)
+                q, prec = [], None
+                for x, y in simple:
+                    r = (round(x, 1), round(y, 1))
+                    if r == prec:
+                        continue
+                    q.append(r); prec = r
+                if len(q) < 3:
+                    continue
+                bouts = [f"M{q[0][0]} {q[0][1]}"]
+                px, py = q[0]
+                for x, y in q[1:]:
+                    bouts.append(f"l{round(x-px,1)} {round(y-py,1)}")
+                    px, py = x, y
+                morceaux.append("".join(bouts) + "Z")
+            lignes.append(f'  {{ code: "{e["code"]}", codeRegion: "{e["codeRegion"]}", '
+                          f'nom: {json.dumps(e["nom"], ensure_ascii=False)}, '
+                          f'd: "{"".join(morceaux)}", '
+                          f'boite: {{ largeur: {LARG:.0f}, hauteur: {haut} }} }},')
+        return "\n".join(lignes)
+
     def bloc(jeu, niveau):
         lignes = []
         for e in sorted(jeu, key=lambda e: e["code"]):
@@ -198,6 +286,17 @@ def main(dossier):
  * https://github.com/gregoiredavid/france-geojson
  */
 
+export interface ZoneOutreMer {{
+  /** Code INSEE de DÉPARTEMENT — « 971 » la Guadeloupe. */
+  code: string;
+  /** Code INSEE de RÉGION du même territoire — « 01 » la Guadeloupe. */
+  codeRegion: string;
+  nom: string;
+  d: string;
+  /** Sa boîte à elle : un cartouche n'est pas à l'échelle de la métropole. */
+  boite: {{ largeur: number; hauteur: number }};
+}}
+
 export interface ZoneCarte {{
   /** Code INSEE — « 11 » Île-de-France, « 75 » Paris. */
   code: string;
@@ -216,6 +315,21 @@ export const REGIONS: ZoneCarte[] = [
 
 export const DEPARTEMENTS: ZoneCarte[] = [
 {bloc(departements, "departement")}
+];
+
+/**
+ * Les territoires d'outre-mer, chacun dans SA boîte.
+ *
+ * Ils ne sont pas à l'échelle de la métropole, ni entre eux : la Guyane fait
+ * quinze fois la Martinique. À l'échelle commune, Mayotte serait un point de
+ * deux pixels. C'est la convention des cartes françaises — des cartouches —
+ * et le composant l'annonce en toutes lettres.
+ *
+ * Chacun est projeté LOCALEMENT (équirectangulaire corrigée de la latitude) :
+ * Lambert-93 n'est valable que pour la métropole.
+ */
+export const OUTRE_MER: ZoneOutreMer[] = [
+{bloc_drom(drom)}
 ];
 
 /** Les départements d'une région, par code INSEE de région. */

@@ -21,6 +21,8 @@ const PAR_REGION: Record<string, number> = {
   "27": 71,   // Bourgogne-Franche-Comté
   // La Corse n'a volontairement PAS de valeur : il faut voir ce que fait
   // l'absence de donnée.
+  // Les cinq territoires d'outre-mer, au niveau RÉGION (codes 01 à 06).
+  "01": 61, "02": 54, "03": 33, "04": 88, "06": 19,
 };
 
 const meta = {
@@ -76,7 +78,7 @@ export const SansDonnee: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const svg = canvasElement.querySelector("svg")!;
+    const svg = canvasElement.querySelector('[data-carte="metropole"]')!;
     const corse = [...svg.querySelectorAll("path")].filter((p) =>
       (p.getAttribute("fill") ?? "").includes("url(#")
     );
@@ -104,13 +106,15 @@ export const LeDessinEstMasque: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const resume = canvas.getByRole("img");
-    await expect(resume).toHaveAccessibleName(/12 zones renseignées sur 13/);
+    // Treize régions de métropole plus cinq cartouches d'outre-mer ; seule la
+    // Corse n'a pas de valeur.
+    await expect(resume).toHaveAccessibleName(/17 zones renseignées sur 18/);
     // \s et non une espace : `toLocaleString("fr-FR")` sépare les milliers
     // par une espace fine insécable (U+202F), pas par une espace ordinaire.
-    await expect(resume).toHaveAccessibleName(/total 4\s620/);
+    await expect(resume).toHaveAccessibleName(/total 4\s875/);
     await expect(resume).toHaveAccessibleName(/tableau/);
     // Et le dessin, lui, est hors de l'arbre.
-    const svg = canvasElement.querySelector("svg")!;
+    const svg = canvasElement.querySelector('[data-carte="metropole"]')!;
     await expect(svg.getAttribute("aria-hidden")).toBe("true");
   },
 };
@@ -153,7 +157,7 @@ export const LeClicRemonteLaZone: Story = {
     },
   },
   play: async ({ canvasElement, args }) => {
-    const svg = canvasElement.querySelector("svg")!;
+    const svg = canvasElement.querySelector('[data-carte="metropole"]')!;
     const chemins = [...svg.querySelectorAll("path")];
     // La zone sélectionnée porte le trait épais, et elle est la seule.
     const epais = chemins.filter((p) => p.getAttribute("stroke-width") === "3");
@@ -187,7 +191,7 @@ export const UneRegionEtSesDepartements: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const svg = canvasElement.querySelector("svg")!;
+    const svg = canvasElement.querySelector('[data-carte="metropole"]')!;
     // Douze départements en Auvergne-Rhône-Alpes, plus les douze AUTRES
     // régions posées derrière en contour inerte.
     const fond = svg.querySelectorAll('path[fill="var(--muted)"]');
@@ -227,6 +231,69 @@ export const LaGeometrieEstComplete: Story = {
       await expect(z.d.length).toBeGreaterThan(20);
       await expect(z.code).toMatch(/^[0-9][0-9AB]$/);
     }
+  },
+};
+
+export const OutreMerEnCartouches: Story = {
+  name: "L'outre-mer en cartouches, à sa propre échelle",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Cinq territoires, cinq cartouches. Ce n'est pas un raccourci : à " +
+          "leur vraie position et à la vraie échelle, ils seraient cinq " +
+          "points invisibles répartis sur huit mille kilomètres. C'est la " +
+          "convention des cartes françaises.\n\n" +
+          "Chacun est projeté **localement** — équirectangulaire corrigée de " +
+          "la latitude. Lambert-93 n'est valable que pour la métropole ; " +
+          "appliquée à La Réunion elle renvoie des coordonnées absurdes.\n\n" +
+          "Ils ne sont pas non plus à la même échelle **entre eux** : la " +
+          "Guyane fait quinze fois la Martinique, et une échelle commune " +
+          "réduirait Mayotte à deux pixels. La rangée le dit en toutes " +
+          "lettres — une carte qui triche sur l'échelle sans le dire est une " +
+          "carte qui ment.\n\n" +
+          "Ils comptent dans les **quantiles** : les exclure du calcul les " +
+          "tasserait tous dans la classe la plus basse, ce qui se lirait " +
+          "comme « rien outre-mer ». Et ils disparaissent dès qu'on descend " +
+          "dans une région de métropole, où ils n'ont rien à faire.\n\n" +
+          "La géométrie n'est stockée **qu'une fois** : la Guadeloupe région " +
+          "et la Guadeloupe département ont le même contour, seul le code " +
+          "INSEE change. L'émettre deux fois doublait douze kilo-octets pour " +
+          "rien.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const cartouches = canvasElement.querySelectorAll('[data-carte="outre-mer"]');
+    await expect(cartouches).toHaveLength(5);
+    // Chacun a SA boîte : deux cartouches qui partagent un viewBox seraient
+    // à la même échelle, ce qu'on vient justement d'exclure.
+    const boites = new Set([...cartouches].map((c) => c.getAttribute("viewBox")));
+    await expect(boites.size).toBe(5);
+    // Et l'échelle est annoncée, pas sous-entendue.
+    await expect(canvasElement.textContent).toContain("Cartouches à leur propre échelle");
+  },
+};
+
+export const PasDOutreMerDansUneRegion: Story = {
+  name: "Descendu dans une région, les cartouches disparaissent",
+  args: {
+    region: "84",
+    values: { "69": 421, "38": 244, "74": 201, "73": 118, "63": 97, "42": 88 },
+  },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.querySelectorAll('[data-carte="outre-mer"]')).toHaveLength(0);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Les cartouches répondent à « et l'outre-mer ? » au niveau " +
+          "national. Descendu dans Auvergne-Rhône-Alpes, la question ne se " +
+          "pose plus : les garder ferait cinq vignettes sans rapport avec ce " +
+          "qu'on regarde.",
+      },
+    },
   },
 };
 

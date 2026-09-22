@@ -152,6 +152,14 @@ const TERRITOIRES: ZoneGeo[] = [
   { id: "75", label: "Nouvelle-Aquitaine", value: 392 },
   { id: "32", label: "Hauts-de-France", value: 288 },
   { id: "53", label: "Bretagne", value: 175 },
+  // L'outre-mer, au niveau région (codes INSEE 01 à 06). Sans valeurs, les
+  // cartouches de la carte s'afficheraient vides — ce qui se lirait comme
+  // « on ne collecte rien là-bas » alors qu'on n'a simplement rien saisi.
+  { id: "04", label: "La Réunion", value: 88 },
+  { id: "01", label: "Guadeloupe", value: 61 },
+  { id: "02", label: "Martinique", value: 54 },
+  { id: "03", label: "Guyane", value: 33 },
+  { id: "06", label: "Mayotte", value: 19 },
 ];
 
 /** Les mêmes valeurs, à plat par code INSEE : ce que la carte consomme. */
