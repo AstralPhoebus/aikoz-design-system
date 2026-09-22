@@ -3150,8 +3150,8 @@
   "font-family": {
     "heading": {
       "$type": "fontFamily",
-      "$value": "PP Radio Grotesk, sans-serif",
-      "$description": "Titres / slides / print"
+      "$value": "PP Radio Grotesk, Futura, Avenir Next, Century Gothic, sans-serif",
+      "$description": "Police de titres Aikoz. Les binaires ne sont PAS livrés — le dépôt est public et la licence est commerciale. Le repli est donc ce que verra la majorité : trois grotesques géométriques aux proportions proches, dans l ordre de disponibilité (macOS, Windows), avant la valeur par défaut. Il valait « PP Radio Grotesk, sans-serif » — un repli que personne n avait choisi, et qui rendait les titres en Helvetica sur Mac et en Arial ailleurs."
     },
     "body": {
       "$type": "fontFamily",

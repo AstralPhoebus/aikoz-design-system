@@ -93,7 +93,7 @@ export function Accordion({
 
         return (
           <div key={item.value}>
-            <Titre className="m-0">
+            <Titre className="m-0 font-heading">
               <button
                 type="button"
                 id={idBouton}

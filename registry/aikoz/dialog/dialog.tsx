@@ -126,7 +126,7 @@ export function Dialog({
             <div className="flex flex-col gap-1 min-w-0">
               <DialogPrimitive.Title
                 className={cn(
-                  "text-lg font-bold text-foreground m-0",
+                  "font-heading text-lg font-bold text-foreground m-0",
                   titleHidden && "sr-only"
                 )}
               >

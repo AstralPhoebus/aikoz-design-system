@@ -68,7 +68,7 @@ export function FeaturePanel({
   return (
     <section aria-labelledby={`${uid}-titre`} className={cn("flex flex-col gap-6", className)}>
       <div className="flex flex-col gap-3 max-w-2xl">
-        <Titre id={`${uid}-titre`} className="m-0 text-2xl font-bold text-foreground text-balance">
+        <Titre id={`${uid}-titre`} className="m-0 font-heading text-2xl font-bold text-foreground text-balance">
           {title}
         </Titre>
         {intro && <p className="m-0 text-base text-muted-foreground text-balance">{intro}</p>}
@@ -107,7 +107,7 @@ export function FeaturePanel({
                 {f.metric}
               </span>
             )}
-            <SousTitre className="m-0 text-base font-semibold text-foreground">
+            <SousTitre className="m-0 font-heading text-base font-semibold text-foreground">
               {f.title}
             </SousTitre>
             <p className="m-0 text-sm text-muted-foreground">{f.description}</p>

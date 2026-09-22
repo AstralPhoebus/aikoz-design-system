@@ -171,12 +171,20 @@ choix dont on a oublié l'alternative se reprend tous les six mois.
 ```bash
 npm run build:tokens && npx tsc --noEmit && npm run registry:build
 npm run audit:conventions && npm run audit:typo && npm run audit:mouvement
-npm run audit:registry && npm run audit:marques
+npm run audit:registry && npm run audit:marques && npm run audit:version
 npx vitest run --project=storybook
 ```
 
 Branche, PR, jamais de commit direct sur `main`. `CODEOWNERS` met Alice
 relectrice obligatoire sur tout le design system.
+
+**Si votre PR touche à `registry/`, `tokens/` ou `bridge/`**, montez la
+version dans `package.json` et écrivez l entrée correspondante dans
+`CHANGELOG.md`. MAJEUR si une prop, un composant ou une variable CSS publiée
+disparaît ou change de type ; MINEUR pour un ajout ; CORRECTIF sinon. La CI
+refuse le contraire — pas parce que c est une formalité, mais parce que
+`tableCollapsed` a disparu de `ChartFrame` sans que personne ne puisse le
+voir venir.
 
 ---
 

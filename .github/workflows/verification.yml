@@ -118,6 +118,24 @@ jobs:
       - name: Les conventions du design system
         run: npm run audit:conventions
 
+      # ── Dire ce qui change à qui l'installe ──────────────────────────────
+      #
+      # `ChartFrame` a perdu sa prop `tableCollapsed` le 21/09/2026. Louis
+      # consomme le registry PUBLIÉ : à son prochain `shadcn add`, son code
+      # aurait cessé de compiler, sans qu'aucun signal ne passe entre les
+      # deux. Le dépôt était à `1.0.0` depuis le premier commit, et n'avait
+      # pas de journal.
+      #
+      # Le contrôle n'exige rien d'une PR qui ne touche qu'à la documentation
+      # ou aux tests : seulement de celles qui changent ce que le consommateur
+      # installe.
+      - name: La version dit ce qui change
+        env:
+          BASE_REF: origin/${{ github.base_ref || 'main' }}
+        run: |
+          git fetch --no-tags --depth=50 origin "${{ github.base_ref || 'main' }}" || true
+          npm run audit:version
+
       # Les stories SONT les tests : axe y tourne en mode `error`, une
       # violation d'accessibilité fait échouer la marche.
       - name: Stories

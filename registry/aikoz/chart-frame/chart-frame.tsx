@@ -328,7 +328,7 @@ export function ChartFrame<T>({
   return (
     <figure className={cn("m-0 flex flex-col gap-4", className)}>
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
-        <figcaption className="text-sm font-medium text-foreground">
+        <figcaption className="font-heading text-sm font-medium text-foreground">
           {caption}
         </figcaption>
         {bascule && (

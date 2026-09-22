@@ -339,7 +339,7 @@ function VueSynthese() {
 
         <Card as="section" aria-label="Derniers avis" className="gap-4">
           <div className="flex items-center justify-between gap-3">
-            <h2 className="m-0 text-base font-semibold">Derniers avis</h2>
+            <h2 className="m-0 font-heading text-base font-semibold">Derniers avis</h2>
             <Badge tone="warning" icon="!">
               12 sans réponse
             </Badge>
@@ -415,7 +415,7 @@ function VueAvis() {
     <div className="flex flex-col gap-5">
       <Card as="section" aria-label="Avis collectés" className="gap-4">
         <div className="flex flex-wrap items-end justify-between gap-3">
-          <h2 className="m-0 flex items-center gap-2 text-base font-semibold">
+          <h2 className="m-0 flex items-center gap-2 font-heading text-base font-semibold">
             Avis collectés
             <CountBadge value={AVIS.length} label={`${AVIS.length} avis sur la période`} />
           </h2>
@@ -531,7 +531,7 @@ function VueTerritoires() {
 
       <div className="grid gap-4 lg:grid-cols-2">
         <Card as="section" aria-label="Carte de la répartition">
-          <h2 className="m-0 mb-3 text-base font-semibold">Où sont les avis</h2>
+          <h2 className="m-0 mb-3 font-heading text-base font-semibold">Où sont les avis</h2>
           <FranceMap
             valueLabel="Avis reçus"
             values={VALEURS_REGION}
@@ -543,7 +543,7 @@ function VueTerritoires() {
         </Card>
 
         <Card as="section" aria-label="Classement territorial">
-          <h2 className="m-0 mb-3 text-base font-semibold">Combien, et qui devant qui</h2>
+          <h2 className="m-0 mb-3 font-heading text-base font-semibold">Combien, et qui devant qui</h2>
           <GeoDrilldown
             rootLabel="France"
             zones={TERRITOIRES}
@@ -590,7 +590,7 @@ function VueAlertes() {
       </Card>
 
       <Card as="section" aria-label="Règles de déclenchement" className="gap-3">
-        <h2 className="m-0 text-base font-semibold">Règles de déclenchement</h2>
+        <h2 className="m-0 font-heading text-base font-semibold">Règles de déclenchement</h2>
         <Accordion
           headingLevel={3}
           type="multiple"
@@ -632,7 +632,7 @@ function VueReglages() {
   return (
     <div className="flex flex-col gap-5">
       <Card as="section" aria-label="Mise en service" className="gap-4">
-        <h2 className="m-0 text-base font-semibold">Mise en service</h2>
+        <h2 className="m-0 font-heading text-base font-semibold">Mise en service</h2>
         <Stepper
           label="Progression de la mise en service"
           current={2}
@@ -647,7 +647,7 @@ function VueReglages() {
 
       <div className="grid gap-4 lg:grid-cols-2">
         <Card as="section" aria-label="Publication" className="gap-4">
-          <h2 className="m-0 text-base font-semibold">Publication</h2>
+          <h2 className="m-0 font-heading text-base font-semibold">Publication</h2>
           <Switch
             label="Réponses automatiques"
             description="Publiées à J+1, modifiables jusqu'à la publication."
@@ -674,7 +674,7 @@ function VueReglages() {
         </Card>
 
         <Card as="section" aria-label="Modèle de réponse" className="gap-4">
-          <h2 className="m-0 text-base font-semibold">Modèle de réponse</h2>
+          <h2 className="m-0 font-heading text-base font-semibold">Modèle de réponse</h2>
           <Textarea
             label="Texte par défaut"
             description="Utilisé quand aucun modèle plus précis ne correspond."
@@ -700,7 +700,7 @@ function VueReglages() {
 
       <Card as="section" aria-label="Quota d'exports" className="gap-3">
         <div className="flex items-baseline justify-between gap-3">
-          <h2 className="m-0 text-base font-semibold">Quota d'exports</h2>
+          <h2 className="m-0 font-heading text-base font-semibold">Quota d'exports</h2>
           <span className="text-sm text-muted-foreground tabular-nums">34 / 50 ce mois-ci</span>
         </div>
         <ProgressBar value={34} max={50} label="Exports consommés ce mois-ci" valueText="34 sur 50" />
@@ -808,7 +808,7 @@ export function DashboardComplet() {
                 { label: TITRES[vue] },
               ]}
             />
-            <h1 className="m-0 mt-0.5 text-lg font-semibold leading-tight">{TITRES[vue]}</h1>
+            <h1 className="m-0 mt-0.5 font-heading text-lg font-semibold leading-tight">{TITRES[vue]}</h1>
           </div>
 
           <div className="ml-auto flex flex-wrap items-center gap-2">

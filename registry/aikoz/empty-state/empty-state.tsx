@@ -96,7 +96,7 @@ export function EmptyState({
 
       <Titre
         className={cn(
-          "m-0 font-semibold text-foreground",
+          "m-0 font-heading font-semibold text-foreground",
           density === "compact" ? "text-sm" : "text-base"
         )}
       >
