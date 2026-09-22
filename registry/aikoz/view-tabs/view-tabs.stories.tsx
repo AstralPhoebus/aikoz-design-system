@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from "storybook/test";
 import { ViewTabs } from "./view-tabs";
+import { CountBadge } from "@registry/aikoz/count-badge/count-badge";
 
 const onglets = [
   { value: "synthese", label: "Synthèse", content: <p className="m-0 text-sm text-muted-foreground">Panneau « Synthèse ».</p> },
@@ -73,6 +74,33 @@ export const ActivationManuelle: Story = {
         story:
           "À réserver aux panneaux qui déclenchent un chargement : en automatique, " +
           "traverser cinq onglets lancerait cinq requêtes dont quatre inutiles.",
+      },
+    },
+  },
+};
+
+export const AvecCompteur: Story = {
+  name: "Avec un compte à côté du libellé",
+  args: {
+    label: "Vues du cockpit Multi-POI",
+    tabs: [
+      { value: "dash", label: "Dashboard", content: <p className="m-0 text-sm text-muted-foreground">Panneau « Dashboard ».</p> },
+      {
+        value: "rank",
+        label: "Classement",
+        badge: <CountBadge variant="rank" value={128} label={null} />,
+        content: <p className="m-0 text-sm text-muted-foreground">Panneau « Classement ».</p>,
+      },
+      { value: "rep", label: "Supervision des réponses", content: <p className="m-0 text-sm text-muted-foreground">Panneau « Supervision ».</p> },
+    ],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "`badge` est purement décoratif : le nom accessible de l'onglet reste son " +
+          "libellé seul, exactement comme `CountBadge label={null}` l'est déjà dans un " +
+          "en-tête de colonne ou une ligne de liste qui annonce déjà le nombre.",
       },
     },
   },

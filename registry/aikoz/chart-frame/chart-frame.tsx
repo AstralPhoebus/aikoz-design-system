@@ -107,6 +107,18 @@ export interface LigneInfobulle {
 }
 
 /**
+ * Formatage par défaut d'une valeur d'infobulle : deux décimales maximum.
+ *
+ * Sans ça, une valeur calculée (moyenne, pourcentage) remonte avec toute sa
+ * précision flottante — `30.000004333` au lieu de `30`. `maximumFractionDigits`
+ * (et non `toFixed`) évite aussi le padding inverse : un entier reste `30`,
+ * pas `30,00`.
+ */
+export function formatValeurParDefaut(v: string | number): string {
+  return typeof v === "number" ? v.toLocaleString("fr-FR", { maximumFractionDigits: 2 }) : v;
+}
+
+/**
  * Contenu d'infobulle commun aux trois graphiques.
  *
  * Reprend les tokens de `Tooltip` (`--popover`, `--popover-foreground`,
@@ -121,7 +133,7 @@ export function ChartTooltipContent({
   active,
   label,
   payload,
-  formatValue = (v) => String(v),
+  formatValue = formatValeurParDefaut,
 }: {
   active?: boolean;
   label?: string | number;

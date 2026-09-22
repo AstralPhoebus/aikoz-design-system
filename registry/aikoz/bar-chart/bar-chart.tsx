@@ -11,6 +11,7 @@ import {
 import {
   ChartFrame,
   ChartTooltipContent,
+  formatValeurParDefaut,
   opaciteSerie,
   couleurSerie,
   type ChartSerie, type ChartStates } from "@registry/aikoz/chart-frame/chart-frame";
@@ -159,7 +160,7 @@ export function BarChart({
   extraColumns,
   onBarClick,
   tableau = "bascule",
-  formatValue = (v) => String(v),
+  formatValue = formatValeurParDefaut,
   height = 300,
   className,
   // Les états de `ChartStates`, transmis d'un bloc : énumérés un par un,

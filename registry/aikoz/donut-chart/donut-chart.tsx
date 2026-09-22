@@ -3,6 +3,7 @@ import { cn } from "@registry/aikoz/lib/utils";
 import {
   ChartFrame,
   ChartTooltipContent,
+  formatValeurParDefaut,
   opaciteSerie,
   couleurSerie, type ChartStates } from "@registry/aikoz/chart-frame/chart-frame";
 import { type TableColumn } from "@registry/aikoz/table/table";
@@ -50,7 +51,7 @@ export function DonutChart({
   parts,
   centerValue,
   centerLabel,
-  formatValue = (v) => String(v),
+  formatValue = formatValeurParDefaut,
   height = 260,
   className,
   // Les états de `ChartStates`, transmis d'un bloc : énumérés un par un,
@@ -105,6 +106,12 @@ export function DonutChart({
                     />
                   }
                   isAnimationActive={false}
+                  // Sans z-index explicite, l'infobulle suit l'ordre du DOM —
+                  // et le libellé central, posé APRÈS `ResponsiveContainer`
+                  // en JSX, la recouvrait dès qu'ils se chevauchaient au
+                  // centre de l'anneau. L'infobulle doit toujours passer
+                  // au-dessus, jamais en dessous, du contenu du donut.
+                  wrapperStyle={{ zIndex: 10 }}
                 />
               )}
               <Pie

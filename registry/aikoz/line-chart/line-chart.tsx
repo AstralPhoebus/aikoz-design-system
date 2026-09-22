@@ -12,6 +12,7 @@ import {
 import {
   ChartFrame,
   ChartTooltipContent,
+  formatValeurParDefaut,
   couleurSerie,
   styleSerie,
   type ChartSerie, type ChartStates } from "@registry/aikoz/chart-frame/chart-frame";
@@ -116,7 +117,7 @@ export function LineChart({
   reference,
   xLabel,
   yLabel,
-  formatValue = (v) => String(v),
+  formatValue = formatValeurParDefaut,
   height = 280,
   directLabels = true,
   tableau = "bascule",
