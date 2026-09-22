@@ -172,12 +172,12 @@ const HERO_OPTIONS = [
   },
   {
     cle: "plusFort",
-    titre: "C — un cran plus haut (ink.400)",
+    titre: "C — un cran plus haut (ink.400) — écarté",
     fond: "oklch(0.5856 0.0139 260.879)",
     texte: "var(--on-hero)",
-    pour: "Quatre fois les autres cartes : si B te paraît trop discret, c'est ce cran-là qu'il faut, et c'est un palier de rampe à changer.",
+    pour: "Quatre fois les autres cartes, au lieu de deux et demie.",
     contre:
-      "Le texte blanc y tombe à APCA 74, sous le plancher de 75 d'un rôle de texte. C'est pour ça qu'il n'a pas été retenu — la marche d'après est déjà trop loin.",
+      "Le texte blanc y tombe à APCA 74, sous le plancher de 75 d'un rôle de texte. Écarté deux fois : d'abord sur la mesure, puis à l'œil — les deux réglages ont été comparés sur le tableau de bord entier, et c'est B qui a été retenu.",
   },
 ] as const;
 
@@ -423,13 +423,13 @@ export const DeuxArbitrages: Story = {
             que l'œil qui regarde une page sombre est adapté au noir.
           </p>
           <p className="m-0 max-w-3xl text-sm text-muted-foreground">
-            <strong className="text-foreground">B est retenu</strong>, et le
-            rôle s'appelle désormais <code className="font-mono text-xs">surface.hero</code>&nbsp;:
+            <strong className="text-foreground">B est retenu</strong> — sur la
+            mesure, puis à l'œil&nbsp;: les deux réglages ont été comparés sur le
+            tableau de bord entier, et C a été trouvé trop clair. Le rôle
+            s'appelle désormais <code className="font-mono text-xs">surface.hero</code>&nbsp;:
             il nomme ce qu'il fait — primer — et non le moyen par lequel il y
-            arrivait. Le clair n'a pas bougé d'un pixel. Si B te paraît trop
-            discret, C dit à quoi ressemble le cran au-dessus et ce qu'il
-            coûte&nbsp;: c'est un palier de rampe à changer, et un garde-fou de
-            build refuse désormais toute valeur hors bande.
+            arrivait. Le clair n'a pas bougé d'un pixel, et un garde-fou de
+            build refuse toute valeur hors bande.
           </p>
           <DecisionHero />
         </section>
