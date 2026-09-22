@@ -18,6 +18,50 @@ de l'API — mais il se voit, donc il est toujours écrit ici.
 
 ---
 
+## [2.1.0] — 2026-09-22
+
+### Ajouté
+
+- **`Pagination`** — `Table` savait trier, pas paginer, et le tableau de bord
+  ADP portera des centaines d'agences.
+
+  Un `<nav>` nommé, une liste, des `<button>` — **pas des liens** : changer de
+  page ne change pas d'URL dans un tableau de bord, et annoncer un lien
+  promettrait une navigation qui n'aura pas lieu. La page courante est un
+  `<span>` avec `aria-current`, jamais un bouton — même raisonnement que le
+  dernier niveau d'un fil d'Ariane.
+
+  Le résumé « 41–60 sur 312 » porte l'information que les numéros ne donnent
+  pas, en `aria-live="polite"`. La fenêtre garde une **largeur constante** :
+  ce qu'une extrémité ne peut pas prendre est reporté à l'opposé, sinon la
+  barre change de taille en naviguant et les boutons se déplacent sous le
+  doigt. Sous 2 pages, elle ne rend rien.
+
+  `fenetre(page, pages, voisines)` est exportée : elle se teste sans rendu.
+
+---
+
+## [2.0.1] — 2026-09-22
+
+### Corrigé
+
+- **Le tableau de bord défilait horizontalement sur mobile.** Mesuré à
+  390 px : 36 px de débordement. Le tableau du classement avait pourtant son
+  conteneur `overflow-x-auto` — mais un élément de flex ou de grille vaut
+  `min-width: auto` et ne rétrécit jamais sous la largeur de son contenu. La
+  grille faisait 350 px, la `Card` 406. Un défilement interne ne peut pas
+  contenir ce que son parent laisse s'élargir.
+
+  `min-w-0` entre sur `Card`, `Table`, `ChartFrame` et la barre de `ViewTabs`.
+  À 768 px, rien ne débordait déjà — le défaut n'existait qu'en dessous.
+
+### Gouvernance
+
+- `audit:conventions` refuse désormais un `overflow` horizontal posé sans
+  `min-w-0` sur le même élément. Onzième convention.
+
+---
+
 ## [2.0.0] — 2026-09-22
 
 Majeure, à cause d'un seul changement — mais il casse à la compilation.

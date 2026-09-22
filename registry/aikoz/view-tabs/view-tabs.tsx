@@ -127,7 +127,11 @@ export function ViewTabs({
       <div
         role="tablist"
         aria-label={label}
-        className="flex gap-1 border-b border-border overflow-x-auto"
+        // `min-w-0` pour la même raison que sur `Card` : sans lui, la barre
+        // s'élargit à la somme de ses onglets et pousse la page entière au lieu
+        // de défiler en elle-même. Mesuré à 390 px : 426 de contenu pour 390
+        // de fenêtre, et c'est la PAGE qui défilait.
+        className="flex min-w-0 gap-1 overflow-x-auto border-b border-border"
       >
         {tabs.map((t, i) => {
           const estActif = t.value === actif;

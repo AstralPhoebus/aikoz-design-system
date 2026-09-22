@@ -143,7 +143,11 @@ export function Table<T>({
       // c'est le tableau qui charge, pas quatorze rectangles.
       aria-busy={loading || undefined}
       className={cn(
-        "w-full overflow-x-auto rounded-[var(--radius)] border border-border bg-card",
+        // `min-w-0` avec `overflow-x-auto`, toujours : un élément de flex ou de
+        // grille vaut `min-width: auto` et ne rétrécit pas sous son contenu. Sans
+        // lui, le conteneur s'élargit au lieu de défiler, et c'est la PAGE qui
+        // finit par défiler à sa place.
+        "w-full min-w-0 overflow-x-auto rounded-[var(--radius)] border border-border bg-card",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]",
         className
       )}

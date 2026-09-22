@@ -15,7 +15,7 @@ vous sera dit par un test rouge.
 
 ---
 
-## 0. Les dix conventions, tenues par la CI
+## 0. Les onze conventions, tenues par la CI
 
 Avant tout le reste, `npm run audit:conventions` fige ce que les 48 composants
 respectaient déjà — sans que ce soit écrit nulle part :
@@ -30,6 +30,7 @@ respectaient déjà — sans que ce soit écrit nulle part :
 8. aucune couleur en dur
 9. `meta` en `satisfies Meta`
 10. tout `<svg>` porte `aria-hidden`, ou `role="img"` avec un libellé
+11. tout `overflow` horizontal s accompagne de `min-w-0` sur le même élément
 
 Une exception se déclare **dans le contrôle**, avec sa raison. Une exception
 anonyme est un trou ; une exception qui porte sa raison est une décision, et

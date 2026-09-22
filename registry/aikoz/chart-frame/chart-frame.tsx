@@ -353,7 +353,7 @@ export function ChartFrame<T>({
         className="w-full"
       >
         {bascule && vue === "tableau" ? (
-          <div className="h-full overflow-auto">{tableauRendu}</div>
+          <div className="h-full min-w-0 overflow-auto">{tableauRendu}</div>
         ) : (
           <div
             role="img"

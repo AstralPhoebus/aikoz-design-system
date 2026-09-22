@@ -134,6 +134,24 @@ for (const nom of composants) {
     );
   }
 
+  // Un défilement qui ne peut pas contenir.
+  //
+  // Un élément de flex ou de grille vaut `min-width: auto` : il ne rétrécit
+  // jamais sous la largeur de son contenu. Un `overflow-x-auto` posé dessus
+  // sans `min-w-0` ne défile donc pas — il s'élargit, et c'est la PAGE qui
+  // défile à sa place. Mesuré sur le tableau de bord à 390 px : la grille
+  // faisait 350, la carte 406, et la page débordait de 36 px alors que le
+  // tableau avait bien son conteneur scrollable.
+  for (const ligne of code.split('\n')) {
+    if (!/overflow-(x-)?(auto|scroll)/.test(ligne)) continue;
+    if (/min-w-0/.test(ligne)) continue;
+    echecs.push(
+      `${ou} — un \`overflow\` horizontal sans \`min-w-0\` sur le même élément. ` +
+        `Il ne contiendra rien : il s'élargira, et la page défilera à sa ` +
+        `place. Les deux classes vont ensemble, toujours.`,
+    );
+  }
+
   for (const m of code.matchAll(BALISES_SVG)) {
     if (ETIQUETTE.test(m[0])) continue;
     const ligne = code.slice(0, m.index).split('\n').length;
@@ -191,6 +209,6 @@ if (echecs.length) {
 }
 
 console.log(
-  `audit conventions OK — ${composants.length} composants, dix conventions ` +
+  `audit conventions OK — ${composants.length} composants, onze conventions ` +
     `tenues, une exception nommée.`,
 );

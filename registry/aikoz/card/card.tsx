@@ -4,7 +4,16 @@ import { cn } from "@registry/aikoz/lib/utils";
 
 // ─── Variants ────────────────────────────────────────────────────────────────
 
-const cardVariants = cva("flex flex-col", {
+// `min-w-0` n'est pas une précaution, c'est ce qui fait tenir la promesse de
+// `overflow-x-auto` des composants qu'on met DEDANS.
+//
+// Un élément de grille ou de flex vaut `min-width: auto` par défaut : il ne
+// rétrécit jamais sous la largeur de son contenu. Mesuré sur le tableau de
+// bord à 390 px de large : la grille faisait 350, la carte 406, et le
+// tableau qu'elle contenait débordait donc la PAGE de 36 px — alors qu'il
+// avait bien son propre conteneur scrollable. Le scroll interne ne peut pas
+// contenir ce que son parent laisse s'élargir.
+const cardVariants = cva("flex flex-col min-w-0", {
   variants: {
     surface: {
       /**
