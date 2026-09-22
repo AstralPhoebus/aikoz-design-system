@@ -83,6 +83,48 @@ avertissement, info — en sont exclus : ils sont communs par construction. Une
 hausse doit se lire pareil d'une marque à l'autre. L'or des étoiles aussi :
 une note est dorée par convention, pas par identité.
 
+
+## Un écart assumé avec la charte ADP
+
+Le brandbook *Groupe ADP and Paris Aéroport Style Guide* (avril 2017, v1) est
+formel, et il le dit deux fois :
+
+> Primary colours are applied in a **100 % solid block**.
+>
+> They are used **only in a 100 % solid block**. — à propos des secondaires
+
+La page 18 barre explicitement trois primaires appliquées **en teinte**.
+
+Or le design system pose des voiles partout : surfaces atténuées, pastilles de
+statut, lueur d'angle de la carte héroïne — tous en
+`color-mix(in oklch, var(--x), transparent N%)`. Sous marque ADP, ce sont des
+primaires en transparence, donc exactement ce que la charte proscrit.
+
+**Décision d'Alice du 22/09/2026 : on assume l'écart.** Le raisonnement est que
+la règle vise les supports de communication — édition, signalétique, affichage —
+où une couleur en aplat est la seule garantie de fidélité à l'impression. Une
+interface a d'autres contraintes : une surface atténuée porte une hiérarchie,
+et la remplacer par un aplat opaque ferait perdre la profondeur du thème sombre
+comme les paliers de survol.
+
+Ce qui est vérifié, en revanche, c'est que les **trois primaires sont exactes**,
+au millième près :
+
+| charte | notre token |
+|---|---|
+| PANTONE 2748 C · `#031F73` | `adp-blue.800`, qui est `brand.primary` |
+| PANTONE 2144 C · `#376DB3` | `adp-campanula.500` |
+| PANTONE Bright Red C · `#C84118` | `adp-red.500` |
+
+La charte fournit par ailleurs **24 couleurs secondaires opaques** — gris,
+bleus, verts, tons chauds — qui seraient le matériau de remplacement le jour où
+ADP relève l'écart. Elles ne sont pas entrées dans les tokens : un token que
+rien ne consomme est une échelle qui ment, et on a passé la journée à en
+retirer une.
+
+La police web de la marque est **Gotham** (Hœfler & Co, licence à acheter), avec
+Century Gothic en repli bureautique.
+
 ## Ce que le build refusera
 
 - un chrome sombre qui s'écarte de l'échelle du thème — il est commun à
