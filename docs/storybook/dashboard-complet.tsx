@@ -51,10 +51,17 @@ import { ToastProvider, useToast } from "@registry/aikoz/toast/toast";
 // ─── Icônes ──────────────────────────────────────────────────────────────────
 // Filaires, en `currentColor`, décoratives : le libellé porte le sens.
 
+// `strokeWidth` est en unités du VIEWBOX, pas en pixels. Ces icônes ont un
+// viewBox de 24 et s'affichent en 16 px : un trait de 1,75 y rendait
+// **1,17 px**, contre 1,5 pour la loupe du filtre de dates et 1,67 pour la
+// pastille d'information — 43 % d'écart sur le même écran, et les icônes du
+// menu paraissaient plus légères que celles de la barre d'outils.
+//
+// Pour 1,5 px rendus : 1,5 × 24 / 16 = 2,25.
 const trait = {
   fill: "none",
   stroke: "currentColor",
-  strokeWidth: 1.75,
+  strokeWidth: 2.25,
   strokeLinecap: "round",
   strokeLinejoin: "round",
 } as const;

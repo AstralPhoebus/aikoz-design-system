@@ -241,18 +241,139 @@ Deux autres règles de Carbon suivies ici :
 - **des libellés directs plutôt qu'une longue légende** — c'est déjà le cas des
   pourcentages écrits dans les barres empilées et des parts du donut.
 
+## Ce qui ne peint rien ne se mesure pas
+
+Trois audits écrits le 22/09/2026 se sont trompés de la même façon avant de
+servir. Chacun comptait une propriété qui **change sans rien montrer** :
+
+| audit | ce qu'il comptait à tort | verdict faux |
+|---|---|---|
+| focus visible | `element.focus()` ne déclenche pas `:focus-visible` | **30 muets sur 30** |
+| focus visible | `outline-none` de Tailwind pose `outline: 2px solid transparent` | **0 muet sur 30** |
+| épaisseur d'icône | `strokeWidth` vaut 1 par défaut sur un chemin en `stroke: none` | les logos réclamaient d'être épaissis |
+
+Un audit qui accuse tout et un audit qui n'accuse rien se ressemblent
+beaucoup : ni l'un ni l'autre ne mesure.
+
+> **Neutraliser le transparent et le `none` AVANT de comparer. Et assortir
+> chaque audit d'une assertion « ai-je mesuré quelque chose ? » — sans elle,
+> un audit qui ne mesure rien passe.**
+
+`:focus-visible` n'est pas `:focus` : le navigateur applique une heuristique et
+ne montre l'anneau que si le focus vient du clavier. Il ne se mesure donc qu'au
+**vrai clavier**, par `userEvent.tab()` dans une story.
+
+## Une valeur déclarée n'est pas une valeur rendue
+
+`strokeWidth` est en unités du **viewBox**, pas en pixels :
+
+```
+épaisseur rendue = strokeWidth × taille affichée ÷ côté du viewBox
+```
+
+Les icônes du tableau de bord déclaraient 1,75, 1,5 et 2 — trois valeurs
+proches, qui avaient l'air d'un simple manque de rigueur. Elles rendaient
+**1,17 px, 1,5 px et 1,67 px** : 43 % d'écart, et le menu latéral paraissait
+emprunté à une autre bibliothèque que la barre d'outils.
+
+Même famille de défaut pour l'échelle typographique : quarante rôles
+`--role-typography-*` étaient émis et **zéro composant ne les consommait** —
+les composants écrivaient `text-sm`, c'est-à-dire la valeur par défaut de
+Tailwind. L'échelle était déclarée, documentée, et sans effet.
+
+## La taille d'une cible ne se lit pas dans le code
+
+Le fil d'Ariane offrait des cibles de **20 px de haut** : la hauteur de ligne de
+`text-sm`, que personne n'avait décidée. Le critère WCAG 2.2 **AA 2.5.8** en
+demande 24.
+
+`min-h-6` ne dit rien si un parent en `items-center` l'écrase ou si un
+`line-height` la dépasse. Seul `getBoundingClientRect()` sur le document rendu
+tranche.
+
+Deux seuils, et ils ne sont pas le même :
+
+| seuil | source | portée |
+|---|---|---|
+| **24 px** | WCAG 2.2 AA 2.5.8 | partout, tout le temps |
+| **44 px** | AAA 2.5.5 · Apple HIG · *Practical UI* | au doigt |
+
+Le second se paye en densité, et cette densité est un ATOUT à la souris sur un
+tableau de bord — d'où la variante `tactile:` (`@media (pointer: coarse)`).
+Élargir la zone en douce, par un `::after` invisible plus grand que le bouton,
+a été écarté : ça rend la cible vraie et l'affordance fausse.
+
+L'exception « cible en ligne dans une phrase » du critère ne s'applique pas à un
+fil d'Ariane — c'est une liste de navigation, pas du texte courant. C'est
+précisément le raisonnement qui avait laissé passer les 20 px.
+
+## Une règle de mouvement appliquée à moitié ne protège personne
+
+`prefers-reduced-motion` n'est pas une option de confort : pour qui souffre de
+troubles vestibulaires, une animation non sollicitée provoque vertiges et
+nausées.
+
+Le design system l'écoutait dans **trois composants sur six**. `Switch` faisait
+glisser sa pastille de vingt pixels sans rien demander ; `KpiCard` rétrécissait
+la carte entière à l'appui. Celui qui a coché la case dans ses réglages voyait
+certaines choses s'arrêter et pas d'autres, sans aucun moyen de savoir
+lesquelles.
+
+Un fondu de **couleur** n'est pas du mouvement : `transition-colors` reste libre,
+et il vaut mieux le garder.
+
+## Signaler une erreur ne suffit pas : il faut y emmener
+
+`BookingFlow` validait à la soumission, posait ses trois erreurs, et laissait le
+focus **sur le bouton**. Trois `role="alert"` partaient en même temps — les
+lecteurs d'écran en font la queue ou en perdent — et il ne restait qu'à remonter
+le formulaire à tâtons.
+
+La validation rend désormais le **premier champ fautif**, dans l'ordre du
+formulaire, et le focus y va. Pour un groupe de boutons radio, il va au premier
+choix **sélectionnable** : un `<fieldset>` ne prend pas le focus, et emmener sur
+un créneau complet serait emmener dans une impasse.
+
+Et on marque les obligatoires **ou** les facultatifs, jamais ni l'un ni l'autre.
+« (facultatif) » est visible, pas `sr-only` : qui voit l'écran a le même besoin
+de savoir qu'il peut passer son chemin.
+
 ## Ce que le catalogue ne teste pas encore
 
-Les 148 tests ne s'exécutent que dans **une** des quatre combinaisons — produit
+Les 224 tests ne s'exécutent que dans **une** des quatre combinaisons — produit
 clair, la valeur par défaut de la barre d'outils. Les trois autres sont
-vérifiées à la main et par l'audit de contraste de la page Tokens, pas par la
-marche automatique.
+couvertes par l'audit de contraste, qui parcourt lui-même les huit
+combinaisons de marque et de thème sur le document rendu ; le reste du
+catalogue ne les voit pas.
+
+Les mesures sur le rendu — cibles, focus, épaisseur d'icône — ne tournent que
+sur le **tableau de bord complet**. C'est la page la plus dense du système,
+donc la plus révélatrice, mais un composant qu'elle n'emploie pas n'est vu par
+aucune des trois.
 
 Ce n'est pas théorique : le canevas des stories sortait avec un fond
 `rgba(0,0,0,0)`. En clair, le blanc du navigateur ressemblait par coïncidence à
 `--background` ; en sombre, un texte clair se retrouvait sur un fond clair,
 illisible. Le même défaut que `bg-card` — un fond transparent ne se voit pas
 tant qu'on ne change pas ce qu'il y a derrière. Corrigé, mais trouvé à l'œil.
+
+## Les contrôles qui tournent en CI
+
+| contrôle | ce qu'il refuse |
+|---|---|
+| `AuditContraste` | une paire sous son seuil WCAG ou APCA, dans les 8 combinaisons, avec cliquet à double sens sur les dettes |
+| `AuditCibles` | une cible sous 24 px ; entre 24 et 44, elle doit être inscrite en dette |
+| `AuditFocus` | un élément qui prend le focus au clavier sans rien montrer |
+| `AuditIcones` | un pictogramme hors de l'épaisseur rendue du système |
+| `audit:typo` | une taille ou une graisse écrite en dur, hors de l'échelle |
+| `audit:mouvement` | une animation de position sans `motion-reduce` ni `motion-safe` |
+| `audit:marques` | une couleur empruntée à la rampe d'une autre marque |
+| `audit:registry` | une entrée absente, ou qui ne livre pas ce que ses imports atteignent |
+| `build:tokens` | un bridge qui ment, une échelle sombre qui diverge, une carte héroïne hors bande |
+
+**Chacun a été vérifié en le cassant.** Un garde-fou qu'on n'a jamais vu
+échouer ne protège de rien de démontré — et trois d'entre eux ne mesuraient
+effectivement rien avant qu'on essaie.
 
 ## Les écarts assumés
 

@@ -6,11 +6,14 @@ import { cn } from "@registry/aikoz/lib/utils";
 // Décoratives dans tous les cas : le ton est déjà porté par le texte et par
 // la bordure/fond du bandeau (WCAG 1.4.1), l'icône ne fait que le renforcer.
 
+// `strokeWidth` est en unités du VIEWBOX. Viewbox de 24 affiché en 20 px :
+// un trait de 2 rendait 1,67 px là où le reste du système en rend 1,5.
+// 1,5 × 24 / 20 = 1,8.
 function DefaultInfoIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" className="size-5" aria-hidden="true">
-      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
-      <line x1="12" y1="11" x2="12" y2="16.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" />
+      <line x1="12" y1="11" x2="12" y2="16.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
       <circle cx="12" cy="7.5" r="1.15" fill="currentColor" />
     </svg>
   );
@@ -22,10 +25,10 @@ function DefaultWarningIcon() {
       <path
         d="M12 3.5 21.2 19a1.2 1.2 0 0 1-1.03 1.8H3.83A1.2 1.2 0 0 1 2.8 19L12 3.5Z"
         stroke="currentColor"
-        strokeWidth="2"
+        strokeWidth="1.8"
         strokeLinejoin="round"
       />
-      <line x1="12" y1="9.75" x2="12" y2="14.25" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <line x1="12" y1="9.75" x2="12" y2="14.25" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
       <circle cx="12" cy="17.25" r="1.1" fill="currentColor" />
     </svg>
   );
@@ -34,9 +37,9 @@ function DefaultWarningIcon() {
 function DefaultErrorIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" className="size-5" aria-hidden="true">
-      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
-      <line x1="9" y1="9" x2="15" y2="15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <line x1="15" y1="9" x2="9" y2="15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" />
+      <line x1="9" y1="9" x2="15" y2="15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <line x1="15" y1="9" x2="9" y2="15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
     </svg>
   );
 }
