@@ -18,6 +18,44 @@ de l'API — mais il se voit, donc il est toujours écrit ici.
 
 ---
 
+## [2.5.0] — 2026-09-22
+
+### Ajouté
+
+- **`Combobox`** — le dernier des cinq composants qui manquaient. Chercher un
+  établissement parmi trois cents dans un `Select`, c'est faire défiler trois
+  cents lignes.
+
+  | | `Select` | `Combobox` |
+  | --- | --- | --- |
+  | options | une dizaine | des centaines |
+  | on choisit | en parcourant | **en tapant** |
+
+  Le motif ARIA est écrit à la main, sans dépendance : il tient en cinquante
+  lignes, et sa seule partie difficile — **`aria-activedescendant`** — est
+  justement celle qu'une bibliothèque cache. C'est elle qui désigne la ligne
+  parcourue **sans déplacer le focus**, donc qui permet de continuer à taper
+  en parcourant aux flèches. Un `<div role="option">` focusable casse ça, et
+  la frappe suivante part dans le vide.
+
+  La recherche **ignore les accents** — « roissy » trouve « Roissypôle », et
+  c'est la première chose qu'on tape — et classe ce qui **commence** par la
+  saisie avant ce qui la contient, l'ordre d'origine départageant à
+  l'intérieur de chaque groupe : un tri instable ferait sauter les lignes
+  d'une frappe à l'autre.
+
+  Le vide **répète la saisie** : « Aucun établissement pour “orlyy” » dit où
+  chercher l'erreur, là où « Aucun résultat » laisse croire à un vide de
+  données. Et une liste coupée **compte ce qu'elle cache** — « 262 autres,
+  affinez la recherche » — parce qu'une troncature silencieuse fait croire
+  que ce qu'on cherche n'existe pas.
+
+  La liste est rendue **dans le flux**, pas dans un `Portal` : elle hérite du
+  registre et du thème de son conteneur, contrairement à `Select` et
+  `DropdownMenu`.
+
+---
+
 ## [2.4.0] — 2026-09-22
 
 ### Ajouté

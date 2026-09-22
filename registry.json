@@ -384,6 +384,26 @@
       ]
     },
     {
+      "name": "combobox",
+      "type": "registry:component",
+      "title": "Combobox",
+      "description": "Champ de recherche a liste de suggestions. Ce n'est PAS un Select : la regle est le nombre d'options — une dizaine, on parcourt ; des centaines, on TAPE. Motif ARIA combobox ecrit a la main : le focus ne quitte jamais le champ, c'est aria-activedescendant qui designe la ligne parcourue, donc on peut continuer a taper en parcourant. La recherche ignore les accents et classe ce qui COMMENCE par la saisie avant ce qui la contient. Le vide repete la saisie, et une liste coupee compte ce qu'elle cache.",
+      "files": [
+        {
+          "path": "registry/aikoz/combobox/combobox.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/aikoz/lib/utils.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ]
+    },
+    {
       "name": "count-badge",
       "type": "registry:component",
       "title": "CountBadge",
