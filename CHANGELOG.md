@@ -18,6 +18,36 @@ de l'API — mais il se voit, donc il est toujours écrit ici.
 
 ---
 
+## [2.7.0] — 2026-09-22
+
+### Ajouté
+
+- **`brand.focus`** — l'anneau de focus devient un rôle à SOI.
+
+  Il valait `brand.secondary` en clair et `brand.accent` en sombre : deux
+  sources pour un même rôle. Ce n'était pas une négligence mais un
+  contournement, et la mesure dit pourquoi — **aucune des deux ne tient dans
+  les deux thèmes** :
+
+  | | accent clair | accent sombre | secondaire clair | secondaire sombre |
+  | --- | --- | --- | --- | --- |
+  | Aikoz | **12** | 91 | 78 | **22** |
+  | ADP | 64 | 54 | 76 | **24** |
+  | Extime | 52 | 49 | 78 | **22** |
+  | Generali | **0** | 62 | 92 | **9** |
+
+  Seuil : 45. Le palier est désormais choisi sur la rampe **primaire** de
+  chaque marque — l'anneau reste de la marque — et vérifié contre la carte ET
+  la page, en APCA **et** en WCAG 2. Generali prend le 500 et non le 400 :
+  APCA passait à 57, WCAG plafonnait à 2,83 pour un seuil de 3. Les deux
+  mesures ne disent pas la même chose, et on tient les deux.
+
+  Conséquence chez Generali en clair : l'anneau de focus n'est plus
+  exactement la couleur du bouton secondaire, qu'il ne se distinguait de
+  celui-ci que par son liseré de deux pixels.
+
+---
+
 ## [2.6.0] — 2026-09-22
 
 ### Cassant

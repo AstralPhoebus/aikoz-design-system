@@ -192,8 +192,8 @@
       },
       "focus": {
         "$type": "color",
-        "$value": "{color.brand.accent}",
-        "$description": "Anneau de focus clavier."
+        "$value": "{color.brand.focus}",
+        "$description": "Anneau de focus. UNE seule source dans les deux thèmes, depuis le 22/09/2026 : il valait `brand.secondary` en clair et `brand.accent` en sombre, faute qu'aucune des deux ne tienne partout."
       },
       "brand": {
         "$type": "color",

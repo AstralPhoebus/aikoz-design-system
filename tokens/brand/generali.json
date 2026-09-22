@@ -74,6 +74,11 @@
         "$type": "color",
         "$value": "{color.generali-red.600}",
         "$description": "Point d'ARRIVÉE de la lueur de marque. C'est lui qu'on voit : le composant `BrandGlow` pose un dégradé radial de cette teinte vers le transparent, en thème sombre uniquement. Sur un fond clair une lueur n'a rien à éclairer, elle sature."
+      },
+      "focus": {
+        "$type": "color",
+        "$value": "{color.generali-red.500}",
+        "$description": "Couleur de l'anneau de focus — un rôle à SOI, pas un emprunt.\n\nIl valait `brand.secondary` en clair et `brand.accent` en sombre : deux sources différentes pour un même rôle. Ce n'était pas une négligence mais un contournement, et la mesure du 22/09/2026 dit pourquoi — aucune des deux ne tient dans les deux thèmes. En clair, l'accent vaut APCA 12 chez Aikoz et 0 chez Generali ; en sombre, le secondaire tombe à 9-24 chez les quatre. Le seuil d'un élément d'interface est 45.\n\nUn anneau de focus est ce qui dit à qui navigue au clavier où il se trouve. Il mérite son rôle plutôt qu'une couleur voisine qui se trouve contraster. Le palier est choisi sur la rampe PRIMAIRE de la marque — donc l'anneau reste de la marque — et vérifié contre la carte ET la page, les deux fonds sur lesquels il apparaît."
       }
     },
     "chart": {

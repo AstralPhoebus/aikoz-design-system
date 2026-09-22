@@ -64,7 +64,7 @@
   --color-border-default: var(--color-ink-700);
   --color-border-subtle: var(--color-ink-800);
   --color-border-strong: var(--color-ink-400); /** Bordure porteuse — 4,58:1 contre la page. Un rôle nommé « strong » doit être PERÇU : les paliers précédents plafonnaient sous 2:1, ce qui en faisait un séparateur discret de plus. C'est cette bordure qui porte le survol des boutons outline et ghost. */
-  --color-border-focus: var(--color-brand-accent); /** Anneau de focus clavier. Aquamarine en dark pour contraste sur fond sombre (WCAG 1.4.11). */
+  --color-border-focus: var(--color-brand-focus); /** Anneau de focus. UNE seule source dans les deux thèmes, depuis le 22/09/2026 : il valait `brand.secondary` en clair et `brand.accent` en sombre, faute qu'aucune des deux ne tienne partout. */
   --color-border-brand: var(--color-brand-primary);
   --color-border-accent: var(--color-brand-accent);
   --color-border-disabled: var(--color-ink-700);

@@ -64,7 +64,7 @@
   --color-border-default: var(--color-ink-700); /** Séparateur décoratif — 1,14:1 sur carte, sous 3:1, assumé et cohérent avec light et dark (mesurés 1,44 et 1,14). Une bordure qui doit être PERÇUE utilise strong ou input, pas celle-ci. */
   --color-border-subtle: var(--color-ink-800);
   --color-border-strong: var(--color-ink-300); /** Séparateur porteur — 6,77:1 sur carte, 7,28:1 sur page. C'est la bordure à utiliser quand le trait porte de l'information (délimiter une zone cliquable, cerner un badge). */
-  --color-border-focus: var(--color-brand-accent); /** Anneau de focus clavier. */
+  --color-border-focus: var(--color-brand-focus); /** Anneau de focus. UNE seule source dans les deux thèmes, depuis le 22/09/2026 : il valait `brand.secondary` en clair et `brand.accent` en sombre, faute qu'aucune des deux ne tienne partout. */
   --color-border-accent: var(--color-brand-accent); /** Liseré d'accent — le trait gauche d'un bloc mis en avant. */
   --color-border-disabled: var(--color-ink-700); /** Champ désactivé — volontairement en retrait, l'effacement EST l'information. */
   --color-border-input: var(--color-ink-300); /** Bordure de champ de saisie. Relevée de ink.400 à ink.300 : le 400 ne valait que 29 en APCA sur la carte sombre, sous le seuil de 45 d'un ÉLÉMENT D'INTERFACE — et la bordure est ce qui identifie un champ comme un champ. Elle tenait pourtant 4,09:1 en WCAG 2. Le 300 vaut 46. Inchangée en clair. */

@@ -69,7 +69,7 @@
   --color-text-brand: var(--color-brand-secondary);
   --color-text-brand-hover: var(--color-brand-secondary-hover);
   --color-text-accent: var(--color-brand-accent-text); /** Texte teinté de l'accent. Pointait sur `aquamarine`, une rampe d'AIKOZ, sous toutes les marques. Passe par `brand.accent-text`, un palier de la rampe d'accent de la marque choisi par la mesure — `brand.accent` ne convient pas, c'est une SURFACE et elle est claire par construction. */
-  --color-border-focus: var(--color-brand-secondary); /** Anneau de focus. */
+  --color-border-focus: var(--color-brand-focus); /** Anneau de focus. UNE seule source dans les deux thèmes, depuis le 22/09/2026 : il valait `brand.secondary` en clair et `brand.accent` en sombre, faute qu'aucune des deux ne tienne partout. */
   --color-border-brand: var(--color-brand-primary);
   --color-border-accent: var(--color-brand-secondary); /** Liseré d'accent en ultramarine : sur clair l'aquamarine ne tient pas le 3:1. */
   --color-nav-on: var(--color-ink-900);
