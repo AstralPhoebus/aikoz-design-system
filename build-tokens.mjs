@@ -1,5 +1,6 @@
 import StyleDictionary from 'style-dictionary';
 import fs from 'node:fs';
+import path from 'node:path';
 import { fileHeader } from 'style-dictionary/utils';
 
 const PRIM = 'tokens/primitives.json';
@@ -839,6 +840,53 @@ for (const [cle, [bas, haut]] of Object.entries(BANDE_HEROS)) {
     echecs.push(
       `carte héroïne en ${cle} : elle vaut ${r.toFixed(2)} fois la clarté ` +
         `d'une carte ordinaire, hors de la bande [${bas} ; ${haut}]. ${pourquoi}`,
+    );
+  }
+}
+
+
+// ── Un rôle que personne ne lit est une échelle qui ment ─────────────────────
+//
+// `build/semantics.css` émettait **86 rôles `--role-*` dont 75 que zéro
+// composant ne lisait**. Treize familles de typographie, cinq rayons, cinq
+// ombres, trois épaisseurs de bordure : déclarés, documentés, versionnés, et
+// sans effet. Les composants écrivaient `text-sm`, `rounded-full`,
+// `border` — c'est-à-dire les valeurs par défaut de Tailwind.
+//
+// Le coût n'est pas la place perdue, il est la CONFIANCE : on lit le fichier
+// de tokens en croyant y voir le système, et on y voit une intention. Changer
+// `typography.body-md` ne déplaçait pas un pixel, et rien ne le disait.
+//
+// Ce contrôle interdit d'en réintroduire. Un rôle nouveau est légitime le jour
+// où un composant le lit — pas la veille.
+{
+  const emis = [
+    ...new Set((fs.readFileSync('build/semantics.css', 'utf8').match(/--role-[a-z0-9-]+/g) ?? [])),
+  ];
+  const DOSSIERS = ['registry/aikoz', 'docs/storybook', 'playground', 'bridge'];
+  // `coverage` et `preview` sont des SORTIES de build committées : un rôle
+  // qu'on n'y trouve que là n'est lu par personne, il y est recopié.
+  const IGNORE = new Set(['coverage', 'preview', 'node_modules']);
+  let source = '';
+  const parcourir = (dossier) => {
+    if (!fs.existsSync(dossier)) return;
+    for (const e of fs.readdirSync(dossier, { withFileTypes: true })) {
+      if (IGNORE.has(e.name)) continue;
+      const chemin = path.join(dossier, e.name);
+      if (e.isDirectory()) parcourir(chemin);
+      else if (/\.(tsx?|mdx|css)$/.test(e.name)) source += fs.readFileSync(chemin, 'utf8');
+    }
+  };
+  for (const d of DOSSIERS) parcourir(d);
+  source += fs.readFileSync('tailwind.config.ts', 'utf8');
+
+  const morts = emis.filter((r) => !source.includes(r));
+  if (morts.length) {
+    echecs.push(
+      `${morts.length} rôle(s) émis que personne ne lit : ${morts.slice(0, 8).join(', ')}` +
+        (morts.length > 8 ? `, et ${morts.length - 8} autres` : '') +
+        `. Soit un composant les consomme, soit ils sortent de tokens/semantics.json — ` +
+        `un rôle déclaré et jamais lu fait croire qu'il gouverne quelque chose.`,
     );
   }
 }

@@ -336,24 +336,28 @@ function ContractTable() {
 const NUMBERS = ["1 248", "312", "4 807", "1 111"];
 
 function TypeSample({ longhand }: { longhand: boolean }) {
+  // Les deux côtés sont écrits en dur : la démonstration porte sur la FORME
+  // de la déclaration — propriétés séparées contre raccourci `font` — et non
+  // sur la provenance des valeurs. Elle lisait les rôles
+  // `--role-typography-*`, retirés le 22/09/2026 parce que zéro composant ne
+  // les consommait ; l'échelle vit désormais dans les utilitaires Tailwind,
+  // qui n'ont pas de raccourci `font` à opposer.
   const base: React.CSSProperties = longhand
     ? {
-        fontFamily: "var(--role-typography-label-sm-font-family)",
-        fontSize: "var(--role-typography-label-sm-font-size)",
-        fontWeight: "var(--role-typography-label-sm-font-weight)" as any,
-        lineHeight: "var(--role-typography-label-sm-line-height)" as any,
-        letterSpacing: "var(--role-typography-label-sm-letter-spacing)",
+        fontFamily: "Inter, sans-serif",
+        fontSize: "0.625rem",
+        fontWeight: 500,
+        lineHeight: 2,
+        letterSpacing: "0.08em",
       }
-    : // Le shorthand n'existe plus dans le build : valeurs figées pour conserver
-      // la démonstration de ce qu'il jetait.
-      { font: "500 0.625rem/2 Inter, sans-serif" };
+    : { font: "500 0.625rem/2 Inter, sans-serif" };
 
   const numeric: React.CSSProperties = longhand
     ? {
-        fontFamily: "var(--role-typography-metric-font-family)",
-        fontSize: "var(--dimension-font-size-xl)",
-        fontWeight: "var(--role-typography-metric-font-weight)" as any,
-        lineHeight: "var(--role-typography-metric-line-height)" as any,
+        fontFamily: '"JetBrains Mono", monospace',
+        fontSize: "1.25rem",
+        fontWeight: 500,
+        lineHeight: 1.15,
       }
     : { font: '500 1.25rem/1.15 "JetBrains Mono", monospace' };
 

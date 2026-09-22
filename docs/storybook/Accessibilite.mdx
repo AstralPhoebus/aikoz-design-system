@@ -241,6 +241,25 @@ Deux autres règles de Carbon suivies ici :
 - **des libellés directs plutôt qu'une longue légende** — c'est déjà le cas des
   pourcentages écrits dans les barres empilées et des parts du donut.
 
+## Un rôle que personne ne lit est une échelle qui ment
+
+`build/semantics.css` émettait **86 rôles `--role-*`, dont 75 que zéro
+composant ne lisait** : treize familles de typographie, cinq rayons, cinq
+ombres, trois épaisseurs de bordure. Déclarés, documentés, versionnés, et sans
+effet — les composants écrivaient `text-sm`, `rounded-full`, `border`,
+c'est-à-dire les valeurs par défaut de Tailwind.
+
+Le coût n'est pas la place perdue. C'est la **confiance** : on ouvre le fichier
+de tokens en croyant y lire le système, et on y lit une intention. Changer
+`typography.body-md` ne déplaçait pas un pixel, et rien ne le disait.
+
+> **Un rôle nouveau est légitime le jour où un composant le lit — pas la
+> veille.** Le build échoue sur tout rôle émis que personne ne consomme.
+
+C'est la même règle que le pont typographique et que le pont des couleurs : une
+déclaration qui ne gouverne rien est pire qu'une absence, parce qu'une absence
+se voit.
+
 ## Ce qui ne peint rien ne se mesure pas
 
 Trois audits écrits le 22/09/2026 se sont trompés de la même façon avant de
@@ -369,7 +388,7 @@ tant qu'on ne change pas ce qu'il y a derrière. Corrigé, mais trouvé à l'œi
 | `audit:mouvement` | une animation de position sans `motion-reduce` ni `motion-safe` |
 | `audit:marques` | une couleur empruntée à la rampe d'une autre marque |
 | `audit:registry` | une entrée absente, ou qui ne livre pas ce que ses imports atteignent |
-| `build:tokens` | un bridge qui ment, une échelle sombre qui diverge, une carte héroïne hors bande |
+| `build:tokens` | un bridge qui ment, une échelle sombre qui diverge, une carte héroïne hors bande, **un rôle que personne ne lit** |
 
 **Chacun a été vérifié en le cassant.** Un garde-fou qu'on n'a jamais vu
 échouer ne protège de rien de démontré — et trois d'entre eux ne mesuraient
