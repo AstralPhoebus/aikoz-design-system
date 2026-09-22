@@ -71,13 +71,13 @@
   },
   "accent": {
     "$type": "color",
-    "$value": "{color.brand.accent}",
-    "$description": "shadcn --accent"
+    "$value": "{color.surface.accent}",
+    "$description": "shadcn --accent. Il pointait sur `brand.accent`, l'aplat VIF de la marque — un rôle détourné : dans shadcn, `--accent` est une surface discrète de survol, pas une couleur de marque. C'est ce détournement qui rendait la paire illisible, l'orange d'ADP et l'or d'Extime étant de clarté moyenne : ni le blanc ni l'encre ne s'y détachent (APCA 38 et 51). Il vaut désormais le VOILE d'accent, et le texte qu'il porte tient 76 à 81 dans les huit combinaisons."
   },
   "accent-foreground": {
     "$type": "color",
-    "$value": "{color.text.on-accent}",
-    "$description": "shadcn --accent-foreground"
+    "$value": "{color.text.accent}",
+    "$description": "shadcn --accent-foreground. Le texte d'accent posé sur son voile, jamais l'encre posée sur l'aplat de marque."
   },
   "destructive": {
     "$type": "color",

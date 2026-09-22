@@ -18,6 +18,46 @@ de l'API — mais il se voit, donc il est toujours écrit ici.
 
 ---
 
+## [2.6.0] — 2026-09-22
+
+### Cassant
+
+- **`--accent` ne vaut plus l'aplat vif de la marque, mais son VOILE.** Dans
+  shadcn, `--accent` est une surface discrète de survol ; le pont la pointait
+  sur `brand.accent`, un rôle détourné. Un consommateur qui écrivait
+  `bg-accent` en attendant un aplat de marque obtiendra désormais un voile —
+  `--color-brand-accent` reste disponible pour l'aplat.
+
+### Corrigé
+
+- **Les cinq dettes d'accent tombent d'un coup**, et sans retoucher une seule
+  couleur de charte. Elles ne venaient pas des couleurs mais de ce qu'on leur
+  demandait :
+
+  | | avant | après | seuil |
+  | --- | --- | --- | --- |
+  | anneau de focus | 36–43 | **49–92** | 45 |
+  | trait de l'entrée courante | 37 | **50–92** | 45 |
+  | texte sur l'accent | 38–51 | **76–87** | 75 |
+  | accent comme texte | 43–54 | **81+** | 75 |
+
+- **L'accent de marque monte d'un palier en sombre** (400 → 300). À 400,
+  l'anneau de focus valait 31 à 43 selon la marque — ce qui dit à qui navigue
+  au clavier où il se trouve ne se voyait pas.
+
+- **Le voile d'accent avait le même palier clair dans les deux thèmes** : en
+  sombre, un voile quasi blanc sur une carte à 0,223, soit APCA 104 contre
+  elle. Ce n'était pas un voile, c'était un aplat. Il prend un palier de
+  milieu de rampe par marque, choisi pour se distinguer de la carte (écart 16
+  à 27) tout en portant du texte.
+
+- **L'accent cesse d'être une couleur de texte.** Posé sur la carte il
+  plafonnait à 43–54 pour un plancher de 75, et aucun palier de rampe n'y
+  arrivait sous Extime. Il porte du texte sur son propre voile, ou il ne
+  porte rien : l'accent est un signe.
+
+---
+
 ## [2.5.0] — 2026-09-22
 
 ### Ajouté

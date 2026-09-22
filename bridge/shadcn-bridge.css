@@ -18,7 +18,6 @@
   --muted: var(--color-surface-sunken); /** shadcn --muted */
   --muted-foreground: var(--color-text-muted); /** shadcn --muted-foreground */
   --surface-hover: var(--color-surface-hover); /** extension DS — fond au survol d'une surface. Rôle qui manquait : les composants détournaient --muted, qui est un CREUX décoratif et non un état. */
-  --accent: var(--color-brand-accent); /** shadcn --accent */
   --destructive: var(--color-status-error); /** shadcn --destructive */
   --border: var(--color-border-default); /** shadcn --border */
   --border-strong: var(--color-border-strong); /** extension DS — bordure porteuse, >= 3:1 contre la page. Porte le survol des boutons sans fond. */
@@ -58,6 +57,8 @@
   --primary: var(--color-surface-action); /** shadcn --primary */
   --primary-edge: var(--color-surface-action-edge); /** Liseré de l'action primaire — invisible en clair, indispensable en sombre où un fond vif ne se détache pas seul de la carte. */
   --secondary: var(--color-surface-action-secondary); /** shadcn --secondary */
+  --accent: var(--color-surface-accent); /** shadcn --accent. Il pointait sur `brand.accent`, l'aplat VIF de la marque — un rôle détourné : dans shadcn, `--accent` est une surface discrète de survol, pas une couleur de marque. C'est ce détournement qui rendait la paire illisible, l'orange d'ADP et l'or d'Extime étant de clarté moyenne : ni le blanc ni l'encre ne s'y détachent (APCA 38 et 51). Il vaut désormais le VOILE d'accent, et le texte qu'il porte tient 76 à 81 dans les huit combinaisons. */
+  --accent-foreground: var(--color-text-accent); /** shadcn --accent-foreground. Le texte d'accent posé sur son voile, jamais l'encre posée sur l'aplat de marque. */
   --ring: var(--color-border-focus); /** shadcn --ring */
   --nav-on: var(--color-nav-on); /** extension DS — texte de la navigation */
   --nav-accent: var(--color-nav-accent); /** extension DS — trait de l'entree courante ; ultramarine en clair, aquamarine en sombre — c'est LUI qui porte l'etat */
@@ -65,7 +66,6 @@
   --surface-hero-to: var(--color-surface-hero-to); /** extension DS — second arrêt du dégradé de --surface-hero */
   --hero-glow: var(--color-surface-hero-glow); /** extension DS — lueur d'angle de la carte héroïne, elle porte la marque */
   --on-hero: var(--color-surface-on-hero); /** extension DS — texte porté par --surface-hero */
-  --accent-foreground: var(--color-text-on-accent); /** shadcn --accent-foreground */
   --surface-inverse: var(--color-surface-inverse); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
   --surface-inverse-to: var(--color-surface-inverse-to); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
   --on-inverse: var(--color-surface-on-inverse); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
@@ -82,7 +82,6 @@
   --card-foreground: var(--color-text-primary); /** shadcn --card-foreground */
   --popover-foreground: var(--color-text-primary); /** shadcn --popover-foreground */
   --muted-foreground: var(--color-text-muted); /** shadcn --muted-foreground */
-  --accent: var(--color-brand-accent); /** shadcn --accent */
   --destructive: var(--color-status-error); /** shadcn --destructive */
   --success-fill: var(--color-status-success-fill); /** extension DS — remplissage porteur succès (jauges, barres) */
   --warning-fill: var(--color-status-warning-fill); /** extension DS — remplissage porteur avertissement */
@@ -119,6 +118,8 @@
   --secondary-foreground: var(--color-text-on-action-secondary); /** shadcn --secondary-foreground */
   --muted: var(--color-surface-sunken); /** shadcn --muted */
   --surface-hover: var(--color-surface-hover); /** extension DS — fond au survol d'une surface. Rôle qui manquait : les composants détournaient --muted, qui est un CREUX décoratif et non un état. */
+  --accent: var(--color-surface-accent); /** shadcn --accent. Il pointait sur `brand.accent`, l'aplat VIF de la marque — un rôle détourné : dans shadcn, `--accent` est une surface discrète de survol, pas une couleur de marque. C'est ce détournement qui rendait la paire illisible, l'orange d'ADP et l'or d'Extime étant de clarté moyenne : ni le blanc ni l'encre ne s'y détachent (APCA 38 et 51). Il vaut désormais le VOILE d'accent, et le texte qu'il porte tient 76 à 81 dans les huit combinaisons. */
+  --accent-foreground: var(--color-text-accent); /** shadcn --accent-foreground. Le texte d'accent posé sur son voile, jamais l'encre posée sur l'aplat de marque. */
   --destructive-foreground: var(--color-text-inverse); /** shadcn --destructive-foreground — à auditer */
   --border: var(--color-border-default); /** shadcn --border */
   --border-strong: var(--color-border-strong); /** extension DS — bordure porteuse, >= 3:1 contre la page. Porte le survol des boutons sans fond. */
@@ -134,7 +135,6 @@
   --on-inverse: var(--color-surface-on-inverse); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
   --neutral-text: var(--color-status-neutral-text); /** extension DS — variation neutre d'un indicateur (DeltaBadge ton neutre) */
   --neutral-fill: var(--color-status-neutral-fill); /** extension DS — aplat neutre d'un indicateur */
-  --accent-foreground: var(--color-text-on-accent); /** shadcn --accent-foreground */
   --surface-inverse: var(--color-surface-inverse); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
   --surface-inverse-to: var(--color-surface-inverse-to); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
 }
@@ -153,7 +153,6 @@
   --card: var(--color-surface-raised); /** shadcn --card */
   --muted: var(--color-surface-sunken); /** shadcn --muted */
   --surface-hover: var(--color-surface-hover); /** extension DS — fond au survol d'une surface. Rôle qui manquait : les composants détournaient --muted, qui est un CREUX décoratif et non un état. */
-  --accent: var(--color-brand-accent); /** shadcn --accent */
   --destructive: var(--color-status-error); /** shadcn --destructive */
   --border: var(--color-border-default); /** shadcn --border */
   --border-strong: var(--color-border-strong); /** extension DS — bordure porteuse, >= 3:1 contre la page. Porte le survol des boutons sans fond. */
@@ -194,6 +193,8 @@
   --primary-edge: var(--color-surface-action-edge); /** Liseré de l'action primaire — invisible en clair, indispensable en sombre où un fond vif ne se détache pas seul de la carte. */
   --secondary: var(--color-surface-action-secondary); /** shadcn --secondary */
   --muted-foreground: var(--color-text-muted); /** shadcn --muted-foreground */
+  --accent: var(--color-surface-accent); /** shadcn --accent. Il pointait sur `brand.accent`, l'aplat VIF de la marque — un rôle détourné : dans shadcn, `--accent` est une surface discrète de survol, pas une couleur de marque. C'est ce détournement qui rendait la paire illisible, l'orange d'ADP et l'or d'Extime étant de clarté moyenne : ni le blanc ni l'encre ne s'y détachent (APCA 38 et 51). Il vaut désormais le VOILE d'accent, et le texte qu'il porte tient 76 à 81 dans les huit combinaisons. */
+  --accent-foreground: var(--color-text-accent); /** shadcn --accent-foreground. Le texte d'accent posé sur son voile, jamais l'encre posée sur l'aplat de marque. */
   --ring: var(--color-border-focus); /** shadcn --ring */
   --nav-on: var(--color-nav-on); /** extension DS — texte de la navigation */
   --nav-accent: var(--color-nav-accent); /** extension DS — trait de l'entree courante ; ultramarine en clair, aquamarine en sombre — c'est LUI qui porte l'etat */
@@ -201,7 +202,6 @@
   --surface-hero-to: var(--color-surface-hero-to); /** extension DS — second arrêt du dégradé de --surface-hero */
   --hero-glow: var(--color-surface-hero-glow); /** extension DS — lueur d'angle de la carte héroïne, elle porte la marque */
   --on-hero: var(--color-surface-on-hero); /** extension DS — texte porté par --surface-hero */
-  --accent-foreground: var(--color-text-on-accent); /** shadcn --accent-foreground */
   --surface-inverse: var(--color-surface-inverse); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
   --surface-inverse-to: var(--color-surface-inverse-to); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
   --on-inverse: var(--color-surface-on-inverse); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
@@ -217,7 +217,7 @@
   --popover-foreground: var(--color-text-primary); /** shadcn --popover-foreground */
   --nav-on: var(--color-nav-on); /** extension DS — texte de la navigation */
   --muted-foreground: var(--color-text-muted); /** shadcn --muted-foreground */
-  --accent: var(--color-brand-accent); /** shadcn --accent */
+  --accent: var(--color-surface-accent); /** shadcn --accent. Il pointait sur `brand.accent`, l'aplat VIF de la marque — un rôle détourné : dans shadcn, `--accent` est une surface discrète de survol, pas une couleur de marque. C'est ce détournement qui rendait la paire illisible, l'orange d'ADP et l'or d'Extime étant de clarté moyenne : ni le blanc ni l'encre ne s'y détachent (APCA 38 et 51). Il vaut désormais le VOILE d'accent, et le texte qu'il porte tient 76 à 81 dans les huit combinaisons. */
   --destructive: var(--color-status-error); /** shadcn --destructive */
   --success-fill: var(--color-status-success-fill); /** extension DS — remplissage porteur succès (jauges, barres) */
   --warning-fill: var(--color-status-warning-fill); /** extension DS — remplissage porteur avertissement */
@@ -253,6 +253,7 @@
   --secondary-foreground: var(--color-text-on-action-secondary); /** shadcn --secondary-foreground */
   --muted: var(--color-surface-sunken); /** shadcn --muted */
   --surface-hover: var(--color-surface-hover); /** extension DS — fond au survol d'une surface. Rôle qui manquait : les composants détournaient --muted, qui est un CREUX décoratif et non un état. */
+  --accent-foreground: var(--color-text-accent); /** shadcn --accent-foreground. Le texte d'accent posé sur son voile, jamais l'encre posée sur l'aplat de marque. */
   --destructive-foreground: var(--color-text-inverse); /** shadcn --destructive-foreground — à auditer */
   --border: var(--color-border-default); /** shadcn --border */
   --border-strong: var(--color-border-strong); /** extension DS — bordure porteuse, >= 3:1 contre la page. Porte le survol des boutons sans fond. */
@@ -270,7 +271,6 @@
   --surface-inverse-to: var(--color-surface-inverse-to); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
   --neutral-text: var(--color-status-neutral-text); /** extension DS — variation neutre d'un indicateur (DeltaBadge ton neutre) */
   --neutral-fill: var(--color-status-neutral-fill); /** extension DS — aplat neutre d'un indicateur */
-  --accent-foreground: var(--color-text-on-accent); /** shadcn --accent-foreground */
   --surface-inverse: var(--color-surface-inverse); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
   --on-inverse: var(--color-surface-on-inverse); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
 }

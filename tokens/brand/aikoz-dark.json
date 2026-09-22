@@ -18,13 +18,23 @@
       },
       "accent-text": {
         "$type": "color",
-        "$value": "{color.aquamarine.600}",
-        "$description": "Texte teinté de l'accent, thème sombre — 5.12:1 sur la carte de la marque."
+        "$value": "{color.aquamarine.50}",
+        "$description": "Accent employé comme TEXTE, sur `surface.accent` et jamais sur la carte. Mesuré le 22/09/2026 : posé directement sur la carte, il plafonnait à 43-54 en APCA sous les quatre marques, pour un plancher de 75 — et aucun palier de rampe n'y arrivait sous Extime. L'accent est un SIGNE, pas une couleur de texte : il porte du texte sur son propre voile, ou il ne porte rien."
       },
       "primary-edge": {
         "$type": "color",
         "$value": "{color.midnight-blue.300}",
         "$description": "Liseré de l'action primaire. Un fond vif est à peine plus clair que la carte sombre — mesuré, moins de 20 en APCA, sous le seuil de 45 d'un élément d'interface : le bouton se lit, mais sa FORME ne se détache pas du bloc. Le liseré (midnight-blue.300) la rend identifiable sans toucher au fond, donc sans rien céder sur la vivacité.\n\nEn thème clair il vaut la couleur du fond : le bouton s'y détache déjà seul, le liseré y est invisible et ne coûte rien."
+      },
+      "accent": {
+        "$type": "color",
+        "$value": "{color.aquamarine.300}",
+        "$description": "Accent de marque en sombre. Monté d'un palier (400 → 300) le 22/09/2026 : à 400 il valait APCA 31 à 43 contre la carte sombre selon la marque, sous le plancher de 45 d'un élément d'interface — donc l'anneau de focus et le trait de l'entrée courante ne se voyaient pas, et c'est ce qui dit à qui navigue au clavier où il se trouve."
+      },
+      "accent-subtle": {
+        "$type": "color",
+        "$value": "{color.aquamarine.700}",
+        "$description": "Voile d'accent — la surface sur laquelle l'accent porte du TEXTE. Il valait le même palier clair dans les deux thèmes : en sombre, un voile quasi blanc sur une carte à 0,223, soit APCA 104 contre elle. Ce n'était pas un voile, c'était un aplat. Il prend maintenant un palier de milieu de rampe, choisi pour se distinguer de la carte (écart APCA 16 à 27) tout en portant du texte."
       }
     },
     "chart": {

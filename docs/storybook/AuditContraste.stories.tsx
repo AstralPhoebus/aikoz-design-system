@@ -56,16 +56,19 @@ const MARQUES = [null, "adp", "extime", "generali"] as const;
 const SEUIL_APCA = { texte: 75, element: 45, objet: 15 } as const;
 
 /**
- * Les paires, avec leur seuil WCAG, leur nature, et leur dette éventuelle.
+ * Les paires, avec leur seuil WCAG et leur nature.
  *
- * `dette` est la valeur APCA la plus basse mesurée sur les huit combinaisons,
- * pour une paire qui tient WCAG 2 mais pas le seuil perceptuel. Les six qui
- * restent sont toutes la MÊME décision : l'accent et le primaire des marques.
- * Les remonter, c'est retoucher une couleur de charte, pas un token de chrome.
+ * **Il n'y a plus aucune dette.** Il y en a eu cinq, toutes sur l'accent de
+ * marque, et elles sont tombées ensemble le 22/09/2026 — non pas en
+ * retouchant les couleurs de charte, mais en corrigeant ce qu'on leur
+ * demandait : `--accent` pointait sur l'aplat VIF au lieu du voile, et
+ * l'accent servait de couleur de texte alors qu'aucun palier de rampe n'y
+ * arrivait sous Extime.
  *
- * Le cliquet marche dans les deux sens : une paire en dette qui EMPIRE
- * échoue, et une paire en dette qui PASSE échoue aussi, pour forcer à retirer
- * la ligne. La liste ne peut que rétrécir.
+ * Le champ `dette` reste disponible, et son cliquet avec : une paire en dette
+ * qui EMPIRE échoue, et une paire en dette qui PASSE échoue aussi, pour
+ * forcer à retirer sa ligne. C'est ce cliquet qui a signalé les cinq d'un
+ * coup. La liste ne peut que rétrécir.
  */
 const PAIRES: Array<{
   avant: string;
@@ -82,8 +85,8 @@ const PAIRES: Array<{
   { avant: "--muted-foreground", fond: "--background", seuil: 4.5, nature: "texte", quoi: "texte atténué sur page" },
   { avant: "--card-foreground", fond: "--card", seuil: 4.5, nature: "texte", quoi: "texte de carte" },
   { avant: "--primary-foreground", fond: "--primary", seuil: 4.5, nature: "texte", quoi: "texte sur action primaire" },
-  { avant: "--accent-foreground", fond: "--accent", seuil: 4.5, nature: "texte", quoi: "texte sur accent", dette: 37 /* idem — l'orange d'ADP, le vert d'Extime */ },
-  { avant: "--color-text-accent", fond: "--card", seuil: 4.5, nature: "texte", quoi: "texte d'accent sur carte", dette: 35 /* l'accent employé comme texte sur la carte */ },
+  { avant: "--accent-foreground", fond: "--accent", seuil: 4.5, nature: "texte", quoi: "texte sur accent" },
+  { avant: "--color-text-accent", fond: "--card", seuil: 4.5, nature: "texte", quoi: "texte d'accent sur carte" },
   { avant: "--color-nav-on", fond: "--nav-surface", seuil: 4.5, nature: "texte", quoi: "texte de navigation" },
   { avant: "--color-nav-on-muted", fond: "--nav-surface", seuil: 4.5, nature: "texte", quoi: "texte de navigation atténué" },
   { avant: "--color-text-on-action-secondary", fond: "--color-surface-action-secondary", seuil: 4.5, nature: "texte", quoi: "texte sur action secondaire" },
@@ -98,9 +101,9 @@ const PAIRES: Array<{
   // Objets graphiques et composants : WCAG 1.4.11, 3:1.
   { avant: "--input", fond: "--card", seuil: 3.0, nature: "element", quoi: "bordure de champ sur carte" },
   { avant: "--input", fond: "--background", seuil: 3.0, nature: "element", quoi: "bordure de champ sur page" },
-  { avant: "--ring", fond: "--background", seuil: 3.0, nature: "element", quoi: "anneau de focus sur page", dette: 37 /* l'anneau de focus EST l'accent de marque */ },
-  { avant: "--ring", fond: "--card", seuil: 3.0, nature: "element", quoi: "anneau de focus sur carte", dette: 35 /* idem */ },
-  { avant: "--color-nav-accent", fond: "--nav-surface", seuil: 3.0, nature: "element", quoi: "trait de l'entrée courante", dette: 36 /* le trait de l'entrée courante EST l'accent ; il est doublé par la graisse et par aria-current, il ne porte donc pas seul */ },
+  { avant: "--ring", fond: "--background", seuil: 3.0, nature: "element", quoi: "anneau de focus sur page" },
+  { avant: "--ring", fond: "--card", seuil: 3.0, nature: "element", quoi: "anneau de focus sur carte" },
+  { avant: "--color-nav-accent", fond: "--nav-surface", seuil: 3.0, nature: "element", quoi: "trait de l'entrée courante" },
   ...[1, 2, 3, 4, 5, 6].map((i) => ({
     avant: `--chart-${i}`,
     fond: "--card",
