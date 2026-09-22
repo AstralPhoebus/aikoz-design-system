@@ -81,7 +81,27 @@ def main(dossier):
                 px, py = x, y
             morceaux.append("".join(bouts) + "Z")
         if morceaux:
-            par_dep[p['code'][:2]].append({"code": p['code'], "nom": p['nom'], "d": "".join(morceaux)})
+            # Le centroïde, pondéré par l'aire : une agence qui n'a qu'un
+            # code INSEE se pose là. Deux nombres par commune, c'est le prix
+            # d'un point placé au bon endroit plutôt qu'au hasard.
+            sx = sy = sa = 0.0
+            for a in anneaux(f['geometry']):
+                proj = [((lambert93(x, y)[0] - xmin) * echelle,
+                         (ymax - lambert93(x, y)[1]) * echelle) for x, y in a]
+                for i in range(len(proj)):
+                    x1, y1 = proj[i]; x2, y2 = proj[(i + 1) % len(proj)]
+                    w = x1 * y2 - x2 * y1
+                    sa += w; sx += (x1 + x2) * w; sy += (y1 + y2) * w
+            if abs(sa) > 1e-9:
+                c = [round(sx / (3 * sa), 1), round(sy / (3 * sa), 1)]
+            else:
+                pts_ = [q for a in anneaux(f['geometry'])
+                        for q in (((lambert93(x, y)[0] - xmin) * echelle,
+                                   (ymax - lambert93(x, y)[1]) * echelle) for x, y in a)]
+                c = [round(sum(q[0] for q in pts_) / len(pts_), 1),
+                     round(sum(q[1] for q in pts_) / len(pts_), 1)]
+            par_dep[p['code'][:2]].append(
+                {"code": p['code'], "nom": p['nom'], "d": "".join(morceaux), "c": c})
 
     cible = pathlib.Path('public/communes')
     cible.mkdir(parents=True, exist_ok=True)

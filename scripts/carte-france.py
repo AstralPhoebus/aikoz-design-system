@@ -254,6 +254,37 @@ def main(dossier):
                           f'boite: {{ largeur: {LARG:.0f}, hauteur: {haut} }} }},')
         return "\n".join(lignes)
 
+    def centroide(anneaux_):
+        """Le centroïde pondéré par l'aire, pas la moyenne des sommets.
+
+        La moyenne des sommets se déplace vers les côtes découpées : sur une
+        région bretonne, elle sort dans la mer. Le centroïde d'aire, lui,
+        tombe où l'on s'attend.
+        """
+        sx = sy = sa = 0.0
+        for a in anneaux_:
+            for i in range(len(a)):
+                x1, y1 = a[i]; x2, y2 = a[(i + 1) % len(a)]
+                w = x1 * y2 - x2 * y1
+                sa += w; sx += (x1 + x2) * w; sy += (y1 + y2) * w
+        if abs(sa) < 1e-9:
+            pts = [p for a in anneaux_ for p in a]
+            return sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts)
+        return sx / (3 * sa), sy / (3 * sa)
+
+    def bloc_centroides(jeu):
+        out = []
+        for e in sorted(jeu, key=lambda e: e["code"]):
+            pts = [((x - xmin) * echelle, (ymax - y) * echelle)
+                   for a in e["anneaux"] for x, y in a]
+            anx = []
+            k = 0
+            for a in e["anneaux"]:
+                anx.append([((x - xmin) * echelle, (ymax - y) * echelle) for x, y in a])
+            cx, cy = centroide(anx)
+            out.append(f'  "{e["code"]}": [{cx:.1f}, {cy:.1f}],')
+        return "\n".join(out)
+
     def boites(jeu):
         """La boîte englobante de chaque département, dans la boîte commune.
 
@@ -350,6 +381,64 @@ export const DEPARTEMENTS: ZoneCarte[] = [
 export const OUTRE_MER: ZoneOutreMer[] = [
 {bloc_drom(drom)}
 ];
+
+/**
+ * Où poser un point dont on ne connaît que la zone.
+ *
+ * Une agence a normalement des coordonnées. Quand elle n'a qu'un code de
+ * département ou de région, on la place au centroïde — pondéré par l'aire,
+ * pas la moyenne des sommets, qui sort dans la mer sur une côte découpée.
+ *
+ * C'est un pis-aller et ça se voit : plusieurs agences du même département
+ * se superposent exactement. Le composant le signale plutôt que de les
+ * disperser au hasard, ce qui inventerait des positions.
+ */
+export const CENTROIDES_REGION: Record<string, [number, number]> = {{
+{bloc_centroides(regions)}
+}};
+
+/**
+ * Deux tables et non une : le code « 11 » est l'Île-de-France en région ET
+ * l'Aude en département. Les fusionner écrasait silencieusement l'une par
+ * l'autre — le compilateur l'a dit, sinon une agence de Carcassonne serait
+ * apparue à Paris.
+ */
+export const CENTROIDES_DEPARTEMENT: Record<string, [number, number]> = {{
+{bloc_centroides(departements)}
+}};
+
+/**
+ * Projette un point WGS84 (longitude, latitude) dans la boîte de la carte.
+ *
+ * C'est la même Lambert-93 que les contours, en vingt lignes. Elle est ici
+ * parce qu'un contour se pré-calcule mais pas un point : une agence, un
+ * concurrent, une adresse arrivent à l'exécution.
+ *
+ * Valable pour la MÉTROPOLE. Hors de son domaine — l'outre-mer, l'étranger —
+ * elle renvoie des coordonnées qui sortent de la boîte ; le composant les
+ * écarte plutôt que de les dessiner n'importe où.
+ */
+export function projeter(lon: number, lat: number): [number, number] {{
+  const A = 6378137;
+  const E = {E!r};
+  const N = {_N!r};
+  const F = {_F!r};
+  const RHO0 = {_RHO0!r};
+  const LON0 = {LON0!r};
+  const rad = (d: number) => (d * Math.PI) / 180;
+  const phi = rad(lat);
+  const t =
+    Math.tan(Math.PI / 4 - phi / 2) /
+    Math.pow((1 - E * Math.sin(phi)) / (1 + E * Math.sin(phi)), E / 2);
+  const rho = A * F * Math.pow(t, N);
+  const theta = N * (rad(lon) - LON0);
+  const x = 700000 + rho * Math.sin(theta);
+  const y = 6600000 + RHO0 - rho * Math.cos(theta);
+  return [
+    Math.round((x - {xmin!r}) * {echelle!r} * 10) / 10,
+    Math.round(({ymax!r} - y) * {echelle!r} * 10) / 10,
+  ];
+}}
 
 /**
  * La boîte englobante de chaque département, dans la boîte commune.

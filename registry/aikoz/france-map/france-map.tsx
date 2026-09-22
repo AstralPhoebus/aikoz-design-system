@@ -1,8 +1,40 @@
-import { useEffect, useId, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { cn } from "@registry/aikoz/lib/utils";
-import { BOITE, REGIONS, DEPARTEMENTS, DEPARTEMENTS_PAR_REGION, OUTRE_MER, BOITES_DEPARTEMENT, type ZoneCarte } from "./geometrie";
+import { BOITE, REGIONS, DEPARTEMENTS, DEPARTEMENTS_PAR_REGION, OUTRE_MER, BOITES_DEPARTEMENT, CENTROIDES_REGION, CENTROIDES_DEPARTEMENT,
+  projeter, type ZoneCarte } from "./geometrie";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
+
+/**
+ * Un point posé sur la carte — une agence, un point de vente, un concurrent.
+ *
+ * Une agence n'est pas une surface : la choroplèthe ne sait pas la montrer,
+ * et la teinte d'un département ne dit rien de ce qui s'y passe rue par rue.
+ *
+ * Le contrat tient sur `lon`/`lat`, que toute source d'adresses sait rendre —
+ * une API métier, un géocodage, un export. Les codes de zone ne sont qu'un
+ * repli : ils posent le point au CENTRE de la zone, donc plusieurs agences du
+ * même département se superposent exactement. Le composant le signale plutôt
+ * que de les disperser, ce qui inventerait des positions.
+ */
+export interface PointCarte {
+  id: string;
+  nom: string;
+  /** Coordonnées WGS84. La voie normale. */
+  lon?: number;
+  lat?: number;
+  /** Replis, du plus précis au moins précis. Code INSEE. */
+  commune?: string;
+  departement?: string;
+  region?: string;
+  /** Ce que le point pèse. L'AIRE du symbole lui est proportionnelle. */
+  valeur?: number;
+  /**
+   * À quel jeu il appartient. Le premier est plein, les suivants sont
+   * cerclés : la distinction ne tient jamais à la seule couleur.
+   */
+  categorie?: string;
+}
 
 export interface FranceMapProps {
   /** Ce que la carte montre, **unité comprise** — « Avis reçus », « Taux (%) ». */
@@ -35,6 +67,10 @@ export interface FranceMapProps {
    * jour où il bouge.
    */
   communesUrl?: string;
+  /** Les points posés sur la carte — agences, concurrents. */
+  points?: PointCarte[];
+  /** L'ordre des catégories : la première est pleine, les suivantes cerclées. */
+  categories?: string[];
   /**
    * Affiche les cartouches d'outre-mer. `true` par défaut au niveau national.
    * Ils disparaissent quand on est descendu dans une région de métropole :
@@ -129,6 +165,8 @@ export function FranceMap({
   formatValue = (v) => v.toLocaleString("fr-FR"),
   classes = 5,
   departement,
+  points,
+  categories,
   communesUrl = "/communes",
   outreMer = true,
   height = 360,
@@ -136,6 +174,37 @@ export function FranceMap({
 }: FranceMapProps) {
   const uid = useId().replace(/:/g, "");
   const [survol, setSurvol] = useState<ZoneCarte | null>(null);
+
+  /**
+   * Combien de pixels vaut une unité de la boîte, sur le rendu.
+   *
+   * La légende de taille doit dessiner ses cercles de référence à la MÊME
+   * échelle que la carte. Sinon elle ment : au premier jet, un cercle de
+   * légende faisait trente-six pixels quand le même symbole en faisait dix
+   * sur la carte, et comparer l'un à l'autre donnait un facteur trois.
+   *
+   * La valeur ne se calcule pas : la carte est en `width: 100%` avec un
+   * `viewBox`, donc son échelle dépend de la place disponible. On la MESURE,
+   * et on la remesure quand la place change.
+   */
+  const svgRef = useRef<SVGSVGElement>(null);
+  const [pxParUnite, setPxParUnite] = useState(0.4);
+  useEffect(() => {
+    const el = svgRef.current;
+    if (!el) return;
+    const relever = () => {
+      const r = el.getBoundingClientRect();
+      const vb = el.viewBox.baseVal;
+      if (!vb.width || !vb.height || !r.width) return;
+      // `preserveAspectRatio` vaut « meet » par défaut : l'échelle est la
+      // plus petite des deux, pas celle de la largeur.
+      setPxParUnite(Math.min(r.width / vb.width, r.height / vb.height));
+    };
+    relever();
+    const ro = new ResizeObserver(relever);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   // Les communes ne sont pas embarquées : 35 189 contours pèsent 4,4 Mo, et
   // personne ne regarde la France entière à l'échelle communale. Un fichier
@@ -226,13 +295,81 @@ export function FranceMap({
    * c'est eux qui donnent le contexte, à la place de la France entière.
    */
   // De combien le cadre a rétréci : c'est ce facteur qui garde les traits
-  // visuellement constants quand on zoome.
+  // ET les symboles visuellement constants quand on zoome.
   const echelleTrait = departement && BOITES_DEPARTEMENT[departement]
     ? Math.max(
         BOITES_DEPARTEMENT[departement].largeur,
         BOITES_DEPARTEMENT[departement].hauteur,
       ) * 1.2 / BOITE.largeur
     : 1;
+
+  // ── Les points ────────────────────────────────────────────────────────
+  //
+  // Placés dans l'ordre du plus précis au moins précis, et ceux qu'on ne sait
+  // pas placer sont COMPTÉS, pas oubliés : une agence absente de la carte
+  // sans que rien ne le dise, c'est une carte qui ment par omission.
+  const centreCommune = useMemo(() => {
+    const m = new Map<string, [number, number]>();
+    for (const z of (communes ?? []) as Array<ZoneCarte & { c?: [number, number] }>) {
+      if (z.c) m.set(z.code, z.c);
+    }
+    return m;
+  }, [communes]);
+
+  const { poses, sansPosition, approximatifs } = useMemo(() => {
+    const poses: Array<PointCarte & { x: number; y: number; approx: boolean }> = [];
+    let sansPosition = 0;
+    let approximatifs = 0;
+    for (const pt of points ?? []) {
+      let xy: [number, number] | undefined;
+      let approx = false;
+      if (typeof pt.lon === "number" && typeof pt.lat === "number") {
+        xy = projeter(pt.lon, pt.lat);
+        // Hors du domaine de Lambert-93 — outre-mer, étranger — la formule
+        // renvoie des coordonnées qui sortent de la boîte. On écarte plutôt
+        // que de dessiner n'importe où.
+        if (xy[0] < -50 || xy[0] > BOITE.largeur + 50 || xy[1] < -50 || xy[1] > BOITE.hauteur + 50) {
+          xy = undefined;
+        }
+      }
+      if (!xy && pt.commune) {
+        xy = centreCommune.get(pt.commune);
+        approx = Boolean(xy);
+      }
+      if (!xy && pt.departement) {
+        xy = CENTROIDES_DEPARTEMENT[pt.departement];
+        approx = Boolean(xy);
+      }
+      if (!xy && pt.region) {
+        xy = CENTROIDES_REGION[pt.region];
+        approx = Boolean(xy);
+      }
+      if (!xy) {
+        sansPosition++;
+        continue;
+      }
+      if (approx) approximatifs++;
+      poses.push({ ...pt, x: xy[0], y: xy[1], approx });
+    }
+    return { poses, sansPosition, approximatifs };
+  }, [points, centreCommune]);
+
+  /**
+   * Le rayon d'un symbole.
+   *
+   * En racine de la valeur, pour que l'AIRE lui soit proportionnelle — c'est
+   * le seul encodage honnête. Un rayon proportionnel à la valeur ferait
+   * paraître un point de valeur double quatre fois plus gros.
+   */
+  const rayonMax = 18 * echelleTrait;
+  const valeurMax = Math.max(1, ...poses.map((p) => p.valeur ?? 0));
+  const rayon = (v?: number) =>
+    typeof v === "number" && v > 0
+      ? Math.max(3 * echelleTrait, rayonMax * Math.sqrt(v / valeurMax))
+      : 4 * echelleTrait;
+
+  const ordreCategories =
+    categories ?? [...new Set(poses.map((p) => p.categorie ?? "").filter(Boolean))];
 
   const cadre = (() => {
     if (!departement) return `0 0 ${BOITE.largeur} ${BOITE.hauteur}`;
@@ -297,6 +434,11 @@ export function FranceMap({
           `Carte de France — ${valueLabel}. ${renseignees.length} zone` +
           `${renseignees.length > 1 ? "s" : ""} renseignée${renseignees.length > 1 ? "s" : ""} sur ` +
           `${zones.length + cartouches.length}, total ${formatValue(total)}. ` +
+          (poses.length
+            ? `${poses.length} point${poses.length > 1 ? "s" : ""} posé${poses.length > 1 ? "s" : ""}` +
+              (approximatifs ? `, dont ${approximatifs} au centre de leur zone` : "") +
+              (sansPosition ? `, ${sansPosition} sans position connue` : "") + ". "
+            : "") +
           `La carte montre la répartition ; ` +
           `les valeurs exactes sont dans le tableau.`
         }
@@ -307,6 +449,7 @@ export function FranceMap({
           // Repère stable : la figure contient plusieurs `<svg>` — les motifs,
           // la métropole, et un cartouche par territoire. Les distinguer par
           // leur ordre dans le DOM rendrait les tests faux au premier ajout.
+          ref={svgRef}
           data-carte="metropole"
           viewBox={cadre}
           className="h-full w-full"
@@ -372,6 +515,48 @@ export function FranceMap({
               />
             );
           })}
+
+          {/* Les points, au-dessus des zones.
+              Symboles PROPORTIONNELS : l'aire suit la valeur, ce qui est le
+              seul encodage honnête — un rayon proportionnel ferait paraître
+              une valeur double quatre fois plus grosse. C'est aussi ce qui
+              répond au défaut de la choroplèthe : une agence n'a pas de
+              surface, donc rien ne ment sur sa taille.
+
+              La catégorie ne tient pas à la couleur : la première est PLEINE,
+              les suivantes sont CERCLÉES. Quelqu'un qui ne distingue pas le
+              bleu du rouge voit toujours la différence. */}
+          {/* Du plus GRAND au plus petit. Dans l'ordre d'arrivée, une agence
+              de valeur 412 disparaissait entièrement sous un concurrent de
+              305 posé à huit cents mètres — vu sur Paris. Trié, le petit se
+              pose sur le grand et les deux restent visibles. */}
+          {[...poses]
+            .sort((a, b) => rayon(b.valeur) - rayon(a.valeur))
+            .map((pt) => {
+            const rang = pt.categorie ? ordreCategories.indexOf(pt.categorie) : 0;
+            const plein = rang <= 0;
+            const r = rayon(pt.valeur);
+            const actif = survol?.code === pt.id;
+            return (
+              <circle
+                key={pt.id}
+                cx={pt.x}
+                cy={pt.y}
+                r={r}
+                fill={plein ? "var(--primary)" : "var(--card)"}
+                stroke={actif ? "var(--foreground)" : "var(--primary)"}
+                strokeWidth={(plein ? 1 : 2.5) * echelleTrait}
+                // Un voile sur les pleins : superposés, on voit qu'il y en a
+                // plusieurs au lieu d'un seul gros.
+                fillOpacity={plein ? 0.75 : 1}
+                className={cn(onSelect && "cursor-pointer")}
+                onMouseEnter={() =>
+                  setSurvol({ code: pt.id, nom: pt.nom, niveau: level, d: "" })
+                }
+                onClick={() => onSelect?.(pt.id, pt.nom)}
+              />
+            );
+          })}
         </svg>
       </div>
 
@@ -427,6 +612,14 @@ export function FranceMap({
         </div>
       )}
 
+      {sansPosition > 0 && (
+        <p role="status" className="m-0 text-sm text-[var(--warning)]">
+          {sansPosition} point{sansPosition > 1 ? "s" : ""} sans position connue
+          {sansPosition > 1 ? " ne sont" : " n'est"} pas sur la carte. Une carte
+          qui en oublie sans le dire ment par omission.
+        </p>
+      )}
+
       {(chargement || erreur) && (
         <p role="status" className="m-0 text-sm text-muted-foreground">
           {erreur ?? `Chargement des communes du département ${departement}…`}
@@ -443,9 +636,21 @@ export function FranceMap({
           <>
             <span className="font-medium text-foreground">{survol.nom}</span>
             {" — "}
-            {typeof values[survol.code] === "number"
-              ? `${formatValue(values[survol.code])} ${valueLabel.toLowerCase()}`
-              : "pas de donnée"}
+            {(() => {
+              const pt = poses.find((p) => p.id === survol.code);
+              if (pt) {
+                return (
+                  (typeof pt.valeur === "number"
+                    ? `${formatValue(pt.valeur)} ${valueLabel.toLowerCase()}`
+                    : "sans valeur") +
+                  (pt.categorie ? ` · ${pt.categorie}` : "") +
+                  (pt.approx ? " · position approchée" : "")
+                );
+              }
+              return typeof values[survol.code] === "number"
+                ? `${formatValue(values[survol.code])} ${valueLabel.toLowerCase()}`
+                : "pas de donnée";
+            })()}
           </>
         ) : (
           "Survolez une zone pour voir sa valeur."
@@ -459,6 +664,54 @@ export function FranceMap({
         valueLabel={valueLabel}
         absent={aTracer > comptees.length ? remplissageAbsent : null}
       />
+
+      {poses.length > 0 && (
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
+          {/* La taille se lit avec une échelle, pas au jugé : trois cercles
+              de référence suffisent, et ils portent leur valeur. */}
+          <span className="inline-flex items-end gap-2">
+            {[valeurMax, valeurMax / 4, valeurMax / 16].map((v) => (
+              <span key={v} className="inline-flex flex-col items-center gap-1">
+                {/* Dessiné en PIXELS mesurés sur la carte, pas en unités de
+                    boîte : c'est la seule façon qu'un cercle de légende ait
+                    la taille du symbole qu'il décrit. */}
+                <svg
+                  width={rayonMax * 2 * pxParUnite}
+                  height={rayonMax * 2 * pxParUnite}
+                  viewBox={`0 0 ${rayonMax * 2} ${rayonMax * 2}`}
+                  aria-hidden="true"
+                >
+                  <circle
+                    cx={rayonMax}
+                    cy={rayonMax * 2 - rayon(v)}
+                    r={rayon(v)}
+                    fill="var(--primary)"
+                    fillOpacity={0.75}
+                    stroke="var(--primary)"
+                  />
+                </svg>
+                <span className="tabular-nums">{formatValue(Math.round(v))}</span>
+              </span>
+            ))}
+          </span>
+          {ordreCategories.map((c, i) => (
+            <span key={c} className="inline-flex items-center gap-1.5">
+              <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+                <circle
+                  cx="7"
+                  cy="7"
+                  r="5"
+                  fill={i === 0 ? "var(--primary)" : "var(--card)"}
+                  fillOpacity={i === 0 ? 0.75 : 1}
+                  stroke="var(--primary)"
+                  strokeWidth={i === 0 ? 1 : 2.5}
+                />
+              </svg>
+              <span>{c}</span>
+            </span>
+          ))}
+        </div>
+      )}
     </figure>
   );
 }

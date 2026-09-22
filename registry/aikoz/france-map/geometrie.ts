@@ -180,6 +180,171 @@ export const OUTRE_MER: ZoneOutreMer[] = [
 ];
 
 /**
+ * Où poser un point dont on ne connaît que la zone.
+ *
+ * Une agence a normalement des coordonnées. Quand elle n'a qu'un code de
+ * département ou de région, on la place au centroïde — pondéré par l'aire,
+ * pas la moyenne des sommets, qui sort dans la mer sur une côte découpée.
+ *
+ * C'est un pis-aller et ça se voit : plusieurs agences du même département
+ * se superposent exactement. Le composant le signale plutôt que de les
+ * disperser au hasard, ce qui inventerait des positions.
+ */
+export const CENTROIDES_REGION: Record<string, [number, number]> = {
+  "11": [492.5, 232.2],
+  "24": [437.7, 351.2],
+  "27": [644.5, 374.5],
+  "28": [339.3, 188.7],
+  "32": [510.3, 109.6],
+  "44": [693.4, 231.4],
+  "52": [272.0, 346.4],
+  "53": [144.3, 269.8],
+  "75": [331.5, 571.5],
+  "76": [463.5, 719.6],
+  "84": [629.8, 542.3],
+  "93": [739.6, 690.9],
+  "94": [967.4, 854.1],
+};
+
+/**
+ * Deux tables et non une : le code « 11 » est l'Île-de-France en région ET
+ * l'Aude en département. Les fusionner écrasait silencieusement l'une par
+ * l'autre — le compilateur l'a dit, sinon une agence de Carcassonne serait
+ * apparue à Paris.
+ */
+export const CENTROIDES_DEPARTEMENT: Record<string, [number, number]> = {
+  "01": [683.5, 484.0],
+  "02": [559.9, 149.2],
+  "03": [537.2, 457.8],
+  "04": [752.1, 675.9],
+  "05": [751.2, 621.6],
+  "06": [814.1, 689.3],
+  "07": [623.4, 616.7],
+  "08": [628.4, 142.8],
+  "09": [417.3, 795.0],
+  "10": [600.0, 271.2],
+  "11": [482.5, 778.1],
+  "12": [502.0, 663.5],
+  "13": [672.3, 733.2],
+  "14": [309.4, 189.6],
+  "15": [501.6, 588.4],
+  "16": [333.7, 520.2],
+  "17": [274.3, 511.8],
+  "18": [490.7, 392.4],
+  "19": [447.4, 558.2],
+  "21": [641.6, 356.1],
+  "22": [144.6, 244.3],
+  "23": [458.0, 487.0],
+  "24": [368.8, 581.1],
+  "25": [747.7, 378.0],
+  "26": [675.1, 622.2],
+  "27": [396.2, 191.2],
+  "28": [418.7, 262.5],
+  "29": [65.8, 255.5],
+  "2A": [961.1, 882.7],
+  "2B": [972.8, 829.8],
+  "30": [607.5, 690.9],
+  "31": [394.4, 751.9],
+  "32": [344.5, 717.9],
+  "33": [276.9, 605.1],
+  "34": [550.5, 731.8],
+  "35": [222.3, 277.5],
+  "36": [429.3, 419.6],
+  "37": [371.4, 371.4],
+  "38": [701.6, 565.0],
+  "39": [705.1, 422.1],
+  "40": [258.4, 687.9],
+  "41": [421.1, 337.7],
+  "42": [604.0, 522.2],
+  "43": [580.1, 580.8],
+  "44": [215.0, 354.3],
+  "45": [481.6, 309.7],
+  "46": [427.4, 629.2],
+  "47": [347.1, 652.3],
+  "48": [559.3, 640.5],
+  "49": [289.2, 355.5],
+  "50": [247.4, 188.6],
+  "51": [604.0, 208.2],
+  "52": [669.7, 288.7],
+  "53": [286.1, 281.6],
+  "54": [728.3, 220.6],
+  "55": [677.3, 202.6],
+  "56": [143.8, 302.2],
+  "57": [759.1, 194.8],
+  "58": [558.0, 387.5],
+  "59": [538.3, 62.7],
+  "60": [488.0, 163.8],
+  "61": [339.0, 237.3],
+  "62": [480.1, 57.9],
+  "63": [534.1, 522.8],
+  "64": [256.6, 757.0],
+  "65": [321.8, 779.5],
+  "66": [490.0, 827.2],
+  "67": [818.1, 227.6],
+  "68": [804.5, 307.6],
+  "69": [636.1, 507.6],
+  "70": [727.6, 332.3],
+  "71": [627.9, 432.4],
+  "72": [342.9, 298.7],
+  "73": [760.3, 541.8],
+  "74": [756.8, 487.7],
+  "75": [482.3, 217.8],
+  "76": [399.5, 138.4],
+  "77": [520.2, 240.3],
+  "78": [449.9, 221.4],
+  "79": [301.7, 437.4],
+  "80": [479.0, 110.2],
+  "81": [465.6, 711.5],
+  "82": [403.8, 681.2],
+  "83": [754.8, 740.5],
+  "84": [677.6, 688.2],
+  "85": [236.7, 422.6],
+  "86": [353.9, 438.5],
+  "87": [404.5, 505.3],
+  "88": [744.7, 277.5],
+  "89": [561.5, 316.9],
+  "90": [782.9, 330.8],
+  "91": [475.5, 250.3],
+  "92": [475.9, 218.5],
+  "93": [490.9, 211.9],
+  "94": [490.2, 225.6],
+  "95": [468.8, 195.5],
+};
+
+/**
+ * Projette un point WGS84 (longitude, latitude) dans la boîte de la carte.
+ *
+ * C'est la même Lambert-93 que les contours, en vingt lignes. Elle est ici
+ * parce qu'un contour se pré-calcule mais pas un point : une agence, un
+ * concurrent, une adresse arrivent à l'exécution.
+ *
+ * Valable pour la MÉTROPOLE. Hors de son domaine — l'outre-mer, l'étranger —
+ * elle renvoie des coordonnées qui sortent de la boîte ; le composant les
+ * écarte plutôt que de les dessiner n'importe où.
+ */
+export function projeter(lon: number, lat: number): [number, number] {
+  const A = 6378137;
+  const E = 0.08181919104281579;
+  const N = 0.7256077650532701;
+  const F = 1.8428979224021056;
+  const RHO0 = 6055612.049875979;
+  const LON0 = 0.05235987755982989;
+  const rad = (d: number) => (d * Math.PI) / 180;
+  const phi = rad(lat);
+  const t =
+    Math.tan(Math.PI / 4 - phi / 2) /
+    Math.pow((1 - E * Math.sin(phi)) / (1 + E * Math.sin(phi)), E / 2);
+  const rho = A * F * Math.pow(t, N);
+  const theta = N * (rad(lon) - LON0);
+  const x = 700000 + rho * Math.sin(theta);
+  const y = 6600000 + RHO0 - rho * Math.cos(theta);
+  return [
+    Math.round((x - 101735.99999983341) * 0.0008766754363431523 * 10) / 10,
+    Math.round((7110412.999998961 - y) * 0.0008766754363431523 * 10) / 10,
+  ];
+}
+
+/**
  * La boîte englobante de chaque département, dans la boîte commune.
  *
  * Elle sert à CADRER quand on descend au niveau commune : au cadrage

@@ -389,6 +389,130 @@ export const CommunesAbsentes: Story = {
   },
 };
 
+// Un jeu de test, en attendant l'API : des agences avec leurs coordonnées, et
+// des concurrents. C'est le contrat que devra rendre la source réelle —
+// `lon`/`lat`, un nom, une valeur, une catégorie. Rien d'autre.
+const AGENCES = [
+  { id: "a1", nom: "Lyon Part-Dieu", lon: 4.8594, lat: 45.7606, valeur: 284, categorie: "Nos agences" },
+  { id: "a2", nom: "Paris Opéra", lon: 2.3318, lat: 48.8709, valeur: 412, categorie: "Nos agences" },
+  { id: "a3", nom: "Marseille Prado", lon: 5.3906, lat: 43.2707, valeur: 196, categorie: "Nos agences" },
+  { id: "a4", nom: "Bordeaux Centre", lon: -0.5792, lat: 44.8378, valeur: 148, categorie: "Nos agences" },
+  { id: "a5", nom: "Lille Grand Place", lon: 3.0635, lat: 50.6371, valeur: 131, categorie: "Nos agences" },
+  { id: "a6", nom: "Nantes Graslin", lon: -1.5597, lat: 47.2129, valeur: 97, categorie: "Nos agences" },
+  { id: "a7", nom: "Strasbourg Kléber", lon: 7.7455, lat: 48.5832, valeur: 84, categorie: "Nos agences" },
+  { id: "c1", nom: "Concurrent — Lyon Bellecour", lon: 4.8320, lat: 45.7578, valeur: 221, categorie: "Concurrence" },
+  { id: "c2", nom: "Concurrent — Paris Bourse", lon: 2.3412, lat: 48.8687, valeur: 305, categorie: "Concurrence" },
+  { id: "c3", nom: "Concurrent — Marseille Joliette", lon: 5.3650, lat: 43.3050, valeur: 174, categorie: "Concurrence" },
+];
+
+export const AgencesEtConcurrence: Story = {
+  name: "Des agences, pas des surfaces",
+  args: {
+    valueLabel: "Avis reçus",
+    values: {},
+    points: AGENCES,
+    categories: ["Nos agences", "Concurrence"],
+    height: 420,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Une agence n'est pas une surface. La choroplèthe ne sait pas la " +
+          "montrer, et la teinte d'un département ne dit rien de ce qui s'y " +
+          "passe rue par rue. Les **symboles proportionnels** répondent à ça — " +
+          "et au défaut de la choroplèthe par la même occasion : un point " +
+          "n'a pas d'aire propre, donc rien ne ment sur sa taille.\n\n" +
+          "**L'aire suit la valeur, pas le rayon.** Un rayon proportionnel " +
+          "ferait paraître une valeur double quatre fois plus grosse. La " +
+          "légende donne trois cercles de référence avec leur valeur : une " +
+          "taille ne se lit pas au jugé.\n\n" +
+          "**La catégorie ne tient pas à la couleur** : la première est " +
+          "pleine, les suivantes cerclées. Quelqu'un qui ne distingue pas le " +
+          "bleu du rouge voit toujours la différence entre nos agences et la " +
+          "concurrence.\n\n" +
+          "Le contrat de données tient sur `lon`/`lat` — ce que toute source " +
+          "d'adresses sait rendre. Les codes de zone ne sont qu'un repli.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const carte = canvasElement.querySelector('[data-carte="metropole"]')!;
+    const cercles = carte.querySelectorAll("circle");
+    await expect(cercles).toHaveLength(AGENCES.length);
+    // L'aire suit la valeur : le rapport du plus gros au plus petit rayon
+    // doit être celui des RACINES, pas celui des valeurs. (Les cercles sont
+    // triés par taille dans le DOM, on compare donc les extrêmes, pas des
+    // indices.)
+    const r = [...cercles].map((c) => Number(c.getAttribute("r")));
+    const v = AGENCES.map((a) => a.valeur);
+    const attendu = Math.sqrt(Math.max(...v) / Math.min(...v));
+    await expect(Math.abs(Math.max(...r) / Math.min(...r) - attendu)).toBeLessThan(0.05);
+    // Les deux catégories se distinguent par l'ÉPAISSEUR, pas par la teinte.
+    const epaisseurs = new Set([...cercles].map((c) => c.getAttribute("stroke-width")));
+    await expect(epaisseurs.size).toBe(2);
+
+    // Tracés du plus GRAND au plus petit : sinon un gros symbole en recouvre
+    // un petit posé à côté, et le petit disparaît complètement. Vu sur Paris,
+    // où une agence de 412 passait sous un concurrent de 305.
+    const rayons = [...cercles].map((c) => Number(c.getAttribute("r")));
+    await expect(rayons).toEqual([...rayons].sort((a, b) => b - a));
+
+    // Et la légende de taille est à la MÊME échelle que la carte : une
+    // échelle de référence qui ment est pire que pas d'échelle du tout.
+    const boite = carte.getBoundingClientRect();
+    const vb = (carte as SVGSVGElement).viewBox.baseVal;
+    const pxParUnite = Math.min(boite.width / vb.width, boite.height / vb.height);
+    const surCarte = Math.max(...rayons) * pxParUnite;
+    const enLegende = Math.max(
+      ...[...canvasElement.querySelectorAll("svg:not([data-carte]) circle")]
+        .map((c) => c.getBoundingClientRect().width / 2)
+        .filter((w) => w > 1),
+    );
+    await expect(Math.abs(surCarte - enLegende)).toBeLessThan(1);
+  },
+};
+
+export const UnPointQuOnNeSaitPasPlacer: Story = {
+  name: "Un point qu'on ne sait pas placer, on le dit",
+  args: {
+    values: {},
+    points: [
+      { id: "ok", nom: "Lyon Part-Dieu", lon: 4.8594, lat: 45.7606, valeur: 284 },
+      { id: "approx", nom: "Agence du Rhône", departement: "69", valeur: 120 },
+      { id: "perdu", nom: "Agence sans adresse", valeur: 60 },
+      { id: "loin", nom: "Agence de Fort-de-France", lon: -61.06, lat: 14.6, valeur: 40 },
+    ],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Trois cas, trois traitements.\n\n" +
+          "Le point qui a ses coordonnées est posé au bon endroit. Celui qui " +
+          "n'a qu'un code de département est posé au **centroïde** de la zone " +
+          "— pondéré par l'aire, pas la moyenne des sommets, qui sort dans la " +
+          "mer sur une côte découpée — et le survol dit « position approchée ». " +
+          "Celui qui n'a rien, et celui dont les coordonnées sortent du " +
+          "domaine de Lambert-93 (l'outre-mer, l'étranger), **ne sont pas " +
+          "dessinés** — et la carte l'annonce.\n\n" +
+          "Une carte qui oublie des points sans le dire ment par omission. " +
+          "C'est le même principe que la hachure du sans-donnée.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const carte = canvasElement.querySelector('[data-carte="metropole"]')!;
+    // Deux points posés sur quatre.
+    await expect(carte.querySelectorAll("circle")).toHaveLength(2);
+    // Et les deux autres sont annoncés, pas escamotés.
+    const avis = [...canvasElement.querySelectorAll('[role="status"]')]
+      .map((e) => e.textContent ?? "")
+      .join(" ");
+    await expect(avis).toMatch(/2 points sans position connue/);
+  },
+};
+
 export const LEchelleTientDansLesDeuxThemes: Story = {
   name: "L'échelle se lit dans les deux thèmes, sur les quatre marques",
   parameters: {
