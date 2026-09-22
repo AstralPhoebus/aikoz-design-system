@@ -91,7 +91,10 @@ const PAIRES: Array<{
   { avant: "--destructive-text", fond: "--card", seuil: 4.5, nature: "texte", quoi: "texte d'erreur" },
   { avant: "--warning", fond: "--card", seuil: 4.5, nature: "texte", quoi: "texte d'avertissement" },
   { avant: "--neutral-text", fond: "--card", seuil: 4.5, nature: "texte", quoi: "texte de variation neutre" },
-  { avant: "--on-inverse", fond: "--surface-inverse", seuil: 4.5, nature: "texte", quoi: "texte sur surface à contre-thème" },
+  { avant: "--on-hero", fond: "--surface-hero", seuil: 4.5, nature: "texte", quoi: "texte sur la carte héroïne" },
+  // Le dégradé va de `hero` à `hero-to` : le second arrêt porte le texte lui
+  // aussi, et c'est LUI le plus exposé en sombre — il est plus foncé.
+  { avant: "--on-hero", fond: "--surface-hero-to", seuil: 4.5, nature: "texte", quoi: "texte sur le second arrêt de la carte héroïne" },
   // Objets graphiques et composants : WCAG 1.4.11, 3:1.
   { avant: "--input", fond: "--card", seuil: 3.0, nature: "element", quoi: "bordure de champ sur carte" },
   { avant: "--input", fond: "--background", seuil: 3.0, nature: "element", quoi: "bordure de champ sur page" },

@@ -6,7 +6,7 @@
   --color-text-primary: oklch(1 0 0); /** Texte principal. Blanc pur, comme le bundle marketing existant. */
   --color-nav-on: oklch(1 0 0);
   --color-surface-accent: var(--color-aquamarine-900); /** Fond teinté d'accent, très sombre — pour une zone à souligner sans la peindre en aqua. */
-  --color-surface-inverse-to: var(--color-neutral-50); /** Second arrêt du dégradé de `surface.inverse`. Même rampe, deux paliers d'écart : un dégradé qui change de teinte se lit comme une image, pas comme une surface. */
+  --color-surface-hero-to: var(--color-neutral-50); /** Fond de LA carte qui prime — une seule par écran. Le registre MARKETING garde l'inversion : une page de site se regarde quelques minutes et cherche l'impact, un tableau de bord se regarde une heure et cherche le confort. C'est exactement ce que la couche `data-register` sert à dire. */
   --color-text-secondary: var(--color-ultramarine-200); /** Texte secondaire TEINTÉ BLEU, et non gris comme en dashboard dark. C'est la différence de registre la plus visible : le site reste dans la famille de marque jusque dans son texte discret. */
   --color-text-muted: var(--color-ultramarine-200); /** Alias de secondary — même teinte bleutée. */
   --color-text-brand: var(--color-ultramarine-300); /** Lien sur fond sombre — l'ultramarine.500 des fonds clairs n'y passe pas. */
@@ -50,8 +50,10 @@
   --color-surface-brand-subtle: var(--color-ink-800); /** Teinte de marque discrète. */
   --color-surface-action: var(--color-brand-accent); /** LE SEUL aplat en aquamarine du registre : le CTA. C'est la règle qui manquait au lead magnet, où l'accent servait à la fois de texte, de fond, de contour et d'ombre — une couleur qui sert à tout ne signale plus rien. */
   --color-surface-action-secondary: var(--color-brand-secondary-subtle); /** Aplat d'action secondaire — palier discret de la secondaire de la marque. */
-  --color-surface-inverse: var(--color-ink-50); /** Fond d'une carte à CONTRE-THÈME : sombre en thème clair, clair en thème sombre. Premier arrêt du dégradé. Sa raison d'être est la hiérarchie — une seule carte par écran doit primer sur toutes les autres, et l'inversion y arrive sans ajouter de couleur. */
-  --color-surface-on-inverse: var(--color-ink-900); /** Texte porté par `surface.inverse`. Existe déjà sous le nom `text.inverse` ; ce token le nomme depuis le rôle de surface, pour qu'on ne puisse pas poser l'un sans l'autre. */
+  --color-surface-hero: var(--color-ink-50); /** Fond de LA carte qui prime — une seule par écran. Le registre MARKETING garde l'inversion : une page de site se regarde quelques minutes et cherche l'impact, un tableau de bord se regarde une heure et cherche le confort. C'est exactement ce que la couche `data-register` sert à dire. */
+  --color-surface-hero-glow: var(--color-brand-secondary); /** Lueur d'angle de la carte héroïne — c'est ELLE qui porte la marque, le fond restant commun aux quatre. Elle valait `secondary` dans les deux thèmes ; en sombre, depuis que la carte est un panneau allumé à L=0,470, `secondary` (L=0,92, chroma 0,02 à 0,06) s'y est retrouvé trop clair et trop pâle pour se voir : la carte d'ADP ne se distinguait plus de celle d'Extime. En sombre elle prend donc `primary`, dont la clarté est celle du panneau (0,46 à 0,52) et la chroma dix fois supérieure : la lueur se lit alors en TEINTE et non en clarté, ce qui est exactement son rôle. */
+  --color-surface-on-hero: var(--color-ink-900); /** Fond de LA carte qui prime — une seule par écran. Le registre MARKETING garde l'inversion : une page de site se regarde quelques minutes et cherche l'impact, un tableau de bord se regarde une heure et cherche le confort. C'est exactement ce que la couche `data-register` sert à dire. */
+  --color-surface-inverse-to: var(--color-surface-hero-to); /** ANCIEN NOM de `surface.hero-to`. */
   --color-surface-action-edge: var(--color-brand-primary-edge); /** Liseré de l'action primaire — voir le thème produit. */
   --color-text-tertiary: var(--color-ink-300); /** Légendes, dates, mentions. */
   --color-text-disabled: var(--color-ink-500);
@@ -73,5 +75,7 @@
   --color-nav-border: var(--color-ink-700); /** Séparateur INTERNE de la barre de navigation — entre deux groupes d'entrées. 1,44:1 en clair, 1,22:1 en sombre : volontairement discret, et hors du champ de WCAG 1.4.11, qui vise les limites nécessaires pour identifier un composant ou son état. Ici les composants sont les liens, et ils sont perceptibles. La limite EXTERNE de la barre, elle, est portée par --border-strong : la surface de la barre ne se détache de la page que de 1,09:1, il faut donc un trait qui la délimite. */
   --color-nav-accent: var(--color-brand-accent); /** Entrée active — le trait, pas le fond. */
   --color-rating-empty: var(--color-ink-600); /** Étoile vide — repère d'échelle, décoratif. */
+  --color-surface-inverse: var(--color-surface-hero); /** ANCIEN NOM de `surface.hero`. À ne plus employer. */
+  --color-surface-on-inverse: var(--color-surface-on-hero); /** ANCIEN NOM de `surface.on-hero`. */
   --color-text-on-accent: var(--color-brand-on-accent); /** Texte posé sur le CTA aquamarine. */
 }

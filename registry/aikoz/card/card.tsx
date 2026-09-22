@@ -47,16 +47,29 @@ const cardVariants = cva("flex flex-col", {
       /** Ni bord ni ombre : un simple regroupement, quand le conteneur cadre déjà. */
       bare: "bg-card text-card-foreground rounded-[var(--radius)]",
       /**
-       * Carte à CONTRE-THÈME : sombre en thème clair, claire en thème sombre.
+       * LA carte qui prime — une seule par écran.
        *
-       * Sa raison d'être est la hiérarchie, pas la décoration. Dans une grille
-       * où toutes les cartes sont blanches, aucune ne prime ; l'inversion fait
-       * primer la principale sans ajouter de couleur au système ni changer sa
+       * Dans une grille où toutes les cartes se ressemblent, aucune ne prime.
+       * Celle-ci prime sans ajouter de couleur au système ni changer sa
        * taille. C'est le geste des tableaux de bord bancaires — une carte
        * noire pour le solde, des cartes blanches pour le reste.
        *
+       * **Le rôle est la hiérarchie, pas l'inversion.** La variante s'est
+       * longtemps appelée `inverse`, du nom de son MOYEN : retourner le
+       * thème. Le moyen ne marchait qu'en clair. Mesuré sur le tableau de
+       * bord, la carte valait 0,05 fois la clarté des autres en thème clair —
+       * elle s'enfonce, c'est reposant — et **15,3 fois** en thème sombre :
+       * 120 000 px² de pleine clarté sur une page à 0,001 de luminance, le
+       * seul point de l'écran qui éblouisse un œil adapté au noir. Le
+       * contraste était symétrique, le confort ne l'était pas.
+       *
+       * En sombre elle est donc devenue un **panneau allumé** plutôt qu'un
+       * aplat blanc : 2,5 fois la clarté d'une carte, un saut de clarté OKLCH
+       * de 0,223 à 0,470. OKLCH étant perceptuellement uniforme, ce saut se
+       * voit bien plus que le rapport ne le laisse croire.
+       *
        * D'où la règle d'emploi : **une seule par écran**. Deux cartes
-       * inversées ne hiérarchisent plus rien, elles font un damier.
+       * héroïnes ne hiérarchisent plus rien, elles font un damier.
        *
        * Le dégradé se lit en deux couches. La base va d'un palier de la rampe
        * de chrome à un autre — même rampe, donc la surface reste une surface :
@@ -65,10 +78,26 @@ const cardVariants = cva("flex flex-col", {
        * `data-brand` : marine vers campanule chez ADP, encre vers vert chez
        * Extime. C'est là que la marque se voit vraiment.
        */
+      heros: [
+        "rounded-[var(--radius)] border border-transparent",
+        "text-[var(--on-hero)]",
+        "[background:radial-gradient(130%_150%_at_88%_0%,color-mix(in_oklch,var(--hero-glow),transparent_58%)_0%,transparent_62%),linear-gradient(135deg,var(--surface-hero)_0%,var(--surface-hero-to)_100%)]",
+        "[box-shadow:var(--role-elevation-card)]",
+        "transition-[box-shadow] duration-150 ease-out",
+        "hover:[box-shadow:var(--role-elevation-card-hover)]",
+      ].join(" "),
+      /**
+       * ANCIEN NOM de `heros`, rendu à l'identique.
+       *
+       * Louis consomme le registry PUBLIÉ : retirer une valeur de variante
+       * casserait son application au prochain `shadcn add`. Elle reste donc,
+       * et pointe sur le même rendu. À ne plus employer — le nom décrivait
+       * le moyen, pas le rôle.
+       */
       inverse: [
         "rounded-[var(--radius)] border border-transparent",
-        "text-[var(--on-inverse)]",
-        "[background:radial-gradient(130%_150%_at_88%_0%,color-mix(in_oklch,var(--secondary),transparent_58%)_0%,transparent_62%),linear-gradient(135deg,var(--surface-inverse)_0%,var(--surface-inverse-to)_100%)]",
+        "text-[var(--on-hero)]",
+        "[background:radial-gradient(130%_150%_at_88%_0%,color-mix(in_oklch,var(--hero-glow),transparent_58%)_0%,transparent_62%),linear-gradient(135deg,var(--surface-hero)_0%,var(--surface-hero-to)_100%)]",
         "[box-shadow:var(--role-elevation-card)]",
         "transition-[box-shadow] duration-150 ease-out",
         "hover:[box-shadow:var(--role-elevation-card-hover)]",

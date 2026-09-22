@@ -75,20 +75,40 @@
         "$value": "{color.brand.secondary-subtle}",
         "$description": "Aplat d'action secondaire — palier discret de la secondaire de la marque."
       },
-      "inverse": {
+      "hero": {
         "$type": "color",
         "$value": "{color.ink.50}",
-        "$description": "Fond d'une carte à CONTRE-THÈME : sombre en thème clair, clair en thème sombre. Premier arrêt du dégradé. Sa raison d'être est la hiérarchie — une seule carte par écran doit primer sur toutes les autres, et l'inversion y arrive sans ajouter de couleur."
+        "$description": "Fond de LA carte qui prime — une seule par écran. Le registre MARKETING garde l'inversion : une page de site se regarde quelques minutes et cherche l'impact, un tableau de bord se regarde une heure et cherche le confort. C'est exactement ce que la couche `data-register` sert à dire."
+      },
+      "hero-to": {
+        "$type": "color",
+        "$value": "{color.neutral.50}",
+        "$description": "Fond de LA carte qui prime — une seule par écran. Le registre MARKETING garde l'inversion : une page de site se regarde quelques minutes et cherche l'impact, un tableau de bord se regarde une heure et cherche le confort. C'est exactement ce que la couche `data-register` sert à dire."
+      },
+      "hero-glow": {
+        "$type": "color",
+        "$value": "{color.brand.secondary}",
+        "$description": "Lueur d'angle de la carte héroïne — c'est ELLE qui porte la marque, le fond restant commun aux quatre. Elle valait `secondary` dans les deux thèmes ; en sombre, depuis que la carte est un panneau allumé à L=0,470, `secondary` (L=0,92, chroma 0,02 à 0,06) s'y est retrouvé trop clair et trop pâle pour se voir : la carte d'ADP ne se distinguait plus de celle d'Extime. En sombre elle prend donc `primary`, dont la clarté est celle du panneau (0,46 à 0,52) et la chroma dix fois supérieure : la lueur se lit alors en TEINTE et non en clarté, ce qui est exactement son rôle."
+      },
+      "on-hero": {
+        "$type": "color",
+        "$value": "{color.ink.900}",
+        "$description": "Fond de LA carte qui prime — une seule par écran. Le registre MARKETING garde l'inversion : une page de site se regarde quelques minutes et cherche l'impact, un tableau de bord se regarde une heure et cherche le confort. C'est exactement ce que la couche `data-register` sert à dire."
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": "{color.surface.hero}",
+        "$description": "ANCIEN NOM de `surface.hero`. À ne plus employer."
       },
       "inverse-to": {
         "$type": "color",
-        "$value": "{color.neutral.50}",
-        "$description": "Second arrêt du dégradé de `surface.inverse`. Même rampe, deux paliers d'écart : un dégradé qui change de teinte se lit comme une image, pas comme une surface."
+        "$value": "{color.surface.hero-to}",
+        "$description": "ANCIEN NOM de `surface.hero-to`."
       },
       "on-inverse": {
         "$type": "color",
-        "$value": "{color.ink.900}",
-        "$description": "Texte porté par `surface.inverse`. Existe déjà sous le nom `text.inverse` ; ce token le nomme depuis le rôle de surface, pour qu'on ne puisse pas poser l'un sans l'autre."
+        "$value": "{color.surface.on-hero}",
+        "$description": "ANCIEN NOM de `surface.on-hero`."
       },
       "action-edge": {
         "$type": "color",

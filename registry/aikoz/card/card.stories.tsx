@@ -74,7 +74,7 @@ export const LaCarteAContreTheme: Story = {
   },
   render: () => (
     <div className="grid gap-4 sm:grid-cols-3">
-      <Card surface="inverse" density="large" className="sm:col-span-2">
+      <Card surface="heros" density="large" className="sm:col-span-2">
         <span className="text-xs font-semibold uppercase tracking-widest opacity-70">
           Satisfaction globale
         </span>

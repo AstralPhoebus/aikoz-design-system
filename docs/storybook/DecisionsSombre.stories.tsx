@@ -150,31 +150,34 @@ function Ligne({ quoi, enfants }: { quoi: string; enfants: React.ReactNode }) {
 
 const HERO_OPTIONS = [
   {
-    cle: "inversion",
-    titre: "A — l'inversion actuelle",
-    fond: "var(--surface-inverse)",
-    texte: "var(--on-inverse)",
+    cle: "ancienne",
+    titre: "A — l'ancienne inversion (retirée)",
+    // La valeur littérale du palier retiré, `ink.50`. Elle n'est plus dans
+    // aucun rôle : la citer en dur est le seul moyen de garder la
+    // comparaison lisible une fois la décision prise.
+    fond: "oklch(0.9591 0.0081 278.636)",
+    texte: "oklch(0.1857 0.0133 271.174)",
     pour: "La hiérarchie sans ajouter de couleur : une seule carte prime, et elle le dit en retournant le thème.",
     contre:
-      "En sombre elle devient la plus grande surface claire de l'écran, quinze fois la clarté des autres cartes. C'est le seul endroit de la page où l'œil, adapté au noir, reçoit un aplat de pleine clarté.",
+      "Quinze fois la clarté des autres cartes. 120 000 px² de pleine clarté sur une page à 0,001 de luminance — le seul point de l'écran qui agresse un œil adapté au noir. Et la lueur de marque, posée sur du blanc, ne se voyait plus : les quatre marques rendaient la même carte.",
   },
   {
-    cle: "elevee",
-    titre: "B — une surface simplement plus haute",
-    fond: "var(--popover)",
-    texte: "var(--foreground)",
-    pour: "Le même vocabulaire que le reste du thème sombre : la profondeur est portée par la clarté, un cran au-dessus des autres cartes. Rien n'éblouit.",
+    cle: "allume",
+    titre: "B — le panneau allumé (retenu)",
+    fond: "var(--surface-hero)",
+    texte: "var(--on-hero)",
+    pour: "Un saut de clarté OKLCH de 0,223 à 0,470 — perceptuellement uniforme, donc bien plus visible que le rapport ne le laisse croire. La lueur se lit en TEINTE et non en clarté : les quatre marques redeviennent distinctes.",
     contre:
-      "La hiérarchie repose sur un écart de clarté modeste. Sur une capture d'écran de présentation, la carte héroïne ne saute plus aux yeux.",
+      "Deux fois et demie les autres cartes au lieu de quinze : sur une capture d'écran de présentation, la carte prime moins violemment.",
   },
   {
-    cle: "accent",
-    titre: "C — la couleur de marque en aplat",
-    fond: "var(--primary)",
-    texte: "var(--primary-foreground)",
-    pour: "La carte la plus importante porte la marque. La hiérarchie est immédiate, et elle est signée.",
+    cle: "plusFort",
+    titre: "C — un cran plus haut (ink.400)",
+    fond: "oklch(0.5856 0.0139 260.879)",
+    texte: "var(--on-hero)",
+    pour: "Quatre fois les autres cartes : si B te paraît trop discret, c'est ce cran-là qu'il faut, et c'est un palier de rampe à changer.",
     contre:
-      "Un aplat de couleur vive à cette taille dépend entièrement de la marque : sous Generali (rouge très chromatique) il pèse beaucoup plus que sous Extime.",
+      "Le texte blanc y tombe à APCA 74, sous le plancher de 75 d'un rôle de texte. C'est pour ça qu'il n'a pas été retenu — la marche d'après est déjà trop loin.",
   },
 ] as const;
 
@@ -409,15 +412,24 @@ export const DeuxArbitrages: Story = {
 
         <section aria-labelledby="deco-hero" className="flex flex-col gap-3">
           <h2 id="deco-hero" className="m-0 text-lg font-semibold text-foreground">
-            1. La carte héroïne doit-elle rester à contre-thème&nbsp;?
+            1. La carte héroïne — décidé le 22/09
           </h2>
           <p className="m-0 max-w-3xl text-sm text-muted-foreground">
             Mesuré sur le tableau de bord&nbsp;: en clair, la carte héroïne est
             dix-neuf fois plus sombre que les autres — elle s'enfonce, et c'est
-            reposant. En sombre, la même règle la rend quinze fois plus claire :
-            elle devient le seul aplat de pleine clarté d'une page noire. Le
-            contraste est symétrique&nbsp;; le confort ne l'est pas, parce que
-            l'œil qui regarde une page sombre est adapté au noir.
+            reposant. En sombre, la même règle la rendait quinze fois plus
+            claire&nbsp;: le seul aplat de pleine clarté d'une page noire. Le
+            contraste était symétrique&nbsp;; le confort ne l'était pas, parce
+            que l'œil qui regarde une page sombre est adapté au noir.
+          </p>
+          <p className="m-0 max-w-3xl text-sm text-muted-foreground">
+            <strong className="text-foreground">B est retenu</strong>, et le
+            rôle s'appelle désormais <code className="font-mono text-xs">surface.hero</code>&nbsp;:
+            il nomme ce qu'il fait — primer — et non le moyen par lequel il y
+            arrivait. Le clair n'a pas bougé d'un pixel. Si B te paraît trop
+            discret, C dit à quoi ressemble le cran au-dessus et ce qu'il
+            coûte&nbsp;: c'est un palier de rampe à changer, et un garde-fou de
+            build refuse désormais toute valeur hors bande.
           </p>
           <DecisionHero />
         </section>

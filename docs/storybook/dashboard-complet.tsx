@@ -219,7 +219,7 @@ function VueSynthese() {
       {/* Une seule carte à contre-thème sur l'écran : c'est ce qui la rend
           hiérarchique. Deux feraient un damier. */}
       <div className="grid gap-4 lg:grid-cols-4">
-        <Card surface="inverse" density="large" className="lg:col-span-2">
+        <Card surface="heros" density="large" className="lg:col-span-2">
           <span className="text-xs font-semibold uppercase tracking-widest opacity-70">
             Satisfaction globale
           </span>
@@ -243,14 +243,14 @@ function VueSynthese() {
                 >
                   <defs>
                     <linearGradient id="heroComplet" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="var(--on-inverse)" stopOpacity={0.35} />
-                      <stop offset="100%" stopColor="var(--on-inverse)" stopOpacity={0} />
+                      <stop offset="0%" stopColor="var(--on-hero)" stopOpacity={0.35} />
+                      <stop offset="100%" stopColor="var(--on-hero)" stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <Area
                     type="monotone"
                     dataKey="v"
-                    stroke="var(--on-inverse)"
+                    stroke="var(--on-hero)"
                     strokeWidth={2}
                     fill="url(#heroComplet)"
                     dot={false}

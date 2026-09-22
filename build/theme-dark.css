@@ -7,7 +7,7 @@
   --color-text-on-action: oklch(1 0 0); /** Libellé de l'action primaire — BLANC, comme en clair. Il valait l'encre sombre parce que le fond de l'action était l'accent, clair par construction. Le fond étant redevenu la couleur primaire de la marque, vive, le blanc reprend sa place et tient APCA 84 à 90 selon la marque. */
   --color-nav-on: oklch(1 0 0);
   --color-surface-track: var(--color-neutral-700); /** Piste d'une jauge — repère d'échelle. 1,60:1 sur --card. Ne pas utiliser --muted ici : en dark il vaut exactement la couleur de --card (1,00:1), la piste y serait strictement invisible. */
-  --color-surface-inverse-to: var(--color-neutral-50); /** Second arrêt du dégradé de `surface.inverse`. Même rampe, deux paliers d'écart : un dégradé qui change de teinte se lit comme une image, pas comme une surface. */
+  --color-surface-on-hero: var(--color-neutral-50); /** Texte porté par `surface.hero`. Nommé depuis le rôle de surface pour qu'on ne puisse pas poser l'un sans l'autre. */
   --color-text-secondary: var(--color-neutral-200); /** Gris du texte secondaire. Relevé de neutral.300 à neutral.200 : le 300 ne valait que 63,6 en APCA sur la carte sombre, sous le plancher de 75 d'un rôle de texte, alors qu'il tenait 8,86:1 en WCAG 2. Le 200 vaut 80,2. Inchangé en clair, où le 300 vaut 85. */
   --color-text-tertiary: var(--color-neutral-400);
   --color-text-disabled: var(--color-neutral-600);
@@ -51,8 +51,10 @@
   --color-surface-accent: var(--color-brand-accent-subtle);
   --color-surface-action: var(--color-brand-primary); /** Fond de l'action primaire — `oklch(0.1857 0.048 268.675)`, comme en clair. Il pointait sur `oklch(0.9098 0.1389 170.506)`, ce qui écrasait les trois couleurs de marque en une seule. */
   --color-surface-action-secondary: var(--color-brand-secondary-subtle); /** Aplat d'action secondaire. Pointait sur `ultramarine.225`, une rampe d'AIKOZ. Passe par le palier discret de la SECONDAIRE de la marque, qui existait déjà. */
-  --color-surface-inverse: var(--color-ink-50); /** Fond d'une carte à CONTRE-THÈME : sombre en thème clair, clair en thème sombre. Premier arrêt du dégradé. Sa raison d'être est la hiérarchie — une seule carte par écran doit primer sur toutes les autres, et l'inversion y arrive sans ajouter de couleur. */
-  --color-surface-on-inverse: var(--color-ink-900); /** Texte porté par `surface.inverse`. Existe déjà sous le nom `text.inverse` ; ce token le nomme depuis le rôle de surface, pour qu'on ne puisse pas poser l'un sans l'autre. */
+  --color-surface-hero: var(--color-ink-500); /** Fond de LA carte qui prime — une seule par écran. Son rôle est la HIÉRARCHIE, pas l'inversion : l'inversion n'était qu'un moyen, et un moyen qui ne marchait qu'en clair. Mesuré sur le tableau de bord, la carte héroïne valait 15,3 fois la clarté des autres cartes en thème sombre — 120 000 px² de pleine clarté sur une page à 0,001 de luminance, le seul point de l'écran qui éblouisse un œil adapté au noir. En clair elle vaut 0,05 fois : elle s'enfonce, et c'est reposant. Le contraste était symétrique, le confort ne l'était pas. En sombre elle devient un PANNEAU ALLUMÉ : 2,5 fois la clarté d'une carte, un saut de clarté OKLCH de 0,223 à 0,470. OKLCH étant perceptuellement uniforme, ce saut se voit bien plus que le rapport ne le laisse croire, et le texte blanc y tient APCA 89 pour un plancher de 75. Le palier au-dessus — ink.400, 4,1 fois — ferait tomber ce texte à 74 : la marche d'après est déjà trop loin. Le fond reste COMMUN aux quatre marques ; c'est la lueur d'angle qui porte `secondary`, donc la marque. */
+  --color-surface-hero-to: var(--color-ink-600); /** Second arrêt du dégradé de `surface.hero`. Même rampe, deux paliers d'écart : un dégradé qui change de teinte se lit comme une image, pas comme une surface. */
+  --color-surface-hero-glow: var(--color-brand-primary); /** Lueur d'angle de la carte héroïne — c'est ELLE qui porte la marque, le fond restant commun aux quatre. Elle valait `secondary` dans les deux thèmes ; en sombre, depuis que la carte est un panneau allumé à L=0,470, `secondary` (L=0,92, chroma 0,02 à 0,06) s'y est retrouvé trop clair et trop pâle pour se voir : la carte d'ADP ne se distinguait plus de celle d'Extime. En sombre elle prend donc `primary`, dont la clarté est celle du panneau (0,46 à 0,52) et la chroma dix fois supérieure : la lueur se lit alors en TEINTE et non en clarté, ce qui est exactement son rôle. */
+  --color-surface-on-inverse: var(--color-surface-on-hero); /** ANCIEN NOM de `surface.on-hero`. */
   --color-surface-action-edge: var(--color-brand-primary-edge); /** Liseré de l'action primaire, pour que sa forme se détache de la carte sombre. */
   --color-text-inverse: var(--color-ink-900);
   --color-text-brand: var(--color-brand-secondary);
@@ -73,5 +75,7 @@
   --color-nav-surface-active: var(--color-ink-800);
   --color-nav-border: var(--color-ink-700); /** Séparateur INTERNE de la barre de navigation — entre deux groupes d'entrées. 1,44:1 en clair, 1,22:1 en sombre : volontairement discret, et hors du champ de WCAG 1.4.11, qui vise les limites nécessaires pour identifier un composant ou son état. Ici les composants sont les liens, et ils sont perceptibles. La limite EXTERNE de la barre, elle, est portée par --border-strong : la surface de la barre ne se détache de la page que de 1,09:1, il faut donc un trait qui la délimite. */
   --color-nav-accent: var(--color-brand-accent);
+  --color-surface-inverse: var(--color-surface-hero); /** ANCIEN NOM de `surface.hero`, conservé pour ne pas casser les consommateurs du registry publié. Il décrivait le MOYEN (inverser) et non le RÔLE (primer) — et le moyen ne marchait qu'en clair. À ne plus employer. */
+  --color-surface-inverse-to: var(--color-surface-hero-to); /** ANCIEN NOM de `surface.hero-to`. */
   --color-text-on-accent: var(--color-brand-on-accent);
 }

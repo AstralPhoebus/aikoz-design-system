@@ -61,10 +61,14 @@
   --ring: var(--color-border-focus); /** shadcn --ring */
   --nav-on: var(--color-nav-on); /** extension DS — texte de la navigation */
   --nav-accent: var(--color-nav-accent); /** extension DS — trait de l'entree courante ; ultramarine en clair, aquamarine en sombre — c'est LUI qui porte l'etat */
-  --surface-inverse: var(--color-surface-inverse); /** extension DS — fond a contre-theme, premier arret du degrade */
-  --surface-inverse-to: var(--color-surface-inverse-to); /** extension DS — second arret du degrade a contre-theme */
-  --on-inverse: var(--color-surface-on-inverse); /** extension DS — texte porte par --surface-inverse */
+  --surface-hero: var(--color-surface-hero); /** extension DS — fond de LA carte qui prime, une seule par écran */
+  --surface-hero-to: var(--color-surface-hero-to); /** extension DS — second arrêt du dégradé de --surface-hero */
+  --hero-glow: var(--color-surface-hero-glow); /** extension DS — lueur d'angle de la carte héroïne, elle porte la marque */
+  --on-hero: var(--color-surface-on-hero); /** extension DS — texte porté par --surface-hero */
   --accent-foreground: var(--color-text-on-accent); /** shadcn --accent-foreground */
+  --surface-inverse: var(--color-surface-inverse); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
+  --surface-inverse-to: var(--color-surface-inverse-to); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
+  --on-inverse: var(--color-surface-on-inverse); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
 }
 
 /**
@@ -105,7 +109,7 @@
   --rating: var(--color-rating-default); /** extension DS — couleur de notation (étoiles pleines), rôle dédié : cf. règle « un rôle manquant = une variable dédiée » */
   --rating-empty: var(--color-rating-empty); /** extension DS — étoile vide, repère décoratif de l'échelle */
   --radius: var(--role-radius-default); /** extension DS — rayon de base (shadcn --radius, dérivé en lg/md/sm par Tailwind) */
-  --surface-inverse-to: var(--color-surface-inverse-to); /** extension DS — second arret du degrade a contre-theme */
+  --on-hero: var(--color-surface-on-hero); /** extension DS — texte porté par --surface-hero */
   --background: var(--color-surface-page); /** shadcn --background */
   --card: var(--color-surface-raised); /** shadcn --card */
   --popover: var(--color-surface-overlay); /** Fond des surfaces qui FLOTTENT — menu, boîte de dialogue, infobulle. Il pointait sur surface.raised, c'est-à-dire sur la carte : en clair l'ombre faisait la séparation, en sombre rien ne la faisait, et tout ce qui flottait était collé au bloc derrière. Il pointe maintenant sur surface.overlay, le palier au-dessus de la carte. */
@@ -124,11 +128,15 @@
   --nav-surface-active: var(--color-nav-surface-active); /** extension DS — voile de l'entree courante ; NE PORTE PAS l'etat a lui seul (1,19:1 en clair) */
   --nav-border: var(--color-nav-border); /** extension DS — separateur de la barre de navigation */
   --nav-accent: var(--color-nav-accent); /** extension DS — trait de l'entree courante ; ultramarine en clair, aquamarine en sombre — c'est LUI qui porte l'etat */
-  --surface-inverse: var(--color-surface-inverse); /** extension DS — fond a contre-theme, premier arret du degrade */
-  --on-inverse: var(--color-surface-on-inverse); /** extension DS — texte porte par --surface-inverse */
+  --surface-hero: var(--color-surface-hero); /** extension DS — fond de LA carte qui prime, une seule par écran */
+  --surface-hero-to: var(--color-surface-hero-to); /** extension DS — second arrêt du dégradé de --surface-hero */
+  --hero-glow: var(--color-surface-hero-glow); /** extension DS — lueur d'angle de la carte héroïne, elle porte la marque */
+  --on-inverse: var(--color-surface-on-inverse); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
   --neutral-text: var(--color-status-neutral-text); /** extension DS — variation neutre d'un indicateur (DeltaBadge ton neutre) */
   --neutral-fill: var(--color-status-neutral-fill); /** extension DS — aplat neutre d'un indicateur */
   --accent-foreground: var(--color-text-on-accent); /** shadcn --accent-foreground */
+  --surface-inverse: var(--color-surface-inverse); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
+  --surface-inverse-to: var(--color-surface-inverse-to); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
 }
 
 /**
@@ -189,10 +197,14 @@
   --ring: var(--color-border-focus); /** shadcn --ring */
   --nav-on: var(--color-nav-on); /** extension DS — texte de la navigation */
   --nav-accent: var(--color-nav-accent); /** extension DS — trait de l'entree courante ; ultramarine en clair, aquamarine en sombre — c'est LUI qui porte l'etat */
-  --surface-inverse: var(--color-surface-inverse); /** extension DS — fond a contre-theme, premier arret du degrade */
-  --surface-inverse-to: var(--color-surface-inverse-to); /** extension DS — second arret du degrade a contre-theme */
-  --on-inverse: var(--color-surface-on-inverse); /** extension DS — texte porte par --surface-inverse */
+  --surface-hero: var(--color-surface-hero); /** extension DS — fond de LA carte qui prime, une seule par écran */
+  --surface-hero-to: var(--color-surface-hero-to); /** extension DS — second arrêt du dégradé de --surface-hero */
+  --hero-glow: var(--color-surface-hero-glow); /** extension DS — lueur d'angle de la carte héroïne, elle porte la marque */
+  --on-hero: var(--color-surface-on-hero); /** extension DS — texte porté par --surface-hero */
   --accent-foreground: var(--color-text-on-accent); /** shadcn --accent-foreground */
+  --surface-inverse: var(--color-surface-inverse); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
+  --surface-inverse-to: var(--color-surface-inverse-to); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
+  --on-inverse: var(--color-surface-on-inverse); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
 }
 
 /**
@@ -230,7 +242,7 @@
   --destructive-text: var(--color-status-error-text); /** extension DS — texte/emphase erreur (utilisé par KpiCard) */
   --rating: var(--color-rating-default); /** extension DS — couleur de notation (étoiles pleines), rôle dédié : cf. règle « un rôle manquant = une variable dédiée » */
   --radius: var(--role-radius-default); /** extension DS — rayon de base (shadcn --radius, dérivé en lg/md/sm par Tailwind) */
-  --surface-inverse-to: var(--color-surface-inverse-to); /** extension DS — second arret du degrade a contre-theme */
+  --surface-hero-to: var(--color-surface-hero-to); /** extension DS — second arrêt du dégradé de --surface-hero */
   --background: var(--color-surface-page); /** shadcn --background */
   --card: var(--color-surface-raised); /** shadcn --card */
   --popover: var(--color-surface-overlay); /** Fond des surfaces qui FLOTTENT — menu, boîte de dialogue, infobulle. Il pointait sur surface.raised, c'est-à-dire sur la carte : en clair l'ombre faisait la séparation, en sombre rien ne la faisait, et tout ce qui flottait était collé au bloc derrière. Il pointe maintenant sur surface.overlay, le palier au-dessus de la carte. */
@@ -252,9 +264,13 @@
   --nav-accent: var(--color-nav-accent); /** extension DS — trait de l'entree courante ; ultramarine en clair, aquamarine en sombre — c'est LUI qui porte l'etat */
   --track: var(--color-surface-track); /** extension DS — piste d'une jauge ; PAS --muted, identique à --card en dark */
   --rating-empty: var(--color-rating-empty); /** extension DS — étoile vide, repère décoratif de l'échelle */
-  --surface-inverse: var(--color-surface-inverse); /** extension DS — fond a contre-theme, premier arret du degrade */
-  --on-inverse: var(--color-surface-on-inverse); /** extension DS — texte porte par --surface-inverse */
+  --surface-hero: var(--color-surface-hero); /** extension DS — fond de LA carte qui prime, une seule par écran */
+  --hero-glow: var(--color-surface-hero-glow); /** extension DS — lueur d'angle de la carte héroïne, elle porte la marque */
+  --on-hero: var(--color-surface-on-hero); /** extension DS — texte porté par --surface-hero */
+  --surface-inverse-to: var(--color-surface-inverse-to); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
   --neutral-text: var(--color-status-neutral-text); /** extension DS — variation neutre d'un indicateur (DeltaBadge ton neutre) */
   --neutral-fill: var(--color-status-neutral-fill); /** extension DS — aplat neutre d'un indicateur */
   --accent-foreground: var(--color-text-on-accent); /** shadcn --accent-foreground */
+  --surface-inverse: var(--color-surface-inverse); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
+  --on-inverse: var(--color-surface-on-inverse); /** ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié. */
 }

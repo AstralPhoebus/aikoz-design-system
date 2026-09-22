@@ -47,6 +47,20 @@
         },
         "$description": "Chrome sombre, palier 400 — **identique pour les quatre marques**, comme en thème clair. Clarté de l'échelle du thème (0.5856), teinte et chroma interpolés sur la rampe NEUTRE (0.0139 / 260.879°), celle qui fait déjà les fonds en clair. Le fond ne porte pas la marque : la marque se lit sur les ÉLÉMENTS — bouton, accent, focus, séries, lueur, logo. L'échelle est déclarée dans `scripts/ink-sombre.py` et n'appartient à aucune marque ; un garde-fou de build échoue si un fichier sombre s'en écarte."
       },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [
+            0.47,
+            0.0145,
+            265.0
+          ],
+          "alpha": 1,
+          "hex": "#575b63"
+        },
+        "$description": "Palier ajouté le 22/09/2026 pour la carte héroïne en sombre. La rampe sautait de 400 (L=0,586) à 600 (L=0,355) : le premier fait tomber le texte blanc à APCA 74, sous le plancher de 75 ; le second ne vaut que 1,6 fois la clarté d'une carte et ne prime sur rien. Le 500 vaut 2,5 fois la carte et tient APCA 89."
+      },
       "600": {
         "$type": "color",
         "$value": {

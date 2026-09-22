@@ -349,13 +349,16 @@ console.log(`build/tailwind-colors.mjs — ${varsBridge.length} couleurs exposé
 const bridge = bridge0;
 
 /**
- * Résout `--background` jusqu'à sa valeur `oklch()` et rend sa clarté.
+ * Résout une variable jusqu'à sa valeur `oklch()` et rend ses composants.
  *
  * Le bridge pointe vers un rôle de thème, qui pointe vers une primitive. On
  * suit la chaîne dans les fichiers générés, en préférant le bloc du MÊME
  * sélecteur — sans quoi le thème sombre se résoudrait sur les valeurs claires.
+ *
+ * Il ne savait suivre que `--background` ; la carte héroïne a demandé d'en
+ * suivre d'autres, et rien ne justifiait qu'il reste spécialisé.
  */
-function resoudreClarte(bloc, selecteur) {
+function resoudreOklch(bloc, selecteur, nomDepart = 'background') {
   const sources = ['build/theme-light.css','build/theme-dark.css','build/theme-marketing-light.css','build/theme-marketing.css','build/primitives.css','build/brand-aikoz.css']
     .filter((f) => fs.existsSync(f))
     .map((f) => ({ fichier: f, contenu: fs.readFileSync(f, 'utf8') }));
@@ -375,12 +378,16 @@ function resoudreClarte(bloc, selecteur) {
     return null;
   };
 
-  let valeur = (bloc.match(/--background:\s*([^;]+);/) || [])[1];
+  let valeur =
+    (bloc.match(new RegExp(`--${nomDepart}:\\s*([^;]+);`)) || [])[1] ??
+    cherche(nomDepart);
   if (!valeur) return null;
   valeur = valeur.trim();
   for (let i = 0; i < 8; i++) {
-    const direct = valeur.match(/oklch\(([\d.]+)/);
-    if (direct) return parseFloat(direct[1]);
+    const direct = valeur.match(/oklch\(\s*([\d.]+)\s+([\d.]+)\s+([\d.]+)/);
+    if (direct) return [+direct[1], +direct[2], +direct[3]];
+    const gris = valeur.match(/oklch\(\s*([\d.]+)\s+0\s+0\s*\)/);
+    if (gris) return [+gris[1], 0, 0];
     const ref = valeur.match(/var\(\s*--([a-z0-9-]+)\s*\)/i);
     if (!ref) return null;
     const suite = cherche(ref[1]);
@@ -389,6 +396,10 @@ function resoudreClarte(bloc, selecteur) {
   }
   return null;
 }
+
+/** La seule clarté, pour les appels qui ne veulent que ça. */
+const resoudreClarte = (bloc, selecteur) =>
+  resoudreOklch(bloc, selecteur)?.[0] ?? null;
 
 const BLOCS = [
   { nom: 'produit clair',    selecteur: ':root, .light',                    clair: true  },
@@ -477,6 +488,7 @@ for (const [nom, L] of fonds) {
 // Ajouter une marque n'a donc plus rien à dériver côté fonds.
 const ECHELLE_SOMBRE = {
   400: [0.5856, 0.0139, 260.879],
+  500: [0.47, 0.0145, 265.0],
   600: [0.3552, 0.0146, 269.371],
   700: [0.272, 0.0171, 270.767],
   800: [0.2232, 0.0146, 272.351],
@@ -735,6 +747,100 @@ if (!/from\s+["'].\/build\/tailwind-typo\.mjs["']/.test(configTw)) {
       "`text-sm` et `font-semibold` reprendraient les valeurs par défaut de " +
       "Tailwind, et l'échelle typographique redeviendrait décorative",
   );
+}
+
+
+// ── La carte héroïne prime sans éblouir ──────────────────────────────────────
+//
+// `surface.hero` est LA carte qui prime, une seule par écran. Son rôle est la
+// HIÉRARCHIE, et une hiérarchie se mesure : un rapport de clarté à la carte
+// ordinaire. Trop bas, elle ne prime plus ; trop haut, elle éblouit.
+//
+// Elle a ébloui. Mesurée sur le tableau de bord RENDU, elle valait **15,3
+// fois** la clarté des autres cartes en thème sombre — 120 000 px² de pleine
+// clarté sur une page à 0,001 de luminance, le seul point de l'écran qui
+// agresse un œil adapté au noir. En clair elle vaut 0,05 fois : elle
+// s'enfonce, et c'est reposant. Le contraste était symétrique, le confort ne
+// l'était pas, et rien ne le disait — le rôle s'appelait `inverse`, du nom de
+// son MOYEN, et un moyen ne se vérifie pas. Un rôle, si.
+//
+// Les bandes tiennent aux quatre marques : les fonds sombres leur sont
+// communs, c'est la lueur d'angle qui porte la marque.
+const BANDE_HEROS = {
+  // Clair : la carte s'ENFONCE, très loin sous les autres.
+  'produit/clair': [0.02, 0.2],
+  // Sombre : un panneau ALLUMÉ, pas un aplat blanc.
+  'produit/sombre': [2.0, 5.0],
+  // Le registre marketing garde l'inversion : une page de site se regarde
+  // quelques minutes et cherche l'impact, un tableau de bord se regarde une
+  // heure et cherche le confort. C'est ce que `data-register` sert à dire.
+  'marketing/clair': [0.02, 0.2],
+  'marketing/sombre': [8.0, 20.0],
+};
+
+const SELECTEUR_REGISTRE = {
+  'produit/clair': ':root, .light',
+  'produit/sombre': '.dark',
+  'marketing/clair': '[data-register="marketing"]',
+  'marketing/sombre': '.dark[data-register="marketing"]',
+};
+
+/** Luminance relative WCAG d'une couleur OKLCH — « à quel point ça brille ». */
+function luminanceOklch([L, C, H]) {
+  const h = (H * Math.PI) / 180;
+  const a = C * Math.cos(h), b = C * Math.sin(h);
+  const l = (L + 0.3963377774 * a + 0.2158037573 * b) ** 3;
+  const m = (L - 0.1055613458 * a - 0.0638541728 * b) ** 3;
+  const s = (L - 0.0894841775 * a - 1.2914855480 * b) ** 3;
+  let R = 4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s;
+  let G = -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s;
+  let B = -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s;
+  const borne = (v) => Math.max(0, Math.min(1, v));
+  [R, G, B] = [borne(R), borne(G), borne(B)];
+  return 0.2126 * R + 0.7152 * G + 0.0722 * B;
+}
+
+for (const [cle, [bas, haut]] of Object.entries(BANDE_HEROS)) {
+  const selecteur = SELECTEUR_REGISTRE[cle];
+  const re = new RegExp(
+    `^${selecteur.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[^{]*\\{([\\s\\S]*?)^\\}`,
+    'm',
+  );
+  const bloc = (bridge.match(re) || [])[1];
+  if (!bloc) {
+    echecs.push(`carte héroïne : bloc « ${cle} » absent du bridge`);
+    continue;
+  }
+  const heros = resoudreOklch(bloc, selecteur, 'surface-hero');
+  const carte = resoudreOklch(bloc, selecteur, 'card');
+  if (!heros || !carte) {
+    echecs.push(`carte héroïne : --surface-hero ou --card irrésolu en ${cle}`);
+    continue;
+  }
+  const r = (luminanceOklch(heros) + 0.05) / (luminanceOklch(carte) + 0.05);
+  if (r < bas || r > haut) {
+    // Hors bande ne veut pas dire la même chose des deux côtés, ni dans les
+    // deux thèmes : en clair la carte s'enfonce, en sombre elle s'allume.
+    // Un seul message pour les quatre cas en dirait trois de travers.
+    const sombre = cle.endsWith('sombre');
+    const trop = r > haut;
+    const pourquoi = sombre
+      ? trop
+        ? `Trop claire : sur une page sombre elle devient le seul aplat qui ` +
+          `éblouisse un œil adapté au noir. C'est le défaut corrigé le ` +
+          `22/09 — elle valait alors 15,3.`
+        : `Trop sombre : elle se confond avec les cartes ordinaires, et une ` +
+          `carte héroïne qui ne prime pas n'est qu'une carte.`
+      : trop
+        ? `Pas assez sombre : en thème clair elle prime en S'ENFONÇANT sous ` +
+          `les cartes blanches. À ce niveau elle ne s'enfonce plus.`
+        : `Trop sombre, au point de virer au noir : le dégradé ne se lit ` +
+          `plus et la lueur de marque n'a plus de fond où se poser.`;
+    echecs.push(
+      `carte héroïne en ${cle} : elle vaut ${r.toFixed(2)} fois la clarté ` +
+        `d'une carte ordinaire, hors de la bande [${bas} ; ${haut}]. ${pourquoi}`,
+    );
+  }
 }
 
 if (echecs.length) {

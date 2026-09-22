@@ -259,20 +259,40 @@
     "$value": "{role.radius.default}",
     "$description": "extension DS — rayon de base (shadcn --radius, dérivé en lg/md/sm par Tailwind)"
   },
+  "surface-hero": {
+    "$type": "color",
+    "$value": "{color.surface.hero}",
+    "$description": "extension DS — fond de LA carte qui prime, une seule par écran"
+  },
+  "surface-hero-to": {
+    "$type": "color",
+    "$value": "{color.surface.hero-to}",
+    "$description": "extension DS — second arrêt du dégradé de --surface-hero"
+  },
+  "hero-glow": {
+    "$type": "color",
+    "$value": "{color.surface.hero-glow}",
+    "$description": "extension DS — lueur d'angle de la carte héroïne, elle porte la marque"
+  },
+  "on-hero": {
+    "$type": "color",
+    "$value": "{color.surface.on-hero}",
+    "$description": "extension DS — texte porté par --surface-hero"
+  },
   "surface-inverse": {
     "$type": "color",
     "$value": "{color.surface.inverse}",
-    "$description": "extension DS — fond a contre-theme, premier arret du degrade"
+    "$description": "ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié."
   },
   "surface-inverse-to": {
     "$type": "color",
     "$value": "{color.surface.inverse-to}",
-    "$description": "extension DS — second arret du degrade a contre-theme"
+    "$description": "ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié."
   },
   "on-inverse": {
     "$type": "color",
     "$value": "{color.surface.on-inverse}",
-    "$description": "extension DS — texte porte par --surface-inverse"
+    "$description": "ANCIEN NOM — voir --surface-hero. Conservé pour les consommateurs du registry publié."
   },
   "neutral-text": {
     "$type": "color",
