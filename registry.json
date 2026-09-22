@@ -1124,6 +1124,40 @@
       ]
     },
     {
+      "name": "ranking-bars",
+      "type": "registry:component",
+      "title": "RankingBars",
+      "description": "Classement en barres horizontales, forable sur plusieurs niveaux. Contrairement a GeoDrilldown, rien n'est dessine en SVG : chaque ligne EST le bouton, directement focalisable et activable, sans tableau cache a cote. Une ligne sans enfants n'est pas un bouton. Le niveau de ProgressBar reste deduit de ses seuils par defaut, jamais force au vert.",
+      "files": [
+        {
+          "path": "registry/aikoz/ranking-bars/ranking-bars.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/aikoz/breadcrumb/breadcrumb.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/aikoz/progress-bar/progress-bar.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/aikoz/empty-state/empty-state.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/aikoz/lib/utils.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge",
+        "@material-symbols-svg/react"
+      ]
+    },
+    {
       "name": "geo-drilldown",
       "type": "registry:component",
       "title": "GeoDrilldown",
