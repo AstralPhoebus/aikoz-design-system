@@ -28,18 +28,16 @@ la seule chose qu'on veut y voir est **ce qui bloque maintenant**.
 
 ## Ce qui reste ouvert ailleurs
 
-Ce ne sont pas des décisions de design mais des accès, et ils tiennent au même
-endroit — ils demandent les droits **admin** sur l'organisation, que ni Alice ni
-ce dépôt n'ont.
+**Plus rien.** Les deux accès qui manquaient ont été ouverts : GitHub Pages
+publie ce Storybook, et Louis est passé `write` — il pousse ses branches
+directement, il n'a plus à forker.
 
-| | qui peut le faire |
-|---|---|
-| Activer GitHub Pages pour publier ce Storybook | un admin de l'organisation |
-| Passer Louis en `write` pour qu'il pousse des branches | un admin de l'organisation |
+Le `CODEOWNERS` garde Alice relectrice obligatoire sur tout le design system.
 
-Louis peut **déjà ouvrir des PR** : le dépôt est public, il forke et propose. Et
-le `CODEOWNERS` garde Alice relectrice obligatoire sur tout le design system,
-même quand il pourra pousser.
+C'est précisément pour ça que les règles de conception sont écrites et tenues
+par la CI plutôt que transmises de vive voix : un composant écrit par quelqu'un
+d'autre doit être indiscernable des autres. Le contrat tient dans
+[Créer un composant](?path=/docs/design-system-créer-un-composant--docs).
 
 ## Comment une décision arrive ici
 

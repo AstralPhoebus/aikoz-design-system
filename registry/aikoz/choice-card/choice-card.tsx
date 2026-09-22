@@ -182,7 +182,7 @@ export function ChoiceCard({
           aria-hidden="true"
           className="hidden shrink-0 size-3.5 items-center justify-center peer-checked:inline-flex"
         >
-          <svg viewBox="0 0 12 12" className="size-full" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg aria-hidden="true" viewBox="0 0 12 12" className="size-full" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M2 6.5 4.8 9.2 10 3.5" />
           </svg>
         </span>
@@ -239,7 +239,7 @@ export function ChoiceCard({
             "opacity-0 peer-checked:opacity-100"
           )}
         >
-          <svg viewBox="0 0 12 12" className="size-2.5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg aria-hidden="true" viewBox="0 0 12 12" className="size-2.5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M2 6.5 4.8 9.2 10 3.5" />
           </svg>
         </span>

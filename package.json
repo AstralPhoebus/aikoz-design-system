@@ -16,7 +16,8 @@
     "audit:marques": "python3 scripts/audit-etancheite.py",
     "audit:registry": "node scripts/audit-registry.mjs",
     "audit:typo": "node scripts/audit-typo.mjs",
-    "audit:mouvement": "node scripts/audit-mouvement.mjs"
+    "audit:mouvement": "node scripts/audit-mouvement.mjs",
+    "audit:conventions": "node scripts/audit-conventions.mjs"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.3.1",

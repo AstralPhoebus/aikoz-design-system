@@ -1,0 +1,192 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Design system/Créer un composant" />
+
+# Créer un composant
+
+Cette page existe pour qu'un composant écrit par **quelqu'un d'autre** soit
+indiscernable des autres. Pas par discipline : parce qu'un design system dont
+les règles ne vivent que dans la tête d'une personne n'est pas un système,
+c'est une habitude.
+
+Presque tout ce qui suit est **vérifié par la marche de vérification**. Ce qui
+ne l'est pas est signalé comme tel — c'est là qu'il faut réfléchir, le reste
+vous sera dit par un test rouge.
+
+---
+
+## 0. Les dix conventions, tenues par la CI
+
+Avant tout le reste, `npm run audit:conventions` fige ce que les 48 composants
+respectaient déjà — sans que ce soit écrit nulle part :
+
+1. dossier, fichier et entrée de registry portent le **même nom**, en kebab-case
+2. un `.stories.tsx` par composant
+3. au moins une histoire joue un `play`
+4. aucun export par défaut
+5. l'interface `Props` est **exportée**
+6. `className` est accepté
+7. aucune **primitive** de couleur écrite dans un composant
+8. aucune couleur en dur
+9. `meta` en `satisfies Meta`
+10. tout `<svg>` porte `aria-hidden`, ou `role="img"` avec un libellé
+
+Une exception se déclare **dans le contrôle**, avec sa raison. Une exception
+anonyme est un trou ; une exception qui porte sa raison est une décision, et
+elle se relit. Il y en a une : l'or, l'argent et le bronze de `Leaderboard`,
+références culturelles à des métaux et non couleurs d'interface.
+
+---
+
+## 1. Les fichiers
+
+```
+registry/aikoz/mon-composant/
+  mon-composant.tsx          le composant
+  mon-composant.stories.tsx  les histoires — qui SONT les tests
+```
+
+Puis l'entrée dans `registry.json` : `name`, `type`, `title`, `description`,
+`files`, et `registryDependencies` pour chaque composant Aikoz importé.
+
+> `npm run audit:registry` refuse une entrée manquante, un fichier déclaré qui
+> n'existe pas, un import qui ne résout pas, et un composant sur disque absent
+> du registry. Quatre composants ont été rendus, testés, documentés et
+> **impossibles à installer** avant que ce contrôle existe.
+
+Enfin `npm run registry:build`, et on commit `public/r/`. Le registry publié
+embarque une **copie** du source : sans ce build, le site sert l'ancienne
+version. La CI compare et échoue si ça diverge.
+
+---
+
+## 2. Les couleurs
+
+Une couleur s'écrit **toujours** par un rôle, jamais par une primitive :
+
+```tsx
+// oui
+className="bg-card text-foreground border-border"
+style={{ color: "var(--warning)" }}
+
+// non
+className="bg-[var(--color-ultramarine-500)]"
+```
+
+Trois règles, dont deux tenues par le build :
+
+- **La variable porte la couleur complète.** `var(--x)` brut — jamais
+  `oklch(var(--x))`. La transparence passe par
+  `color-mix(in oklch, var(--x), transparent 40%)`.
+- **Aucune marque ne porte la rampe d'une autre.** Un rôle nouveau posé « en
+  attendant » sur une primitive Aikoz est arrivé quatre fois. → `audit:marques`
+- **Un rôle que personne ne lit ment.** Un rôle nouveau est légitime le jour
+  où un composant le lit, pas la veille. → `build:tokens`
+
+S'il manque un rôle, on en crée un — on ne détourne jamais un rôle voisin.
+C'est la règle qui coûte le plus cher à enfreindre, parce que le détournement
+se voit bien sous une marque et casse sous une autre.
+
+---
+
+## 3. La typographie et l'espacement
+
+`text-sm`, `font-semibold`, `p-4`, `gap-2` : les utilitaires Tailwind **sont**
+les tokens, par un pont généré. Rien à faire de spécial — sauf ne pas sortir de
+l'échelle.
+
+> `npm run audit:typo` refuse `text-[13px]`, `font-[550]`, et toute graisse
+> absente de l'échelle.
+
+Les libellés en capitales : 12 px, graisse 600, interlettrage ouvert. En
+dessous ils deviennent illisibles.
+
+---
+
+## 4. L'accessibilité
+
+Le gros est attrapé automatiquement — `axe` tourne en mode `error` dans chaque
+histoire. Ce qui suit ne l'est pas toujours, et c'est là qu'on se trompe :
+
+| règle | ce qui l'attrape |
+|---|---|
+| Toute cible ≥ 24 × 24 px, 44 au doigt via `tactile:` | `AuditCibles` |
+| Tout ce qui prend le focus le montre | `AuditFocus` |
+| Toute paire de couleurs tient WCAG **et** APCA | `AuditContraste` |
+| Toute animation de position écoute `prefers-reduced-motion` | `audit:mouvement` |
+| Un pictogramme rend 1,5 px de trait | `AuditIcones` |
+
+Et trois qui demandent du jugement :
+
+- **Jamais la couleur seule.** Une hausse se dit par une icône, un signe ou un
+  mot — pas par du vert.
+- **Un libellé visible et persistant**, jamais un `placeholder` à sa place.
+  Marquer les obligatoires **ou** les facultatifs, jamais ni l'un ni l'autre.
+- **Signaler une erreur ne suffit pas : il faut y emmener.** À la soumission, le
+  focus va au premier champ fautif.
+
+---
+
+## 5. Les histoires SONT les tests
+
+Il n'y a pas de dossier `__tests__`. Une histoire par comportement, avec un
+`play` qui vérifie ce que le composant promet.
+
+Une histoire utile ressemble à ça :
+
+- elle a un **nom en français** qui dit le comportement, pas la prop
+  (« Le focus va au premier champ fautif », pas « avec erreur ») ;
+- sa `description` dit **pourquoi** la règle existe, et de préférence le
+  défaut qu'elle a corrigé ;
+- son `play` échouerait si on retirait la règle.
+
+Cette dernière condition est la seule qui compte. **Écrivez le test, puis
+cassez la règle pour voir le test rougir.** Trois contrôles écrits ici ne
+mesuraient rien avant qu'on essaie — et ils avaient l'air parfaits.
+
+---
+
+## 6. Ce qu'on écrit dans le code
+
+Les commentaires disent **pourquoi**, jamais quoi. Le quoi est déjà dans le
+code ; le pourquoi disparaît avec la personne qui l'avait en tête.
+
+```tsx
+// non — paraphrase
+// On met une bordure de 1px
+"border border-border"
+
+// oui — la raison, et son chiffre
+// La bordure du menu pesait 3,5 fois la bordure standard : elle attirait
+// l'œil plus que l'entrée courante qu'elle était censée encadrer.
+```
+
+Quand une décision a été prise contre une autre, la perdante se dit aussi. Un
+choix dont on a oublié l'alternative se reprend tous les six mois.
+
+---
+
+## 7. Avant d'ouvrir la PR
+
+```bash
+npm run build:tokens && npx tsc --noEmit && npm run registry:build
+npm run audit:conventions && npm run audit:typo && npm run audit:mouvement
+npm run audit:registry && npm run audit:marques
+npx vitest run --project=storybook
+```
+
+Branche, PR, jamais de commit direct sur `main`. `CODEOWNERS` met Alice
+relectrice obligatoire sur tout le design system.
+
+---
+
+## Ce que la CI ne verra jamais
+
+Elle ne dira pas si le composant **méritait d'exister**. Plusieurs fois, ce qui
+ressemblait à un composant nouveau était une variante d'un existant, ou deux
+composants distincts qu'on essayait de fondre en un. `SidebarNav` et `ViewTabs`
+ressemblaient à un choix ; ce sont deux composants.
+
+La bonne question n'est pas « est-ce que ça compile » mais **« qu'est-ce que ce
+composant fait que les quarante-huit autres ne font pas »**. Si la réponse tient
+en une prop, c'est une variante.

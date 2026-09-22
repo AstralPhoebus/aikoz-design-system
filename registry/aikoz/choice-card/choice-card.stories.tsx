@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from "storybook/test";
 import { ChoiceCard } from "./choice-card";
 
 const meta = {
@@ -35,6 +36,26 @@ export const CestLaCocheQuiPorteLEtat: Story = {
 
 export const UnVraiInputSousLaCarte: Story = {
   name: "Un vrai `<input>` sous la carte",
+  play: async ({ canvas, userEvent }) => {
+    // La promesse du composant : un VRAI champ natif, masqué par `sr-only` et
+    // non par `display:none` — ces deux-là le retireraient de la tabulation.
+    // Le test passe par le CLAVIER, parce que c'est le seul chemin qui casse
+    // quand on remplace le champ par un `<div role="radio">`.
+    const champ = canvas.getByRole("radio", { name: /Google/ });
+    await expect(champ).not.toBeChecked();
+
+    await userEvent.tab();
+    await expect(champ).toHaveFocus();
+
+    await userEvent.keyboard(" ");
+    await expect(champ).toBeChecked();
+
+    // Masqué à l'œil sans l'être aux technologies d'assistance : une boîte
+    // d'un pixel, jamais `display:none`.
+    const boite = champ.getBoundingClientRect();
+    await expect(boite.width).toBeLessThan(4);
+    await expect(getComputedStyle(champ).display).not.toBe("none");
+  },
   parameters: {
     docs: {
       description: {

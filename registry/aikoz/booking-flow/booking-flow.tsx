@@ -207,7 +207,7 @@ export function BookingFlow({
                 : "bg-[var(--error-subtle)] text-[var(--destructive-text)]"
             )}
           >
-            <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
+            <svg aria-hidden="true" viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
               {status === "confirmed" ? <path d="M4 12.5 9.5 18 20 6.5" /> : <path d="M12 7v6M12 17h.01" />}
             </svg>
           </span>

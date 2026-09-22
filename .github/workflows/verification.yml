@@ -104,6 +104,20 @@ jobs:
       - name: Tout ce qui bouge peut s'arrêter
         run: npm run audit:mouvement
 
+      # ── Les conventions, figées ──────────────────────────────────────────
+      #
+      # Neuf conventions étaient respectées par 48 composants sur 48 — ou 47
+      # sur 48 — et aucune n'était écrite ni vérifiée. C'est de la DETTE DE
+      # RÈGLE : une convention que tout le monde suit sans qu'elle existe
+      # nulle part tient tant que la même personne écrit tout le code. Elle
+      # tombe au premier composant écrit par quelqu'un d'autre, et personne ne
+      # saura dire si c'est lui qui a dérivé ou la règle qui n'en était pas
+      # une.
+      #
+      # Louis a l'accès `write`. C'est exactement le moment.
+      - name: Les conventions du design system
+        run: npm run audit:conventions
+
       # Les stories SONT les tests : axe y tourne en mode `error`, une
       # violation d'accessibilité fait échouer la marche.
       - name: Stories

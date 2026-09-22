@@ -86,7 +86,7 @@ export function Stepper({
               )}
             >
               {faite ? (
-                <svg viewBox="0 0 12 12" className="size-3" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg aria-hidden="true" viewBox="0 0 12 12" className="size-3" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M2 6.5 4.8 9.2 10 3.5" />
                 </svg>
               ) : (

@@ -22,6 +22,17 @@
  * taille de texte ni une graisse (`max-w-[160px]` pour la boîte d'un logo,
  * `min-w-[210px]` pour une colonne). Elles ne relèvent pas d'une échelle
  * typographique, et les inventorier ici ferait du bruit sans règle derrière.
+ *
+ * Les COMMENTAIRES et les mentions en PROSE sont neutralisés avant l'analyse.
+ * Le contrôle a échoué sur la page « Créer un composant », qui CITE
+ * `text-[13px]` comme contre-exemple de ce qu'il refuse. Un contrôle qui
+ * accuse la documentation de la règle qu'il applique est un contrôle qu'on
+ * apprend à ignorer — c'est exactement ce qui était arrivé à l'audit du
+ * mouvement, sur `animate-in` cité par `Dialog` et `Tooltip`.
+ *
+ * Une mention en prose se reconnaît à ses accents graves collés de part et
+ * d'autre : la notation Markdown d'un bout de code. Un vrai gabarit de
+ * classes n'a jamais cette forme, il contient au moins une espace.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -45,10 +56,20 @@ function* fichiers(dossier) {
 
 for (const dossier of DOSSIERS) {
   for (const f of fichiers(dossier)) {
-    const lignes = fs.readFileSync(f, 'utf8').split('\n');
+    const brut = fs.readFileSync(f, 'utf8');
+    // Commentaires blanchis en conservant les sauts de ligne : les numéros
+    // de ligne restent justes.
+    const lignes = brut
+      .replace(/\/\*[\s\S]*?\*\//g, (c) => c.replace(/[^\n]/g, ' '))
+      .replace(/\/\/[^\n]*/g, (c) => ' '.repeat(c.length))
+      .split('\n');
+    /** Une mention Markdown en prose, pas une classe : `text-[13px]`. */
+    const enProse = (ligne, m) =>
+      ligne[m.index - 1] === '`' && ligne[m.index + m[0].length] === '`';
     lignes.forEach((ligne, i) => {
       // Une taille de texte écrite en dur.
       for (const m of ligne.matchAll(/\btext-\[(\d+(?:\.\d+)?)(px|rem)\]/g)) {
+        if (enProse(ligne, m)) continue;
         echecs.push(
           `${f}:${i + 1} — \`${m[0]}\` : taille de texte hors échelle. ` +
             `L'échelle en propose ${TAILLES.size} : ${[...TAILLES].join(', ')}.`,
@@ -56,11 +77,13 @@ for (const dossier of DOSSIERS) {
       }
       // Une graisse écrite en dur, ou absente de l'échelle.
       for (const m of ligne.matchAll(/\bfont-\[(\d+)\]/g)) {
+        if (enProse(ligne, m)) continue;
         echecs.push(`${f}:${i + 1} — \`${m[0]}\` : graisse écrite en dur.`);
       }
       for (const m of ligne.matchAll(
         /\bfont-(thin|extralight|light|normal|medium|semibold|bold|extrabold|black)\b/g,
       )) {
+        if (enProse(ligne, m)) continue;
         // `normal` est l'alias Tailwind de `regular`.
         const nom = m[1] === 'normal' ? 'regular' : m[1];
         if (!GRAISSES.has(nom)) {

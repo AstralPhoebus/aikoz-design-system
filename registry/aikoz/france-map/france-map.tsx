@@ -615,6 +615,7 @@ export function FranceMap({
                 )}
               >
                 <svg
+                  aria-hidden="true"
                   data-carte="outre-mer"
                   viewBox={`0 0 ${t.boite.largeur} ${t.boite.hauteur}`}
                   className="h-10 w-auto"
