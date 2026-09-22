@@ -24,6 +24,30 @@
       ]
     },
     {
+      "name": "alert-dialog",
+      "type": "registry:component",
+      "title": "AlertDialog",
+      "description": "Confirmation d'une action irreversible. Ce n'est PAS un Dialog : role=alertdialog, le clic a l'exterieur ne ferme pas, la description est obligatoire, et le focus va sur le RETRAIT — poser le focus sur « Supprimer » transforme une barre d'espace reflexe en perte de donnees. Le bouton nomme ce qu'il fait : « Supprimer l'etablissement », jamais « Confirmer ». `destructive` pilote la couleur, pas le comportement.",
+      "files": [
+        {
+          "path": "registry/aikoz/alert-dialog/alert-dialog.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/aikoz/lib/utils.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "dependencies": [
+        "@radix-ui/react-alert-dialog",
+        "clsx",
+        "tailwind-merge"
+      ]
+    },
+    {
       "name": "avatar",
       "type": "registry:component",
       "title": "Avatar",

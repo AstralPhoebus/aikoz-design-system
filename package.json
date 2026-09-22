@@ -1,6 +1,6 @@
 {
   "name": "aikoz-design-system",
-  "version": "2.3.1",
+  "version": "2.4.0",
   "description": "Dépôt de référence pour tout contenu visuel et éditorial Aikoz by Okuden.   Il contient les sources de vérité — design tokens, voix de marque, logos, polices — que l'équipe injecte dans ses outils IA et ses productions.",
   "main": "index.js",
   "type": "module",
@@ -64,6 +64,7 @@
   "homepage": "https://github.com/Voice-of-Customers-by-Okuden/aikoz-design-system#readme",
   "dependencies": {
     "@material-symbols-svg/react": "^0.11.0",
+    "@radix-ui/react-alert-dialog": "^1.1.23",
     "@radix-ui/react-avatar": "^1.2.6",
     "@radix-ui/react-dialog": "^1.1.23",
     "@radix-ui/react-dropdown-menu": "^2.1.24",

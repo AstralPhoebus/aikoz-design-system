@@ -18,6 +18,43 @@ de l'API — mais il se voit, donc il est toujours écrit ici.
 
 ---
 
+## [2.4.0] — 2026-09-22
+
+### Ajouté
+
+- **`AlertDialog`** — la confirmation d'une action irréversible, qui manquait
+  au `DropdownMenu` livré juste avant : sa commande destructive n'avait nulle
+  part où demander confirmation.
+
+  Ce n'est pas un `Dialog`, et la différence n'est pas cosmétique :
+
+  | | `Dialog` | `AlertDialog` |
+  | --- | --- | --- |
+  | rôle ARIA | `dialog` | **`alertdialog`** |
+  | clic à l'extérieur | ferme | **ne ferme pas** |
+  | description | facultative | **obligatoire** |
+  | focus à l'ouverture | premier élément | **le retrait** |
+
+  Le focus va sur « Annuler » : une boîte qui demande de confirmer une
+  suppression et pose le focus sur « Supprimer » transforme une barre
+  d'espace réflexe en perte de données.
+
+  Le bouton nomme ce qu'il fait — « Supprimer l'établissement », jamais
+  « Confirmer » : quelqu'un qui revient à son écran après une interruption
+  doit pouvoir décider en lisant le seul bouton.
+
+  Nouvelle dépendance : `@radix-ui/react-alert-dialog`.
+
+### Corrigé
+
+- La CI tournait en **node 20 / npm 10**, le poste en node 24 / npm 11 : un
+  verrou écrit par npm 11 n'est pas consommable par npm 10, et la marche
+  tombait dès `npm ci` sur un message qui envoyait chercher ailleurs. Les
+  deux marches passent en node 24, et `engines: node >= 22` inscrit
+  l'attente. `audit:version` vérifie en plus que le verrou suive la version.
+
+---
+
 ## [2.3.1] — 2026-09-22
 
 ### Corrigé

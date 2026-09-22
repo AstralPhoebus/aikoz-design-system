@@ -4,9 +4,9 @@
 // avait été juste une fois, puis quatorze composants sont arrivés. On ne
 // déclare pas ce qu'on peut compter.
 export const CHIFFRES = {
-  composants: 51,
-  entrees: 52,
+  composants: 52,
+  entrees: 53,
   marques: 19,
   combinaisons: 4,
-  version: "2.3.1",
+  version: "2.4.0",
 } as const;
