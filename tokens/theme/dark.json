@@ -112,7 +112,8 @@
     "text": {
       "primary": {
         "$type": "color",
-        "$value": "#FFFFFF"
+        "$value": "{color.neutral.100}",
+        "$description": "Texte principal. C'était du BLANC PUR écrit en dur — la seule couleur de texte du thème sombre qui ne renvoyait pas à un palier de rampe, quand toutes ses voisines sont réglées au point d'APCA près. Le blanc pur sur fond sombre produit un halo autour des lettres : elles débordent sur le fond et le texte semble vibrer, d'autant plus en cas d'astigmatisme. Alice l'a constaté à l'écran le 22/09/2026. neutral.100 (L=0,940) tient APCA 92 sur la carte pour un plancher de 75 : il reste dix-sept points de marge, et l'échelle du texte redevient lisible — principal 92, secondaire 80, tertiaire plus bas."
       },
       "secondary": {
         "$type": "color",

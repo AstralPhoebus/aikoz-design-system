@@ -3,11 +3,11 @@
  */
 
 .dark {
-  --color-text-primary: oklch(1 0 0);
   --color-text-on-action: oklch(1 0 0); /** Libellé de l'action primaire — BLANC, comme en clair. Il valait l'encre sombre parce que le fond de l'action était l'accent, clair par construction. Le fond étant redevenu la couleur primaire de la marque, vive, le blanc reprend sa place et tient APCA 84 à 90 selon la marque. */
   --color-nav-on: oklch(1 0 0);
   --color-surface-track: var(--color-neutral-700); /** Piste d'une jauge — repère d'échelle. 1,60:1 sur --card. Ne pas utiliser --muted ici : en dark il vaut exactement la couleur de --card (1,00:1), la piste y serait strictement invisible. */
   --color-surface-on-hero: var(--color-neutral-50); /** Texte porté par `surface.hero`. Nommé depuis le rôle de surface pour qu'on ne puisse pas poser l'un sans l'autre. */
+  --color-text-primary: var(--color-neutral-100); /** Texte principal. C'était du BLANC PUR écrit en dur — la seule couleur de texte du thème sombre qui ne renvoyait pas à un palier de rampe, quand toutes ses voisines sont réglées au point d'APCA près. Le blanc pur sur fond sombre produit un halo autour des lettres : elles débordent sur le fond et le texte semble vibrer, d'autant plus en cas d'astigmatisme. Alice l'a constaté à l'écran le 22/09/2026. neutral.100 (L=0,940) tient APCA 92 sur la carte pour un plancher de 75 : il reste dix-sept points de marge, et l'échelle du texte redevient lisible — principal 92, secondaire 80, tertiaire plus bas. */
   --color-text-secondary: var(--color-neutral-200); /** Gris du texte secondaire. Relevé de neutral.300 à neutral.200 : le 300 ne valait que 63,6 en APCA sur la carte sombre, sous le plancher de 75 d'un rôle de texte, alors qu'il tenait 8,86:1 en WCAG 2. Le 200 vaut 80,2. Inchangé en clair, où le 300 vaut 85. */
   --color-text-tertiary: var(--color-neutral-400);
   --color-text-disabled: var(--color-neutral-600);

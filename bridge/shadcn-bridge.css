@@ -76,11 +76,11 @@
  */
 
 .dark {
+  --primary-foreground: var(--color-text-on-action); /** shadcn --primary-foreground */
+  --nav-on: var(--color-nav-on); /** extension DS — texte de la navigation */
   --foreground: var(--color-text-primary); /** shadcn --foreground */
   --card-foreground: var(--color-text-primary); /** shadcn --card-foreground */
   --popover-foreground: var(--color-text-primary); /** shadcn --popover-foreground */
-  --primary-foreground: var(--color-text-on-action); /** shadcn --primary-foreground */
-  --nav-on: var(--color-nav-on); /** extension DS — texte de la navigation */
   --muted-foreground: var(--color-text-muted); /** shadcn --muted-foreground */
   --accent: var(--color-brand-accent); /** shadcn --accent */
   --destructive: var(--color-status-error); /** shadcn --destructive */
