@@ -1,7 +1,7 @@
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { cn } from "@registry/aikoz/lib/utils";
 import { BOITE, REGIONS, DEPARTEMENTS, DEPARTEMENTS_PAR_REGION, OUTRE_MER, BOITES_DEPARTEMENT, CENTROIDES_REGION, CENTROIDES_DEPARTEMENT,
-  projeter, type ZoneCarte } from "./geometrie";
+  METRES_PAR_UNITE, projeter, type ZoneCarte } from "./geometrie";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -69,6 +69,13 @@ export interface FranceMapProps {
   communesUrl?: string;
   /** Les points posés sur la carte — agences, concurrents. */
   points?: PointCarte[];
+  /**
+   * Trace un cercle de ce rayon, en kilomètres, autour du point survolé ou
+   * sélectionné. C'est ce qui rend la distance LISIBLE : deux cercles qui se
+   * touchent à l'écran peuvent être à huit cents mètres comme à huit
+   * kilomètres selon le zoom.
+   */
+  rayonKm?: number;
   /** L'ordre des catégories : la première est pleine, les suivantes cerclées. */
   categories?: string[];
   /**
@@ -167,6 +174,7 @@ export function FranceMap({
   departement,
   points,
   categories,
+  rayonKm,
   communesUrl = "/communes",
   outreMer = true,
   height = 360,
@@ -526,6 +534,24 @@ export function FranceMap({
               La catégorie ne tient pas à la couleur : la première est PLEINE,
               les suivantes sont CERCLÉES. Quelqu'un qui ne distingue pas le
               bleu du rouge voit toujours la différence. */}
+          {/* Le rayon, sous les symboles : il donne l'échelle de la distance,
+              que l'œil ne sait pas déduire d'un niveau de zoom. */}
+          {rayonKm && survol && (() => {
+            const pt = poses.find((p) => p.id === survol.code);
+            if (!pt) return null;
+            return (
+              <circle
+                cx={pt.x}
+                cy={pt.y}
+                r={(rayonKm * 1000) / METRES_PAR_UNITE}
+                fill="color-mix(in oklch, var(--primary), transparent 92%)"
+                stroke="var(--primary)"
+                strokeWidth={1.5 * echelleTrait}
+                strokeDasharray={`${4 * echelleTrait} ${3 * echelleTrait}`}
+              />
+            );
+          })()}
+
           {/* Du plus GRAND au plus petit. Dans l'ordre d'arrivée, une agence
               de valeur 412 disparaissait entièrement sous un concurrent de
               305 posé à huit cents mètres — vu sur Paris. Trié, le petit se

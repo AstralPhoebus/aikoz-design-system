@@ -502,7 +502,7 @@
       "name": "france-map",
       "type": "registry:component",
       "title": "FranceMap",
-      "description": "Carte choroplethe de la France — regions et departements de metropole. Elle ne remplace PAS `GeoDrilldown` : les barres repondent a « combien, et qui devant qui », la carte repond a « ou ». Les trois defauts d'une choroplethe sont assumes et encadres — la surface ment (la Lozere et le Nord pesent pareil a l'oeil), la couleur seule ne dit rien de precis (cinq classes, bornes affichees, valeur au survol et dans le tableau), et un dessin ne se lit pas au lecteur d'ecran (le SVG est aria-hidden, un role=img nomme porte le resume). Les classes sont des QUANTILES : a intervalles egaux, l'Ile-de-France occuperait seule la derniere classe. Aucune bibliotheque geographique n'est embarquee — les contours sont pre-projetes en Lambert-93 par scripts/carte-france.py.",
+      "description": "Carte choroplethe de la France — regions et departements de metropole. Elle ne remplace PAS `GeoDrilldown` : les barres repondent a « combien, et qui devant qui », la carte repond a « ou ». Les trois defauts d'une choroplethe sont assumes et encadres — la surface ment (la Lozere et le Nord pesent pareil a l'oeil), la couleur seule ne dit rien de precis (cinq classes, bornes affichees, valeur au survol et dans le tableau), et un dessin ne se lit pas au lecteur d'ecran (le SVG est aria-hidden, un role=img nomme porte le resume). Les classes sont des QUANTILES : a intervalles egaux, l'Ile-de-France occuperait seule la derniere classe. Aucune bibliotheque geographique n'est embarquee — les contours sont pre-projetes en Lambert-93 par scripts/carte-france.py. Fournit aussi mesurerProximite() : pour chaque point de reference, les points des autres categories dans un rayon donne, leur distance et l ecart de valeur — « 3 concurrents dans un rayon de 2 km, 3,8 contre 4,1 ». Les distances sont calculees dans la projection, ce qui est exact : Lambert-93 est conforme et son facteur d echelle varie de moins d un millieme sur la metropole.",
       "files": [
         {
           "path": "registry/aikoz/france-map/france-map.tsx",
@@ -510,6 +510,10 @@
         },
         {
           "path": "registry/aikoz/france-map/geometrie.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/aikoz/france-map/proximite.ts",
           "type": "registry:lib"
         },
         {

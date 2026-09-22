@@ -359,6 +359,19 @@ export interface ZoneCarte {{
 /** La boîte commune aux deux niveaux : passer de l'un à l'autre ne saute pas. */
 export const BOITE = {{ largeur: {LARGEUR:.0f}, hauteur: {hauteur} }} as const;
 
+/**
+ * Combien de mètres vaut une unité de la boîte.
+ *
+ * C'est ce qui permet de raisonner en kilomètres — « trois concurrents dans
+ * un rayon de deux kilomètres » — sans reprojeter quoi que ce soit.
+ *
+ * Lambert-93 est CONFORME : elle conserve les angles, et son facteur
+ * d'échelle varie de moins d'un millième sur l'étendue de la métropole. À
+ * l'échelle d'un quartier ou d'une agglomération, une distance calculée dans
+ * cette boîte est donc juste ; ce n'est pas une approximation à surveiller.
+ */
+export const METRES_PAR_UNITE = {round((xmax - xmin) / LARGEUR, 3)};
+
 export const REGIONS: ZoneCarte[] = [
 {bloc(regions, "region")}
 ];
@@ -434,10 +447,12 @@ export function projeter(lon: number, lat: number): [number, number] {{
   const theta = N * (rad(lon) - LON0);
   const x = 700000 + rho * Math.sin(theta);
   const y = 6600000 + RHO0 - rho * Math.cos(theta);
-  return [
-    Math.round((x - {xmin!r}) * {echelle!r} * 10) / 10,
-    Math.round(({ymax!r} - y) * {echelle!r} * 10) / 10,
-  ];
+  // PAS d'arrondi. Les contours sont arrondis à l'unité parce qu'un trait
+  // d'un kilomètre ne se voit pas ; un POINT, lui, sert aussi à mesurer des
+  // distances. Arrondir au dixième d'unité — ce qu'on faisait — revenait à
+  // arrondir à 114 mètres, et une agence à 352 m d'un concurrent ressortait
+  // à 411. Le rendu ne perd rien à garder les décimales.
+  return [(x - {xmin!r}) * {echelle!r}, ({ymax!r} - y) * {echelle!r}];
 }}
 
 /**

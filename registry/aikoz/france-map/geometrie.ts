@@ -45,6 +45,19 @@ export interface ZoneCarte {
 /** La boîte commune aux deux niveaux : passer de l'un à l'autre ne saute pas. */
 export const BOITE = { largeur: 1000, hauteur: 929.9 } as const;
 
+/**
+ * Combien de mètres vaut une unité de la boîte.
+ *
+ * C'est ce qui permet de raisonner en kilomètres — « trois concurrents dans
+ * un rayon de deux kilomètres » — sans reprojeter quoi que ce soit.
+ *
+ * Lambert-93 est CONFORME : elle conserve les angles, et son facteur
+ * d'échelle varie de moins d'un millième sur l'étendue de la métropole. À
+ * l'échelle d'un quartier ou d'une agglomération, une distance calculée dans
+ * cette boîte est donc juste ; ce n'est pas une approximation à surveiller.
+ */
+export const METRES_PAR_UNITE = 1140.673;
+
 export const REGIONS: ZoneCarte[] = [
   { code: "11", nom: "Île-de-France", niveau: "region", d: "M498 196l3 -3l8 5l2 -3l4 2l13 -1l1 -4l6 2l0 8l6 5l1 3l2 -1l2 4l2 -2l1 5l5 4l2 -2l0 3l-4 1l1 3l-2 0l-1 2l5 2l0 5l-2 3l7 4l-5 5l-1 4l-3 0l2 3l-3 2l1 8l-3 0l0 2l-20 1l-2 5l1 4l-2 6l-2 0l-3 4l-7 4l-2 -4l-3 1l1 1l-4 2l-16 -1l2 -3l1 1l1 -4l-3 -6l-3 0l-1 -6l-3 1l-2 -2l-2 2l-6 -3l-3 3l-12 2l0 -11l-3 -1l0 -5l-4 2l-4 -3l-2 -4l1 -4l-5 -3l0 -3l-3 0l-4 -5l1 -3l-2 -1l3 -4l-3 -4l0 -7l-2 -1l0 -5l-2 -1l-4 -11l1 -2l1 1l8 -2l7 -15l3 5l2 -1l6 3l8 -2l4 -3l2 2l8 1l2 3l3 -3l18 10Z" },
   { code: "24", nom: "Centre-Val de Loire", niveau: "region", d: "M516 348l4 8l-4 11l7 6l3 13l0 7l4 4l-2 19l-1 3l-5 -1l-14 8l-3 -2l-6 8l-3 0l2 11l-5 2l-3 -1l-9 2l-5 6l0 3l-6 -1l-7 2l-7 -3l-11 1l-1 -3l-4 1l1 2l-2 4l-3 -3l-3 3l-2 -2l-4 1l-2 -3l-7 7l-4 -5l-4 3l-6 0l0 -2l-2 0l2 -4l-4 -2l0 -5l-4 -4l-4 0l-1 -3l-6 -3l-2 -3l3 -6l-8 -10l0 -3l-7 -8l0 -7l-5 -3l-4 0l3 4l-7 0l-4 3l-5 -2l-3 2l-1 -13l-2 1l-2 -2l-2 1l-2 -2l1 -1l-1 -3l-2 1l-5 -2l-1 -4l2 -11l7 -10l-1 -2l4 -9l-1 -4l2 -7l10 5l1 -1l-2 -5l2 -1l4 2l0 -2l11 -4l-3 -3l14 -12l-1 -5l5 -5l-1 -5l1 -3l-2 -1l0 -4l3 0l0 -6l4 0l0 -1l-7 -5l2 -1l-3 -11l7 -3l4 -5l0 -7l2 -4l-8 -6l-2 -9l5 -4l15 -4l0 -3l3 2l10 1l4 -3l-1 -4l6 -3l1 -7l5 2l0 5l2 1l0 7l3 4l-3 4l2 1l-1 3l4 5l3 0l0 3l5 3l-1 4l2 4l4 3l4 -2l0 5l3 1l0 11l12 -2l3 -3l6 3l2 -2l2 2l3 -1l1 6l5 3l0 7l-1 -1l-2 3l2 1l5 -1l9 1l4 -2l-1 -1l3 -1l2 4l7 -4l6 3l7 16l-8 8l1 10l-11 3l0 3l6 8l0 4l2 3l-8 2l1 3Z" },
@@ -338,10 +351,12 @@ export function projeter(lon: number, lat: number): [number, number] {
   const theta = N * (rad(lon) - LON0);
   const x = 700000 + rho * Math.sin(theta);
   const y = 6600000 + RHO0 - rho * Math.cos(theta);
-  return [
-    Math.round((x - 101735.99999983341) * 0.0008766754363431523 * 10) / 10,
-    Math.round((7110412.999998961 - y) * 0.0008766754363431523 * 10) / 10,
-  ];
+  // PAS d'arrondi. Les contours sont arrondis à l'unité parce qu'un trait
+  // d'un kilomètre ne se voit pas ; un POINT, lui, sert aussi à mesurer des
+  // distances. Arrondir au dixième d'unité — ce qu'on faisait — revenait à
+  // arrondir à 114 mètres, et une agence à 352 m d'un concurrent ressortait
+  // à 411. Le rendu ne perd rien à garder les décimales.
+  return [(x - 101735.99999983341) * 0.0008766754363431523, (7110412.999998961 - y) * 0.0008766754363431523];
 }
 
 /**
