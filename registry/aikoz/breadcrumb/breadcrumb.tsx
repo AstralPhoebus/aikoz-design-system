@@ -81,6 +81,12 @@ export function Breadcrumb({
                     onClick={item.onClick}
                     className={cn(
                       "inline-flex items-center gap-1.5 rounded-[calc(var(--radius)/2)]",
+                      // 24 px est le plancher du critère WCAG 2.2 AA 2.5.8.
+                      // Mesuré ici avant correction : 20 px — la hauteur de
+                      // ligne de `text-sm`. L'exception « cible dans une
+                      // phrase » ne s'applique pas : un fil d'Ariane est une
+                      // liste de navigation, pas du texte courant.
+                      "min-h-6 tactile:min-h-11 tactile:px-1",
                       // Même soulignement au repos que le lien : c'est le seul
                       // signe qu'on peut agir dessus, et la couleur seule ne
                       // suffit pas (WCAG 1.4.1).
@@ -112,6 +118,12 @@ export function Breadcrumb({
                     href={item.href}
                     className={cn(
                       "inline-flex items-center gap-1.5 rounded-[calc(var(--radius)/2)]",
+                      // 24 px est le plancher du critère WCAG 2.2 AA 2.5.8.
+                      // Mesuré ici avant correction : 20 px — la hauteur de
+                      // ligne de `text-sm`. L'exception « cible dans une
+                      // phrase » ne s'applique pas : un fil d'Ariane est une
+                      // liste de navigation, pas du texte courant.
+                      "min-h-6 tactile:min-h-11 tactile:px-1",
                       // Le soulignement est là AU REPOS, pas seulement au
                       // survol : dans un fil d'Ariane rien d'autre ne
                       // distingue un lien d'un simple mot, et la couleur

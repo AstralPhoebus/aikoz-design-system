@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — fichier généré par npm run build:tokens
 import couleurs from "./build/tailwind-colors.mjs";
@@ -65,7 +66,32 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // ── `tactile:` — le pointeur grossier ────────────────────────────────
+    //
+    // Mesuré sur le dashboard : le fil d'Ariane offrait des cibles de **20 px
+    // de haut**, sous le plancher de 24 px du critère WCAG 2.2 AA 2.5.8 ; la
+    // bascule Graphique/Tableau, les puces de marque et le bouton de thème
+    // tenaient entre 24 et 32 px. Au doigt, une cible de 32 px se rate.
+    //
+    // Deux seuils, pas un :
+    //
+    //  - **24 px partout** — c'est le critère AA, il ne dépend pas du
+    //    périphérique. Il est tenu dans le composant, en dur.
+    //  - **44 px au doigt** — c'est le confort réel, et le prix (des
+    //    contrôles plus hauts) ne se justifie que là où on touche l'écran.
+    //
+    // D'où cette variante plutôt qu'un agrandissement global : à la souris
+    // la densité du tableau de bord est un atout, au doigt elle est un
+    // défaut. `@media (pointer: coarse)` sépare les deux cas sans deviner.
+    //
+    // Élargir la zone en douce — un `::after` invisible plus grand que le
+    // bouton — a été écarté : ça rend la cible vraie et l'affordance
+    // fausse, on vise ce qu'on voit et on touche autre chose à côté.
+    plugin(({ addVariant }) => {
+      addVariant("tactile", "@media (pointer: coarse)");
+    }),
+  ],
 };
 
 export default config;

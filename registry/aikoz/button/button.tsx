@@ -61,7 +61,11 @@ const buttonVariants = cva(
         ],
       },
       size: {
-        sm: "min-h-9 px-4 py-2 text-sm",
+        // 36 px : la densité d'une barre d'outils, assumée à la souris.
+        // Au doigt elle tombe sous le confort de 44 px (AAA 2.5.5, Apple HIG),
+        // d'où `tactile:` — mesuré sur le tableau de bord, « Exporter » valait
+        // 39 px de haut.
+        sm: "min-h-9 tactile:min-h-11 px-4 py-2 text-sm",
         md: "min-h-11 px-6 py-2.5 text-sm",
         lg: "min-h-12 px-8 py-3 text-base",
       },

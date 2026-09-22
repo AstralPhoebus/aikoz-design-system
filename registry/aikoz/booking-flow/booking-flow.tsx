@@ -77,6 +77,13 @@ export function BookingFlow({
   const [slot, setSlot] = useState("");
   const [errors, setErrors] = useState<Partial<Record<keyof BookingValues, string>>>({});
   const finRef = useRef<HTMLParagraphElement>(null);
+  // Le premier champ en erreur, pour y emmener le focus après une soumission
+  // refusée. Sans lui l'utilisateur reste sur « Confirmer », trois `role=
+  // "alert"` partent en même temps — les lecteurs d'écran en font la queue ou
+  // en perdent — et il ne lui reste qu'à remonter le formulaire à tâtons.
+  const nomRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const creneauRef = useRef<HTMLFieldSetElement>(null);
 
   // Le focus suit l'état. À l'arrivée d'une confirmation ou d'un échec, il
   // se pose sur le message : sans ça il resterait sur un bouton disparu.
@@ -84,7 +91,14 @@ export function BookingFlow({
     if (status === "confirmed" || status === "failed") finRef.current?.focus();
   }, [status]);
 
-  function valider(): boolean {
+  /**
+   * Valide, et rend le premier champ fautif — `null` si tout va bien.
+   *
+   * Rendre le champ plutôt qu'un booléen est ce qui permet d'y emmener le
+   * focus. « Le formulaire est invalide » ne dit pas OÙ, et c'est justement
+   * ce que l'utilisateur a besoin de savoir.
+   */
+  function valider(): "name" | "email" | "slot" | null {
     const e: typeof errors = {};
     if (!name.trim()) e.name = "Indiquez votre nom, pour savoir qui nous rencontrons.";
     // Volontairement permissif : une adresse valide au sens de la norme peut
@@ -94,7 +108,9 @@ export function BookingFlow({
       e.email = "L'adresse doit contenir un domaine, par exemple prenom.nom@exemple.fr.";
     if (!slot) e.slot = "Choisissez un créneau pour poursuivre.";
     setErrors(e);
-    return Object.keys(e).length === 0;
+    // L'ordre est celui du formulaire : on emmène au PREMIER problème, pas au
+    // premier trouvé par l'objet.
+    return (["name", "email", "slot"] as const).find((k) => e[k]) ?? null;
   }
 
   const enCours = status === "sending";
@@ -111,7 +127,24 @@ export function BookingFlow({
         status === "form" ? (
           <Button
             onClick={() => {
-              if (!valider()) return;
+              const fautif = valider();
+              if (fautif) {
+                // Le focus va au champ, pas au message : c'est là qu'on
+                // corrige, et le message le suit par `aria-describedby`.
+                if (fautif === "slot") {
+                  // Un `<fieldset>` ne prend pas le focus. On vise le premier
+                  // créneau SÉLECTIONNABLE : emmener sur un créneau complet
+                  // serait emmener dans une impasse.
+                  creneauRef.current
+                    ?.querySelector<HTMLInputElement>(
+                      'input[type="radio"]:not([disabled])',
+                    )
+                    ?.focus();
+                } else {
+                  (fautif === "name" ? nomRef : emailRef).current?.focus();
+                }
+                return;
+              }
               onSubmit?.({ name, email, company: company || undefined, slot });
             }}
             disabled={enCours}
@@ -125,6 +158,7 @@ export function BookingFlow({
         <div className="flex flex-col gap-5">
           <div className="grid gap-4 sm:grid-cols-2">
             <Input
+              ref={nomRef}
               label="Nom"
               required
               autoComplete="name"
@@ -133,6 +167,7 @@ export function BookingFlow({
               error={errors.name}
             />
             <Input
+              ref={emailRef}
               label="Adresse e-mail"
               type="email"
               required
@@ -144,12 +179,14 @@ export function BookingFlow({
           </div>
           <Input
             label="Établissement"
+            optional
             autoComplete="organization"
-            description="Facultatif — cela nous permet de préparer des exemples de votre réseau."
+            description="Cela nous permet de préparer des exemples de votre réseau."
             value={company}
             onChange={(e) => setCompany(e.target.value)}
           />
           <SlotPicker
+            ref={creneauRef}
             legend="Choisissez un créneau"
             days={days}
             value={slot}

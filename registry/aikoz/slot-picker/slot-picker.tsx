@@ -1,4 +1,4 @@
-import { useId } from "react";
+import { useId, forwardRef} from "react";
 import { cn } from "@registry/aikoz/lib/utils";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -52,7 +52,8 @@ export interface SlotPickerProps {
  * **L'état complet ne tient pas à la couleur** : texte barré, opacité,
  * `disabled` annoncé, et la mention « complet » en `sr-only`.
  */
-export function SlotPicker({
+export const SlotPicker = forwardRef<HTMLFieldSetElement, SlotPickerProps>(
+  function SlotPicker({
   legend,
   days,
   value,
@@ -60,13 +61,18 @@ export function SlotPicker({
   error,
   emptyLabel = "Aucun créneau disponible sur cette période.",
   className,
-}: SlotPickerProps) {
+}, ref) {
   const uid = useId();
   const errId = error ? `${uid}-err` : undefined;
   const vide = days.every((d) => d.slots.length === 0);
 
   return (
     <fieldset
+      // La référence sert à emmener le focus ici après une soumission
+      // refusée : `BookingFlow` y cherche le premier créneau sélectionnable.
+      // Un `<fieldset>` ne prend pas le focus lui-même, et lui en donner un
+      // artificiellement ferait annoncer le groupe sans dire quoi faire.
+      ref={ref}
       className={cn("m-0 p-0 border-0 flex flex-col gap-4", className)}
       aria-describedby={errId}
     >
@@ -148,4 +154,4 @@ export function SlotPicker({
       )}
     </fieldset>
   );
-}
+});

@@ -313,7 +313,7 @@ export function ChartFrame<T>({
         setVue(cle === "graphique" ? "tableau" : "graphique");
       }}
       className={cn(
-        "min-h-8 rounded-full px-2.5 text-xs transition-colors",
+        "min-h-8 tactile:min-h-11 tactile:px-4 rounded-full px-2.5 text-xs transition-colors",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]",
         "focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--card)]",
         vue === cle

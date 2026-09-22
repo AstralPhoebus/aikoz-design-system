@@ -64,6 +64,26 @@ export interface InputProps
    */
   description?: string;
   /**
+   * Marque le champ **facultatif**, en toutes lettres à côté du libellé.
+   *
+   * *Practical UI* (chapitre 8) et les guides d'accessibilité demandent la
+   * même chose : on marque les obligatoires OU les facultatifs, et on ne
+   * laisse jamais l'utilisateur deviner lesquels sont lesquels. Un formulaire
+   * où trois champs sur quatre portent une astérisque a choisi le mauvais
+   * camp — c'est le quatrième qu'il fallait nommer.
+   *
+   * Le marqueur est **visible**, pas `sr-only` : celui qui voit l'écran a
+   * exactement le même besoin de savoir qu'il peut passer son chemin.
+   *
+   * Sans effet si `required` est posé. Un champ marqué des deux façons ne
+   * veut rien dire ; plutôt que d'échouer à la compilation — ce qui rendait
+   * `args: { required: true }` inexprimable dans les histoires et compliquait
+   * la vie de qui étale des props — l'obligation l'emporte, toujours, et
+   * l'audit des formulaires vérifie qu'aucun champ ne porte les deux
+   * marqueurs à l'écran.
+   */
+  optional?: boolean;
+  /**
    * Message d'erreur. Doit nommer le problème ET dire comment le corriger :
    * « Le nom doit faire au moins 2 caractères », pas « Champ invalide ».
    * Sa présence bascule le champ en `aria-invalid`.
@@ -77,6 +97,7 @@ export interface InputProps
   /** Classe du conteneur, pour la mise en page. */
   wrapperClassName?: string;
 }
+
 
 // ─── Composant ────────────────────────────────────────────────────────────────
 
@@ -102,6 +123,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   {
     label,
     labelHidden = false,
+    optional = false,
     description,
     error,
     leadingIcon,
@@ -144,6 +166,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
             </span>
             <span className="sr-only"> (obligatoire)</span>
           </>
+        )}
+        {!required && optional && (
+          // Visible, jamais `sr-only` : qui voit l'écran a le même
+          // besoin de savoir qu'il peut passer son chemin.
+          <span className="ml-1 font-regular text-muted-foreground">
+            (facultatif)
+          </span>
         )}
       </label>
 
