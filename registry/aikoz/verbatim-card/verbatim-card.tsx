@@ -113,7 +113,10 @@ export function VerbatimCard({
 
   const interactiveClasses = isInteractive
     ? cn(
-        "text-left w-full transition-all cursor-pointer",
+        // Seules la bordure et l'anneau de focus changent : `transition-all`
+        // promettait d'animer n'importe quoi d'autre qui viendrait s'ajouter.
+        // Un fondu de couleur n'est pas du mouvement, il ne se coupe pas.
+        "text-left w-full transition-colors cursor-pointer",
         "hover:border-[var(--ring)]",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]",
         "focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]",

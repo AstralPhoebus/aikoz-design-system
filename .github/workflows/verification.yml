@@ -88,6 +88,22 @@ jobs:
       - name: L'échelle typographique gouverne
         run: npm run audit:typo
 
+      # ── Tout ce qui bouge doit pouvoir s'arrêter ─────────────────────────
+      #
+      # `prefers-reduced-motion` n'est pas une option de confort : pour qui
+      # souffre de troubles vestibulaires, une animation non sollicitée
+      # provoque vertiges et nausées.
+      #
+      # Le design system l'écoutait à MOITIÉ — trois composants sur six.
+      # `Accordion`, `ProgressBar` et `Skeleton` coupaient bien leur
+      # animation ; `Switch` faisait glisser sa pastille de vingt pixels sans
+      # rien demander, et `KpiCard` rétrécissait la carte entière à l'appui.
+      # Une règle appliquée à moitié ne protège personne : l'utilisateur qui a
+      # coché la case voit certaines choses s'arrêter et pas d'autres, sans
+      # aucun moyen de savoir lesquelles.
+      - name: Tout ce qui bouge peut s'arrêter
+        run: npm run audit:mouvement
+
       # Les stories SONT les tests : axe y tourne en mode `error`, une
       # violation d'accessibilité fait échouer la marche.
       - name: Stories

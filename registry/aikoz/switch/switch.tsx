@@ -102,7 +102,11 @@ export function Switch({
           aria-hidden="true"
           className={cn(
             "pointer-events-none inline-block size-5 translate-x-0 rounded-full",
+            // La pastille glisse de vingt pixels. Coupée sous
+            // `prefers-reduced-motion` : l'état change quand même — c'est la
+            // POSITION qui porte l'information, pas le déplacement.
             "bg-[var(--background)] shadow-sm transition-transform",
+            "motion-reduce:transition-none",
             "peer-checked:translate-x-5"
           )}
         />

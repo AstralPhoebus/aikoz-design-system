@@ -188,7 +188,11 @@ export function KpiCard({
 
   const interactiveClasses = isInteractive
     ? cn(
-        "transition-all cursor-pointer",
+        // `transition-all` animait TOUT, y compris ce qui n'était pas prévu.
+        // La liste explicite dit ce qui bouge — et `active:scale` en fait
+        // partie : la carte entière rétrécit à l'appui, c'est du mouvement.
+        "transition-[box-shadow,border-color,transform] cursor-pointer",
+        "motion-reduce:transition-none motion-reduce:active:scale-100",
         "hover:shadow-lg hover:border-[var(--ring)]",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]",
         "focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]",
