@@ -18,6 +18,25 @@ de l'API — mais il se voit, donc il est toujours écrit ici.
 
 ---
 
+## [2.7.1] — 2026-09-22
+
+### Corrigé
+
+- **L'anneau de focus reprend les couleurs qu'il avait.** En sortant
+  `brand.focus` de ses emprunts, la 2.7.0 l'avait placé sur la rampe
+  **primaire** de chaque marque — et Aikoz y perdait son **aquamarine** en
+  sombre au profit de l'ultramarine. La couleur de signature remplacée par la
+  couleur primaire, sans que personne l'ait demandé.
+
+  Et pour un anneau objectivement moins bon : aquamarine.300 vaut APCA 91 et
+  WCAG 13,9 sur la carte sombre, contre 47 et 6,2 pour l'ultramarine.
+
+  Le rôle `brand.focus` reste — c'est lui qui règle les deux sources — mais
+  avec **exactement** les couleurs d'avant. Corriger une architecture ne donne
+  pas le droit de changer une identité.
+
+---
+
 ## [2.7.0] — 2026-09-22
 
 ### Ajouté

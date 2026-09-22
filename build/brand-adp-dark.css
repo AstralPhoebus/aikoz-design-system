@@ -37,11 +37,11 @@
   --color-brand-accent: var(--color-adp-red-300); /** Accent de marque en sombre. Monté d'un palier (400 → 300) le 22/09/2026 : à 400 il valait APCA 31 à 43 contre la carte sombre selon la marque, sous le plancher de 45 d'un élément d'interface — donc l'anneau de focus et le trait de l'entrée courante ne se voyaient pas, et c'est ce qui dit à qui navigue au clavier où il se trouve. */
   --color-brand-accent-subtle: var(--color-adp-red-500); /** Voile d'accent — la surface sur laquelle l'accent porte du TEXTE. Il valait le même palier clair dans les deux thèmes : en sombre, un voile quasi blanc sur une carte à 0,223, soit APCA 104 contre elle. Ce n'était pas un voile, c'était un aplat. Il prend maintenant un palier de milieu de rampe, choisi pour se distinguer de la carte (écart APCA 16 à 27) tout en portant du texte. */
   /**
-   * Couleur de l'anneau de focus — un rôle à SOI, pas un emprunt.
+   * Couleur de l'anneau de focus — un rôle à SOI, mais qui ne change RIEN à l'identité.
    * 
-   * Il valait `brand.secondary` en clair et `brand.accent` en sombre : deux sources différentes pour un même rôle. Ce n'était pas une négligence mais un contournement, et la mesure du 22/09/2026 dit pourquoi — aucune des deux ne tient dans les deux thèmes. En clair, l'accent vaut APCA 12 chez Aikoz et 0 chez Generali ; en sombre, le secondaire tombe à 9-24 chez les quatre. Le seuil d'un élément d'interface est 45.
+   * Il était emprunté : `brand.secondary` en clair, `brand.accent` en sombre. Deux sources pour un même rôle, parce qu'aucune des deux ne tient dans les deux thèmes — en clair l'accent vaut APCA 12 chez Aikoz et 0 chez Generali ; en sombre le secondaire tombe à 9-24 chez les quatre. Seuil : 45.
    * 
-   * Un anneau de focus est ce qui dit à qui navigue au clavier où il se trouve. Il mérite son rôle plutôt qu'une couleur voisine qui se trouve contraster. Le palier est choisi sur la rampe PRIMAIRE de la marque — donc l'anneau reste de la marque — et vérifié contre la carte ET la page, les deux fonds sur lesquels il apparaît.
+   * Le rôle existe donc maintenant pour lui-même, avec EXACTEMENT les couleurs qu'avait l'anneau avant. Un premier jet les avait toutes remplacées par la rampe primaire de chaque marque : Aikoz y perdait son aquamarine en sombre au profit de l'ultramarine — la couleur de signature contre la couleur primaire — et pour un anneau objectivement moins bon (APCA 47 contre 77). Corriger une architecture ne donne pas le droit de changer une identité.
    */
-  --color-brand-focus: var(--color-adp-blue-300);
+  --color-brand-focus: var(--color-adp-red-300);
 }

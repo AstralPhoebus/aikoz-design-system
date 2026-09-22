@@ -1,6 +1,6 @@
 {
   "name": "aikoz-design-system",
-  "version": "2.7.0",
+  "version": "2.7.1",
   "description": "Dépôt de référence pour tout contenu visuel et éditorial Aikoz by Okuden.   Il contient les sources de vérité — design tokens, voix de marque, logos, polices — que l'équipe injecte dans ses outils IA et ses productions.",
   "main": "index.js",
   "type": "module",
