@@ -254,6 +254,25 @@ def main(dossier):
                           f'boite: {{ largeur: {LARG:.0f}, hauteur: {haut} }} }},')
         return "\n".join(lignes)
 
+    def boites(jeu):
+        """La boîte englobante de chaque département, dans la boîte commune.
+
+        Descendre au niveau commune en gardant le cadrage national rend le
+        département minuscule — mesuré, moins de 1 % de la surface pour le
+        Rhône. Il faut donc cadrer, et pour cadrer il faut la boîte. Elle est
+        calculée ici plutôt qu'au runtime : la déduire en relisant les
+        chaînes `d` demanderait d'écrire un parseur de chemin SVG.
+        """
+        out = []
+        for e in sorted(jeu, key=lambda e: e["code"]):
+            pts = [((x - xmin) * echelle, (ymax - y) * echelle)
+                   for a in e["anneaux"] for x, y in a]
+            bx0 = min(p[0] for p in pts); bx1 = max(p[0] for p in pts)
+            by0 = min(p[1] for p in pts); by1 = max(p[1] for p in pts)
+            out.append(f'  "{e["code"]}": {{ x: {bx0:.1f}, y: {by0:.1f}, '
+                       f'largeur: {bx1-bx0:.1f}, hauteur: {by1-by0:.1f} }},')
+        return "\n".join(out)
+
     def bloc(jeu, niveau):
         lignes = []
         for e in sorted(jeu, key=lambda e: e["code"]):
@@ -331,6 +350,21 @@ export const DEPARTEMENTS: ZoneCarte[] = [
 export const OUTRE_MER: ZoneOutreMer[] = [
 {bloc_drom(drom)}
 ];
+
+/**
+ * La boîte englobante de chaque département, dans la boîte commune.
+ *
+ * Elle sert à CADRER quand on descend au niveau commune : au cadrage
+ * national, le Rhône occupe moins de 1 % de la surface et ses communes sont
+ * illisibles. Les départements voisins restent dessinés derrière, ce qui
+ * donne le contexte sans faire sauter l'échelle d'un cran à l'autre.
+ */
+export const BOITES_DEPARTEMENT: Record<
+  string,
+  {{ x: number; y: number; largeur: number; hauteur: number }}
+> = {{
+{boites(departements)}
+}};
 
 /** Les départements d'une région, par code INSEE de région. */
 export const DEPARTEMENTS_PAR_REGION: Record<string, string[]> = {json.dumps(

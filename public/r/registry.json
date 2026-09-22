@@ -523,6 +523,494 @@
       ]
     },
     {
+      "name": "france-map-communes",
+      "type": "registry:file",
+      "title": "Communes de France",
+      "description": "Les 35 189 communes de metropole, un fichier par departement, a poser dans `public/communes/`. Optionnel : `france-map` fonctionne sans, aux niveaux region et departement. Installez-le si vous avez besoin du niveau commune — le composant charge alors le departement demande a la demande, ~47 Ko par fichier, ~15 Ko sur le reseau une fois compresse. Meme projection et MEME BOITE que les autres niveaux : une commune reste a sa place quand on descend. Genere par scripts/carte-communes.py a partir de france-geojson (derive d'ADMIN EXPRESS de l'IGN, Licence Ouverte / Etalab).",
+      "files": [
+        {
+          "path": "public/communes/01.json",
+          "type": "registry:file",
+          "target": "public/communes/01.json"
+        },
+        {
+          "path": "public/communes/02.json",
+          "type": "registry:file",
+          "target": "public/communes/02.json"
+        },
+        {
+          "path": "public/communes/03.json",
+          "type": "registry:file",
+          "target": "public/communes/03.json"
+        },
+        {
+          "path": "public/communes/04.json",
+          "type": "registry:file",
+          "target": "public/communes/04.json"
+        },
+        {
+          "path": "public/communes/05.json",
+          "type": "registry:file",
+          "target": "public/communes/05.json"
+        },
+        {
+          "path": "public/communes/06.json",
+          "type": "registry:file",
+          "target": "public/communes/06.json"
+        },
+        {
+          "path": "public/communes/07.json",
+          "type": "registry:file",
+          "target": "public/communes/07.json"
+        },
+        {
+          "path": "public/communes/08.json",
+          "type": "registry:file",
+          "target": "public/communes/08.json"
+        },
+        {
+          "path": "public/communes/09.json",
+          "type": "registry:file",
+          "target": "public/communes/09.json"
+        },
+        {
+          "path": "public/communes/10.json",
+          "type": "registry:file",
+          "target": "public/communes/10.json"
+        },
+        {
+          "path": "public/communes/11.json",
+          "type": "registry:file",
+          "target": "public/communes/11.json"
+        },
+        {
+          "path": "public/communes/12.json",
+          "type": "registry:file",
+          "target": "public/communes/12.json"
+        },
+        {
+          "path": "public/communes/13.json",
+          "type": "registry:file",
+          "target": "public/communes/13.json"
+        },
+        {
+          "path": "public/communes/14.json",
+          "type": "registry:file",
+          "target": "public/communes/14.json"
+        },
+        {
+          "path": "public/communes/15.json",
+          "type": "registry:file",
+          "target": "public/communes/15.json"
+        },
+        {
+          "path": "public/communes/16.json",
+          "type": "registry:file",
+          "target": "public/communes/16.json"
+        },
+        {
+          "path": "public/communes/17.json",
+          "type": "registry:file",
+          "target": "public/communes/17.json"
+        },
+        {
+          "path": "public/communes/18.json",
+          "type": "registry:file",
+          "target": "public/communes/18.json"
+        },
+        {
+          "path": "public/communes/19.json",
+          "type": "registry:file",
+          "target": "public/communes/19.json"
+        },
+        {
+          "path": "public/communes/21.json",
+          "type": "registry:file",
+          "target": "public/communes/21.json"
+        },
+        {
+          "path": "public/communes/22.json",
+          "type": "registry:file",
+          "target": "public/communes/22.json"
+        },
+        {
+          "path": "public/communes/23.json",
+          "type": "registry:file",
+          "target": "public/communes/23.json"
+        },
+        {
+          "path": "public/communes/24.json",
+          "type": "registry:file",
+          "target": "public/communes/24.json"
+        },
+        {
+          "path": "public/communes/25.json",
+          "type": "registry:file",
+          "target": "public/communes/25.json"
+        },
+        {
+          "path": "public/communes/26.json",
+          "type": "registry:file",
+          "target": "public/communes/26.json"
+        },
+        {
+          "path": "public/communes/27.json",
+          "type": "registry:file",
+          "target": "public/communes/27.json"
+        },
+        {
+          "path": "public/communes/28.json",
+          "type": "registry:file",
+          "target": "public/communes/28.json"
+        },
+        {
+          "path": "public/communes/29.json",
+          "type": "registry:file",
+          "target": "public/communes/29.json"
+        },
+        {
+          "path": "public/communes/2A.json",
+          "type": "registry:file",
+          "target": "public/communes/2A.json"
+        },
+        {
+          "path": "public/communes/2B.json",
+          "type": "registry:file",
+          "target": "public/communes/2B.json"
+        },
+        {
+          "path": "public/communes/30.json",
+          "type": "registry:file",
+          "target": "public/communes/30.json"
+        },
+        {
+          "path": "public/communes/31.json",
+          "type": "registry:file",
+          "target": "public/communes/31.json"
+        },
+        {
+          "path": "public/communes/32.json",
+          "type": "registry:file",
+          "target": "public/communes/32.json"
+        },
+        {
+          "path": "public/communes/33.json",
+          "type": "registry:file",
+          "target": "public/communes/33.json"
+        },
+        {
+          "path": "public/communes/34.json",
+          "type": "registry:file",
+          "target": "public/communes/34.json"
+        },
+        {
+          "path": "public/communes/35.json",
+          "type": "registry:file",
+          "target": "public/communes/35.json"
+        },
+        {
+          "path": "public/communes/36.json",
+          "type": "registry:file",
+          "target": "public/communes/36.json"
+        },
+        {
+          "path": "public/communes/37.json",
+          "type": "registry:file",
+          "target": "public/communes/37.json"
+        },
+        {
+          "path": "public/communes/38.json",
+          "type": "registry:file",
+          "target": "public/communes/38.json"
+        },
+        {
+          "path": "public/communes/39.json",
+          "type": "registry:file",
+          "target": "public/communes/39.json"
+        },
+        {
+          "path": "public/communes/40.json",
+          "type": "registry:file",
+          "target": "public/communes/40.json"
+        },
+        {
+          "path": "public/communes/41.json",
+          "type": "registry:file",
+          "target": "public/communes/41.json"
+        },
+        {
+          "path": "public/communes/42.json",
+          "type": "registry:file",
+          "target": "public/communes/42.json"
+        },
+        {
+          "path": "public/communes/43.json",
+          "type": "registry:file",
+          "target": "public/communes/43.json"
+        },
+        {
+          "path": "public/communes/44.json",
+          "type": "registry:file",
+          "target": "public/communes/44.json"
+        },
+        {
+          "path": "public/communes/45.json",
+          "type": "registry:file",
+          "target": "public/communes/45.json"
+        },
+        {
+          "path": "public/communes/46.json",
+          "type": "registry:file",
+          "target": "public/communes/46.json"
+        },
+        {
+          "path": "public/communes/47.json",
+          "type": "registry:file",
+          "target": "public/communes/47.json"
+        },
+        {
+          "path": "public/communes/48.json",
+          "type": "registry:file",
+          "target": "public/communes/48.json"
+        },
+        {
+          "path": "public/communes/49.json",
+          "type": "registry:file",
+          "target": "public/communes/49.json"
+        },
+        {
+          "path": "public/communes/50.json",
+          "type": "registry:file",
+          "target": "public/communes/50.json"
+        },
+        {
+          "path": "public/communes/51.json",
+          "type": "registry:file",
+          "target": "public/communes/51.json"
+        },
+        {
+          "path": "public/communes/52.json",
+          "type": "registry:file",
+          "target": "public/communes/52.json"
+        },
+        {
+          "path": "public/communes/53.json",
+          "type": "registry:file",
+          "target": "public/communes/53.json"
+        },
+        {
+          "path": "public/communes/54.json",
+          "type": "registry:file",
+          "target": "public/communes/54.json"
+        },
+        {
+          "path": "public/communes/55.json",
+          "type": "registry:file",
+          "target": "public/communes/55.json"
+        },
+        {
+          "path": "public/communes/56.json",
+          "type": "registry:file",
+          "target": "public/communes/56.json"
+        },
+        {
+          "path": "public/communes/57.json",
+          "type": "registry:file",
+          "target": "public/communes/57.json"
+        },
+        {
+          "path": "public/communes/58.json",
+          "type": "registry:file",
+          "target": "public/communes/58.json"
+        },
+        {
+          "path": "public/communes/59.json",
+          "type": "registry:file",
+          "target": "public/communes/59.json"
+        },
+        {
+          "path": "public/communes/60.json",
+          "type": "registry:file",
+          "target": "public/communes/60.json"
+        },
+        {
+          "path": "public/communes/61.json",
+          "type": "registry:file",
+          "target": "public/communes/61.json"
+        },
+        {
+          "path": "public/communes/62.json",
+          "type": "registry:file",
+          "target": "public/communes/62.json"
+        },
+        {
+          "path": "public/communes/63.json",
+          "type": "registry:file",
+          "target": "public/communes/63.json"
+        },
+        {
+          "path": "public/communes/64.json",
+          "type": "registry:file",
+          "target": "public/communes/64.json"
+        },
+        {
+          "path": "public/communes/65.json",
+          "type": "registry:file",
+          "target": "public/communes/65.json"
+        },
+        {
+          "path": "public/communes/66.json",
+          "type": "registry:file",
+          "target": "public/communes/66.json"
+        },
+        {
+          "path": "public/communes/67.json",
+          "type": "registry:file",
+          "target": "public/communes/67.json"
+        },
+        {
+          "path": "public/communes/68.json",
+          "type": "registry:file",
+          "target": "public/communes/68.json"
+        },
+        {
+          "path": "public/communes/69.json",
+          "type": "registry:file",
+          "target": "public/communes/69.json"
+        },
+        {
+          "path": "public/communes/70.json",
+          "type": "registry:file",
+          "target": "public/communes/70.json"
+        },
+        {
+          "path": "public/communes/71.json",
+          "type": "registry:file",
+          "target": "public/communes/71.json"
+        },
+        {
+          "path": "public/communes/72.json",
+          "type": "registry:file",
+          "target": "public/communes/72.json"
+        },
+        {
+          "path": "public/communes/73.json",
+          "type": "registry:file",
+          "target": "public/communes/73.json"
+        },
+        {
+          "path": "public/communes/74.json",
+          "type": "registry:file",
+          "target": "public/communes/74.json"
+        },
+        {
+          "path": "public/communes/75.json",
+          "type": "registry:file",
+          "target": "public/communes/75.json"
+        },
+        {
+          "path": "public/communes/76.json",
+          "type": "registry:file",
+          "target": "public/communes/76.json"
+        },
+        {
+          "path": "public/communes/77.json",
+          "type": "registry:file",
+          "target": "public/communes/77.json"
+        },
+        {
+          "path": "public/communes/78.json",
+          "type": "registry:file",
+          "target": "public/communes/78.json"
+        },
+        {
+          "path": "public/communes/79.json",
+          "type": "registry:file",
+          "target": "public/communes/79.json"
+        },
+        {
+          "path": "public/communes/80.json",
+          "type": "registry:file",
+          "target": "public/communes/80.json"
+        },
+        {
+          "path": "public/communes/81.json",
+          "type": "registry:file",
+          "target": "public/communes/81.json"
+        },
+        {
+          "path": "public/communes/82.json",
+          "type": "registry:file",
+          "target": "public/communes/82.json"
+        },
+        {
+          "path": "public/communes/83.json",
+          "type": "registry:file",
+          "target": "public/communes/83.json"
+        },
+        {
+          "path": "public/communes/84.json",
+          "type": "registry:file",
+          "target": "public/communes/84.json"
+        },
+        {
+          "path": "public/communes/85.json",
+          "type": "registry:file",
+          "target": "public/communes/85.json"
+        },
+        {
+          "path": "public/communes/86.json",
+          "type": "registry:file",
+          "target": "public/communes/86.json"
+        },
+        {
+          "path": "public/communes/87.json",
+          "type": "registry:file",
+          "target": "public/communes/87.json"
+        },
+        {
+          "path": "public/communes/88.json",
+          "type": "registry:file",
+          "target": "public/communes/88.json"
+        },
+        {
+          "path": "public/communes/89.json",
+          "type": "registry:file",
+          "target": "public/communes/89.json"
+        },
+        {
+          "path": "public/communes/90.json",
+          "type": "registry:file",
+          "target": "public/communes/90.json"
+        },
+        {
+          "path": "public/communes/91.json",
+          "type": "registry:file",
+          "target": "public/communes/91.json"
+        },
+        {
+          "path": "public/communes/92.json",
+          "type": "registry:file",
+          "target": "public/communes/92.json"
+        },
+        {
+          "path": "public/communes/93.json",
+          "type": "registry:file",
+          "target": "public/communes/93.json"
+        },
+        {
+          "path": "public/communes/94.json",
+          "type": "registry:file",
+          "target": "public/communes/94.json"
+        },
+        {
+          "path": "public/communes/95.json",
+          "type": "registry:file",
+          "target": "public/communes/95.json"
+        }
+      ]
+    },
+    {
       "name": "geo-drilldown",
       "type": "registry:component",
       "title": "GeoDrilldown",

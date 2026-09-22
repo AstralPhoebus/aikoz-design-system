@@ -1,6 +1,6 @@
-import { useId, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useState } from "react";
 import { cn } from "@registry/aikoz/lib/utils";
-import { BOITE, REGIONS, DEPARTEMENTS, DEPARTEMENTS_PAR_REGION, OUTRE_MER, type ZoneCarte } from "./geometrie";
+import { BOITE, REGIONS, DEPARTEMENTS, DEPARTEMENTS_PAR_REGION, OUTRE_MER, BOITES_DEPARTEMENT, type ZoneCarte } from "./geometrie";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -20,6 +20,21 @@ export interface FranceMapProps {
   formatValue?: (v: number) => string;
   /** Nombre de classes de couleur. 5 par défaut ; au-delà de 6 on ne les distingue plus. */
   classes?: number;
+  /**
+   * Descend au niveau COMMUNE dans un département, par son code INSEE.
+   * Demande que les fichiers de communes soient servis — cf. `communesUrl`.
+   */
+  departement?: string;
+  /**
+   * Où sont servis les fichiers de communes, un par département.
+   *
+   * Par défaut `/communes`, c'est-à-dire **votre propre origine** : le
+   * composant `france-map-communes` les y dépose. C'est délibéré — pointer
+   * vers un hébergement tiers ferait de votre carte la dépendance d'un
+   * serveur que vous ne maîtrisez pas, et elle se viderait en silence le
+   * jour où il bouge.
+   */
+  communesUrl?: string;
   /**
    * Affiche les cartouches d'outre-mer. `true` par défaut au niveau national.
    * Ils disparaissent quand on est descendu dans une région de métropole :
@@ -113,6 +128,8 @@ export function FranceMap({
   selected,
   formatValue = (v) => v.toLocaleString("fr-FR"),
   classes = 5,
+  departement,
+  communesUrl = "/communes",
   outreMer = true,
   height = 360,
   className,
@@ -120,13 +137,54 @@ export function FranceMap({
   const uid = useId().replace(/:/g, "");
   const [survol, setSurvol] = useState<ZoneCarte | null>(null);
 
+  // Les communes ne sont pas embarquées : 35 189 contours pèsent 4,4 Mo, et
+  // personne ne regarde la France entière à l'échelle communale. Un fichier
+  // par département, chargé quand on y descend.
+  const [communes, setCommunes] = useState<ZoneCarte[] | null>(null);
+  const [chargement, setChargement] = useState(false);
+  const [erreur, setErreur] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!departement) {
+      setCommunes(null);
+      setErreur(null);
+      return;
+    }
+    let vivant = true;
+    setChargement(true);
+    setErreur(null);
+    fetch(`${communesUrl}/${departement}.json`)
+      .then((r) => {
+        if (!r.ok) throw new Error(String(r.status));
+        return r.json();
+      })
+      .then((j: { zones: Array<{ code: string; nom: string; d: string }> }) => {
+        if (!vivant) return;
+        setCommunes(j.zones.map((z) => ({ ...z, niveau: "departement" as const })));
+      })
+      .catch(() => {
+        if (!vivant) return;
+        // Dire que le fichier manque, plutôt que d'afficher une carte vide
+        // qui se lirait comme « aucune commune ».
+        setErreur(
+          `Communes du département ${departement} introuvables. Le composant ` +
+            `« france-map-communes » les dépose dans public/communes/.`,
+        );
+      })
+      .finally(() => vivant && setChargement(false));
+    return () => {
+      vivant = false;
+    };
+  }, [departement, communesUrl]);
+
   const zones = useMemo(() => {
+    if (departement) return communes ?? [];
     if (region) {
       const codes = new Set(DEPARTEMENTS_PAR_REGION[region] ?? []);
       return DEPARTEMENTS.filter((z) => codes.has(z.code));
     }
     return level === "region" ? REGIONS : DEPARTEMENTS;
-  }, [level, region]);
+  }, [level, region, departement, communes]);
 
   // Les cartouches comptent dans les quantiles. Ils portent la même échelle
   // de couleur que la métropole — les exclure du calcul les tasserait tous
@@ -153,16 +211,60 @@ export function FranceMap({
   // (déplacé plus haut : les seuils en dépendent)
   // Les cartouches n'apparaissent qu'au niveau national : descendus dans une
   // région de métropole, ils n'ont rien à y faire.
-  const cartouches = outreMer && !region ? OUTRE_MER : [];
+  const cartouches = outreMer && !region && !departement ? OUTRE_MER : [];
+
+  /**
+   * Le cadrage.
+   *
+   * Aux niveaux région et département, c'est la boîte nationale : la zone
+   * reste à sa place, l'échelle ne saute pas. Au niveau COMMUNE ça ne tient
+   * plus — mesuré, le Rhône occupe moins de 1 % de la surface au cadrage
+   * national, et ses communes sont illisibles.
+   *
+   * On cadre donc sur le département, avec une marge d'un dixième. Les
+   * départements voisins restent dessinés derrière et débordent du cadre :
+   * c'est eux qui donnent le contexte, à la place de la France entière.
+   */
+  // De combien le cadre a rétréci : c'est ce facteur qui garde les traits
+  // visuellement constants quand on zoome.
+  const echelleTrait = departement && BOITES_DEPARTEMENT[departement]
+    ? Math.max(
+        BOITES_DEPARTEMENT[departement].largeur,
+        BOITES_DEPARTEMENT[departement].hauteur,
+      ) * 1.2 / BOITE.largeur
+    : 1;
+
+  const cadre = (() => {
+    if (!departement) return `0 0 ${BOITE.largeur} ${BOITE.hauteur}`;
+    const b = BOITES_DEPARTEMENT[departement];
+    if (!b) return `0 0 ${BOITE.largeur} ${BOITE.hauteur}`;
+    const marge = Math.max(b.largeur, b.hauteur) * 0.1;
+    return `${(b.x - marge).toFixed(1)} ${(b.y - marge).toFixed(1)} ` +
+      `${(b.largeur + marge * 2).toFixed(1)} ${(b.hauteur + marge * 2).toFixed(1)}`;
+  })();
   const codeDrom = (t: (typeof OUTRE_MER)[number]) =>
     level === "region" ? t.codeRegion : t.code;
 
+  // La hachure dit « on ne sait pas ». Elle a été pensée pour une absence
+  // EXCEPTIONNELLE — la Corse dans un jeu de treize régions. Au niveau
+  // commune, l'absence est la règle : un réseau d'agences couvre dix
+  // communes sur trois cents, et hachurer les deux cent quatre-vingt-dix
+  // autres fait un zèbre qui noie justement celles qui portent la donnée.
+  //
+  // Au-delà de la moitié, l'absence passe donc en aplat neutre : elle dit la
+  // même chose, plus bas. La légende la nomme dans les deux cas — sans quoi
+  // « on ne sait pas » et « presque rien » se ressembleraient.
   const comptees = [
     ...zones.map((z) => values[z.code]),
     ...cartouches.map((t) => values[codeDrom(t)]),
   ].filter((v): v is number => typeof v === "number");
   const total = comptees.reduce((s, v) => s + v, 0);
   const renseignees = { length: comptees.length };
+  const aTracer = zones.length + cartouches.length;
+  const absenceMajoritaire = aTracer > 0 && comptees.length / aTracer < 0.5;
+  const remplissageAbsent = absenceMajoritaire
+    ? "var(--muted)"
+    : `url(#${uid}-vide)`;
 
   return (
     <figure className={cn("m-0 flex flex-col gap-3", className)}>
@@ -206,7 +308,7 @@ export function FranceMap({
           // la métropole, et un cartouche par territoire. Les distinguer par
           // leur ordre dans le DOM rendrait les tests faux au premier ajout.
           data-carte="metropole"
-          viewBox={`0 0 ${BOITE.largeur} ${BOITE.hauteur}`}
+          viewBox={cadre}
           className="h-full w-full"
           // Masqué : recharts nous a appris la leçon, un dessin composé de
           // cent formes sans nom accessible devient cent images sans
@@ -220,6 +322,17 @@ export function FranceMap({
               dixième du cadre, et le reste est vide. Le contour du pays
               rend ce vide lisible : on voit OÙ l'on est. Il est inerte :
               ni survol, ni clic, ni donnée. */}
+          {departement &&
+            DEPARTEMENTS.filter((dep) => dep.code !== departement).map((dep) => (
+              <path
+                key={`fond-${dep.code}`}
+                d={dep.d}
+                fill="var(--muted)"
+                stroke="var(--card)"
+                strokeWidth={1.5 * echelleTrait}
+                strokeLinejoin="round"
+              />
+            ))}
           {region &&
             REGIONS.filter((r) => r.code !== region).map((r) => (
               <path
@@ -240,17 +353,18 @@ export function FranceMap({
                 key={z.code}
                 d={z.d}
                 fill={
-                  c === null
-                    ? // Pas de donnée n'est pas une valeur basse : une hachure
-                      // discrète, jamais la couleur de la première classe.
-                      `url(#${uid}-vide)`
-                    : teinte(c, classes)
+                  // Pas de donnée n'est jamais la couleur de la première
+                  // classe : ce serait lire une valeur qui n'existe pas.
+                  c === null ? remplissageAbsent : teinte(c, classes)
                 }
                 // Le trait est de la couleur de la CARTE : il sépare deux
                 // zones voisines quelle que soit leur classe, ce qu'aucune
                 // échelle de remplissage ne peut garantir à elle seule.
                 stroke={actif ? "var(--foreground)" : "var(--card)"}
-                strokeWidth={actif ? 3 : 1.5}
+                // L'épaisseur est en unités de la BOÎTE, pas en pixels : au
+                // cadrage d'un département, un trait de 1,5 avalerait les
+                // petites communes. Il suit donc le zoom.
+                strokeWidth={(actif ? 3 : 1.5) * echelleTrait}
                 strokeLinejoin="round"
                 className={cn(onSelect && "cursor-pointer")}
                 onMouseEnter={() => setSurvol(z)}
@@ -297,7 +411,7 @@ export function FranceMap({
                 >
                   <path
                     d={t.d}
-                    fill={c === null ? `url(#${uid}-vide)` : teinte(c, classes)}
+                    fill={c === null ? remplissageAbsent : teinte(c, classes)}
                     stroke={actif ? "var(--foreground)" : "var(--card)"}
                     strokeWidth={actif ? 3 : 1.5}
                     strokeLinejoin="round"
@@ -311,6 +425,12 @@ export function FranceMap({
             Cartouches à leur propre échelle
           </span>
         </div>
+      )}
+
+      {(chargement || erreur) && (
+        <p role="status" className="m-0 text-sm text-muted-foreground">
+          {erreur ?? `Chargement des communes du département ${departement}…`}
+        </p>
       )}
 
       {/* Ce que le survol révèle. Une ligne réservée en permanence : sans
@@ -332,7 +452,13 @@ export function FranceMap({
         )}
       </p>
 
-      <Legende seuils={seuils} classes={classes} formatValue={formatValue} valueLabel={valueLabel} />
+      <Legende
+        seuils={seuils}
+        classes={classes}
+        formatValue={formatValue}
+        valueLabel={valueLabel}
+        absent={aTracer > comptees.length ? remplissageAbsent : null}
+      />
     </figure>
   );
 }
@@ -344,11 +470,14 @@ function Legende({
   classes,
   formatValue,
   valueLabel,
+  absent,
 }: {
   seuils: number[];
   classes: number;
   formatValue: (v: number) => string;
   valueLabel: string;
+  /** Le remplissage des zones sans donnée, ou `null` s'il n'y en a aucune. */
+  absent: string | null;
 }) {
   if (seuils.length === 0) return null;
   // Les bornes AFFICHÉES, pas seulement les couleurs : une échelle de teintes
@@ -361,6 +490,16 @@ function Legende({
   return (
     <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
       <span className="font-medium text-foreground">{valueLabel}</span>
+      {absent && (
+        <span className="inline-flex items-center gap-1.5">
+          <span
+            aria-hidden="true"
+            className="size-3 shrink-0 rounded-[3px] border border-[var(--border)]"
+            style={{ background: absent }}
+          />
+          <span>sans donnée</span>
+        </span>
+      )}
       {etiquettes.map((e, i) => (
         <span key={e} className="inline-flex items-center gap-1.5">
           <span

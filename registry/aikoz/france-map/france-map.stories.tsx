@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, fn, userEvent, within } from "storybook/test";
+import { expect, fn, userEvent, waitFor, within } from "storybook/test";
 import { FranceMap } from "./france-map";
 import { REGIONS, DEPARTEMENTS, BOITE } from "./geometrie";
 
@@ -82,7 +82,10 @@ export const SansDonnee: Story = {
     const corse = [...svg.querySelectorAll("path")].filter((p) =>
       (p.getAttribute("fill") ?? "").includes("url(#")
     );
-    // Une seule zone sans donnée dans ce jeu, et elle est hachurée.
+    // Une seule zone sans donnée dans ce jeu, et elle est hachurée. La
+    // hachure ne tient que tant que l'absence reste exceptionnelle : au-delà
+    // de la moitié des zones, elle passe en aplat neutre (cf. le niveau
+    // commune, où l'absence est la règle).
     await expect(corse).toHaveLength(1);
   },
 };
@@ -127,14 +130,19 @@ export const LaLegendePorteLesBornes: Story = {
         story:
           "Une échelle de teintes sans chiffres ne se lit pas, elle se " +
           "devine. Chaque classe affiche sa borne, en chiffres tabulaires " +
-          "pour qu'elles s'alignent.",
+          "pour qu'elles s'alignent.\n\n" +
+          "L'absence de donnée a sa propre entrée dès qu'une zone n'est pas " +
+          "renseignée. Sans elle, « on ne sait pas » et « presque rien » se " +
+          "ressembleraient.",
       },
     },
   },
   play: async ({ canvasElement }) => {
-    // Cinq classes par défaut, donc cinq bornes affichées.
+    // Cinq classes, plus la pastille « sans donnée » : la Corse n'a pas de
+    // valeur dans ce jeu, et l'absence se nomme au lieu de se deviner.
     const pastilles = canvasElement.querySelectorAll("[aria-hidden='true'].size-3");
-    await expect(pastilles).toHaveLength(5);
+    await expect(pastilles).toHaveLength(6);
+    await expect(canvasElement.textContent).toContain("sans donnée");
   },
 };
 
@@ -294,6 +302,90 @@ export const PasDOutreMerDansUneRegion: Story = {
           "qu'on regarde.",
       },
     },
+  },
+};
+
+export const NiveauCommune: Story = {
+  name: "Descendre jusqu'à la commune",
+  args: {
+    departement: "69",
+    valueLabel: "Avis reçus",
+    // Quelques communes du Rhône, par code INSEE.
+    values: {
+      "69123": 284, "69266": 96, "69259": 74, "69256": 61, "69029": 48,
+      "69152": 41, "69199": 37, "69290": 33, "69244": 28, "69034": 22,
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "35 189 communes pèsent 4,4 Mo une fois projetées : impossible à " +
+          "embarquer. Mais personne ne regarde la France entière à l'échelle " +
+          "communale — on regarde **un** département, ou **une** ville. Le " +
+          "découpage suit donc l'usage : un fichier par département, chargé " +
+          "quand on y descend.\n\n" +
+          "| | |\n|---|---|\n| par département | 47 Ko en moyenne, 98 Ko au " +
+          "pire (Pas-de-Calais) |\n| sur le réseau | **~15 Ko**, gzippé |\n\n" +
+          "Les fichiers sont cherchés sur **votre propre origine** " +
+          "(`/communes` par défaut) — le paquet `france-map-communes` les y " +
+          "dépose. C'est délibéré : pointer vers un hébergement tiers ferait " +
+          "de votre carte la dépendance d'un serveur que vous ne maîtrisez " +
+          "pas, et elle se viderait en silence le jour où il bouge. " +
+          "`communesUrl` permet d'en décider autrement.\n\n" +
+          "Même projection et **même boîte** que les autres niveaux : une " +
+          "commune reste à sa place. Le reste du département est dessiné " +
+          "derrière en contour inerte, comme la France derrière une région.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const carte = canvasElement.querySelector('[data-carte="metropole"]')!;
+    // Le chargement est asynchrone : on attend que les communes arrivent, ou
+    // que le message d'absence apparaisse. Les deux sont des réponses
+    // valides — ce qui ne l'est pas, c'est une carte vide et muette.
+    await waitFor(
+      async () => {
+        const communes = carte.querySelectorAll('path:not([fill="var(--muted)"])');
+        const message = canvasElement.querySelector('[role="status"]');
+        await expect(communes.length > 0 || message !== null).toBe(true);
+      },
+      { timeout: 5000 },
+    );
+    // Les départements voisins sont derrière et débordent du cadre : c'est
+    // eux qui donnent le contexte à ce niveau, à la place de la France.
+    await expect(
+      carte.querySelectorAll('path[fill="var(--muted)"]').length,
+    ).toBeGreaterThan(90);
+    // Et le cadre, lui, s'est resserré sur le département. Au cadrage
+    // national, le Rhône occupe moins de 1 % de la surface : ses communes
+    // seraient illisibles.
+    const [, , l, h] = carte.getAttribute("viewBox")!.split(" ").map(Number);
+    await expect(l).toBeLessThan(BOITE.largeur / 5);
+    await expect(h).toBeLessThan(BOITE.hauteur / 5);
+  },
+};
+
+export const CommunesAbsentes: Story = {
+  name: "Fichier de communes absent : on le dit",
+  args: { departement: "69", communesUrl: "/chemin-qui-nexiste-pas", values: {} },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Si les fichiers ne sont pas servis, le composant l'annonce et " +
+          "nomme le paquet à installer. Sans ce message, on verrait une " +
+          "carte vide — qui se lirait comme « aucune commune », c'est-à-dire " +
+          "une donnée fausse plutôt qu'une absence.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    await waitFor(async () => {
+      const msg = canvasElement.querySelector('[role="status"]');
+      await expect(msg?.textContent ?? "").toMatch(/introuvables/);
+      await expect(msg?.textContent ?? "").toMatch(/france-map-communes/);
+    }, { timeout: 5000 });
   },
 };
 
