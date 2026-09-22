@@ -314,7 +314,7 @@ export const LesCinqDettes: Story = {
                 <h2 className="m-0 flex flex-wrap items-center gap-2 text-base font-semibold text-foreground">
                   {cas.titre}
                   {concerne && (
-                    <span className="rounded-full bg-[color-mix(in_oklch,var(--destructive-text),transparent_84%)] px-2 py-0.5 text-[11px] font-medium text-[var(--destructive-text)]">
+                    <span className="rounded-full bg-[color-mix(in_oklch,var(--destructive-text),transparent_84%)] px-2 py-0.5 text-2xs font-medium text-[var(--destructive-text)]">
                       ne tient pas ici
                     </span>
                   )}

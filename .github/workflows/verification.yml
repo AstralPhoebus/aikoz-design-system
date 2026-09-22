@@ -73,6 +73,21 @@ jobs:
       - name: Registry complet et installable
         run: npm run audit:registry
 
+      # ── L'échelle typographique gouverne-t-elle ? ────────────────────────
+      #
+      # `build/semantics.css` émettait quarante rôles `--role-typography-*` que
+      # ZÉRO composant ne consommait : les composants écrivent `text-sm` et
+      # `font-semibold`, c'est-à-dire les valeurs par défaut de Tailwind.
+      # L'échelle était déclarée, documentée, et sans effet — changer
+      # `typography.body-md` ne déplaçait pas un pixel. Pire : `font-semibold`
+      # (600), la graisse la plus employée du système, n'existait dans aucune
+      # couche de tokens.
+      #
+      # Le pont `build/tailwind-typo.mjs` règle la cause. Ce contrôle règle la
+      # récidive : une taille ou une graisse écrite en dur rouvre le trou.
+      - name: L'échelle typographique gouverne
+        run: npm run audit:typo
+
       # Les stories SONT les tests : axe y tourne en mode `error`, une
       # violation d'accessibilité fait échouer la marche.
       - name: Stories

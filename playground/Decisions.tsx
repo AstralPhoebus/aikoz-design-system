@@ -50,7 +50,7 @@ function Decision({
         </span>
         <h2 className="text-xl font-bold text-foreground">{title}</h2>
         <span
-          className={`text-[11px] font-semibold uppercase tracking-wider px-2 py-1 rounded-full border ${STATUS_STYLE[status]}`}
+          className={`text-xs font-semibold uppercase tracking-wider px-2 py-1 rounded-full border ${STATUS_STYLE[status]}`}
         >
           {status}
         </span>
@@ -108,7 +108,7 @@ function Panel({
           <div className="text-sm font-semibold text-foreground flex items-center gap-2 flex-wrap">
             {label}
             {tone === "retenu" && (
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--success)]">
+              <span className="text-xs font-semibold uppercase tracking-wider text-[var(--success)]">
                 retenu
               </span>
             )}
@@ -240,7 +240,7 @@ function NavCoexist() {
         aria-label="Démo navigation principale"
         className="w-40 shrink-0 flex flex-col gap-1"
       >
-        <span className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">
+        <span className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
           SidebarNav
         </span>
         {SECTIONS.map((n, i) => (
@@ -265,7 +265,7 @@ function NavCoexist() {
 
       {/* ViewTabs — bascule de vue, dans la page */}
       <div className="flex-1 min-w-0 flex flex-col gap-2">
-        <span className="text-[10px] uppercase tracking-widest text-muted-foreground">
+        <span className="text-xs uppercase tracking-widest text-muted-foreground">
           ViewTabs
         </span>
         <div className="flex gap-1 border-b border-border overflow-x-auto">
@@ -378,7 +378,7 @@ function TypeSample({ longhand }: { longhand: boolean }) {
       style={{ fontVariantNumeric: "tabular-nums" }}
     >
       <div>
-        <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">
+        <div className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
           label-sm · tracking déclaré : wider (0.05em)
         </div>
         <div id={id} style={base} className="text-foreground">
@@ -387,7 +387,7 @@ function TypeSample({ longhand }: { longhand: boolean }) {
       </div>
 
       <div>
-        <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">
+        <div className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
           metric · chiffres alignés ?
         </div>
         <div id={id + "-num"} style={numeric} className="text-foreground">
@@ -398,7 +398,7 @@ function TypeSample({ longhand }: { longhand: boolean }) {
       </div>
 
       {read && (
-        <div className="text-[11px] font-mono flex flex-col gap-0.5 pt-2 border-t border-border">
+        <div className="text-xs font-mono flex flex-col gap-0.5 pt-2 border-t border-border">
           <span
             className={
               read.ls === "normal"
@@ -456,13 +456,13 @@ function RatingRamp({ dark }: { dark: boolean }) {
                 : ""
             }`}
           >
-            <span className="w-14 shrink-0 text-[11px] font-mono text-muted-foreground">
+            <span className="w-14 shrink-0 text-xs font-mono text-muted-foreground">
               {step}
               {chosen ? " ←" : ""}
             </span>
             <Stars color={color} />
             <span
-              className={`text-[11px] font-mono ${
+              className={`text-xs font-mono ${
                 ok ? "text-[var(--success)]" : "text-[var(--destructive-text)]"
               }`}
             >
@@ -471,7 +471,7 @@ function RatingRamp({ dark }: { dark: boolean }) {
           </div>
         );
       })}
-      <div className="text-[11px] text-muted-foreground pt-2 border-t border-border">
+      <div className="text-xs text-muted-foreground pt-2 border-t border-border">
         Seuil 3:1 — WCAG 1.4.11. Bascule le thème : la rampe s'inverse, et 600 reste le
         seul palier conforme des deux côtés.
       </div>
@@ -490,8 +490,8 @@ function StarOption({ color, dark }: { color: string; dark: boolean }) {
   return (
     <div className="w-full flex flex-col gap-3">
       <Stars color={color} />
-      <div className="text-[11px] font-mono text-muted-foreground break-all">{color}</div>
-      <div className="text-[11px] font-mono pt-2 border-t border-border">
+      <div className="text-xs font-mono text-muted-foreground break-all">{color}</div>
+      <div className="text-xs font-mono pt-2 border-t border-border">
         <span className={ok ? "text-[var(--success)]" : "text-[var(--destructive-text)]"}>
           {ratio === null ? "—" : `${ratio.toFixed(2)}:1 vs carte · ${ok ? "OK" : "échec"}`}
         </span>
@@ -544,7 +544,7 @@ function VerbatimCardMockup() {
         {["Réactivité", "Expertise"].map((t) => (
           <span
             key={t}
-            className="text-[11px] rounded-full px-2 py-0.5 bg-muted text-muted-foreground"
+            className="text-xs rounded-full px-2 py-0.5 bg-muted text-muted-foreground"
           >
             {t}
           </span>

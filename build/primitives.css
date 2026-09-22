@@ -260,6 +260,7 @@
   --font-weight-light: 300;
   --font-weight-regular: 400;
   --font-weight-medium: 500; /** Inter (UI) / Satoshi (éditorial) — PP Radio Grotesk n'a pas de graisse medium */
+  --font-weight-semibold: 600; /** Graisse d'emphase. Elle était ABSENTE de l'échelle alors qu'elle est la plus employée du système — 47 usages contre 37 pour medium et 16 pour bold. Une échelle qui ne contient pas sa valeur la plus fréquente ne décrit pas le système, elle le contredit. Practical UI conseille deux graisses et admet explicitement le semi-gras à la place du gras quand celui-ci est trop lourd : c'est le cas ici. */
   --font-weight-bold: 700;
   --font-weight-black: 900;
   --line-height-none: 1; /** Display / hero headings */

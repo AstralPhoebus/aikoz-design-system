@@ -108,7 +108,7 @@ export function Leaderboard({
             <span
               className={cn(
                 "inline-flex size-6 shrink-0 items-center justify-center rounded-full",
-                "text-[11px] font-semibold tabular-nums",
+                "text-2xs font-semibold tabular-nums",
                 !m && "bg-[var(--muted)] text-muted-foreground"
               )}
               style={m ? { backgroundColor: m.fond, color: m.encre } : undefined}

@@ -2,6 +2,9 @@ import type { Config } from "tailwindcss";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore — fichier généré par npm run build:tokens
 import couleurs from "./build/tailwind-colors.mjs";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore — fichier généré par npm run build:tokens
+import { fontSize, fontWeight } from "./build/tailwind-typo.mjs";
 
 const config: Config = {
   darkMode: "class",
@@ -26,6 +29,14 @@ const config: Config = {
         heading: 'var(--font-heading)',
         mono: 'var(--font-mono)',
       },
+      // Généré depuis les primitives, comme les couleurs. Sans ce pont,
+      // `text-sm` et `font-semibold` valaient les défauts de Tailwind et
+      // l'échelle typographique du design system ne gouvernait rien : elle
+      // était déclarée, documentée, et sans effet. Mesuré — `semantics.css`
+      // émet quarante rôles `--role-typography-*` que zéro composant
+      // consomme.
+      fontSize,
+      fontWeight,
       // Généré par `npm run build:tokens` depuis le bridge. Ne pas lister
       // les couleurs à la main ici : c'est exactement ce qui avait fait
       // diverger la config du CSS — `card`, `popover`, `input` et `ring`

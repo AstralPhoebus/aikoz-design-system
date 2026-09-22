@@ -628,11 +628,11 @@ export function FranceMap({
                     strokeLinejoin="round"
                   />
                 </svg>
-                <span className="text-[10px] leading-none text-muted-foreground">{t.nom}</span>
+                <span className="text-2xs leading-none text-muted-foreground">{t.nom}</span>
               </button>
             );
           })}
-          <span className="self-center text-[10px] leading-tight text-muted-foreground">
+          <span className="self-center text-2xs leading-tight text-muted-foreground">
             Cartouches à leur propre échelle
           </span>
         </div>

@@ -301,6 +301,42 @@ fs.writeFileSync(
 );
 console.log(`build/tailwind-colors.mjs — ${varsBridge.length} couleurs exposées à Tailwind`);
 
+// ─── La typographie passe elle aussi par Tailwind ────────────────────────────
+//
+// Les couleurs avaient leur pont depuis longtemps ; la typographie n'en avait
+// aucun. Conséquence, mesurée : `build/semantics.css` émet quarante rôles
+// `--role-typography-*` que ZÉRO composant consomme. Les composants écrivent
+// `text-sm` et `font-semibold`, c'est-à-dire les valeurs par défaut de
+// Tailwind — l'échelle typographique du design system était déclarative, elle
+// ne gouvernait rien. Changer `typography.body-md` ne déplaçait pas un pixel.
+//
+// Pire : `font-semibold` (600) est la graisse la plus employée du système et
+// n'existait dans AUCUNE couche de tokens.
+//
+// On génère donc le même pont que pour les couleurs. `text-sm` et
+// `font-semibold` deviennent les tokens, sans rien changer aux composants.
+{
+  const prim = JSON.parse(fs.readFileSync('tokens/primitives.json', 'utf8'));
+  const rem = (t) => `${t.$value.value}${t.$value.unit === 'rem' ? 'rem' : 'px'}`;
+  const tailles = Object.fromEntries(
+    Object.entries(prim.dimension['font-size']).map(([k, v]) => [k, rem(v)]),
+  );
+  const graisses = Object.fromEntries(
+    Object.entries(prim['font-weight']).map(([k, v]) => [k, String(v.$value)]),
+  );
+  fs.writeFileSync(
+    'build/tailwind-typo.mjs',
+    '// GÉNÉRÉ par build-tokens.mjs — NE PAS ÉDITER À LA MAIN.\n' +
+      '// Les utilitaires `text-*` et `font-*` de Tailwind SONT les tokens.\n' +
+      'export const fontSize = ' + JSON.stringify(tailles, null, 2) + ';\n' +
+      'export const fontWeight = ' + JSON.stringify(graisses, null, 2) + ';\n',
+  );
+  console.log(
+    `build/tailwind-typo.mjs — ${Object.keys(tailles).length} tailles et ` +
+      `${Object.keys(graisses).length} graisses exposées à Tailwind`,
+  );
+}
+
 // ─── Garde-fou de sortie ─────────────────────────────────────────────────────
 //
 // Le bridge a déjà été livré avec la source SOMBRE servie sur le sélecteur
@@ -691,6 +727,13 @@ if (!/from\s+["'].\/build\/tailwind-colors\.mjs["']/.test(configTw)) {
   echecs.push(
     "tailwind.config.ts n'importe plus build/tailwind-colors.mjs — " +
       'les couleurs vont diverger du bridge en silence',
+  );
+}
+if (!/from\s+["'].\/build\/tailwind-typo\.mjs["']/.test(configTw)) {
+  echecs.push(
+    "tailwind.config.ts n'importe plus build/tailwind-typo.mjs — " +
+      "`text-sm` et `font-semibold` reprendraient les valeurs par défaut de " +
+      "Tailwind, et l'échelle typographique redeviendrait décorative",
   );
 }
 

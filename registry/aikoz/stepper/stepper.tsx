@@ -79,7 +79,7 @@ export function Stepper({
               aria-hidden="true"
               className={cn(
                 "inline-flex size-6 shrink-0 items-center justify-center rounded-full",
-                "text-[11px] font-semibold tabular-nums border",
+                "text-2xs font-semibold tabular-nums border",
                 faite || encours
                   ? "bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--primary)]"
                   : "bg-transparent text-muted-foreground border-[var(--border-strong)]"

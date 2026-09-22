@@ -9,7 +9,7 @@ const countBadgeVariants = cva(
     // `min-w` + `px` plutôt qu'une largeur fixe : un "9" reste un cercle, un
     // "12" ou "99" élargit la pastille en pilule au lieu de se faire couper —
     // même mécanique que le compteur de `NavItem`.
-    "min-w-5 h-5 px-1 text-[11px] font-semibold tabular-nums leading-none",
+    "min-w-5 h-5 px-1 text-2xs font-semibold tabular-nums leading-none",
   ],
   {
     variants: {

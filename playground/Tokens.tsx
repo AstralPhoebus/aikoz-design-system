@@ -112,7 +112,7 @@ function Section({
 
 function VarName({ name }: { name: string }) {
   return (
-    <code className="text-[11px] font-mono text-muted-foreground break-all">{name}</code>
+    <code className="text-xs font-mono text-muted-foreground break-all">{name}</code>
   );
 }
 
@@ -137,7 +137,7 @@ function Swatch({ name, value }: { name: string; value: string }) {
         title={value}
       />
       <span className="text-xs font-medium text-foreground truncate">{label}</span>
-      <span className="text-[10px] font-mono text-muted-foreground truncate">{value}</span>
+      <span className="text-2xs font-mono text-muted-foreground truncate">{value}</span>
     </div>
   );
 }
@@ -175,7 +175,7 @@ function ColorGrid({
         <div key={family} className="mb-8">
           <div className="flex items-baseline gap-2 mb-3">
             <h3 className="text-sm font-semibold text-foreground">{family}</h3>
-            <span className="text-[11px] font-mono text-muted-foreground">
+            <span className="text-xs font-mono text-muted-foreground">
               {entries.length}
             </span>
           </div>
@@ -296,7 +296,7 @@ function TypographyRoles({ vars }: { vars: Record<string, string> }) {
                 Les avis clients façonnent la réputation — 4,2/5
               </div>
               {c && (
-                <div className="flex gap-4 flex-wrap text-[11px] font-mono text-muted-foreground">
+                <div className="flex gap-4 flex-wrap text-xs font-mono text-muted-foreground">
                   <span>size {c.fontSize}</span>
                   <span>lh {c.lineHeight}</span>
                   <span>weight {c.fontWeight}</span>
@@ -367,7 +367,7 @@ function ScalarList({
           <span className="text-xs font-medium text-foreground truncate">
             {name.replace(strip, "")}
           </span>
-          <span className="text-[11px] font-mono text-muted-foreground shrink-0">
+          <span className="text-xs font-mono text-muted-foreground shrink-0">
             {value}
           </span>
         </div>
@@ -394,7 +394,7 @@ function Radius({ vars }: { vars: Record<string, string> }) {
             <span className="text-xs font-medium text-foreground">
               {name.replace("--role-radius-", "").replace("--dimension-radius-", "")}
             </span>
-            <span className="text-[10px] font-mono text-muted-foreground">{value}</span>
+            <span className="text-2xs font-mono text-muted-foreground">{value}</span>
           </div>
         ))}
       </div>
@@ -444,7 +444,7 @@ function BorderWidth({ vars }: { vars: Record<string, string> }) {
               .replace("--role-border-width-", "")
               .replace("--dimension-border-width-", "")}
           </span>
-          <span className="text-[10px] font-mono text-muted-foreground">{value}</span>
+          <span className="text-2xs font-mono text-muted-foreground">{value}</span>
         </div>
       ))}
     </div>

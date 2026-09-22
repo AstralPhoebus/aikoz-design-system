@@ -12,8 +12,8 @@ const pastilleVariants = cva(
   {
     variants: {
       size: {
-        sm: "text-[9px]",
-        md: "text-[11px]",
+        sm: "text-2xs",
+        md: "text-2xs",
         lg: "text-xs",
         xl: "text-sm",
       },

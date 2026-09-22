@@ -191,7 +191,7 @@ export function VerbatimCard({
           {tags.map((t) => (
             <li
               key={t}
-              className="text-[11px] rounded-full px-2 py-0.5 bg-muted text-muted-foreground"
+              className="text-2xs rounded-full px-2 py-0.5 bg-muted text-muted-foreground"
             >
               {t}
             </li>

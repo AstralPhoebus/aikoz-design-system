@@ -138,7 +138,7 @@ function Toast({
       <span
         data-glyphe
         aria-hidden="true"
-        className="mt-0.5 inline-flex size-5 shrink-0 items-center justify-center rounded-full border border-current text-[11px] font-bold"
+        className="mt-0.5 inline-flex size-5 shrink-0 items-center justify-center rounded-full border border-current text-2xs font-bold"
       >
         {GLYPHES[toast.tone ?? "info"]}
       </span>

@@ -110,7 +110,7 @@ export const NavItem = forwardRef<HTMLAnchorElement, NavItemProps>(
               aria-hidden="true"
               className={cn(
                 "shrink-0 inline-flex items-center justify-center",
-                "min-w-5 h-5 px-1.5 rounded-full text-[11px] font-semibold tabular-nums",
+                "min-w-5 h-5 px-1.5 rounded-full text-2xs font-semibold tabular-nums",
                 "bg-[var(--nav-accent)] text-[var(--nav-surface)]"
               )}
             >
