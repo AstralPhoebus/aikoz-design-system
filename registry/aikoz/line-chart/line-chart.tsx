@@ -14,8 +14,7 @@ import {
   ChartTooltipContent,
   couleurSerie,
   styleSerie,
-  type ChartSerie,
-} from "@registry/aikoz/chart-frame/chart-frame";
+  type ChartSerie, type ChartStates } from "@registry/aikoz/chart-frame/chart-frame";
 import { type TableColumn } from "@registry/aikoz/table/table";
 
 // ─── Ticks d'axe ──────────────────────────────────────────────────────────────
@@ -38,7 +37,7 @@ const TICK = {
 
 export type LineSerie = ChartSerie;
 
-export interface LineChartProps {
+export interface LineChartProps extends ChartStates {
   caption: string;
   data: Array<Record<string, string | number>>;
   xKey: string;
@@ -122,6 +121,9 @@ export function LineChart({
   directLabels = true,
   tableau = "bascule",
   className,
+  // Les états de `ChartStates`, transmis d'un bloc : énumérés un par un,
+  // le prochain qu'on ajoute manquera ici sans que rien ne le dise.
+  ...etats
 }: LineChartProps) {
   const toutes = reference ? [...series, reference] : series;
 
@@ -185,6 +187,7 @@ export function LineChart({
       hideLegend={etiquettes}
       tableau={tableau}
       className={className}
+      {...etats}
     >
       {({ infobulleActive, surSurvol }) => (
         <ResponsiveContainer width="100%" height="100%">

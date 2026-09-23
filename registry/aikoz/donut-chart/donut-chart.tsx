@@ -4,8 +4,7 @@ import {
   ChartFrame,
   ChartTooltipContent,
   opaciteSerie,
-  couleurSerie,
-} from "@registry/aikoz/chart-frame/chart-frame";
+  couleurSerie, type ChartStates } from "@registry/aikoz/chart-frame/chart-frame";
 import { type TableColumn } from "@registry/aikoz/table/table";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -16,7 +15,7 @@ export interface DonutPart {
   value: number;
 }
 
-export interface DonutChartProps {
+export interface DonutChartProps extends ChartStates {
   caption: string;
   parts: DonutPart[];
   /** Chiffre au centre — un total, une part dominante. */
@@ -54,6 +53,9 @@ export function DonutChart({
   formatValue = (v) => String(v),
   height = 260,
   className,
+  // Les états de `ChartStates`, transmis d'un bloc : énumérés un par un,
+  // le prochain qu'on ajoute manquera ici sans que rien ne le dise.
+  ...etats
 }: DonutChartProps) {
   const total = parts.reduce((t, p) => t + p.value, 0);
   const pct = (v: number) => (total ? Math.round((v / total) * 100) : 0);
@@ -80,6 +82,7 @@ export function DonutChart({
       height={height}
       legendStyle="aplat"
       className={className}
+      {...etats}
     >
       {({ infobulleActive, indexActif, surSurvol }) => (
         <div className="relative h-full w-full">

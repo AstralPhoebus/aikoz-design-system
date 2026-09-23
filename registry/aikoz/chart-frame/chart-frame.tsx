@@ -1,6 +1,8 @@
 import { useEffect, useId, useState, type ReactNode } from "react";
 import { cn } from "@registry/aikoz/lib/utils";
 import { Table, type TableColumn } from "@registry/aikoz/table/table";
+import { EmptyState } from "@registry/aikoz/empty-state/empty-state";
+import { Button } from "@registry/aikoz/button/button";
 
 // ─── Vocabulaire des séries ──────────────────────────────────────────────────
 
@@ -131,7 +133,7 @@ export function ChartTooltipContent({
     <div
       className={cn(
         "rounded-[var(--radius)] border border-[var(--border-strong)] px-3 py-2 shadow-lg",
-        "bg-[var(--popover)] text-[var(--popover-foreground)] text-xs leading-snug"
+        "bg-[var(--popover)] text-[var(--popover-foreground)] text-xs leading-snug",
       )}
     >
       {label !== undefined && label !== "" && (
@@ -139,14 +141,20 @@ export function ChartTooltipContent({
       )}
       <ul className="m-0 flex list-none flex-col gap-1 p-0">
         {payload.map((p, i) => (
-          <li key={String(p.dataKey ?? i)} className="flex items-center gap-1.5">
+          <li
+            key={String(p.dataKey ?? i)}
+            className="flex items-center gap-1.5"
+          >
             <span
               aria-hidden="true"
               className="inline-block size-2.5 shrink-0 rounded-sm"
               style={{ background: p.color }}
             />
             <span>
-              {p.name} : <strong className="tabular-nums">{formatValue(p.value ?? "")}</strong>
+              {p.name} :{" "}
+              <strong className="tabular-nums">
+                {formatValue(p.value ?? "")}
+              </strong>
             </span>
           </li>
         ))}
@@ -162,7 +170,38 @@ export interface ChartSerie {
   label: string;
 }
 
-export interface ChartFrameProps<T> {
+/**
+ * Les états où il n'y a rien à tracer.
+ *
+ * Extrait de `ChartFrameProps` pour que chaque graphique les ÉTENDE et les
+ * transmette d'un bloc : transmis un par un, le cinquième graphique en
+ * oublie un, et l'oubli ne se voit que le jour où la source tombe.
+ */
+export interface ChartStates {
+  /**
+   * La donnée n'est pas arrivée. La chaîne est la RAISON, telle qu'on la
+   * montre : « La collecte Google Business ne répond pas. »
+   *
+   * Sa présence remplace tout le contenu de la coque — graphique, bascule,
+   * légende et tableau — parce qu'aucun des quatre n'a de sens sans donnée.
+   * Le titre, lui, reste : c'est ce qui dit QUOI a échoué.
+   *
+   * **Ce n'est pas peint en rouge**, cf. `EmptyState`.
+   */
+  error?: string;
+  /** Rend le bouton de reprise. Sans lui, l'échec est un cul-de-sac. */
+  onRetry?: () => void;
+  /**
+   * Ce qui manque quand `data` est vide, dit en clair : « Aucun avis sur
+   * cette période ». Par défaut le composant nomme le graphique, ce qui est
+   * toujours moins bon — il ignore le filtre qui a produit le vide.
+   */
+  emptyLabel?: string;
+  /** Ce qu'on peut faire pour y remédier. */
+  emptyHint?: string;
+}
+
+export interface ChartFrameProps<T> extends ChartStates {
   /**
    * Ce que le graphique montre — **obligatoire**. C'est la légende du
    * tableau équivalent, donc le nom accessible de la donnée.
@@ -204,10 +243,11 @@ export interface ChartFrameProps<T> {
 /**
  * Coque commune à tous les graphiques.
  *
- * **Pas de story pour ce fichier, et c'est délibéré** : il ne rend rien seul.
- * Ce qu'il garantit se vérifie dans les stories de `LineChart`, `BarChart` et
- * `DonutChart`, qui l'utilisent. Une story de remplissage donnerait l'illusion
- * d'une couverture sans rien tester de plus.
+ * Ce commentaire a longtemps dit qu'il n'y avait **pas** de story pour ce
+ * fichier. Il y en a depuis le #95, et c'est le bon endroit : la coque a des
+ * garanties qui lui appartiennent — la bascule qui ne déplace rien, l'ordre
+ * de lecture, les états sans donnée — et les vérifier dans `LineChart`
+ * revient à tester trois fois la même chose en croyant en tester trois.
  *
  * Elle existe pour que le contrat d'accessibilité soit tenu **par
  * construction** plutôt que répété — et oublié une fois sur cinq. Tout
@@ -243,6 +283,10 @@ export function ChartFrame<T>({
   hideLegend = false,
   legendStyle = "trait",
   tableau = "bascule",
+  error,
+  onRetry,
+  emptyLabel,
+  emptyHint,
   className,
 }: ChartFrameProps<T>) {
   const uid = useId().replace(/:/g, "");
@@ -325,13 +369,42 @@ export function ChartFrame<T>({
     </button>
   );
 
+  // ── Quand il n'y a rien à tracer ─────────────────────────────────────────
+  //
+  // Deux situations, un seul rendu : la coque garde son titre et sa hauteur,
+  // et remplace TOUT le reste — graphique, bascule, légende, tableau. Aucun
+  // des quatre n'a de sens sans donnée, et une bascule « Graphique /
+  // Tableau » posée sur du vide laisse chercher la donnée dans l'autre
+  // onglet.
+  //
+  // Le titre reste, lui : c'est la seule chose qui dise QUOI manque.
+  const etat = error
+    ? {
+        title: error,
+        description: onRetry
+          ? "La donnée n'a pas pu être chargée. Rien n'est perdu côté serveur."
+          : "La donnée n'a pas pu être chargée.",
+        tone: "error" as const,
+      }
+    : data.length === 0
+      ? {
+          title: emptyLabel ?? `Aucune donnée pour « ${caption} »`,
+          description: emptyHint,
+          tone: "default" as const,
+        }
+      : null;
+
   return (
     <figure className={cn("m-0 flex flex-col gap-4", className)}>
+      {/* Le titre ouvre la figure, quoi qu'il arrive : c'est la seule chose
+          qui dise de QUOI il n'y a rien à montrer. Le sélecteur de vue, lui,
+          disparaît avec la donnée — commuter entre deux vues vides envoie
+          chercher le contenu dans l'autre onglet. */}
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
         <figcaption className="font-heading text-sm font-medium text-foreground">
           {caption}
         </figcaption>
-        {bascule && (
+        {!etat && bascule && (
           <div
             role="tablist"
             aria-label={`Affichage de « ${caption} »`}
@@ -343,57 +416,92 @@ export function ChartFrame<T>({
         )}
       </div>
 
+      {/*
+        La région live est montée EN PERMANENCE — repliée en `sr-only` tant
+        que tout va bien, donc en `absolute`, hors du flux et sans gouttière
+        parasite. Une région créée DÉJÀ remplie n'est pas annoncée de façon
+        fiable : c'est le changement de contenu d'une région existante qui
+        l'est.
+
+        Et l'état est rendu DEDANS, pas recopié à côté : une phrase d'état
+        doublée d'une phrase visible identique se lit deux fois.
+      */}
       <div
-        id={bascule ? `${uid}-vue` : undefined}
-        role={bascule ? "tabpanel" : undefined}
-        aria-labelledby={bascule ? `${uid}-onglet-${vue}` : undefined}
-        // La hauteur est portée ICI, pas par le graphique : c'est elle qui
-        // garantit que la bascule ne déplace rien.
-        style={{ height }}
-        className="w-full"
+        role="status"
+        aria-live="polite"
+        className={etat ? "flex w-full" : "sr-only"}
+        style={etat ? { minHeight: height } : undefined}
       >
-        {bascule && vue === "tableau" ? (
-          <div className="h-full min-w-0 overflow-auto">{tableauRendu}</div>
-        ) : (
-          <div
-            role="img"
-            aria-label={
-              bascule
-                ? `${summary} Les valeurs exactes sont dans la vue « Tableau ».`
-                : `${summary} Les valeurs exactes sont dans le tableau qui suit.`
+        {etat && (
+          <EmptyState
+            className="w-full"
+            tone={etat.tone}
+            title={etat.title}
+            description={etat.description}
+            action={
+              onRetry ? (
+                <Button variant="secondary" size="sm" onClick={onRetry}>
+                  Réessayer
+                </Button>
+              ) : undefined
             }
-            className="h-full w-full"
+          />
+        )}
+      </div>
+
+      {!etat && (
+        <>
+          <div
+            id={bascule ? `${uid}-vue` : undefined}
+            role={bascule ? "tabpanel" : undefined}
+            aria-labelledby={bascule ? `${uid}-onglet-${vue}` : undefined}
+            // La hauteur est portée ICI, pas par le graphique : c'est elle qui
+            // garantit que la bascule ne déplace rien.
+            style={{ height }}
+            className="w-full"
           >
-            {/*
+            {bascule && vue === "tableau" ? (
+              <div className="h-full min-w-0 overflow-auto">{tableauRendu}</div>
+            ) : (
+              <div
+                role="img"
+                aria-label={
+                  bascule
+                    ? `${summary} Les valeurs exactes sont dans la vue « Tableau ».`
+                    : `${summary} Les valeurs exactes sont dans le tableau qui suit.`
+                }
+                className="h-full w-full"
+              >
+                {/*
               Le SVG est masqué, et ce n'est pas une redondance avec le
               `role="img"` du parent. Recharts pose `role="img"` sur CHAQUE
               secteur et chaque tracé, sans nom accessible : axe y voit autant
               d'images sans alternative. Le parent porte le nom, le tableau
               porte la donnée.
             */}
-            <div
-              aria-hidden="true"
-              className="h-full w-full"
-              onMouseEnter={() => setSurvol(true)}
-              onMouseLeave={() => {
-                setSurvol(false);
-                setEcartee(false);
-                setIndexActif(null);
-              }}
-            >
-              {children({
-                idTrames: uid,
-                infobulleActive: survol && !ecartee,
-                indexActif,
-                surSurvol: (etat) =>
-                  setIndexActif(etat?.activeTooltipIndex ?? null),
-              })}
-            </div>
+                <div
+                  aria-hidden="true"
+                  className="h-full w-full"
+                  onMouseEnter={() => setSurvol(true)}
+                  onMouseLeave={() => {
+                    setSurvol(false);
+                    setEcartee(false);
+                    setIndexActif(null);
+                  }}
+                >
+                  {children({
+                    idTrames: uid,
+                    infobulleActive: survol && !ecartee,
+                    indexActif,
+                    surSurvol: (etat) =>
+                      setIndexActif(etat?.activeTooltipIndex ?? null),
+                  })}
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
 
-      {/* La légende SOUS le graphique, pas au-dessus.
+          {/* La légende SOUS le graphique, pas au-dessus.
           Placée avant, elle s'interpose entre le titre et la donnée : l'œil
           doit traverser une liste de noms pour atteindre ce qu'il est venu
           voir. Placée après, elle ne sert qu'à ceux qui en ont besoin, au
@@ -402,9 +510,11 @@ export function ChartFrame<T>({
           Elle reste affichée dans la vue tableau : la retirer ferait
           exactement le saut de mise en page qu'on vient de supprimer, et
           elle reste juste, les colonnes portant les mêmes séries. */}
-      {!hideLegend && <ChartLegend series={series} style={legendStyle} />}
+          {!hideLegend && <ChartLegend series={series} style={legendStyle} />}
 
-      {!bascule && tableauRendu}
+          {!bascule && tableauRendu}
+        </>
+      )}
     </figure>
   );
 }
@@ -428,9 +538,18 @@ export interface ChartLegendProps {
  * Le nom du canal est aussi écrit en `sr-only`. Sans lui, la légende lue à
  * voix haute donne une liste de noms sans clé de lecture.
  */
-export function ChartLegend({ series, style = "trait", className }: ChartLegendProps) {
+export function ChartLegend({
+  series,
+  style = "trait",
+  className,
+}: ChartLegendProps) {
   return (
-    <ul className={cn("flex flex-wrap gap-x-5 gap-y-2 list-none m-0 p-0", className)}>
+    <ul
+      className={cn(
+        "flex flex-wrap gap-x-5 gap-y-2 list-none m-0 p-0",
+        className,
+      )}
+    >
       {series.map((s, i) => {
         const v = styleSerie(i);
         const c = couleurSerie(i);
@@ -440,12 +559,23 @@ export function ChartLegend({ series, style = "trait", className }: ChartLegendP
               aria-hidden="true"
               focusable="false"
               viewBox={style === "trait" ? "0 0 28 12" : "0 0 36 14"}
-              className={cn("shrink-0", style === "trait" ? "h-3 w-7" : "h-3.5 w-9")}
+              className={cn(
+                "shrink-0",
+                style === "trait" ? "h-3 w-7" : "h-3.5 w-9",
+              )}
               fill="none"
             >
               {style === "trait" ? (
                 <>
-                  <line x1="0" y1="6" x2="28" y2="6" stroke={c} strokeWidth="2" strokeDasharray={v.trait} />
+                  <line
+                    x1="0"
+                    y1="6"
+                    x2="28"
+                    y2="6"
+                    stroke={c}
+                    strokeWidth="2"
+                    strokeDasharray={v.trait}
+                  />
                   <circle cx="14" cy="6" r="3.5" fill={c} />
                 </>
               ) : (

@@ -113,6 +113,14 @@
           "type": "registry:component"
         },
         {
+          "path": "registry/aikoz/empty-state/empty-state.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/aikoz/button/button.tsx",
+          "type": "registry:component"
+        },
+        {
           "path": "registry/aikoz/lib/utils.ts",
           "type": "registry:lib"
         }
@@ -294,7 +302,7 @@
       "name": "chart-frame",
       "type": "registry:component",
       "title": "ChartFrame",
-      "description": "Coque commune a tous les graphiques : le contrat d'accessibilite est tenu PAR CONSTRUCTION plutot que repete et oublie une fois sur cinq. Graphique masque et tableau comme contenu reel, legende AVANT le graphique, trois canaux par serie dans un ordre fixe, aucune animation. Fournit aussi les trames SVG pour les aplats — une barre n'a pas de trace ou poser un pointille.",
+      "description": "Coque commune a tous les graphiques : le contrat d'accessibilite est tenu PAR CONSTRUCTION plutot que repete et oublie une fois sur cinq. Graphique masque et tableau comme contenu reel, legende APRES le graphique — placee avant, elle s'interpose entre le titre et la donnee, trois canaux par serie dans un ordre fixe, aucune animation. Sans donnee, la coque remplace tout son contenu par un etat qui nomme ce qui manque ; un echec de chargement y porte sa reprise, et n'est pas peint en rouge. Fournit aussi les trames SVG pour les aplats — une barre n'a pas de trace ou poser un pointille.",
       "files": [
         {
           "path": "registry/aikoz/chart-frame/chart-frame.tsx",
@@ -306,6 +314,14 @@
         },
         {
           "path": "registry/aikoz/skeleton/skeleton.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/aikoz/empty-state/empty-state.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/aikoz/button/button.tsx",
           "type": "registry:component"
         },
         {
@@ -512,6 +528,14 @@
           "type": "registry:component"
         },
         {
+          "path": "registry/aikoz/empty-state/empty-state.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/aikoz/button/button.tsx",
+          "type": "registry:component"
+        },
+        {
           "path": "registry/aikoz/lib/utils.ts",
           "type": "registry:lib"
         }
@@ -547,7 +571,7 @@
       "name": "empty-state",
       "type": "registry:component",
       "title": "EmptyState",
-      "description": "Etat vide. Il nomme ce qui manque (« Aucun avis sur cette periode », pas « Aucune donnee ») et indique la sortie : un etat vide sans action ni consigne est un cul-de-sac. Le ton error se lit dans le texte, jamais a la seule couleur du cadre. Le niveau de titre est un prop, par defaut p — il depend du plan de la page.",
+      "description": "Etat vide. Il nomme ce qui manque (« Aucun avis sur cette periode », pas « Aucune donnee ») et indique la sortie : un etat vide sans action ni consigne est un cul-de-sac. Le ton error se lit dans le texte, jamais a la seule couleur du cadre — et il n'est PAS rouge : le rouge dit que l'utilisateur est refuse ou que quelque chose va etre detruit, un chargement qui echoue ne fait ni l'un ni l'autre. Le niveau de titre est un prop, par defaut p — il depend du plan de la page.",
       "files": [
         {
           "path": "registry/aikoz/empty-state/empty-state.tsx",
@@ -1285,6 +1309,14 @@
         },
         {
           "path": "registry/aikoz/skeleton/skeleton.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/aikoz/empty-state/empty-state.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/aikoz/button/button.tsx",
           "type": "registry:component"
         },
         {

@@ -30,8 +30,9 @@ export interface EmptyStateProps {
   secondaryAction?: ReactNode;
   /**
    * `default` — un vide normal, attendu : aucun résultat sur ce filtre.
-   * `error` — un vide subi : le chargement a échoué. Le ton change le
-   * cadre, jamais la présence du texte.
+   * `error` — un vide subi : la donnée n'est pas arrivée.
+   *
+   * **Ce ton n'est pas rouge, et c'est délibéré.** Voir le composant.
    */
   tone?: "default" | "error";
   density?: "compact" | "default";
@@ -50,9 +51,31 @@ export interface EmptyStateProps {
  * 2. **Il indique la sortie.** Un état vide sans action ni consigne est un
  *    cul-de-sac : l'utilisateur voit que rien ne s'affiche, sans savoir si
  *    c'est normal, si ça va arriver, ou s'il a mal réglé quelque chose.
- * 3. **Il ne parle pas deux fois.** L'icône est décorative ; le ton `error`
- *    ne se lit pas à la seule couleur du cadre, il se lit dans le texte —
- *    ce que WCAG 1.4.1 exige et qu'un liseré rouge muet ne satisfait pas.
+ * 3. **Il ne parle pas deux fois.** L'icône est décorative ; le ton se lit
+ *    dans le texte, jamais à la seule couleur du cadre — ce que WCAG 1.4.1
+ *    exige et qu'un liseré muet ne satisfait pas.
+ *
+ * ## Un échec de chargement n'est pas rouge
+ *
+ * Dans ce système, le rouge dit une seule chose : **l'utilisateur est
+ * refusé, ou quelque chose va être détruit**. Une saisie invalide, une
+ * suppression à confirmer. C'est une couleur qui qualifie un geste.
+ *
+ * Un chargement qui échoue ne refuse rien et ne détruit rien. Personne n'a
+ * rien fait de mal, et il n'y a rien à décider : il y a un bouton à
+ * cliquer. Le peindre en rouge réclame une émotion là où il faut un clic,
+ * et use la couleur qui devra servir le jour où ça compte vraiment.
+ *
+ * | | ce qui s'est passé | couleur |
+ * | --- | --- | --- |
+ * | `tone="default"` | rien à montrer, c'est normal | trait tireté |
+ * | `tone="error"` | la donnée n'est pas arrivée | **trait plein, sourd** |
+ * | `Badge`/`InfoBanner` `tone="error"` | un fait anormal à signaler | rouge |
+ * | `AlertDialog destructive` | ça va détruire | rouge |
+ *
+ * Ce qui distingue l'échec du vide n'est donc pas une teinte : c'est que
+ * l'échec **porte une action de reprise**. Un `tone="error"` sans `action`
+ * est un cul-de-sac, et la règle 2 s'applique d'abord.
  *
  * Le composant n'annonce rien de lui-même. Quand il REMPLACE un contenu qui
  * était là — après un filtre, après un rechargement — c'est au conteneur de
@@ -79,17 +102,21 @@ export function EmptyState({
         "rounded-[var(--radius)] border",
         density === "compact" ? "gap-2 p-6" : "gap-3 p-10",
         tone === "error"
-          // Le fond pâle est DÉCORATIF — mesuré à 1,10:1 sur la carte en
-          // clair, 1,09 en sombre : c'est ce qu'on attend d'un « subtle ».
-          // L'état d'erreur est porté par le trait ET par le texte, jamais
-          // par cette teinte (WCAG 1.4.1).
-          ? "border-[var(--destructive-text)] bg-[var(--error-subtle)]"
+          ? // Trait PLEIN sur fond sourd, et aucune trace de rouge : le
+            // tireté dit « emplacement en attente », le plein dit « il y a
+            // quelque chose ici, et c'est ce message ». La différence entre
+            // les deux tons se lit dans le texte et dans le bouton, pas dans
+            // une teinte (WCAG 1.4.1).
+            "border-[var(--border-strong)] bg-[var(--muted)]"
           : "border-dashed border-border bg-[var(--card)]",
-        className
+        className,
       )}
     >
       {icon && (
-        <span aria-hidden="true" className="text-muted-foreground [&>svg]:size-8">
+        <span
+          aria-hidden="true"
+          className="text-muted-foreground [&>svg]:size-8"
+        >
           {icon}
         </span>
       )}
@@ -97,7 +124,7 @@ export function EmptyState({
       <Titre
         className={cn(
           "m-0 font-heading font-semibold text-foreground",
-          density === "compact" ? "text-sm" : "text-base"
+          density === "compact" ? "text-sm" : "text-base",
         )}
       >
         {title}

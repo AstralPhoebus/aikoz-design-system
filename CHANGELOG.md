@@ -18,6 +18,54 @@ de l'API — mais il se voit, donc il est toujours écrit ici.
 
 ---
 
+## [2.10.0] — 2026-09-23
+
+### Ajouté
+
+- **`ChartFrame` : les états sans donnée.** La coque n'avait ni vide, ni
+  échec, ni rien. Un graphique dont la source tombait rendait un cadre vide,
+  une bascule « Graphique / Tableau » commutant entre deux vides, et une
+  légende de séries absentes. Trois nouvelles props — `error`, `onRetry`,
+  `emptyLabel`/`emptyHint` — remplacent TOUT le contenu de la coque par un
+  état qui nomme ce qui manque. Le titre, lui, reste : c'est la seule chose
+  qui dise de quoi il n'y a rien à montrer.
+- **Les trois graphiques les transmettent d'un bloc**, via la nouvelle
+  interface `ChartStates` qu'ils étendent. Énumérées une par une, le
+  quatrième graphique en aurait oublié une, et l'oubli ne se serait vu que le
+  jour où la source tombe.
+- **`ChartFrame` porte une région live.** Montée en permanence et repliée en
+  `sr-only` tant que tout va bien : une région créée déjà remplie n'est pas
+  annoncée de façon fiable, c'est le changement de contenu d'une région
+  existante qui l'est. L'état est rendu DEDANS, pas recopié à côté — une
+  phrase d'état doublée d'une phrase visible identique se lit deux fois.
+
+### Changé
+
+- **`EmptyState tone="error"` n'est plus rouge.** Dans ce système le rouge dit
+  une seule chose : l'utilisateur est refusé, ou quelque chose va être
+  détruit. Un chargement qui échoue ne fait ni l'un ni l'autre — personne n'a
+  rien fait de mal, et il n'y a rien à décider : il y a un bouton à cliquer.
+  Le trait passe au plein sur fond sourd ; ce qui distingue l'échec du vide
+  est désormais la présence d'une **action de reprise**, pas une teinte.
+  Mesuré : le trait est à 4,07:1 du fond en clair, 4,92:1 en sombre — WCAG
+  1.4.11 demande 3:1. Renoncer au rouge ne dispense pas d'être visible.
+  *Aucun appelant n'utilisait ce ton : le changement est visuel, pas cassant.*
+
+### Corrigé
+
+- **Quatre entrées du registry ne livraient pas ce dont elles ont besoin.**
+  `chart-frame`, `bar-chart`, `line-chart` et `donut-chart` importent
+  maintenant `EmptyState` et `Button` ; `shadcn add bar-chart` aurait réussi
+  et la compilation aurait cassé chez le consommateur. Attrapé par
+  `audit:registry`, pas par une relecture.
+- **La description de `chart-frame` disait « légende AVANT le graphique ».**
+  Elle est après depuis le #95, et c'est ce texte que lit qui fait
+  `shadcn add`.
+- **Le commentaire de `chart-frame` disait qu'il n'avait pas de story.** Il en
+  a depuis le #95.
+
+---
+
 ## [2.9.0] — 2026-09-23
 
 ### Corrigé

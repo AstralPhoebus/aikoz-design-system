@@ -141,8 +141,15 @@ export const LeChangementDeNiveauSAnnonce: Story = {
   play: async ({ canvas, canvasElement, userEvent: ue }) => {
     const u = ue ?? userEvent;
     await u.click(canvas.getByRole("button", { name: /Explorer Île-de-France/i }));
+    // `getAllByRole` et non `getByRole` : le bloc porte DEUX régions live, et
+    // c'est correct. Celle-ci dit qu'on a changé de niveau ; celle de
+    // `ChartFrame` dit que la donnée n'est pas arrivée. Elles ne parlent
+    // jamais en même temps — s'il n'y a pas de donnée, il n'y a pas de niveau
+    // à forer — mais une requête qui se croit seule tombe le jour où le
+    // composant gagne une seconde région.
     await waitFor(async () => {
-      await expect(canvas.getByRole("status")).toHaveTextContent(/Île-de-France — 4 zones/);
+      const regions = canvas.getAllByRole("status").map((r) => r.textContent);
+      await expect(regions.join(" ")).toMatch(/Île-de-France — 4 zones/);
     });
     // Le focus est posé dans un `requestAnimationFrame` — l'assertion doit
     // l'attendre, sinon elle mesure l'instant d'avant.

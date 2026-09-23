@@ -1,6 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useState } from "react";
 import { expect, userEvent, within } from "storybook/test";
-import { ChartFrame, ChartLegend, couleurSerie, type ChartFrameProps } from "./chart-frame";
+import {
+  ChartFrame,
+  ChartLegend,
+  couleurSerie,
+  type ChartFrameProps,
+} from "./chart-frame";
 
 type Point = { mois: string; google: number; trustpilot: number };
 const DONNEES: Point[] = [
@@ -20,9 +26,23 @@ const COLONNES = [
 
 /** Un tracé minimal : la coquille se teste sans dépendre d'un vrai graphique. */
 const Trace = () => (
-  <svg viewBox="0 0 100 40" className="h-full w-full" preserveAspectRatio="none">
-    <polyline points="0,30 50,18 100,6" fill="none" stroke={couleurSerie(0)} strokeWidth="2" />
-    <polyline points="0,36 50,33 100,31" fill="none" stroke={couleurSerie(1)} strokeWidth="2" />
+  <svg
+    viewBox="0 0 100 40"
+    className="h-full w-full"
+    preserveAspectRatio="none"
+  >
+    <polyline
+      points="0,30 50,18 100,6"
+      fill="none"
+      stroke={couleurSerie(0)}
+      strokeWidth="2"
+    />
+    <polyline
+      points="0,36 50,33 100,31"
+      fill="none"
+      stroke={couleurSerie(1)}
+      strokeWidth="2"
+    />
   </svg>
 );
 
@@ -30,7 +50,9 @@ const Trace = () => (
 // en `unknown` et les `args` typés sur `Point` ne passent plus ; on fige donc
 // l'instanciation dans un composant concret, que Storybook documente comme
 // n'importe quel autre.
-const Cadre = (props: ChartFrameProps<Point>) => <ChartFrame<Point> {...props} />;
+const Cadre = (props: ChartFrameProps<Point>) => (
+  <ChartFrame<Point> {...props} />
+);
 
 const meta = {
   title: "Graphiques/ChartFrame",
@@ -48,7 +70,13 @@ const meta = {
     height: 160,
     children: () => <Trace />,
   },
-  decorators: [(S) => <div className="max-w-2xl"><S /></div>],
+  decorators: [
+    (S) => (
+      <div className="max-w-2xl">
+        <S />
+      </div>
+    ),
+  ],
 } satisfies Meta<typeof Cadre>;
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -66,7 +94,7 @@ export const LeTableauEstLeContenu: Story = {
           "plutôt que répété — et oublié une fois sur cinq.\n\n" +
           "Un SVG de données ne se lit pas : on ne peut ni comparer deux " +
           "valeurs, ni en retrouver une, ni copier quoi que ce soit. Le " +
-          "tracé est donc masqué aux lecteurs d'écran, un `role=\"img\"` " +
+          'tracé est donc masqué aux lecteurs d\'écran, un `role="img"` ' +
           "porte le résumé, et le **tableau porte la donnée**.\n\n" +
           "Ce test est la raison pour laquelle trois autres décisions " +
           "tiennent : l'infobulle qui ne s'ouvre qu'à la souris, " +
@@ -93,7 +121,9 @@ export const LeTableauEstLeContenu: Story = {
     await userEvent.click(canvas.getByRole("tab", { name: "Tableau" }));
     const tableau = canvas.getByRole("table");
     await expect(within(tableau).getAllByRole("columnheader")).toHaveLength(3);
-    await expect(within(tableau).getAllByRole("rowheader")).toHaveLength(DONNEES.length);
+    await expect(within(tableau).getAllByRole("rowheader")).toHaveLength(
+      DONNEES.length,
+    );
   },
 };
 
@@ -117,13 +147,13 @@ export const LOrdreDeLecture: Story = {
     // Le titre ouvre la figure — il partage sa ligne avec le sélecteur de vue,
     // qui ne coûte donc aucune hauteur.
     await expect(figure.querySelector("figcaption")).toBe(
-      figure.firstElementChild!.firstElementChild
+      figure.firstElementChild!.firstElementChild,
     );
     // La légende est après le tracé, jamais avant.
     const legende = figure.querySelector("ul")!;
     const trace = figure.querySelector('[role="img"]')!;
     await expect(
-      trace.compareDocumentPosition(legende) & Node.DOCUMENT_POSITION_FOLLOWING
+      trace.compareDocumentPosition(legende) & Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
   },
 };
@@ -160,7 +190,7 @@ export const LaBasculeNeDeplaceRien: Story = {
     // Et le retour au graphique ne déplace rien non plus.
     await userEvent.click(canvas.getByRole("tab", { name: "Graphique" }));
     await expect(
-      Math.abs(figure.getBoundingClientRect().height - avant)
+      Math.abs(figure.getBoundingClientRect().height - avant),
     ).toBeLessThanOrEqual(1);
   },
 };
@@ -192,5 +222,114 @@ export const LaLegendeMontreLesDeuxCanaux: Story = {
     for (const li of entrees) {
       await expect(li.querySelector(".sr-only")).not.toBeNull();
     }
+  },
+};
+
+// ─── Quand il n'y a rien à tracer ────────────────────────────────────────────
+
+export const LeVideNeLaisseRienACherche: Story = {
+  name: "Un vide nomme ce qui manque",
+  args: {
+    data: [],
+    emptyLabel: "Aucun avis entre le 1er et le 7 septembre",
+    emptyHint: "Élargissez la période, ou retirez le filtre par source.",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Sans donnée, la coque remplace **tout** son contenu : le graphique, " +
+          "la bascule, la légende et le tableau. Aucun des quatre n'a de sens " +
+          "sur du vide, et une bascule « Graphique / Tableau » posée sur rien " +
+          "envoie chercher la donnée dans l'autre onglet.\n\n" +
+          "Le titre reste : c'est la seule chose qui dise QUOI manque.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    await expect(
+      c.getByText("Aucun avis entre le 1er et le 7 septembre"),
+    ).toBeVisible();
+    // Ni bascule, ni tableau : rien à commuter, rien à lire.
+    await expect(c.queryByRole("tablist")).toBeNull();
+    await expect(c.queryByRole("table")).toBeNull();
+    // Le titre du bloc, lui, est toujours là.
+    await expect(
+      c.getByText("Avis reçus par source, sur trois mois"),
+    ).toBeVisible();
+  },
+};
+
+export const UnEchecPorteSaReprise: Story = {
+  name: "Un échec porte sa reprise, et n'est pas rouge",
+  args: {
+    data: [],
+    error: "La collecte Google Business ne répond pas",
+    onRetry: () => {},
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "`error` est la **raison**, telle qu'on la montre — pas un code, pas " +
+          "« Une erreur est survenue ».\n\n" +
+          "Et ce n'est pas peint en rouge : dans ce système le rouge dit que " +
+          "l'utilisateur est refusé ou que quelque chose va être détruit. Un " +
+          "chargement qui échoue ne fait ni l'un ni l'autre — il y a un bouton " +
+          "à cliquer, pas une décision à prendre. Voir `EmptyState`.\n\n" +
+          "La région live est montée **en permanence**, vide tant que tout va " +
+          "bien : une région créée déjà remplie n'est pas annoncée de façon " +
+          "fiable, c'est le changement de contenu d'une région existante qui " +
+          "l'est. Et elle ne porte que la phrase d'état, jamais le survol du " +
+          "graphique, qui la ferait parler en continu.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    await expect(c.getByRole("button", { name: "Réessayer" })).toBeVisible();
+    // La raison est annoncée, et par la région live.
+    const live = canvasElement.querySelector(
+      '[role="status"][aria-live="polite"]',
+    )!;
+    await expect(live).toHaveTextContent(
+      "La collecte Google Business ne répond pas",
+    );
+  },
+};
+
+export const LaRepriseRamemeLaDonnee: Story = {
+  name: "La reprise ramène la donnée",
+  render: (args) => {
+    const [echoue, setEchoue] = useState(true);
+    return (
+      <Cadre
+        {...args}
+        data={echoue ? [] : DONNEES}
+        error={echoue ? "La collecte Google Business ne répond pas" : undefined}
+        onRetry={() => setEchoue(false)}
+      />
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "L'échec est un état **transitoire** : la coque le quitte comme elle " +
+          "y est entrée, sans que la page bouge autour. C'est ce que garantit " +
+          "la hauteur portée par la zone et non par le graphique.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    await userEvent.click(c.getByRole("button", { name: "Réessayer" }));
+    // Le graphique et sa bascule reviennent, la phrase d'état se tait.
+    await expect(await c.findByRole("tablist")).toBeVisible();
+    const live = canvasElement.querySelector(
+      '[role="status"][aria-live="polite"]',
+    )!;
+    await expect(live).toHaveTextContent("");
   },
 };

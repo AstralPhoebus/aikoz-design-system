@@ -13,8 +13,7 @@ import {
   ChartTooltipContent,
   opaciteSerie,
   couleurSerie,
-  type ChartSerie,
-} from "@registry/aikoz/chart-frame/chart-frame";
+  type ChartSerie, type ChartStates } from "@registry/aikoz/chart-frame/chart-frame";
 import { useId } from "react";
 import { type TableColumn } from "@registry/aikoz/table/table";
 
@@ -72,7 +71,7 @@ const TICK = {
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-export interface BarChartProps {
+export interface BarChartProps extends ChartStates {
   caption: string;
   data: Array<Record<string, string | number>>;
   xKey: string;
@@ -163,6 +162,9 @@ export function BarChart({
   formatValue = (v) => String(v),
   height = 300,
   className,
+  // Les états de `ChartStates`, transmis d'un bloc : énumérés un par un,
+  // le prochain qu'on ajoute manquera ici sans que rien ne le dise.
+  ...etats
 }: BarChartProps) {
   const horizontal = orientation === "horizontal";
   // Les dégradés vivent dans le SVG du graphique : sans identifiant unique,
@@ -231,6 +233,7 @@ export function BarChart({
       legendStyle="aplat"
       tableau={tableau}
       className={className}
+      {...etats}
     >
       {({ infobulleActive, indexActif, surSurvol }) => (
         <ResponsiveContainer width="100%" height="100%">

@@ -109,7 +109,7 @@ function composer(dessus: RVBA, dessous: RVBA): RVBA {
  * composant chaque fond semi-transparent, jusqu'au premier opaque. C'est
  * exactement ce que fait le navigateur, et ce qu'un audit de tokens ignore.
  */
-function fondEffectif(el: Element): RVBA {
+export function fondEffectif(el: Element): RVBA {
   let courant: Element | null = el;
   let accumule: RVBA | null = null;
   while (courant) {
