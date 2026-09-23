@@ -18,6 +18,25 @@ de l'API — mais il se voit, donc il est toujours écrit ici.
 
 ---
 
+## [2.10.1] — 2026-09-23
+
+### Corrigé
+
+- **Les 54 descriptions du registry étaient écrites sans accents.** « Etat
+  vide », « donnee », « apres », « regle » : c'est le SEUL texte que voit qui
+  fait `shadcn add` — la page du registry, la sortie de la commande, l'entrée
+  dans son propre `registry.json` — et il se lisait comme une note interne,
+  pas comme un livrable. Les 54 sont réécrites. Une seule faute de frappe
+  corrigée au passage, nommée explicitement : `delibrement` → délibérément.
+- **`audit:registry` refuse désormais une description en français dépouillé.**
+  Pas d'heuristique : une liste courte des mots qui, dans notre vocabulaire,
+  ne s'écrivent jamais sans accent. « masque » et « annonce » en sont
+  volontairement absents — ils existent sans accent, et un audit qui crie
+  faux finit par se contourner. Le contenu des accents graves est ignoré :
+  `data-brand` et `role=tablist` n'ont pas à porter d'accent.
+
+---
+
 ## [2.10.0] — 2026-09-23
 
 ### Ajouté

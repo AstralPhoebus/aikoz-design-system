@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "skeleton",
   "title": "Skeleton",
-  "description": "Bloc d'attente. Integralement invisible aux technologies d'assistance, et ce n'est pas un oubli : c'est au CONTENEUR de dire qu'un chargement est en cours, une fois, par aria-busy. Animation coupee par motion-reduce (WCAG 2.3.3). Fond sur --track et non --muted : en sombre ce dernier vaut exactement --card.",
+  "description": "Bloc d'attente. Intégralement invisible aux technologies d'assistance, et ce n'est pas un oubli : c'est au CONTENEUR de dire qu'un chargement est en cours, une fois, par aria-busy. Animation coupée par motion-reduce (WCAG 2.3.3). Fond sur --track et non --muted : en sombre ce dernier vaut exactement --card.",
   "dependencies": [
     "clsx",
     "tailwind-merge"

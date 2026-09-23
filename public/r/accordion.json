@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "accordion",
   "title": "Accordion",
-  "description": "Accordeon — transpose de la FAQ du prototype site. aria-expanded, aria-controls, et `hidden` sur le panneau ferme : un panneau seulement masque en height:0 reste focusable, le focus disparait dans du contenu invisible. Le bouton est ENVELOPPE dans un titre, pas remplace par lui — le niveau est un prop, car les intitules forment le plan de la section. Pas d'animation de hauteur.",
+  "description": "Accordéon — transposé de la FAQ du prototype site. aria-expanded, aria-controls, et `hidden` sur le panneau fermé : un panneau seulement masqué en height:0 reste focusable, le focus disparaît dans du contenu invisible. Le bouton est ENVELOPPÉ dans un titre, pas remplacé par lui — le niveau est un prop, car les intitulés forment le plan de la section. Pas d'animation de hauteur.",
   "dependencies": [
     "clsx",
     "tailwind-merge"

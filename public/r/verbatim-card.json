@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "verbatim-card",
   "title": "Verbatim Card",
-  "description": "Carte d'avis client : note en etoiles, etat de reponse, texte, source et themes. Rendue en <article> — un avis est un contenu autonome. Troncature CSS : le texte complet reste dans le DOM.",
+  "description": "Carte d'avis client : note en étoiles, état de réponse, texte, source et thèmes. Rendue en <article> — un avis est un contenu autonome. Troncature CSS : le texte complet reste dans le DOM.",
   "dependencies": [
     "class-variance-authority",
     "clsx",

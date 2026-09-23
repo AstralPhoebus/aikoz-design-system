@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "sidebar-nav",
   "title": "SidebarNav",
-  "description": "Barre de navigation laterale — nav + liens + aria-current=page, tabulation lien apres lien, change la route. Ne se mutualise PAS avec ViewTabs, qui echange un panneau : ils partagent les tokens, pas le code. Ne gere ni repli en icones ni tiroir mobile — cela depend du gabarit de page, pas de la barre.",
+  "description": "Barre de navigation latérale — nav + liens + aria-current=page, tabulation lien après lien, change la route. Ne se mutualise PAS avec ViewTabs, qui échange un panneau : ils partagent les tokens, pas le code. Ne gère ni repli en icônes ni tiroir mobile — cela dépend du gabarit de page, pas de la barre.",
   "dependencies": [
     "clsx",
     "tailwind-merge"

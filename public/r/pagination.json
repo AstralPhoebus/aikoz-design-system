@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "pagination",
   "title": "Pagination",
-  "description": "Un <nav> nomme, une liste, et des <button> — pas des liens : changer de page ne change pas d'URL dans un tableau de bord. La page courante est un <span> avec aria-current, jamais un bouton. Le resume « 41-60 sur 312 » porte l'information que les numeros ne donnent pas. La fenetre garde une largeur constante, sinon les boutons se deplacent sous le doigt. Sous 2 pages, elle ne rend rien.",
+  "description": "Un <nav> nommé, une liste, et des <button> — pas des liens : changer de page ne change pas d'URL dans un tableau de bord. La page courante est un <span> avec aria-current, jamais un bouton. Le résumé « 41-60 sur 312 » porte l'information que les numéros ne donnent pas. La fenêtre garde une largeur constante, sinon les boutons se déplacent sous le doigt. Sous 2 pages, elle ne rend rien.",
   "dependencies": [
     "clsx",
     "tailwind-merge"

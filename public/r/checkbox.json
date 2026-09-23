@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "checkbox",
   "title": "Checkbox",
-  "description": "Case a cocher. Un vrai <input type=checkbox> masque en sr-only sous une boite dessinee — jamais un <div role=checkbox> : il reste focusable, se coche a la barre d'espace et participe a l'envoi du formulaire. Elle sait l'etat INDETERMINE, ce qu'aucun autre controle du systeme ne sait dire : Switch est binaire, ChoiceGroup ne connait que des options completes. Checkbox quand l'effet a lieu a l'envoi, Switch quand il a lieu tout de suite. C'est le <label> qui porte la cible, pas la boite de 20 px.",
+  "description": "Case à cocher. Un vrai <input type=checkbox> masqué en sr-only sous une boîte dessinée — jamais un <div role=checkbox> : il reste focusable, se coche à la barre d'espace et participe à l'envoi du formulaire. Elle sait l'état INDÉTERMINÉ, ce qu'aucun autre contrôle du système ne sait dire : Switch est binaire, ChoiceGroup ne connaît que des options complètes. Checkbox quand l'effet a lieu à l'envoi, Switch quand il a lieu tout de suite. C'est le <label> qui porte la cible, pas la boîte de 20 px.",
   "dependencies": [
     "clsx",
     "tailwind-merge"

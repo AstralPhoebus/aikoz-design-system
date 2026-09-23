@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "response-kanban",
   "title": "ResponseKanban",
-  "description": "Kanban de reponses — 3 colonnes fixes par urgence croissante (reponses automatisees a valider, reponses hors charte a corriger, avis sensibles a traiter). Composite : assemble Card/Badge/Button/VerbatimCard/EmptyState/Dialog existants et ReplyBubble/Textarea/CountBadge nouveaux. L'Overlay - Detail de la colonne 2 est une composition de Dialog, pas un composant a part.",
+  "description": "Kanban de réponses — 3 colonnes fixes par urgence croissante (réponses automatisées à valider, réponses hors charte à corriger, avis sensibles à traiter). Composite : assemble Card/Badge/Button/VerbatimCard/EmptyState/Dialog existants et ReplyBubble/Textarea/CountBadge nouveaux. L'Overlay - Détail de la colonne 2 est une composition de Dialog, pas un composant à part.",
   "dependencies": [
     "class-variance-authority",
     "clsx",

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "empty-state",
   "title": "EmptyState",
-  "description": "Etat vide. Il nomme ce qui manque (« Aucun avis sur cette periode », pas « Aucune donnee ») et indique la sortie : un etat vide sans action ni consigne est un cul-de-sac. Le ton error se lit dans le texte, jamais a la seule couleur du cadre — et il n'est PAS rouge : le rouge dit que l'utilisateur est refuse ou que quelque chose va etre detruit, un chargement qui echoue ne fait ni l'un ni l'autre. Le niveau de titre est un prop, par defaut p — il depend du plan de la page.",
+  "description": "État vide. Il nomme ce qui manque (« Aucun avis sur cette période », pas « Aucune donnée ») et indique la sortie : un état vide sans action ni consigne est un cul-de-sac. Le ton error se lit dans le texte, jamais à la seule couleur du cadre — et il n'est PAS rouge : le rouge dit que l'utilisateur est refusé ou que quelque chose va être détruit, un chargement qui échoue ne fait ni l'un ni l'autre. Le niveau de titre est un prop, par défaut p — il dépend du plan de la page.",
   "dependencies": [
     "clsx",
     "tailwind-merge"

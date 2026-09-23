@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "booking-flow",
   "title": "BookingFlow",
-  "description": "Prise de rendez-vous — modale du tunnel du prototype site, 2 etats de confirmation. NE PARLE A PERSONNE : ni serveur ni fetch, l'appelant passe un status et recoit un onSubmit. Le changement d'etat est annonce par role=status ET recoit le focus — deux canaux pour deux facons de naviguer : sans le focus, l'utilisateur resterait sur un bouton disparu. Validation a la soumission, jamais a la frappe.",
+  "description": "Prise de rendez-vous — modale du tunnel du prototype site, 2 états de confirmation. NE PARLE À PERSONNE : ni serveur ni fetch, l'appelant passe un status et reçoit un onSubmit. Le changement d'état est annoncé par role=status ET reçoit le focus — deux canaux pour deux façons de naviguer : sans le focus, l'utilisateur resterait sur un bouton disparu. Validation à la soumission, jamais à la frappe.",
   "dependencies": [
     "class-variance-authority",
     "clsx",

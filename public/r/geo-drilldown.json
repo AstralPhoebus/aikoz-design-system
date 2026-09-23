@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "geo-drilldown",
   "title": "GeoDrilldown",
-  "description": "Forage geographique France > region > departement. Ce n'est PAS une carte, et c'est delibere : une choropleth encode la valeur par une teinte sur des surfaces tres inegales (la Lozere et le Nord pesent pareil a l'oeil), demande un fond de carte a maintenir, et ne se lit pas au lecteur d'ecran. Une barre horizontale compare des longueurs. Le forage passe par le bouton « Explorer » du TABLEAU, pas par le clic sur les barres : le graphique est aria-hidden, une commande posee dessus serait inatteignable au clavier.",
+  "description": "Forage géographique France > région > département. Ce n'est PAS une carte, et c'est délibéré : une choropleth encode la valeur par une teinte sur des surfaces très inégales (la Lozère et le Nord pèsent pareil à l'œil), demande un fond de carte à maintenir, et ne se lit pas au lecteur d'écran. Une barre horizontale compare des longueurs. Le forage passe par le bouton « Explorer » du TABLEAU, pas par le clic sur les barres : le graphique est aria-hidden, une commande posée dessus serait inatteignable au clavier.",
   "dependencies": [
     "@radix-ui/react-slot",
     "class-variance-authority",

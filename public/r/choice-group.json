@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "choice-group",
   "title": "ChoiceGroup",
-  "description": "Groupe de choix en cartes — REMPLACE BrandPicker et SourceToggle de l'inventaire : les deux ne different que par l'arite de la selection et le contenu des cartes, soit deux props, pas deux composants. fieldset + legend, la seule construction qui fasse annoncer la question a l'entree du groupe. `layout` ajoute `segmented` (rang connecte, ex. delai de publication) et `chip` (pastilles independantes, ex. criteres de declenchement) aux `grid`/`list` existants. La sortie de secours (« Je ne trouve pas ma marque ») est rendue HORS du fieldset : ce n'est pas une option de plus.",
+  "description": "Groupe de choix en cartes — REMPLACE BrandPicker et SourceToggle de l'inventaire : les deux ne diffèrent que par l'arité de la sélection et le contenu des cartes, soit deux props, pas deux composants. fieldset + legend, la seule construction qui fasse annoncer la question à l'entrée du groupe. `layout` ajoute `segmented` (rang connecté, ex. délai de publication) et `chip` (pastilles indépendantes, ex. critères de déclenchement) aux `grid`/`list` existants. La sortie de secours (« Je ne trouve pas ma marque ») est rendue HORS du fieldset : ce n'est pas une option de plus.",
   "dependencies": [
     "clsx",
     "tailwind-merge"

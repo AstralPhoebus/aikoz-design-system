@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "view-tabs",
   "title": "ViewTabs",
-  "description": "Bascule de vue dans la page — role=tablist, aria-selected, tabindex tournant, fleches + Debut/Fin. Activation automatique ou manuelle. La regle qui decide est le COMPORTEMENT, jamais l'apparence : un onglet qui change de route est un lien stylé en onglet, il releve de SidebarNav.",
+  "description": "Bascule de vue dans la page — role=tablist, aria-selected, tabindex tournant, flèches + Début/Fin. Activation automatique ou manuelle. La règle qui décide est le COMPORTEMENT, jamais l'apparence : un onglet qui change de route est un lien stylé en onglet, il relève de SidebarNav.",
   "dependencies": [
     "clsx",
     "tailwind-merge"

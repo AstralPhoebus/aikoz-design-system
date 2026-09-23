@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "delta-badge",
   "title": "Delta Badge",
-  "description": "Etiquette de variation : vert si positif, rouge si negatif, gris si neutre. Seuil de neutralite parametrable et ton forcable, pour les metriques ou baisser est un progres. Fleche haut/bas/tiret doublant la couleur.",
+  "description": "Étiquette de variation : vert si positif, rouge si négatif, gris si neutre. Seuil de neutralité paramétrable et ton forçable, pour les métriques où baisser est un progrès. Flèche haut/bas/tiret doublant la couleur.",
   "dependencies": [
     "class-variance-authority",
     "clsx",

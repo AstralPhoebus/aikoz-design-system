@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "input",
   "title": "Input",
-  "description": "Champ de saisie — 4 etats (defaut, focus, erreur, desactive). Libelle visible obligatoire, consigne avant le champ, erreur annoncee en role=alert et associee par aria-describedby. Ne valide rien lui-meme : la validation se fait a la sortie du champ, jamais a la frappe.",
+  "description": "Champ de saisie — 4 états (défaut, focus, erreur, désactivé). Libellé visible obligatoire, consigne avant le champ, erreur annoncée en role=alert et associée par aria-describedby. Ne valide rien lui-même : la validation se fait à la sortie du champ, jamais à la frappe.",
   "dependencies": [
     "class-variance-authority",
     "clsx",

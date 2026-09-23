@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "stepper",
   "title": "Stepper",
-  "description": "Fil de progression — 5 etapes du tunnel du prototype site. « Etape 2 sur 5 » est ecrit dans le nom du nav, pas seulement dessine : sans lui un lecteur d'ecran entend cinq intitules sans savoir ou on en est. Trois etats portes chacun par deux canaux (coche, aria-current=step, texte sr-only). Une etape a venir n'est jamais un lien.",
+  "description": "Fil de progression — 5 étapes du tunnel du prototype site. « Étape 2 sur 5 » est écrit dans le nom du nav, pas seulement dessiné : sans lui un lecteur d'écran entend cinq intitulés sans savoir où on en est. Trois états portés chacun par deux canaux (coche, aria-current=step, texte sr-only). Une étape à venir n'est jamais un lien.",
   "dependencies": [
     "clsx",
     "tailwind-merge"

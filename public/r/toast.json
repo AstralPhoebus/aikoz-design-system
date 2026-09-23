@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "toast",
   "title": "Toast",
-  "description": "Messages transitoires, avec leur fournisseur. Region live polie pour les confirmations, assertive pour les erreurs. La duree se met en pause au survol et au focus (WCAG 2.2.1) ; un toast porteur d'action ne disparait jamais tout seul.",
+  "description": "Messages transitoires, avec leur fournisseur. Région live polie pour les confirmations, assertive pour les erreurs. La durée se met en pause au survol et au focus (WCAG 2.2.1) ; un toast porteur d'action ne disparaît jamais tout seul.",
   "dependencies": [
     "class-variance-authority",
     "clsx",

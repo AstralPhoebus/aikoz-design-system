@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "bar-chart",
   "title": "BarChart",
-  "description": "Barres empilees ou groupees, verticales ou horizontales. Le second canal d'un aplat est une TRAME, pas un pointille. Separateur clair de 2px entre segments empiles : deux teintes voisines fusionneraient sinon. En empile, le TOTAL a sa colonne dans le tableau. Il n'y a pas de RankedBarChart : c'est ce composant, horizontal, trie, a une serie.",
+  "description": "Barres empilées ou groupées, verticales ou horizontales. Le second canal d'un aplat est une TRAME, pas un pointillé. Séparateur clair de 2px entre segments empilés : deux teintes voisines fusionneraient sinon. En empilé, le TOTAL a sa colonne dans le tableau. Il n'y a pas de RankedBarChart : c'est ce composant, horizontal, trié, à une série.",
   "dependencies": [
     "clsx",
     "tailwind-merge",

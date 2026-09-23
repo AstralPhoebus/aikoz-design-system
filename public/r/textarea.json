@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "textarea",
   "title": "Textarea",
-  "description": "Champ de texte libre — saisie multiligne dans son contexte (ex. corriger une reponse automatique avant publication). Sibling d'Input : memes tokens de bordure/focus/erreur, dimensionne par rows + redimensionnement natif plutot qu'un auto-grow. Actions Annuler/Enregistrer composees par l'appelant.",
+  "description": "Champ de texte libre — saisie multiligne dans son contexte (ex. corriger une réponse automatique avant publication). Sibling d'Input : mêmes tokens de bordure/focus/erreur, dimensionné par rows + redimensionnement natif plutôt qu'un auto-grow. Actions Annuler/Enregistrer composées par l'appelant.",
   "dependencies": [
     "class-variance-authority",
     "clsx",

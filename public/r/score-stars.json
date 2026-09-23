@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "score-stars",
   "title": "Score Stars",
-  "description": "Notation en etoiles sur une echelle bornee. Demi-etoiles, 3 tailles, couleur portee par le role dedie --rating. L'information n'est jamais portee par la seule couleur : le nombre d'etoiles pleines et l'aria-label la vehiculent.",
+  "description": "Notation en étoiles sur une échelle bornée. Demi-étoiles, 3 tailles, couleur portée par le rôle dédié --rating. L'information n'est jamais portée par la seule couleur : le nombre d'étoiles pleines et l'aria-label la véhiculent.",
   "dependencies": [
     "class-variance-authority",
     "clsx",

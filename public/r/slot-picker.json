@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "slot-picker",
   "title": "SlotPicker",
-  "description": "Choix d'un creneau. UN SEUL fieldset pour tous les jours : le choix est unique sur l'ensemble, et un name commun laisse les fleches traverser toute la grille d'un jour a l'autre. Les jours nomment leur liste par aria-labelledby, ce qui donne le contexte sans decouper le groupe. Un creneau complet reste ANNONCE (« 11:00, complet ») : le retirer ferait croire que le cabinet n'ouvre pas a cette heure-la.",
+  "description": "Choix d'un créneau. UN SEUL fieldset pour tous les jours : le choix est unique sur l'ensemble, et un name commun laisse les flèches traverser toute la grille d'un jour à l'autre. Les jours nomment leur liste par aria-labelledby, ce qui donne le contexte sans découper le groupe. Un créneau complet reste ANNONCÉ (« 11:00, complet ») : le retirer ferait croire que le cabinet n'ouvre pas à cette heure-là.",
   "dependencies": [
     "clsx",
     "tailwind-merge"

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "breadcrumb",
   "title": "Breadcrumb",
-  "description": "Fil d'Ariane — nav nomme + ol + le dernier element n'est PAS un lien : rendre la page courante cliquable produit un lien qui ne mene nulle part. Separateur decoratif et masque. Les liens sont soulignes au repos, la couleur seule ne suffit pas. Ne replie pas les niveaux intermediaires.",
+  "description": "Fil d'Ariane — nav nommé + ol + le dernier élément n'est PAS un lien : rendre la page courante cliquable produit un lien qui ne mène nulle part. Séparateur décoratif et masqué. Les liens sont soulignés au repos, la couleur seule ne suffit pas. Ne replie pas les niveaux intermédiaires.",
   "dependencies": [
     "clsx",
     "tailwind-merge"

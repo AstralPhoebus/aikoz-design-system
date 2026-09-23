@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "kpi-card",
   "title": "KPI Card",
-  "description": "Carte d'indicateur Aikoz — deux axes independants : `variant` (rating/target/trend/raw/benchmark) dit ce que la donnee EST, `density` (compact/default/large) la place qu'on lui accorde. `benchmark` affiche un repere de comparaison permanent (ex. vs moyenne marche), pas une variation. Optionnellement cliquable.",
+  "description": "Carte d'indicateur Aikoz — deux axes indépendants : `variant` (rating/target/trend/raw/benchmark) dit ce que la donnée EST, `density` (compact/default/large) la place qu'on lui accorde. `benchmark` affiche un repère de comparaison permanent (ex. vs moyenne marché), pas une variation. Optionnellement cliquable.",
   "dependencies": [
     "recharts",
     "class-variance-authority",

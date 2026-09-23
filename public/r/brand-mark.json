@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "brand-mark",
   "title": "BrandMark",
-  "description": "Logo de la marque courante, lu sur data-brand et sur le theme. La boite est une REGLE du systeme (h-8, max-w-40, object-contain) : un logo trop petit ou trop grand se corrige dans le composant, jamais au cas par cas dans la page. Les fichiers SVG sont des actifs de marque, a fournir par l'application dans ./logos/ — le design system declare le logo, il ne le livre pas.",
+  "description": "Logo de la marque courante, lu sur data-brand et sur le thème. La boîte est une RÈGLE du système (h-8, max-w-40, object-contain) : un logo trop petit ou trop grand se corrige dans le composant, jamais au cas par cas dans la page. Les fichiers SVG sont des actifs de marque, à fournir par l'application dans ./logos/ — le design system déclare le logo, il ne le livre pas.",
   "dependencies": [
     "clsx",
     "tailwind-merge"

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "nav-item",
   "title": "NavItem",
-  "description": "Entree de navigation — brique de SidebarNav, transposee du composant Figma (3 etats). C'est un <a>, jamais un <button> : cette entree change de route. L'etat courant tient a trois canaux qui se doublent — aria-current=page, un trait vertical en --nav-accent, et la graisse. Le voile de fond ne compte pas : 1,19:1 en clair, il est decoratif.",
+  "description": "Entrée de navigation — brique de SidebarNav, transposée du composant Figma (3 états). C'est un <a>, jamais un <button> : cette entrée change de route. L'état courant tient à trois canaux qui se doublent — aria-current=page, un trait vertical en --nav-accent, et la graisse. Le voile de fond ne compte pas : 1,19:1 en clair, il est décoratif.",
   "dependencies": [
     "clsx",
     "tailwind-merge"

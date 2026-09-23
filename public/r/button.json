@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "button",
   "title": "Button",
-  "description": "Bouton Aikoz — 4 variantes (default, secondary, outline, ghost) x 3 tailles (sm 36px, md 44px, lg 48px). Coins pilule, anneau de focus clavier, etat disabled ni cliquable ni focusable.",
+  "description": "Bouton Aikoz — 4 variantes (default, secondary, outline, ghost) x 3 tailles (sm 36px, md 44px, lg 48px). Coins pilule, anneau de focus clavier, état disabled ni cliquable ni focusable.",
   "dependencies": [
     "class-variance-authority",
     "clsx",

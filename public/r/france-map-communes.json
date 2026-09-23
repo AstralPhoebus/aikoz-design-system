@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "france-map-communes",
   "title": "Communes de France",
-  "description": "Les 35 189 communes de metropole, un fichier par departement, a poser dans `public/communes/`. Optionnel : `france-map` fonctionne sans, aux niveaux region et departement. Installez-le si vous avez besoin du niveau commune — le composant charge alors le departement demande a la demande, ~47 Ko par fichier, ~15 Ko sur le reseau une fois compresse. Meme projection et MEME BOITE que les autres niveaux : une commune reste a sa place quand on descend. Genere par scripts/carte-communes.py a partir de france-geojson (derive d'ADMIN EXPRESS de l'IGN, Licence Ouverte / Etalab).",
+  "description": "Les 35 189 communes de métropole, un fichier par département, à poser dans `public/communes/`. Optionnel : `france-map` fonctionne sans, aux niveaux région et département. Installez-le si vous avez besoin du niveau commune — le composant charge alors le département demandé à la demande, ~47 Ko par fichier, ~15 Ko sur le réseau une fois compressé. Même projection et MÊME BOÎTE que les autres niveaux : une commune reste à sa place quand on descend. Généré par scripts/carte-communes.py à partir de france-geojson (dérivé d'ADMIN EXPRESS de l'IGN, Licence Ouverte / Etalab).",
   "files": [
     {
       "path": "public/communes/01.json",

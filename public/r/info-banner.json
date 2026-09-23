@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "info-banner",
   "title": "InfoBanner",
-  "description": "Bandeau d'information — explique une regle ou un comportement automatique du produit avant que l'utilisateur agisse. Trois tons (info/warning/error) sur le meme mapping que Badge ; le texte reste en --foreground, seuls la bordure/le fond/l'icone portent le ton. role=status, jamais role=alert.",
+  "description": "Bandeau d'information — explique une règle ou un comportement automatique du produit avant que l'utilisateur agisse. Trois tons (info/warning/error) sur le même mapping que Badge ; le texte reste en --foreground, seuls la bordure/le fond/l'icône portent le ton. role=status, jamais role=alert.",
   "dependencies": [
     "class-variance-authority",
     "clsx",

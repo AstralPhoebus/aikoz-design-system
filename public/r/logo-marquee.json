@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "logo-marquee",
   "title": "LogoMarquee",
-  "description": "Bandeau de preuve client. IL NE DEFILE PAS : WCAG 2.2.2 impose un moyen de pause pour tout mouvement de plus de 5 secondes, soit un bouton et un arret de tabulation de plus pour une decoration — et la preuve ce sont les marques, pas leur deplacement. Passe a la ligne, ce qui regle le reflow. C'est une liste dans une section nommee, pas une suite d'images.",
+  "description": "Bandeau de preuve client. IL NE DÉFILE PAS : WCAG 2.2.2 impose un moyen de pause pour tout mouvement de plus de 5 secondes, soit un bouton et un arrêt de tabulation de plus pour une décoration — et la preuve ce sont les marques, pas leur déplacement. Passe à la ligne, ce qui règle le reflow. C'est une liste dans une section nommée, pas une suite d'images.",
   "dependencies": [
     "class-variance-authority",
     "clsx",

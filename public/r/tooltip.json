@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "tooltip",
   "title": "Tooltip",
-  "description": "Infobulle. Ne porte JAMAIS une information necessaire : elle n'existe ni au tactile, ni a l'impression. Bati sur Radix, qui fournit les trois obligations de WCAG 1.4.13 : fermeture par Echap, survol du contenu possible, persistance. Un declencheur disabled n'ouvre rien — utiliser aria-disabled.",
+  "description": "Infobulle. Ne porte JAMAIS une information nécessaire : elle n'existe ni au tactile, ni à l'impression. Bâti sur Radix, qui fournit les trois obligations de WCAG 1.4.13 : fermeture par Échap, survol du contenu possible, persistance. Un déclencheur disabled n'ouvre rien — utiliser aria-disabled.",
   "dependencies": [
     "clsx",
     "tailwind-merge",

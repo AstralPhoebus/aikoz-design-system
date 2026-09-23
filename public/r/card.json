@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "card",
   "title": "Card",
-  "description": "Conteneur de carte — 3 surfaces (raised, flat, bare) x 3 densites. Prop `as` pour sortir en article ou section : le choix est semantique. Sans sous-composants Title/Header : le niveau de titre depend du plan de la page, pas de la carte.",
+  "description": "Conteneur de carte — 3 surfaces (raised, flat, bare) x 3 densités. Prop `as` pour sortir en article ou section : le choix est sémantique. Sans sous-composants Title/Header : le niveau de titre dépend du plan de la page, pas de la carte.",
   "dependencies": [
     "class-variance-authority",
     "clsx",

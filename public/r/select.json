@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "select",
   "title": "Select",
-  "description": "Liste de selection — transposee du MiniSelect des maquettes. Bati sur Radix : vrai listbox, navigation clavier complete, coche en plus de la graisse. Libelle visible obligatoire, aligne au pixel sur Input. Pour un choix long et sans mise en forme (pays, annee), preferer un select natif.",
+  "description": "Liste de sélection — transposée du MiniSelect des maquettes. Bâti sur Radix : vrai listbox, navigation clavier complète, coche en plus de la graisse. Libellé visible obligatoire, aligné au pixel sur Input. Pour un choix long et sans mise en forme (pays, année), préférer un select natif.",
   "dependencies": [
     "class-variance-authority",
     "clsx",

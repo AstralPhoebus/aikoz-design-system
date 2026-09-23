@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "progress-bar",
   "title": "Progress Bar",
-  "description": "Barre de progression a 3 niveaux (good / warning / critical), deduits de seuils parametrables ou forces. Le niveau ne se lit jamais a la seule couleur : la longueur du remplissage porte la meme information.",
+  "description": "Barre de progression à 3 niveaux (good / warning / critical), déduits de seuils paramétrables ou forcés. Le niveau ne se lit jamais à la seule couleur : la longueur du remplissage porte la même information.",
   "dependencies": [
     "class-variance-authority",
     "clsx",

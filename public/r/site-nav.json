@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "site-nav",
   "title": "SiteNav",
-  "description": "En-tete de site — distinct de SidebarNav : premier element du document, porte le LIEN D'EVITEMENT (WCAG 2.4.1, il doit etre le premier focusable, donc il ne peut pas vivre ailleurs), et se replie en menu sur petit ecran. Le menu mobile est un disclosure et non une modale : il ne piege pas le focus, se ferme sur Echap et rend le focus au bouton. Menu ferme = attribut hidden, donc hors tabulation.",
+  "description": "En-tête de site — distinct de SidebarNav : premier élément du document, porte le LIEN D'ÉVITEMENT (WCAG 2.4.1, il doit être le premier focusable, donc il ne peut pas vivre ailleurs), et se replie en menu sur petit écran. Le menu mobile est un disclosure et non une modale : il ne piège pas le focus, se ferme sur Échap et rend le focus au bouton. Menu fermé = attribut hidden, donc hors tabulation.",
   "dependencies": [
     "clsx",
     "tailwind-merge"

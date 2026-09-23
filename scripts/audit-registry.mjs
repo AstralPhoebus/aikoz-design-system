@@ -130,6 +130,51 @@ for (const item of reg.items) {
   }
 }
 
+
+// ─── La description est du français, pas du français dépouillé ───────────────
+//
+// C'est le SEUL texte que voit qui fait « shadcn add » : la page du registry,
+// la sortie de la commande, l'entrée dans son propre `registry.json`. Elle est
+// restée écrite sans accents sur 54 entrées sur 54 — « Etat vide », « donnee »,
+// « apres » — et ça se lit comme une note interne, pas comme un livrable.
+//
+// On ne détecte pas « du français mal accentué » en général : on nomme les
+// mots qui, dans notre vocabulaire, ne s'écrivent JAMAIS sans accent. Une
+// liste courte et sûre vaut mieux qu'une heuristique qui crie à tort.
+const SANS_ACCENT = [
+  'etat', 'etats', 'donnee', 'donnees', 'ecran', 'regle', 'regles', 'apres',
+  'tres', 'deja', 'meme', 'memes', 'element', 'elements', 'entree', 'entrees',
+  'fenetre', 'etiquette', 'legende', 'serie', 'series', 'theme', 'themes',
+  'systeme', 'probleme', 'methode', 'controle', 'necessaire', 'interieur',
+  'exterieur', 'defaut', 'decide', 'depend', 'repond', 'resume', 'reponse',
+  'reponses', 'accessibilite', 'deliberement', 'separateur', 'numerique',
+  'etoiles', 'periode', 'selection', 'declencheur', 'libelle', 'bati',
+  'calculees', 'dedie', 'deduit', 'etape', 'etapes',
+  // PAS « masque » ni « annonce » : « un masque CSS » et « une annonce »
+  // s'écrivent sans accent, et le garde-fou les accusait à tort. Un audit
+  // qui crie faux finit par se contourner.
+];
+
+for (const item of reg.items) {
+  const d = item.description ?? '';
+  // Le contenu des accents graves est du code : `data-brand`, `role=tablist`.
+  // Il n'a pas à porter d'accent, et le compter accuserait à tort.
+  const prose = d.replace(/`[^`]*`/g, ' ');
+  const fautifs = [
+    ...new Set(
+      (prose.toLowerCase().match(/[a-zà-ÿ']+/g) ?? []).filter((m) =>
+        SANS_ACCENT.includes(m),
+      ),
+    ),
+  ];
+  if (fautifs.length) {
+    echecs.push(
+      `« ${item.name} » décrit en français dépouillé : ${fautifs.join(', ')}. ` +
+        "C'est le texte que lit qui fait « shadcn add » — il s'accentue.",
+    );
+  }
+}
+
 if (echecs.length) {
   console.error("\naudit registry ÉCHOUÉ — le registry ne décrit pas ce qu'il contient :");
   for (const e of echecs) console.error('  ✗ ' + e);

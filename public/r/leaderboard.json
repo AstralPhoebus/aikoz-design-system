@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "leaderboard",
   "title": "Leaderboard",
-  "description": "Classement d'etablissements, bati sur Table : un classement porte plusieurs attributs comparables par ligne, c'est la definition d'un tableau. PAS de RankRow exporte, contrairement au Figma — une ligne qui n'a de sens que dans son tableau est un rendu de cellule, pas un composant. Le podium or/argent/bronze est double par le chiffre du rang et un sr-only : il ne tient pas a la couleur.",
+  "description": "Classement d'établissements, bâti sur Table : un classement porte plusieurs attributs comparables par ligne, c'est la définition d'un tableau. PAS de RankRow exporté, contrairement au Figma — une ligne qui n'a de sens que dans son tableau est un rendu de cellule, pas un composant. Le podium or/argent/bronze est doublé par le chiffre du rang et un sr-only : il ne tient pas à la couleur.",
   "dependencies": [
     "class-variance-authority",
     "clsx",

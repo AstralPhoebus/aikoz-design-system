@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "badge",
   "title": "Badge",
-  "description": "Etiquette de statut a 5 tons (success, warning, error, info, neutral). Le contour porte le contraste, le fond a 8% reste decoratif. A distinguer de DeltaBadge, qui porte une variation et non un etat.",
+  "description": "Étiquette de statut à 5 tons (success, warning, error, info, neutral). Le contour porte le contraste, le fond à 8% reste décoratif. À distinguer de DeltaBadge, qui porte une variation et non un état.",
   "dependencies": [
     "class-variance-authority",
     "clsx",

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "brand-glow",
   "title": "BrandGlow",
-  "description": "Lueur de marque : un degrade des couleurs de la marque, pose sur une SURFACE (carte heroine, bloc), jamais sur un trace de donnees. Purement decoratif, aria-hidden, et neutralise par prefers-reduced-transparency.",
+  "description": "Lueur de marque : un dégradé des couleurs de la marque, posé sur une SURFACE (carte héroïne, bloc), jamais sur un tracé de données. Purement décoratif, aria-hidden, et neutralisé par prefers-reduced-transparency.",
   "dependencies": [
     "clsx",
     "tailwind-merge"

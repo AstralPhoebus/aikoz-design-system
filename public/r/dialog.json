@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "dialog",
   "title": "Dialog",
-  "description": "Modale et panneau lateral — 3 placements (center, right, bottom). Bati sur Radix : piege de focus, retour du focus au declencheur, Echap, verrouillage du defilement. Titre obligatoire : c'est le nom accessible de la modale.",
+  "description": "Modale et panneau latéral — 3 placements (center, right, bottom). Bâti sur Radix : piège de focus, retour du focus au déclencheur, Échap, verrouillage du défilement. Titre obligatoire : c'est le nom accessible de la modale.",
   "dependencies": [
     "class-variance-authority",
     "clsx",

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "table",
   "title": "Table",
-  "description": "Tableau de donnees — un vrai <table>. <caption> obligatoire plutot qu'aria-label, th scope=col et scope=row (« Amsterdam, taux de reponse, 94 % » au lieu de « 94 % »), tri annonce par aria-sort avec un bouton dans l'en-tete, conteneur de debordement focusable et nomme, chiffres tabulaires sur les colonnes numeriques. Etats de chargement et vide integres.",
+  "description": "Tableau de données — un vrai <table>. <caption> obligatoire plutôt qu'aria-label, th scope=col et scope=row (« Amsterdam, taux de réponse, 94 % » au lieu de « 94 % »), tri annoncé par aria-sort avec un bouton dans l'en-tête, conteneur de débordement focusable et nommé, chiffres tabulaires sur les colonnes numériques. États de chargement et vide intégrés.",
   "dependencies": [
     "clsx",
     "tailwind-merge"

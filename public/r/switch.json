@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "switch",
   "title": "Switch",
-  "description": "Interrupteur — bascule un reglage binaire immediatement, sans confirmation ni bouton Enregistrer separe. Input checkbox natif role=switch, sr-only, anneau de focus reporte sur la piste : pas de dependance Radix, le clavier natif suffit.",
+  "description": "Interrupteur — bascule un réglage binaire immédiatement, sans confirmation ni bouton Enregistrer séparé. Input checkbox natif role=switch, sr-only, anneau de focus reporté sur la piste : pas de dépendance Radix, le clavier natif suffit.",
   "dependencies": [
     "clsx",
     "tailwind-merge"

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "chart-frame",
   "title": "ChartFrame",
-  "description": "Coque commune a tous les graphiques : le contrat d'accessibilite est tenu PAR CONSTRUCTION plutot que repete et oublie une fois sur cinq. Graphique masque et tableau comme contenu reel, legende APRES le graphique — placee avant, elle s'interpose entre le titre et la donnee, trois canaux par serie dans un ordre fixe, aucune animation. Sans donnee, la coque remplace tout son contenu par un etat qui nomme ce qui manque ; un echec de chargement y porte sa reprise, et n'est pas peint en rouge. Fournit aussi les trames SVG pour les aplats — une barre n'a pas de trace ou poser un pointille.",
+  "description": "Coque commune à tous les graphiques : le contrat d'accessibilité est tenu PAR CONSTRUCTION plutôt que répété et oublié une fois sur cinq. Graphique masqué et tableau comme contenu réel, légende APRÈS le graphique — placée avant, elle s'interpose entre le titre et la donnée, trois canaux par série dans un ordre fixe, aucune animation. Sans donnée, la coque remplace tout son contenu par un état qui nomme ce qui manque ; un échec de chargement y porte sa reprise, et n'est pas peint en rouge. Fournit aussi les trames SVG pour les aplats — une barre n'a pas de tracé où poser un pointillé.",
   "dependencies": [
     "clsx",
     "tailwind-merge",

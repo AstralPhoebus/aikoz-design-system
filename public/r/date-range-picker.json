@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "date-range-picker",
   "title": "DateRangePicker",
-  "description": "Selecteur de periode — transpose de la pastille « 30 derniers jours » de la barre haute. Pas de calendrier, delibrement : sur un tableau de bord la quasi-totalite des selections tombe sur un prereglage. Les prereglages sont de vrais boutons radio (choix unique, fleches natives, annonce « 2 sur 5 ») ; la saisie libre passe par deux champs date NATIFS, qui ouvrent le selecteur du systeme sur mobile.",
+  "description": "Sélecteur de période — transposé de la pastille « 30 derniers jours » de la barre haute. Pas de calendrier, délibérément : sur un tableau de bord la quasi-totalité des sélections tombe sur un préréglage. Les préréglages sont de vrais boutons radio (choix unique, flèches natives, annonce « 2 sur 5 ») ; la saisie libre passe par deux champs date NATIFS, qui ouvrent le sélecteur du système sur mobile.",
   "dependencies": [
     "clsx",
     "tailwind-merge",

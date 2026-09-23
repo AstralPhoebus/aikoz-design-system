@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "line-chart",
   "title": "LineChart",
-  "description": "Courbe multi-series. Le graphique est MASQUE aux technologies d'assistance et le tableau EST le contenu : un SVG de courbes ne se lit pas, on ne peut ni comparer deux points ni retrouver une valeur. Les series se distinguent par le POINTILLE et la FORME du marqueur, pas par la couleur — mesure : la meilleure separation atteignable entre six series de cette palette est de 1,17:1, elles se confondent en niveaux de gris. Aucune animation (WCAG 2.3.3).",
+  "description": "Courbe multi-séries. Le graphique est MASQUÉ aux technologies d'assistance et le tableau EST le contenu : un SVG de courbes ne se lit pas, on ne peut ni comparer deux points ni retrouver une valeur. Les séries se distinguent par le POINTILLÉ et la FORME du marqueur, pas par la couleur — mesuré : la meilleure séparation atteignable entre six séries de cette palette est de 1,17:1, elles se confondent en niveaux de gris. Aucune animation (WCAG 2.3.3).",
   "dependencies": [
     "clsx",
     "tailwind-merge",

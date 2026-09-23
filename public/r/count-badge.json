@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "count-badge",
   "title": "CountBadge",
-  "description": "Badge / pastille numerique — un compte a traiter (cercle plein --primary) ou un rang dans une liste (marqueur discret --border-strong), jamais les deux au meme endroit. Purement informatif, jamais le seul porteur du sens : voir la convention `label` pour l'usage isole.",
+  "description": "Badge / pastille numérique — un compte à traiter (cercle plein --primary) ou un rang dans une liste (marqueur discret --border-strong), jamais les deux au même endroit. Purement informatif, jamais le seul porteur du sens : voir la convention `label` pour l'usage isolé.",
   "dependencies": [
     "class-variance-authority",
     "clsx",

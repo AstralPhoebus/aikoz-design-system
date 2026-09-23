@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "site-footer",
   "title": "SiteFooter",
-  "description": "Pied de page de site. footer en fin de document = repere contentinfo implicite, a condition de n'etre imbrique dans aucun article ni section — une des rares balises ou le placement change le role. Intitules de colonne en span relie par aria-labelledby, pas en titres : le plan du document n'a pas a etre peuple par cinq intitules de pied de page. Un lien vers un nouvel onglet le dit dans son nom accessible.",
+  "description": "Pied de page de site. footer en fin de document = repère contentinfo implicite, à condition de n'être imbriqué dans aucun article ni section — une des rares balises où le placement change le rôle. Intitulés de colonne en span relié par aria-labelledby, pas en titres : le plan du document n'a pas à être peuplé par cinq intitulés de pied de page. Un lien vers un nouvel onglet le dit dans son nom accessible.",
   "dependencies": [
     "clsx",
     "tailwind-merge"

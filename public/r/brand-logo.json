@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "brand-logo",
   "title": "BrandLogo",
-  "description": "Pastille de marque — registre des 19 assureurs du marche francais, identifiants repris du workflow n8n Aikoz. Deux formes : circle porte les INITIALES (un logo masque dans un rond de 40px devient une tache), plate porte le logo monochrome par masque CSS a son rapport d'origine. Le noir ou le blanc du contenu est MESURE depuis la luminance de la teinte. Le champ maskable est adosse a une mesure de couverture d'encre : au-dela de 0,40 le masque ne rend qu'une silhouette.",
+  "description": "Pastille de marque — registre des 19 assureurs du marché français, identifiants repris du workflow n8n Aikoz. Deux formes : circle porte les INITIALES (un logo masqué dans un rond de 40px devient une tache), plate porte le logo monochrome par masque CSS à son rapport d'origine. Le noir ou le blanc du contenu est MESURÉ depuis la luminance de la teinte. Le champ maskable est adossé à une mesure de couverture d'encre : au-delà de 0,40 le masque ne rend qu'une silhouette.",
   "dependencies": [
     "class-variance-authority",
     "clsx",

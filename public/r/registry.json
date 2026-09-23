@@ -7,7 +7,7 @@
       "name": "accordion",
       "type": "registry:component",
       "title": "Accordion",
-      "description": "Accordeon — transpose de la FAQ du prototype site. aria-expanded, aria-controls, et `hidden` sur le panneau ferme : un panneau seulement masque en height:0 reste focusable, le focus disparait dans du contenu invisible. Le bouton est ENVELOPPE dans un titre, pas remplace par lui — le niveau est un prop, car les intitules forment le plan de la section. Pas d'animation de hauteur.",
+      "description": "Accordéon — transposé de la FAQ du prototype site. aria-expanded, aria-controls, et `hidden` sur le panneau fermé : un panneau seulement masqué en height:0 reste focusable, le focus disparaît dans du contenu invisible. Le bouton est ENVELOPPÉ dans un titre, pas remplacé par lui — le niveau est un prop, car les intitulés forment le plan de la section. Pas d'animation de hauteur.",
       "files": [
         {
           "path": "registry/aikoz/accordion/accordion.tsx",
@@ -27,7 +27,7 @@
       "name": "alert-dialog",
       "type": "registry:component",
       "title": "AlertDialog",
-      "description": "Confirmation d'une action irreversible. Ce n'est PAS un Dialog : role=alertdialog, le clic a l'exterieur ne ferme pas, la description est obligatoire, et le focus va sur le RETRAIT — poser le focus sur « Supprimer » transforme une barre d'espace reflexe en perte de donnees. Le bouton nomme ce qu'il fait : « Supprimer l'etablissement », jamais « Confirmer ». `destructive` pilote la couleur, pas le comportement.",
+      "description": "Confirmation d'une action irréversible. Ce n'est PAS un Dialog : role=alertdialog, le clic à l'extérieur ne ferme pas, la description est obligatoire, et le focus va sur le RETRAIT — poser le focus sur « Supprimer » transforme une barre d'espace réflexe en perte de données. Le bouton nomme ce qu'il fait : « Supprimer l'établissement », jamais « Confirmer ». `destructive` pilote la couleur, pas le comportement.",
       "files": [
         {
           "path": "registry/aikoz/alert-dialog/alert-dialog.tsx",
@@ -51,7 +51,7 @@
       "name": "avatar",
       "type": "registry:component",
       "title": "Avatar",
-      "description": "Avatar avec repli sur les initiales, calculees en ignorant les particules. 4 tailles. Bati sur Radix pour la bascule image/repli. Prop `decorative` quand le nom est deja ecrit a cote.",
+      "description": "Avatar avec repli sur les initiales, calculées en ignorant les particules. 4 tailles. Bâti sur Radix pour la bascule image/repli. Prop `decorative` quand le nom est déjà écrit à côté.",
       "files": [
         {
           "path": "registry/aikoz/avatar/avatar.tsx",
@@ -73,7 +73,7 @@
       "name": "badge",
       "type": "registry:component",
       "title": "Badge",
-      "description": "Etiquette de statut a 5 tons (success, warning, error, info, neutral). Le contour porte le contraste, le fond a 8% reste decoratif. A distinguer de DeltaBadge, qui porte une variation et non un etat.",
+      "description": "Étiquette de statut à 5 tons (success, warning, error, info, neutral). Le contour porte le contraste, le fond à 8% reste décoratif. À distinguer de DeltaBadge, qui porte une variation et non un état.",
       "files": [
         {
           "path": "registry/aikoz/badge/badge.tsx",
@@ -94,7 +94,7 @@
       "name": "bar-chart",
       "type": "registry:component",
       "title": "BarChart",
-      "description": "Barres empilees ou groupees, verticales ou horizontales. Le second canal d'un aplat est une TRAME, pas un pointille. Separateur clair de 2px entre segments empiles : deux teintes voisines fusionneraient sinon. En empile, le TOTAL a sa colonne dans le tableau. Il n'y a pas de RankedBarChart : c'est ce composant, horizontal, trie, a une serie.",
+      "description": "Barres empilées ou groupées, verticales ou horizontales. Le second canal d'un aplat est une TRAME, pas un pointillé. Séparateur clair de 2px entre segments empilés : deux teintes voisines fusionneraient sinon. En empilé, le TOTAL a sa colonne dans le tableau. Il n'y a pas de RankedBarChart : c'est ce composant, horizontal, trié, à une série.",
       "files": [
         {
           "path": "registry/aikoz/bar-chart/bar-chart.tsx",
@@ -135,7 +135,7 @@
       "name": "booking-flow",
       "type": "registry:component",
       "title": "BookingFlow",
-      "description": "Prise de rendez-vous — modale du tunnel du prototype site, 2 etats de confirmation. NE PARLE A PERSONNE : ni serveur ni fetch, l'appelant passe un status et recoit un onSubmit. Le changement d'etat est annonce par role=status ET recoit le focus — deux canaux pour deux facons de naviguer : sans le focus, l'utilisateur resterait sur un bouton disparu. Validation a la soumission, jamais a la frappe.",
+      "description": "Prise de rendez-vous — modale du tunnel du prototype site, 2 états de confirmation. NE PARLE À PERSONNE : ni serveur ni fetch, l'appelant passe un status et reçoit un onSubmit. Le changement d'état est annoncé par role=status ET reçoit le focus — deux canaux pour deux façons de naviguer : sans le focus, l'utilisateur resterait sur un bouton disparu. Validation à la soumission, jamais à la frappe.",
       "files": [
         {
           "path": "registry/aikoz/booking-flow/booking-flow.tsx",
@@ -174,7 +174,7 @@
       "name": "brand-glow",
       "type": "registry:component",
       "title": "BrandGlow",
-      "description": "Lueur de marque : un degrade des couleurs de la marque, pose sur une SURFACE (carte heroine, bloc), jamais sur un trace de donnees. Purement decoratif, aria-hidden, et neutralise par prefers-reduced-transparency.",
+      "description": "Lueur de marque : un dégradé des couleurs de la marque, posé sur une SURFACE (carte héroïne, bloc), jamais sur un tracé de données. Purement décoratif, aria-hidden, et neutralisé par prefers-reduced-transparency.",
       "files": [
         {
           "path": "registry/aikoz/brand-glow/brand-glow.tsx",
@@ -194,7 +194,7 @@
       "name": "brand-logo",
       "type": "registry:component",
       "title": "BrandLogo",
-      "description": "Pastille de marque — registre des 19 assureurs du marche francais, identifiants repris du workflow n8n Aikoz. Deux formes : circle porte les INITIALES (un logo masque dans un rond de 40px devient une tache), plate porte le logo monochrome par masque CSS a son rapport d'origine. Le noir ou le blanc du contenu est MESURE depuis la luminance de la teinte. Le champ maskable est adosse a une mesure de couverture d'encre : au-dela de 0,40 le masque ne rend qu'une silhouette.",
+      "description": "Pastille de marque — registre des 19 assureurs du marché français, identifiants repris du workflow n8n Aikoz. Deux formes : circle porte les INITIALES (un logo masqué dans un rond de 40px devient une tache), plate porte le logo monochrome par masque CSS à son rapport d'origine. Le noir ou le blanc du contenu est MESURÉ depuis la luminance de la teinte. Le champ maskable est adossé à une mesure de couverture d'encre : au-delà de 0,40 le masque ne rend qu'une silhouette.",
       "files": [
         {
           "path": "registry/aikoz/brand-logo/brand-logo.tsx",
@@ -219,7 +219,7 @@
       "name": "brand-mark",
       "type": "registry:component",
       "title": "BrandMark",
-      "description": "Logo de la marque courante, lu sur data-brand et sur le theme. La boite est une REGLE du systeme (h-8, max-w-40, object-contain) : un logo trop petit ou trop grand se corrige dans le composant, jamais au cas par cas dans la page. Les fichiers SVG sont des actifs de marque, a fournir par l'application dans ./logos/ — le design system declare le logo, il ne le livre pas.",
+      "description": "Logo de la marque courante, lu sur data-brand et sur le thème. La boîte est une RÈGLE du système (h-8, max-w-40, object-contain) : un logo trop petit ou trop grand se corrige dans le composant, jamais au cas par cas dans la page. Les fichiers SVG sont des actifs de marque, à fournir par l'application dans ./logos/ — le design system déclare le logo, il ne le livre pas.",
       "files": [
         {
           "path": "registry/aikoz/brand-mark/brand-mark.tsx",
@@ -239,7 +239,7 @@
       "name": "breadcrumb",
       "type": "registry:component",
       "title": "Breadcrumb",
-      "description": "Fil d'Ariane — nav nomme + ol + le dernier element n'est PAS un lien : rendre la page courante cliquable produit un lien qui ne mene nulle part. Separateur decoratif et masque. Les liens sont soulignes au repos, la couleur seule ne suffit pas. Ne replie pas les niveaux intermediaires.",
+      "description": "Fil d'Ariane — nav nommé + ol + le dernier élément n'est PAS un lien : rendre la page courante cliquable produit un lien qui ne mène nulle part. Séparateur décoratif et masqué. Les liens sont soulignés au repos, la couleur seule ne suffit pas. Ne replie pas les niveaux intermédiaires.",
       "files": [
         {
           "path": "registry/aikoz/breadcrumb/breadcrumb.tsx",
@@ -259,7 +259,7 @@
       "name": "button",
       "type": "registry:component",
       "title": "Button",
-      "description": "Bouton Aikoz — 4 variantes (default, secondary, outline, ghost) x 3 tailles (sm 36px, md 44px, lg 48px). Coins pilule, anneau de focus clavier, etat disabled ni cliquable ni focusable.",
+      "description": "Bouton Aikoz — 4 variantes (default, secondary, outline, ghost) x 3 tailles (sm 36px, md 44px, lg 48px). Coins pilule, anneau de focus clavier, état disabled ni cliquable ni focusable.",
       "files": [
         {
           "path": "registry/aikoz/button/button.tsx",
@@ -281,7 +281,7 @@
       "name": "card",
       "type": "registry:component",
       "title": "Card",
-      "description": "Conteneur de carte — 3 surfaces (raised, flat, bare) x 3 densites. Prop `as` pour sortir en article ou section : le choix est semantique. Sans sous-composants Title/Header : le niveau de titre depend du plan de la page, pas de la carte.",
+      "description": "Conteneur de carte — 3 surfaces (raised, flat, bare) x 3 densités. Prop `as` pour sortir en article ou section : le choix est sémantique. Sans sous-composants Title/Header : le niveau de titre dépend du plan de la page, pas de la carte.",
       "files": [
         {
           "path": "registry/aikoz/card/card.tsx",
@@ -302,7 +302,7 @@
       "name": "chart-frame",
       "type": "registry:component",
       "title": "ChartFrame",
-      "description": "Coque commune a tous les graphiques : le contrat d'accessibilite est tenu PAR CONSTRUCTION plutot que repete et oublie une fois sur cinq. Graphique masque et tableau comme contenu reel, legende APRES le graphique — placee avant, elle s'interpose entre le titre et la donnee, trois canaux par serie dans un ordre fixe, aucune animation. Sans donnee, la coque remplace tout son contenu par un etat qui nomme ce qui manque ; un echec de chargement y porte sa reprise, et n'est pas peint en rouge. Fournit aussi les trames SVG pour les aplats — une barre n'a pas de trace ou poser un pointille.",
+      "description": "Coque commune à tous les graphiques : le contrat d'accessibilité est tenu PAR CONSTRUCTION plutôt que répété et oublié une fois sur cinq. Graphique masqué et tableau comme contenu réel, légende APRÈS le graphique — placée avant, elle s'interpose entre le titre et la donnée, trois canaux par série dans un ordre fixe, aucune animation. Sans donnée, la coque remplace tout son contenu par un état qui nomme ce qui manque ; un échec de chargement y porte sa reprise, et n'est pas peint en rouge. Fournit aussi les trames SVG pour les aplats — une barre n'a pas de tracé où poser un pointillé.",
       "files": [
         {
           "path": "registry/aikoz/chart-frame/chart-frame.tsx",
@@ -339,7 +339,7 @@
       "name": "checkbox",
       "type": "registry:component",
       "title": "Checkbox",
-      "description": "Case a cocher. Un vrai <input type=checkbox> masque en sr-only sous une boite dessinee — jamais un <div role=checkbox> : il reste focusable, se coche a la barre d'espace et participe a l'envoi du formulaire. Elle sait l'etat INDETERMINE, ce qu'aucun autre controle du systeme ne sait dire : Switch est binaire, ChoiceGroup ne connait que des options completes. Checkbox quand l'effet a lieu a l'envoi, Switch quand il a lieu tout de suite. C'est le <label> qui porte la cible, pas la boite de 20 px.",
+      "description": "Case à cocher. Un vrai <input type=checkbox> masqué en sr-only sous une boîte dessinée — jamais un <div role=checkbox> : il reste focusable, se coche à la barre d'espace et participe à l'envoi du formulaire. Elle sait l'état INDÉTERMINÉ, ce qu'aucun autre contrôle du système ne sait dire : Switch est binaire, ChoiceGroup ne connaît que des options complètes. Checkbox quand l'effet a lieu à l'envoi, Switch quand il a lieu tout de suite. C'est le <label> qui porte la cible, pas la boîte de 20 px.",
       "files": [
         {
           "path": "registry/aikoz/checkbox/checkbox.tsx",
@@ -359,7 +359,7 @@
       "name": "choice-card",
       "type": "registry:component",
       "title": "ChoiceCard",
-      "description": "Option presentee en carte. Sous la carte il y a un VRAI input, mis en sr-only et non display:none : il reste focusable, se coche a la barre d'espace, et les fleches parcourent les radios du groupe sans une ligne de clavier ecrite. Trois habillages (`appearance`) sur la meme mecanique d'accessibilite : `card` (defaut, coche + trait), `segmented` (rang connecte, le remplissage porte l'etat), `chip` (pastille compacte, coche inline).",
+      "description": "Option présentée en carte. Sous la carte il y a un VRAI input, mis en sr-only et non display:none : il reste focusable, se coche à la barre d'espace, et les flèches parcourent les radios du groupe sans une ligne de clavier écrite. Trois habillages (`appearance`) sur la même mécanique d'accessibilité : `card` (défaut, coche + trait), `segmented` (rang connecté, le remplissage porte l'état), `chip` (pastille compacte, coche inline).",
       "files": [
         {
           "path": "registry/aikoz/choice-card/choice-card.tsx",
@@ -379,7 +379,7 @@
       "name": "choice-group",
       "type": "registry:component",
       "title": "ChoiceGroup",
-      "description": "Groupe de choix en cartes — REMPLACE BrandPicker et SourceToggle de l'inventaire : les deux ne different que par l'arite de la selection et le contenu des cartes, soit deux props, pas deux composants. fieldset + legend, la seule construction qui fasse annoncer la question a l'entree du groupe. `layout` ajoute `segmented` (rang connecte, ex. delai de publication) et `chip` (pastilles independantes, ex. criteres de declenchement) aux `grid`/`list` existants. La sortie de secours (« Je ne trouve pas ma marque ») est rendue HORS du fieldset : ce n'est pas une option de plus.",
+      "description": "Groupe de choix en cartes — REMPLACE BrandPicker et SourceToggle de l'inventaire : les deux ne diffèrent que par l'arité de la sélection et le contenu des cartes, soit deux props, pas deux composants. fieldset + legend, la seule construction qui fasse annoncer la question à l'entrée du groupe. `layout` ajoute `segmented` (rang connecté, ex. délai de publication) et `chip` (pastilles indépendantes, ex. critères de déclenchement) aux `grid`/`list` existants. La sortie de secours (« Je ne trouve pas ma marque ») est rendue HORS du fieldset : ce n'est pas une option de plus.",
       "files": [
         {
           "path": "registry/aikoz/choice-group/choice-group.tsx",
@@ -403,7 +403,7 @@
       "name": "combobox",
       "type": "registry:component",
       "title": "Combobox",
-      "description": "Champ de recherche a liste de suggestions. Ce n'est PAS un Select : la regle est le nombre d'options — une dizaine, on parcourt ; des centaines, on TAPE. Motif ARIA combobox ecrit a la main : le focus ne quitte jamais le champ, c'est aria-activedescendant qui designe la ligne parcourue, donc on peut continuer a taper en parcourant. La recherche ignore les accents et classe ce qui COMMENCE par la saisie avant ce qui la contient. Le vide repete la saisie, et une liste coupee compte ce qu'elle cache.",
+      "description": "Champ de recherche à liste de suggestions. Ce n'est PAS un Select : la règle est le nombre d'options — une dizaine, on parcourt ; des centaines, on TAPE. Motif ARIA combobox écrit à la main : le focus ne quitte jamais le champ, c'est aria-activedescendant qui désigne la ligne parcourue, donc on peut continuer à taper en parcourant. La recherche ignore les accents et classe ce qui COMMENCE par la saisie avant ce qui la contient. Le vide répète la saisie, et une liste coupée compte ce qu'elle cache.",
       "files": [
         {
           "path": "registry/aikoz/combobox/combobox.tsx",
@@ -423,7 +423,7 @@
       "name": "count-badge",
       "type": "registry:component",
       "title": "CountBadge",
-      "description": "Badge / pastille numerique — un compte a traiter (cercle plein --primary) ou un rang dans une liste (marqueur discret --border-strong), jamais les deux au meme endroit. Purement informatif, jamais le seul porteur du sens : voir la convention `label` pour l'usage isole.",
+      "description": "Badge / pastille numérique — un compte à traiter (cercle plein --primary) ou un rang dans une liste (marqueur discret --border-strong), jamais les deux au même endroit. Purement informatif, jamais le seul porteur du sens : voir la convention `label` pour l'usage isolé.",
       "files": [
         {
           "path": "registry/aikoz/count-badge/count-badge.tsx",
@@ -444,7 +444,7 @@
       "name": "date-range-picker",
       "type": "registry:component",
       "title": "DateRangePicker",
-      "description": "Selecteur de periode — transpose de la pastille « 30 derniers jours » de la barre haute. Pas de calendrier, delibrement : sur un tableau de bord la quasi-totalite des selections tombe sur un prereglage. Les prereglages sont de vrais boutons radio (choix unique, fleches natives, annonce « 2 sur 5 ») ; la saisie libre passe par deux champs date NATIFS, qui ouvrent le selecteur du systeme sur mobile.",
+      "description": "Sélecteur de période — transposé de la pastille « 30 derniers jours » de la barre haute. Pas de calendrier, délibérément : sur un tableau de bord la quasi-totalité des sélections tombe sur un préréglage. Les préréglages sont de vrais boutons radio (choix unique, flèches natives, annonce « 2 sur 5 ») ; la saisie libre passe par deux champs date NATIFS, qui ouvrent le sélecteur du système sur mobile.",
       "files": [
         {
           "path": "registry/aikoz/date-range-picker/date-range-picker.tsx",
@@ -465,7 +465,7 @@
       "name": "delta-badge",
       "type": "registry:component",
       "title": "Delta Badge",
-      "description": "Etiquette de variation : vert si positif, rouge si negatif, gris si neutre. Seuil de neutralite parametrable et ton forcable, pour les metriques ou baisser est un progres. Fleche haut/bas/tiret doublant la couleur.",
+      "description": "Étiquette de variation : vert si positif, rouge si négatif, gris si neutre. Seuil de neutralité paramétrable et ton forçable, pour les métriques où baisser est un progrès. Flèche haut/bas/tiret doublant la couleur.",
       "files": [
         {
           "path": "registry/aikoz/delta-badge/delta-badge.tsx",
@@ -487,7 +487,7 @@
       "name": "dialog",
       "type": "registry:component",
       "title": "Dialog",
-      "description": "Modale et panneau lateral — 3 placements (center, right, bottom). Bati sur Radix : piege de focus, retour du focus au declencheur, Echap, verrouillage du defilement. Titre obligatoire : c'est le nom accessible de la modale.",
+      "description": "Modale et panneau latéral — 3 placements (center, right, bottom). Bâti sur Radix : piège de focus, retour du focus au déclencheur, Échap, verrouillage du défilement. Titre obligatoire : c'est le nom accessible de la modale.",
       "files": [
         {
           "path": "registry/aikoz/dialog/dialog.tsx",
@@ -509,7 +509,7 @@
       "name": "donut-chart",
       "type": "registry:component",
       "title": "DonutChart",
-      "description": "Anneau de repartition. Un anneau se lit mal — l'oeil compare des longueurs bien mieux que des angles — d'ou le pourcentage ECRIT sur chaque part dans la legende, et le chiffre au centre qui est souvent la seule chose retenue. Au-dela de quatre parts, preferer une barre horizontale.",
+      "description": "Anneau de répartition. Un anneau se lit mal — l'œil compare des longueurs bien mieux que des angles — d'où le pourcentage ÉCRIT sur chaque part dans la légende, et le chiffre au centre qui est souvent la seule chose retenue. Au-delà de quatre parts, préférer une barre horizontale.",
       "files": [
         {
           "path": "registry/aikoz/donut-chart/donut-chart.tsx",
@@ -550,7 +550,7 @@
       "name": "dropdown-menu",
       "type": "registry:component",
       "title": "DropdownMenu",
-      "description": "Menu de commandes — pas de liens : s'il s'agit d'aller ailleurs, c'est de la navigation. Le contrat clavier du motif ARIA menu (fleches, Echap, frappe, retour du focus sur le declencheur) est delegue a Radix. Le nom est obligatoire : un tableau de bord porte un menu par ligne. La commande destructive est deplacee en DERNIER, apres un filet, ou qu'elle soit declaree. Non modal : un menu n'est pas une boite de dialogue, et masquer l'arriere-plan sans le rendre inert le laisse tabulable.",
+      "description": "Menu de commandes — pas de liens : s'il s'agit d'aller ailleurs, c'est de la navigation. Le contrat clavier du motif ARIA menu (flèches, Échap, frappe, retour du focus sur le déclencheur) est délégué à Radix. Le nom est obligatoire : un tableau de bord porte un menu par ligne. La commande destructive est déplacée en DERNIER, après un filet, où qu'elle soit déclarée. Non modal : un menu n'est pas une boîte de dialogue, et masquer l'arrière-plan sans le rendre inert le laisse tabulable.",
       "files": [
         {
           "path": "registry/aikoz/dropdown-menu/dropdown-menu.tsx",
@@ -571,7 +571,7 @@
       "name": "empty-state",
       "type": "registry:component",
       "title": "EmptyState",
-      "description": "Etat vide. Il nomme ce qui manque (« Aucun avis sur cette periode », pas « Aucune donnee ») et indique la sortie : un etat vide sans action ni consigne est un cul-de-sac. Le ton error se lit dans le texte, jamais a la seule couleur du cadre — et il n'est PAS rouge : le rouge dit que l'utilisateur est refuse ou que quelque chose va etre detruit, un chargement qui echoue ne fait ni l'un ni l'autre. Le niveau de titre est un prop, par defaut p — il depend du plan de la page.",
+      "description": "État vide. Il nomme ce qui manque (« Aucun avis sur cette période », pas « Aucune donnée ») et indique la sortie : un état vide sans action ni consigne est un cul-de-sac. Le ton error se lit dans le texte, jamais à la seule couleur du cadre — et il n'est PAS rouge : le rouge dit que l'utilisateur est refusé ou que quelque chose va être détruit, un chargement qui échoue ne fait ni l'un ni l'autre. Le niveau de titre est un prop, par défaut p — il dépend du plan de la page.",
       "files": [
         {
           "path": "registry/aikoz/empty-state/empty-state.tsx",
@@ -591,7 +591,7 @@
       "name": "feature-panel",
       "type": "registry:component",
       "title": "FeaturePanel",
-      "description": "Panneau de leviers — « Quatre leviers » de la page Notre Solution. Le plan se DEDUIT : l'appelant donne le niveau du titre de section, les titres de leviers prennent le suivant, plafonne a h6. On ne peut donc pas sauter un niveau, c'est arithmetique. Une ul et non une grille de div : « quatre leviers » n'est pas une figure de style, un lecteur d'ecran annonce « liste de 4 elements ».",
+      "description": "Panneau de leviers — « Quatre leviers » de la page Notre Solution. Le plan se DÉDUIT : l'appelant donne le niveau du titre de section, les titres de leviers prennent le suivant, plafonné à h6. On ne peut donc pas sauter un niveau, c'est arithmétique. Une ul et non une grille de div : « quatre leviers » n'est pas une figure de style, un lecteur d'écran annonce « liste de 4 éléments ».",
       "files": [
         {
           "path": "registry/aikoz/feature-panel/feature-panel.tsx",
@@ -611,7 +611,7 @@
       "name": "france-map",
       "type": "registry:component",
       "title": "FranceMap",
-      "description": "Carte choroplethe de la France — regions et departements de metropole. Elle ne remplace PAS `GeoDrilldown` : les barres repondent a « combien, et qui devant qui », la carte repond a « ou ». Les trois defauts d'une choroplethe sont assumes et encadres — la surface ment (la Lozere et le Nord pesent pareil a l'oeil), la couleur seule ne dit rien de precis (cinq classes, bornes affichees, valeur au survol et dans le tableau), et un dessin ne se lit pas au lecteur d'ecran (le SVG est aria-hidden, un role=img nomme porte le resume). Les classes sont des QUANTILES : a intervalles egaux, l'Ile-de-France occuperait seule la derniere classe. Aucune bibliotheque geographique n'est embarquee — les contours sont pre-projetes en Lambert-93 par scripts/carte-france.py. Fournit aussi mesurerProximite() : pour chaque point de reference, les points des autres categories dans un rayon donne, leur distance et l ecart de valeur — « 3 concurrents dans un rayon de 2 km, 3,8 contre 4,1 ». Les distances sont calculees dans la projection, ce qui est exact : Lambert-93 est conforme et son facteur d echelle varie de moins d un millieme sur la metropole.",
+      "description": "Carte choroplèthe de la France — régions et départements de métropole. Elle ne remplace PAS `GeoDrilldown` : les barres répondent à « combien, et qui devant qui », la carte répond à « où ». Les trois défauts d'une choroplèthe sont assumés et encadrés — la surface ment (la Lozère et le Nord pèsent pareil à l'œil), la couleur seule ne dit rien de précis (cinq classes, bornes affichées, valeur au survol et dans le tableau), et un dessin ne se lit pas au lecteur d'écran (le SVG est aria-hidden, un role=img nommé porte le résumé). Les classes sont des QUANTILES : à intervalles égaux, l'Île-de-France occuperait seule la dernière classe. Aucune bibliothèque géographique n'est embarquée — les contours sont pré-projetés en Lambert-93 par scripts/carte-france.py. Fournit aussi mesurerProximite() : pour chaque point de référence, les points des autres catégories dans un rayon donné, leur distance et l écart de valeur — « 3 concurrents dans un rayon de 2 km, 3,8 contre 4,1 ». Les distances sont calculées dans la projection, ce qui est exact : Lambert-93 est conforme et son facteur d échelle varie de moins d un millième sur la métropole.",
       "files": [
         {
           "path": "registry/aikoz/france-map/france-map.tsx",
@@ -639,7 +639,7 @@
       "name": "france-map-communes",
       "type": "registry:file",
       "title": "Communes de France",
-      "description": "Les 35 189 communes de metropole, un fichier par departement, a poser dans `public/communes/`. Optionnel : `france-map` fonctionne sans, aux niveaux region et departement. Installez-le si vous avez besoin du niveau commune — le composant charge alors le departement demande a la demande, ~47 Ko par fichier, ~15 Ko sur le reseau une fois compresse. Meme projection et MEME BOITE que les autres niveaux : une commune reste a sa place quand on descend. Genere par scripts/carte-communes.py a partir de france-geojson (derive d'ADMIN EXPRESS de l'IGN, Licence Ouverte / Etalab).",
+      "description": "Les 35 189 communes de métropole, un fichier par département, à poser dans `public/communes/`. Optionnel : `france-map` fonctionne sans, aux niveaux région et département. Installez-le si vous avez besoin du niveau commune — le composant charge alors le département demandé à la demande, ~47 Ko par fichier, ~15 Ko sur le réseau une fois compressé. Même projection et MÊME BOÎTE que les autres niveaux : une commune reste à sa place quand on descend. Généré par scripts/carte-communes.py à partir de france-geojson (dérivé d'ADMIN EXPRESS de l'IGN, Licence Ouverte / Etalab).",
       "files": [
         {
           "path": "public/communes/01.json",
@@ -1127,7 +1127,7 @@
       "name": "geo-drilldown",
       "type": "registry:component",
       "title": "GeoDrilldown",
-      "description": "Forage geographique France > region > departement. Ce n'est PAS une carte, et c'est delibere : une choropleth encode la valeur par une teinte sur des surfaces tres inegales (la Lozere et le Nord pesent pareil a l'oeil), demande un fond de carte a maintenir, et ne se lit pas au lecteur d'ecran. Une barre horizontale compare des longueurs. Le forage passe par le bouton « Explorer » du TABLEAU, pas par le clic sur les barres : le graphique est aria-hidden, une commande posee dessus serait inatteignable au clavier.",
+      "description": "Forage géographique France > région > département. Ce n'est PAS une carte, et c'est délibéré : une choropleth encode la valeur par une teinte sur des surfaces très inégales (la Lozère et le Nord pèsent pareil à l'œil), demande un fond de carte à maintenir, et ne se lit pas au lecteur d'écran. Une barre horizontale compare des longueurs. Le forage passe par le bouton « Explorer » du TABLEAU, pas par le clic sur les barres : le graphique est aria-hidden, une commande posée dessus serait inatteignable au clavier.",
       "files": [
         {
           "path": "registry/aikoz/geo-drilldown/geo-drilldown.tsx",
@@ -1178,7 +1178,7 @@
       "name": "info-banner",
       "type": "registry:component",
       "title": "InfoBanner",
-      "description": "Bandeau d'information — explique une regle ou un comportement automatique du produit avant que l'utilisateur agisse. Trois tons (info/warning/error) sur le meme mapping que Badge ; le texte reste en --foreground, seuls la bordure/le fond/l'icone portent le ton. role=status, jamais role=alert.",
+      "description": "Bandeau d'information — explique une règle ou un comportement automatique du produit avant que l'utilisateur agisse. Trois tons (info/warning/error) sur le même mapping que Badge ; le texte reste en --foreground, seuls la bordure/le fond/l'icône portent le ton. role=status, jamais role=alert.",
       "files": [
         {
           "path": "registry/aikoz/info-banner/info-banner.tsx",
@@ -1199,7 +1199,7 @@
       "name": "input",
       "type": "registry:component",
       "title": "Input",
-      "description": "Champ de saisie — 4 etats (defaut, focus, erreur, desactive). Libelle visible obligatoire, consigne avant le champ, erreur annoncee en role=alert et associee par aria-describedby. Ne valide rien lui-meme : la validation se fait a la sortie du champ, jamais a la frappe.",
+      "description": "Champ de saisie — 4 états (défaut, focus, erreur, désactivé). Libellé visible obligatoire, consigne avant le champ, erreur annoncée en role=alert et associée par aria-describedby. Ne valide rien lui-même : la validation se fait à la sortie du champ, jamais à la frappe.",
       "files": [
         {
           "path": "registry/aikoz/input/input.tsx",
@@ -1220,7 +1220,7 @@
       "name": "kpi-card",
       "type": "registry:component",
       "title": "KPI Card",
-      "description": "Carte d'indicateur Aikoz — deux axes independants : `variant` (rating/target/trend/raw/benchmark) dit ce que la donnee EST, `density` (compact/default/large) la place qu'on lui accorde. `benchmark` affiche un repere de comparaison permanent (ex. vs moyenne marche), pas une variation. Optionnellement cliquable.",
+      "description": "Carte d'indicateur Aikoz — deux axes indépendants : `variant` (rating/target/trend/raw/benchmark) dit ce que la donnée EST, `density` (compact/default/large) la place qu'on lui accorde. `benchmark` affiche un repère de comparaison permanent (ex. vs moyenne marché), pas une variation. Optionnellement cliquable.",
       "files": [
         {
           "path": "registry/aikoz/kpi-card/kpi-card.tsx",
@@ -1248,7 +1248,7 @@
       "name": "leaderboard",
       "type": "registry:component",
       "title": "Leaderboard",
-      "description": "Classement d'etablissements, bati sur Table : un classement porte plusieurs attributs comparables par ligne, c'est la definition d'un tableau. PAS de RankRow exporte, contrairement au Figma — une ligne qui n'a de sens que dans son tableau est un rendu de cellule, pas un composant. Le podium or/argent/bronze est double par le chiffre du rang et un sr-only : il ne tient pas a la couleur.",
+      "description": "Classement d'établissements, bâti sur Table : un classement porte plusieurs attributs comparables par ligne, c'est la définition d'un tableau. PAS de RankRow exporté, contrairement au Figma — une ligne qui n'a de sens que dans son tableau est un rendu de cellule, pas un composant. Le podium or/argent/bronze est doublé par le chiffre du rang et un sr-only : il ne tient pas à la couleur.",
       "files": [
         {
           "path": "registry/aikoz/leaderboard/leaderboard.tsx",
@@ -1293,7 +1293,7 @@
       "name": "line-chart",
       "type": "registry:component",
       "title": "LineChart",
-      "description": "Courbe multi-series. Le graphique est MASQUE aux technologies d'assistance et le tableau EST le contenu : un SVG de courbes ne se lit pas, on ne peut ni comparer deux points ni retrouver une valeur. Les series se distinguent par le POINTILLE et la FORME du marqueur, pas par la couleur — mesure : la meilleure separation atteignable entre six series de cette palette est de 1,17:1, elles se confondent en niveaux de gris. Aucune animation (WCAG 2.3.3).",
+      "description": "Courbe multi-séries. Le graphique est MASQUÉ aux technologies d'assistance et le tableau EST le contenu : un SVG de courbes ne se lit pas, on ne peut ni comparer deux points ni retrouver une valeur. Les séries se distinguent par le POINTILLÉ et la FORME du marqueur, pas par la couleur — mesuré : la meilleure séparation atteignable entre six séries de cette palette est de 1,17:1, elles se confondent en niveaux de gris. Aucune animation (WCAG 2.3.3).",
       "files": [
         {
           "path": "registry/aikoz/line-chart/line-chart.tsx",
@@ -1334,7 +1334,7 @@
       "name": "logo-marquee",
       "type": "registry:component",
       "title": "LogoMarquee",
-      "description": "Bandeau de preuve client. IL NE DEFILE PAS : WCAG 2.2.2 impose un moyen de pause pour tout mouvement de plus de 5 secondes, soit un bouton et un arret de tabulation de plus pour une decoration — et la preuve ce sont les marques, pas leur deplacement. Passe a la ligne, ce qui regle le reflow. C'est une liste dans une section nommee, pas une suite d'images.",
+      "description": "Bandeau de preuve client. IL NE DÉFILE PAS : WCAG 2.2.2 impose un moyen de pause pour tout mouvement de plus de 5 secondes, soit un bouton et un arrêt de tabulation de plus pour une décoration — et la preuve ce sont les marques, pas leur déplacement. Passe à la ligne, ce qui règle le reflow. C'est une liste dans une section nommée, pas une suite d'images.",
       "files": [
         {
           "path": "registry/aikoz/logo-marquee/logo-marquee.tsx",
@@ -1363,7 +1363,7 @@
       "name": "nav-item",
       "type": "registry:component",
       "title": "NavItem",
-      "description": "Entree de navigation — brique de SidebarNav, transposee du composant Figma (3 etats). C'est un <a>, jamais un <button> : cette entree change de route. L'etat courant tient a trois canaux qui se doublent — aria-current=page, un trait vertical en --nav-accent, et la graisse. Le voile de fond ne compte pas : 1,19:1 en clair, il est decoratif.",
+      "description": "Entrée de navigation — brique de SidebarNav, transposée du composant Figma (3 états). C'est un <a>, jamais un <button> : cette entrée change de route. L'état courant tient à trois canaux qui se doublent — aria-current=page, un trait vertical en --nav-accent, et la graisse. Le voile de fond ne compte pas : 1,19:1 en clair, il est décoratif.",
       "files": [
         {
           "path": "registry/aikoz/nav-item/nav-item.tsx",
@@ -1383,7 +1383,7 @@
       "name": "pagination",
       "type": "registry:component",
       "title": "Pagination",
-      "description": "Un <nav> nomme, une liste, et des <button> — pas des liens : changer de page ne change pas d'URL dans un tableau de bord. La page courante est un <span> avec aria-current, jamais un bouton. Le resume « 41-60 sur 312 » porte l'information que les numeros ne donnent pas. La fenetre garde une largeur constante, sinon les boutons se deplacent sous le doigt. Sous 2 pages, elle ne rend rien.",
+      "description": "Un <nav> nommé, une liste, et des <button> — pas des liens : changer de page ne change pas d'URL dans un tableau de bord. La page courante est un <span> avec aria-current, jamais un bouton. Le résumé « 41-60 sur 312 » porte l'information que les numéros ne donnent pas. La fenêtre garde une largeur constante, sinon les boutons se déplacent sous le doigt. Sous 2 pages, elle ne rend rien.",
       "files": [
         {
           "path": "registry/aikoz/pagination/pagination.tsx",
@@ -1403,7 +1403,7 @@
       "name": "progress-bar",
       "type": "registry:component",
       "title": "Progress Bar",
-      "description": "Barre de progression a 3 niveaux (good / warning / critical), deduits de seuils parametrables ou forces. Le niveau ne se lit jamais a la seule couleur : la longueur du remplissage porte la meme information.",
+      "description": "Barre de progression à 3 niveaux (good / warning / critical), déduits de seuils paramétrables ou forcés. Le niveau ne se lit jamais à la seule couleur : la longueur du remplissage porte la même information.",
       "files": [
         {
           "path": "registry/aikoz/progress-bar/progress-bar.tsx",
@@ -1424,7 +1424,7 @@
       "name": "reply-bubble",
       "type": "registry:component",
       "title": "ReplyBubble",
-      "description": "Bulle de reponse (IA ou operateur) affichee sous un avis. Traitement en creux (liseré + fond muted), sans bordure ni ombre propres : concue pour vivre a l'interieur d'une carte d'avis, jamais comme une carte de plus. L'origine est ecrite en toutes lettres, jamais portee par le seul pictogramme.",
+      "description": "Bulle de réponse (IA ou opérateur) affichée sous un avis. Traitement en creux (liseré + fond muted), sans bordure ni ombre propres : conçue pour vivre à l'intérieur d'une carte d'avis, jamais comme une carte de plus. L'origine est écrite en toutes lettres, jamais portée par le seul pictogramme.",
       "files": [
         {
           "path": "registry/aikoz/reply-bubble/reply-bubble.tsx",
@@ -1450,7 +1450,7 @@
       "name": "response-kanban",
       "type": "registry:component",
       "title": "ResponseKanban",
-      "description": "Kanban de reponses — 3 colonnes fixes par urgence croissante (reponses automatisees a valider, reponses hors charte a corriger, avis sensibles a traiter). Composite : assemble Card/Badge/Button/VerbatimCard/EmptyState/Dialog existants et ReplyBubble/Textarea/CountBadge nouveaux. L'Overlay - Detail de la colonne 2 est une composition de Dialog, pas un composant a part.",
+      "description": "Kanban de réponses — 3 colonnes fixes par urgence croissante (réponses automatisées à valider, réponses hors charte à corriger, avis sensibles à traiter). Composite : assemble Card/Badge/Button/VerbatimCard/EmptyState/Dialog existants et ReplyBubble/Textarea/CountBadge nouveaux. L'Overlay - Détail de la colonne 2 est une composition de Dialog, pas un composant à part.",
       "files": [
         {
           "path": "registry/aikoz/response-kanban/response-kanban.tsx",
@@ -1483,7 +1483,7 @@
       "name": "score-stars",
       "type": "registry:component",
       "title": "Score Stars",
-      "description": "Notation en etoiles sur une echelle bornee. Demi-etoiles, 3 tailles, couleur portee par le role dedie --rating. L'information n'est jamais portee par la seule couleur : le nombre d'etoiles pleines et l'aria-label la vehiculent.",
+      "description": "Notation en étoiles sur une échelle bornée. Demi-étoiles, 3 tailles, couleur portée par le rôle dédié --rating. L'information n'est jamais portée par la seule couleur : le nombre d'étoiles pleines et l'aria-label la véhiculent.",
       "files": [
         {
           "path": "registry/aikoz/score-stars/score-stars.tsx",
@@ -1505,7 +1505,7 @@
       "name": "select",
       "type": "registry:component",
       "title": "Select",
-      "description": "Liste de selection — transposee du MiniSelect des maquettes. Bati sur Radix : vrai listbox, navigation clavier complete, coche en plus de la graisse. Libelle visible obligatoire, aligne au pixel sur Input. Pour un choix long et sans mise en forme (pays, annee), preferer un select natif.",
+      "description": "Liste de sélection — transposée du MiniSelect des maquettes. Bâti sur Radix : vrai listbox, navigation clavier complète, coche en plus de la graisse. Libellé visible obligatoire, aligné au pixel sur Input. Pour un choix long et sans mise en forme (pays, année), préférer un select natif.",
       "files": [
         {
           "path": "registry/aikoz/select/select.tsx",
@@ -1527,7 +1527,7 @@
       "name": "sidebar-nav",
       "type": "registry:component",
       "title": "SidebarNav",
-      "description": "Barre de navigation laterale — nav + liens + aria-current=page, tabulation lien apres lien, change la route. Ne se mutualise PAS avec ViewTabs, qui echange un panneau : ils partagent les tokens, pas le code. Ne gere ni repli en icones ni tiroir mobile — cela depend du gabarit de page, pas de la barre.",
+      "description": "Barre de navigation latérale — nav + liens + aria-current=page, tabulation lien après lien, change la route. Ne se mutualise PAS avec ViewTabs, qui échange un panneau : ils partagent les tokens, pas le code. Ne gère ni repli en icônes ni tiroir mobile — cela dépend du gabarit de page, pas de la barre.",
       "files": [
         {
           "path": "registry/aikoz/sidebar-nav/sidebar-nav.tsx",
@@ -1551,7 +1551,7 @@
       "name": "site-footer",
       "type": "registry:component",
       "title": "SiteFooter",
-      "description": "Pied de page de site. footer en fin de document = repere contentinfo implicite, a condition de n'etre imbrique dans aucun article ni section — une des rares balises ou le placement change le role. Intitules de colonne en span relie par aria-labelledby, pas en titres : le plan du document n'a pas a etre peuple par cinq intitules de pied de page. Un lien vers un nouvel onglet le dit dans son nom accessible.",
+      "description": "Pied de page de site. footer en fin de document = repère contentinfo implicite, à condition de n'être imbriqué dans aucun article ni section — une des rares balises où le placement change le rôle. Intitulés de colonne en span relié par aria-labelledby, pas en titres : le plan du document n'a pas à être peuplé par cinq intitulés de pied de page. Un lien vers un nouvel onglet le dit dans son nom accessible.",
       "files": [
         {
           "path": "registry/aikoz/site-footer/site-footer.tsx",
@@ -1571,7 +1571,7 @@
       "name": "site-nav",
       "type": "registry:component",
       "title": "SiteNav",
-      "description": "En-tete de site — distinct de SidebarNav : premier element du document, porte le LIEN D'EVITEMENT (WCAG 2.4.1, il doit etre le premier focusable, donc il ne peut pas vivre ailleurs), et se replie en menu sur petit ecran. Le menu mobile est un disclosure et non une modale : il ne piege pas le focus, se ferme sur Echap et rend le focus au bouton. Menu ferme = attribut hidden, donc hors tabulation.",
+      "description": "En-tête de site — distinct de SidebarNav : premier élément du document, porte le LIEN D'ÉVITEMENT (WCAG 2.4.1, il doit être le premier focusable, donc il ne peut pas vivre ailleurs), et se replie en menu sur petit écran. Le menu mobile est un disclosure et non une modale : il ne piège pas le focus, se ferme sur Échap et rend le focus au bouton. Menu fermé = attribut hidden, donc hors tabulation.",
       "files": [
         {
           "path": "registry/aikoz/site-nav/site-nav.tsx",
@@ -1594,7 +1594,7 @@
       "name": "skeleton",
       "type": "registry:component",
       "title": "Skeleton",
-      "description": "Bloc d'attente. Integralement invisible aux technologies d'assistance, et ce n'est pas un oubli : c'est au CONTENEUR de dire qu'un chargement est en cours, une fois, par aria-busy. Animation coupee par motion-reduce (WCAG 2.3.3). Fond sur --track et non --muted : en sombre ce dernier vaut exactement --card.",
+      "description": "Bloc d'attente. Intégralement invisible aux technologies d'assistance, et ce n'est pas un oubli : c'est au CONTENEUR de dire qu'un chargement est en cours, une fois, par aria-busy. Animation coupée par motion-reduce (WCAG 2.3.3). Fond sur --track et non --muted : en sombre ce dernier vaut exactement --card.",
       "files": [
         {
           "path": "registry/aikoz/skeleton/skeleton.tsx",
@@ -1614,7 +1614,7 @@
       "name": "slot-picker",
       "type": "registry:component",
       "title": "SlotPicker",
-      "description": "Choix d'un creneau. UN SEUL fieldset pour tous les jours : le choix est unique sur l'ensemble, et un name commun laisse les fleches traverser toute la grille d'un jour a l'autre. Les jours nomment leur liste par aria-labelledby, ce qui donne le contexte sans decouper le groupe. Un creneau complet reste ANNONCE (« 11:00, complet ») : le retirer ferait croire que le cabinet n'ouvre pas a cette heure-la.",
+      "description": "Choix d'un créneau. UN SEUL fieldset pour tous les jours : le choix est unique sur l'ensemble, et un name commun laisse les flèches traverser toute la grille d'un jour à l'autre. Les jours nomment leur liste par aria-labelledby, ce qui donne le contexte sans découper le groupe. Un créneau complet reste ANNONCÉ (« 11:00, complet ») : le retirer ferait croire que le cabinet n'ouvre pas à cette heure-là.",
       "files": [
         {
           "path": "registry/aikoz/slot-picker/slot-picker.tsx",
@@ -1634,7 +1634,7 @@
       "name": "stepper",
       "type": "registry:component",
       "title": "Stepper",
-      "description": "Fil de progression — 5 etapes du tunnel du prototype site. « Etape 2 sur 5 » est ecrit dans le nom du nav, pas seulement dessine : sans lui un lecteur d'ecran entend cinq intitules sans savoir ou on en est. Trois etats portes chacun par deux canaux (coche, aria-current=step, texte sr-only). Une etape a venir n'est jamais un lien.",
+      "description": "Fil de progression — 5 étapes du tunnel du prototype site. « Étape 2 sur 5 » est écrit dans le nom du nav, pas seulement dessiné : sans lui un lecteur d'écran entend cinq intitulés sans savoir où on en est. Trois états portés chacun par deux canaux (coche, aria-current=step, texte sr-only). Une étape à venir n'est jamais un lien.",
       "files": [
         {
           "path": "registry/aikoz/stepper/stepper.tsx",
@@ -1654,7 +1654,7 @@
       "name": "switch",
       "type": "registry:component",
       "title": "Switch",
-      "description": "Interrupteur — bascule un reglage binaire immediatement, sans confirmation ni bouton Enregistrer separe. Input checkbox natif role=switch, sr-only, anneau de focus reporte sur la piste : pas de dependance Radix, le clavier natif suffit.",
+      "description": "Interrupteur — bascule un réglage binaire immédiatement, sans confirmation ni bouton Enregistrer séparé. Input checkbox natif role=switch, sr-only, anneau de focus reporté sur la piste : pas de dépendance Radix, le clavier natif suffit.",
       "files": [
         {
           "path": "registry/aikoz/switch/switch.tsx",
@@ -1674,7 +1674,7 @@
       "name": "table",
       "type": "registry:component",
       "title": "Table",
-      "description": "Tableau de donnees — un vrai <table>. <caption> obligatoire plutot qu'aria-label, th scope=col et scope=row (« Amsterdam, taux de reponse, 94 % » au lieu de « 94 % »), tri annonce par aria-sort avec un bouton dans l'en-tete, conteneur de debordement focusable et nomme, chiffres tabulaires sur les colonnes numeriques. Etats de chargement et vide integres.",
+      "description": "Tableau de données — un vrai <table>. <caption> obligatoire plutôt qu'aria-label, th scope=col et scope=row (« Amsterdam, taux de réponse, 94 % » au lieu de « 94 % »), tri annoncé par aria-sort avec un bouton dans l'en-tête, conteneur de débordement focusable et nommé, chiffres tabulaires sur les colonnes numériques. États de chargement et vide intégrés.",
       "files": [
         {
           "path": "registry/aikoz/table/table.tsx",
@@ -1698,7 +1698,7 @@
       "name": "textarea",
       "type": "registry:component",
       "title": "Textarea",
-      "description": "Champ de texte libre — saisie multiligne dans son contexte (ex. corriger une reponse automatique avant publication). Sibling d'Input : memes tokens de bordure/focus/erreur, dimensionne par rows + redimensionnement natif plutot qu'un auto-grow. Actions Annuler/Enregistrer composees par l'appelant.",
+      "description": "Champ de texte libre — saisie multiligne dans son contexte (ex. corriger une réponse automatique avant publication). Sibling d'Input : mêmes tokens de bordure/focus/erreur, dimensionné par rows + redimensionnement natif plutôt qu'un auto-grow. Actions Annuler/Enregistrer composées par l'appelant.",
       "files": [
         {
           "path": "registry/aikoz/textarea/textarea.tsx",
@@ -1719,7 +1719,7 @@
       "name": "toast",
       "type": "registry:component",
       "title": "Toast",
-      "description": "Messages transitoires, avec leur fournisseur. Region live polie pour les confirmations, assertive pour les erreurs. La duree se met en pause au survol et au focus (WCAG 2.2.1) ; un toast porteur d'action ne disparait jamais tout seul.",
+      "description": "Messages transitoires, avec leur fournisseur. Région live polie pour les confirmations, assertive pour les erreurs. La durée se met en pause au survol et au focus (WCAG 2.2.1) ; un toast porteur d'action ne disparaît jamais tout seul.",
       "files": [
         {
           "path": "registry/aikoz/toast/toast.tsx",
@@ -1740,7 +1740,7 @@
       "name": "tooltip",
       "type": "registry:component",
       "title": "Tooltip",
-      "description": "Infobulle. Ne porte JAMAIS une information necessaire : elle n'existe ni au tactile, ni a l'impression. Bati sur Radix, qui fournit les trois obligations de WCAG 1.4.13 : fermeture par Echap, survol du contenu possible, persistance. Un declencheur disabled n'ouvre rien — utiliser aria-disabled.",
+      "description": "Infobulle. Ne porte JAMAIS une information nécessaire : elle n'existe ni au tactile, ni à l'impression. Bâti sur Radix, qui fournit les trois obligations de WCAG 1.4.13 : fermeture par Échap, survol du contenu possible, persistance. Un déclencheur disabled n'ouvre rien — utiliser aria-disabled.",
       "files": [
         {
           "path": "registry/aikoz/tooltip/tooltip.tsx",
@@ -1761,7 +1761,7 @@
       "name": "verbatim-card",
       "type": "registry:component",
       "title": "Verbatim Card",
-      "description": "Carte d'avis client : note en etoiles, etat de reponse, texte, source et themes. Rendue en <article> — un avis est un contenu autonome. Troncature CSS : le texte complet reste dans le DOM.",
+      "description": "Carte d'avis client : note en étoiles, état de réponse, texte, source et thèmes. Rendue en <article> — un avis est un contenu autonome. Troncature CSS : le texte complet reste dans le DOM.",
       "files": [
         {
           "path": "registry/aikoz/verbatim-card/verbatim-card.tsx",
@@ -1786,7 +1786,7 @@
       "name": "view-tabs",
       "type": "registry:component",
       "title": "ViewTabs",
-      "description": "Bascule de vue dans la page — role=tablist, aria-selected, tabindex tournant, fleches + Debut/Fin. Activation automatique ou manuelle. La regle qui decide est le COMPORTEMENT, jamais l'apparence : un onglet qui change de route est un lien stylé en onglet, il releve de SidebarNav.",
+      "description": "Bascule de vue dans la page — role=tablist, aria-selected, tabindex tournant, flèches + Début/Fin. Activation automatique ou manuelle. La règle qui décide est le COMPORTEMENT, jamais l'apparence : un onglet qui change de route est un lien stylé en onglet, il relève de SidebarNav.",
       "files": [
         {
           "path": "registry/aikoz/view-tabs/view-tabs.tsx",

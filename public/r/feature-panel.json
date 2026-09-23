@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "feature-panel",
   "title": "FeaturePanel",
-  "description": "Panneau de leviers — « Quatre leviers » de la page Notre Solution. Le plan se DEDUIT : l'appelant donne le niveau du titre de section, les titres de leviers prennent le suivant, plafonne a h6. On ne peut donc pas sauter un niveau, c'est arithmetique. Une ul et non une grille de div : « quatre leviers » n'est pas une figure de style, un lecteur d'ecran annonce « liste de 4 elements ».",
+  "description": "Panneau de leviers — « Quatre leviers » de la page Notre Solution. Le plan se DÉDUIT : l'appelant donne le niveau du titre de section, les titres de leviers prennent le suivant, plafonné à h6. On ne peut donc pas sauter un niveau, c'est arithmétique. Une ul et non une grille de div : « quatre leviers » n'est pas une figure de style, un lecteur d'écran annonce « liste de 4 éléments ».",
   "dependencies": [
     "clsx",
     "tailwind-merge"

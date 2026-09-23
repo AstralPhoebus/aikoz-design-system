@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "donut-chart",
   "title": "DonutChart",
-  "description": "Anneau de repartition. Un anneau se lit mal — l'oeil compare des longueurs bien mieux que des angles — d'ou le pourcentage ECRIT sur chaque part dans la legende, et le chiffre au centre qui est souvent la seule chose retenue. Au-dela de quatre parts, preferer une barre horizontale.",
+  "description": "Anneau de répartition. Un anneau se lit mal — l'œil compare des longueurs bien mieux que des angles — d'où le pourcentage ÉCRIT sur chaque part dans la légende, et le chiffre au centre qui est souvent la seule chose retenue. Au-delà de quatre parts, préférer une barre horizontale.",
   "dependencies": [
     "clsx",
     "tailwind-merge",

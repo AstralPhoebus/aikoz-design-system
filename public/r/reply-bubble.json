@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "reply-bubble",
   "title": "ReplyBubble",
-  "description": "Bulle de reponse (IA ou operateur) affichee sous un avis. Traitement en creux (liseré + fond muted), sans bordure ni ombre propres : concue pour vivre a l'interieur d'une carte d'avis, jamais comme une carte de plus. L'origine est ecrite en toutes lettres, jamais portee par le seul pictogramme.",
+  "description": "Bulle de réponse (IA ou opérateur) affichée sous un avis. Traitement en creux (liseré + fond muted), sans bordure ni ombre propres : conçue pour vivre à l'intérieur d'une carte d'avis, jamais comme une carte de plus. L'origine est écrite en toutes lettres, jamais portée par le seul pictogramme.",
   "dependencies": [
     "class-variance-authority",
     "clsx",

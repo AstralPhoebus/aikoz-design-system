@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "alert-dialog",
   "title": "AlertDialog",
-  "description": "Confirmation d'une action irreversible. Ce n'est PAS un Dialog : role=alertdialog, le clic a l'exterieur ne ferme pas, la description est obligatoire, et le focus va sur le RETRAIT — poser le focus sur « Supprimer » transforme une barre d'espace reflexe en perte de donnees. Le bouton nomme ce qu'il fait : « Supprimer l'etablissement », jamais « Confirmer ». `destructive` pilote la couleur, pas le comportement.",
+  "description": "Confirmation d'une action irréversible. Ce n'est PAS un Dialog : role=alertdialog, le clic à l'extérieur ne ferme pas, la description est obligatoire, et le focus va sur le RETRAIT — poser le focus sur « Supprimer » transforme une barre d'espace réflexe en perte de données. Le bouton nomme ce qu'il fait : « Supprimer l'établissement », jamais « Confirmer ». `destructive` pilote la couleur, pas le comportement.",
   "dependencies": [
     "@radix-ui/react-alert-dialog",
     "clsx",
