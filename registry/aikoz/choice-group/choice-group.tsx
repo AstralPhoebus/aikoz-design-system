@@ -167,7 +167,7 @@ export function ChoiceGroup({
               type={selection === "single" ? "radio" : "checkbox"}
               name={`${uid}-groupe`}
               checked={retenus.includes(o.value)}
-              onChange={(coche) => basculer(o.value, coche)}
+              onCheckedChange={(coche) => basculer(o.value, coche)}
               layout={layout === "grid" ? "tile" : "row"}
               appearance={
                 layout === "segmented" ? "segmented" : layout === "chip" ? "chip" : "card"

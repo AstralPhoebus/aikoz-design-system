@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useState } from "react";
 import { expect } from "storybook/test";
 import { ChoiceCard } from "./choice-card";
 
@@ -66,5 +67,56 @@ export const UnVraiInputSousLaCarte: Story = {
           "`role=\"radio\"` sur un `<div>` rate presque toujours le parcours aux flèches.",
       },
     },
+  },
+};
+
+export const LAncienNomMarcheEncore: Story = {
+  name: "`onChange` marche encore, mais ne s'écrit plus",
+  render: () => {
+    const [recu, setRecu] = useState<string[]>([]);
+    return (
+      <div className="flex flex-col gap-3">
+        <ChoiceCard
+          label="Câblée par onCheckedChange"
+          value="neuf"
+          type="checkbox"
+          onCheckedChange={(c) => setRecu((r) => [...r, `neuf:${c}`])}
+        />
+        <ChoiceCard
+          label="Câblée par onChange"
+          value="ancien"
+          type="checkbox"
+          onChange={(c) => setRecu((r) => [...r, `ancien:${c}`])}
+        />
+        <p role="status" className="m-0 text-sm text-muted-foreground">
+          Reçu : {recu.join(" ") || "rien"}
+        </p>
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Le rappel s'appelait `onChange` — c'est-à-dire exactement le nom " +
+          "que `Checkbox` hérite de React, mais avec une **signature " +
+          "incompatible** : ici un booléen, là un `ChangeEvent`. Qui " +
+          "apprenait l'un et écrivait l'autre recevait un événement là où il " +
+          "attendait `true`, sans que TypeScript le voie si le rappel " +
+          "ignorait son argument.\n\n" +
+          "Il s'appelle désormais `onCheckedChange`, comme sur `Switch`. " +
+          "L'ancien continue de fonctionner pour ne rien casser chez qui " +
+          "consomme déjà le registry, et **cette histoire est ce qui le " +
+          "garantit** : un alias que rien n'exerce cesse de marcher sans que " +
+          "personne ne le voie.",
+      },
+    },
+  },
+  play: async ({ canvas, userEvent }) => {
+    await userEvent.click(canvas.getByRole("checkbox", { name: /onCheckedChange/ }));
+    await expect(canvas.getByRole("status")).toHaveTextContent("neuf:true");
+
+    await userEvent.click(canvas.getByRole("checkbox", { name: /par onChange/ }));
+    await expect(canvas.getByRole("status")).toHaveTextContent("ancien:true");
   },
 };

@@ -190,6 +190,52 @@ for (const nom of composants) {
   }
 }
 
+// ─── 12. `caption` est obligatoire, ou n'existe pas ─────────────────────────
+//
+// C'est le `<caption>` HTML : le nom accessible de ce qu'un tableau ou une
+// figure CONTIENT. Les six graphiques et `Table` l'emploient dans ce sens, et
+// tous le déclarent OBLIGATOIRE — c'est la seule façon d'être cohérent : une
+// figure sans nom n'a pas d'alternative, on ne peut pas la rendre facultative.
+//
+// `KpiCard` déclarait `caption?: string` pour sa ligne de contexte : un mot
+// contre six, et l'exception enseignait la mauvaise règle à qui écrivait le
+// composant suivant. Cette ligne-là s'appelle `description`.
+//
+// Premier jet de ce contrôle : « `caption` exige une prop de type tableau ».
+// Il ne voyait RIEN — `KpiCard` déclare `data?: number[]` pour sa courbe
+// d'ambiance, donc il l'exemptait. Le caractère obligatoire, lui, sépare les
+// six bons cas du mauvais, et il dit quelque chose de vrai plutôt que de
+// corrélé.
+for (const nom of composants) {
+  const chemin = `${RACINE}/${nom}/${nom}.tsx`;
+  if (!fs.existsSync(chemin)) continue;
+  const src = sansCommentaires(fs.readFileSync(chemin, 'utf8'));
+  const re = /export interface (\w*Props)[^\n{]*\{/g;
+  let m;
+  while ((m = re.exec(src))) {
+    let i = re.lastIndex;
+    let prof = 1;
+    while (i < src.length && prof > 0) {
+      if (src[i] === '{') prof++;
+      else if (src[i] === '}') prof--;
+      i++;
+    }
+    const corps = src.slice(re.lastIndex, i - 1);
+    if (!/^\s+caption\?:/m.test(corps)) continue;
+    // L'alias d'un renommage en cours est admis — à condition qu'il porte
+    // `@deprecated` dans SON commentaire, juste au-dessus. On relit la source
+    // brute pour ça : `corps` a été blanchi de ses commentaires.
+    if (/@deprecated[\s\S]{0,400}?\*\/\s*caption\?:/.test(fs.readFileSync(chemin, 'utf8')))
+      continue;
+    echecs.push(
+      `${nom} — « ${m[1]} » déclare \`caption\` FACULTATIF. \`caption\` est le ` +
+        `nom accessible d'un jeu de données (c'est le <caption> HTML) : une ` +
+        `figure sans nom n'a pas d'alternative, il ne peut pas être ` +
+        `facultatif. Une ligne de contexte s'appelle \`description\`.`,
+    );
+  }
+}
+
 // Une exception qui ne s'applique plus doit disparaître, comme une dette.
 for (const [regle, cas] of Object.entries(EXCEPTIONS)) {
   for (const nom of Object.keys(cas)) {
@@ -209,6 +255,6 @@ if (echecs.length) {
 }
 
 console.log(
-  `audit conventions OK — ${composants.length} composants, onze conventions ` +
+  `audit conventions OK — ${composants.length} composants, douze conventions ` +
     `tenues, une exception nommée.`,
 );

@@ -15,7 +15,7 @@ vous sera dit par un test rouge.
 
 ---
 
-## 0. Les onze conventions, tenues par la CI
+## 0. Les douze conventions, tenues par la CI
 
 Avant tout le reste, `npm run audit:conventions` fige ce que les 48 composants
 respectaient déjà — sans que ce soit écrit nulle part :
@@ -31,6 +31,7 @@ respectaient déjà — sans que ce soit écrit nulle part :
 9. `meta` en `satisfies Meta`
 10. tout `<svg>` porte `aria-hidden`, ou `role="img"` avec un libellé
 11. tout `overflow` horizontal s accompagne de `min-w-0` sur le même élément
+12. `caption` est **obligatoire**, ou n'existe pas — cf. le vocabulaire des props
 
 Une exception se déclare **dans le contrôle**, avec sa raison. Une exception
 anonyme est un trou ; une exception qui porte sa raison est une décision, et
@@ -147,7 +148,54 @@ mesuraient rien avant qu'on essaie — et ils avaient l'air parfaits.
 
 ---
 
-## 6. Ce qu'on écrit dans le code
+## 6. Le vocabulaire des props
+
+Un design system a deux cents props. Ce qui le rend apprenable n'est pas leur
+nombre — c'est qu'un même mot veuille toujours dire la même chose.
+
+**Les quatre noms de texte.** Ils ne sont pas interchangeables :
+
+| prop | ce que c'est | où |
+| --- | --- | --- |
+| `label` | le nom accessible d'un **contrôle** ou d'une **mesure** | 8 champs de formulaire, `NavItem`, `KpiCard` |
+| `title` | le **titre** d'un bloc qu'on lit | `Dialog`, `AlertDialog`, `EmptyState`, `Accordion`, `FeaturePanel` |
+| `caption` | le nom accessible d'un **jeu de données** — c'est le `<caption>` HTML | les 6 graphiques, `Table` |
+| `description` | la **ligne de contexte** sous l'un des trois | partout |
+
+`KpiCard` employait `caption` pour sa ligne de contexte : un mot contre six
+composants qui lui donnaient l'autre sens. L'exception n'était pas grave en
+soi — elle enseignait la mauvaise règle à qui écrivait le composant suivant.
+
+**Les rappels.** Le nom dit CE QUI a changé, jamais le geste qui l'a changé :
+
+| | |
+| --- | --- |
+| `onValueChange` | la valeur retenue a changé — 6 composants |
+| `onCheckedChange` | l'état coché a changé — `Switch`, `ChoiceCard` |
+| `onOpenChange` | l'ouverture a changé — 4 composants |
+| `onSortChange`, `onPageChange` | un état nommé a changé |
+
+Deux exceptions **délibérées**, et elles se reconnaissent à leur nom :
+`BarChart.onBarClick` et `FranceMap.onSelect` disent « clic » et « sélection »
+parce qu'ils sont des **raccourcis à la souris uniquement** — le graphique est
+masqué aux technologies d'assistance. Les rebaptiser `onValueChange`
+masquerait précisément ce qu'ils ont d'anormal. La commande de référence est
+toujours ailleurs, dans le tableau.
+
+`ChoiceCard` exposait `onChange(checked: boolean)`, c'est-à-dire le nom exact
+que `Checkbox` hérite de React — avec une signature incompatible. Qui
+apprenait l'un et écrivait l'autre recevait un `ChangeEvent` là où il
+attendait `true`, sans que TypeScript le voie si le rappel ignorait son
+argument. **Le pire cas n'est pas deux noms pour une chose : c'est un nom pour
+deux choses.**
+
+**Renommer sans casser.** Les deux corrections ci-dessus gardent l'ancien nom
+en `@deprecated`, et une histoire l'exerce. Un alias que rien n'exerce cesse
+de marcher sans que personne ne le voie.
+
+---
+
+## 7. Ce qu'on écrit dans le code
 
 Les commentaires disent **pourquoi**, jamais quoi. Le quoi est déjà dans le
 code ; le pourquoi disparaît avec la personne qui l'avait en tête.
@@ -167,7 +215,7 @@ choix dont on a oublié l'alternative se reprend tous les six mois.
 
 ---
 
-## 7. Avant d'ouvrir la PR
+## 8. Avant d'ouvrir la PR
 
 ```bash
 npm run build:tokens && npx tsc --noEmit && npm run registry:build

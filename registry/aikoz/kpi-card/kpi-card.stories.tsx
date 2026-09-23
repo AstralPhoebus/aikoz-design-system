@@ -183,3 +183,46 @@ export const LIconeEtLaVariationTiennentLeurRang: Story = {
     await expect(carte.querySelectorAll("svg").length).toBeGreaterThanOrEqual(1);
   },
 };
+
+export const LaLigneDeContexteSAppelleDescription: Story = {
+  name: "La ligne de contexte s'appelle `description`",
+  decorators: carteSeule,
+  args: { description: "Objectif · 90 %", onClick: () => {} },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Elle s'appelait `caption`, et c'était le **seul endroit du " +
+          "système** où ce mot désignait autre chose que le nom accessible " +
+          "d'un jeu de données : les six graphiques et `Table` l'emploient " +
+          "dans ce sens-là, et un `<caption>` HTML n'est rien d'autre.\n\n" +
+          "Une ligne de contexte s'appelle `description` partout ailleurs — " +
+          "sur les huit champs de formulaire comme sur les cinq blocs de " +
+          "texte. Une carte d'indicateur n'avait aucune raison de faire " +
+          "exception, et l'exception enseignait la mauvaise règle à qui " +
+          "écrit le composant suivant.\n\n" +
+          "`caption` continue de fonctionner, et cette histoire est ce qui " +
+          "le garantit.",
+      },
+    },
+  },
+  play: async ({ canvas }) => {
+    await expect(canvas.getByText("Objectif · 90 %")).toBeVisible();
+    // Et elle entre dans le libellé accessible de la carte — que seule une
+    // carte cliquable porte — pas seulement dans le rendu : c'est ce qu'on
+    // perdrait en renommant à moitié.
+    await expect(
+      canvas.getByRole("button", { name: /Objectif · 90 %/ }),
+    ).toBeInTheDocument();
+  },
+};
+
+export const LAncienNomCaptionMarcheEncore: Story = {
+  name: "`caption` marche encore, mais ne s'écrit plus",
+  decorators: carteSeule,
+  args: { caption: "30 derniers jours" },
+  parameters: { docs: { description: { story: "Un alias que rien n'exerce cesse de marcher sans que personne ne le voie." } } },
+  play: async ({ canvas }) => {
+    await expect(canvas.getByText("30 derniers jours")).toBeVisible();
+  },
+};

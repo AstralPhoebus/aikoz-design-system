@@ -18,6 +18,40 @@ de l'API — mais il se voit, donc il est toujours écrit ici.
 
 ---
 
+## [2.11.0] — 2026-09-23
+
+### Ajouté
+
+- **Le vocabulaire des props est écrit** — nouvelle section de « Créer un
+  composant ». Un design system a deux cents props ; ce qui le rend
+  apprenable n'est pas leur nombre, c'est qu'un même mot veuille toujours dire
+  la même chose. `label` nomme un contrôle ou une mesure, `title` titre un
+  bloc qu'on lit, `caption` nomme un jeu de données, `description` est la
+  ligne de contexte sous l'un des trois. Les rappels disent CE QUI a changé,
+  jamais le geste qui l'a changé.
+- **`ChoiceCard.onCheckedChange`**, du même nom que sur `Switch`.
+- **`KpiCard.description`**, la ligne de contexte.
+- **Douzième convention tenue par la CI** : `caption` est obligatoire, ou
+  n'existe pas. C'est le nom accessible d'un jeu de données — une figure sans
+  nom n'a pas d'alternative, il ne peut pas être facultatif.
+
+### Déprécié
+
+- **`ChoiceCard.onChange`** → `onCheckedChange`. Il portait le nom exact que
+  `Checkbox` hérite de React, avec une signature incompatible : ici un
+  booléen, là un `ChangeEvent`. Qui apprenait l'un et écrivait l'autre
+  recevait un événement là où il attendait `true`, sans que TypeScript le voie
+  si le rappel ignorait son argument. **Le pire cas n'est pas deux noms pour
+  une chose : c'est un nom pour deux choses.**
+- **`KpiCard.caption`** → `description`. C'était le seul endroit du système où
+  ce mot désignait autre chose que le nom accessible d'un jeu de données.
+
+Les deux anciens noms continuent de fonctionner, et **une histoire exerce
+chacun** : un alias que rien n'exerce cesse de marcher sans que personne ne le
+voie. Ils partiront à la prochaine version majeure.
+
+---
+
 ## [2.10.1] — 2026-09-23
 
 ### Corrigé

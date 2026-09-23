@@ -18,6 +18,21 @@ export interface ChoiceCardProps {
   name?: string;
   checked?: boolean;
   defaultChecked?: boolean;
+  /**
+   * L'état coché a changé.
+   *
+   * **Même nom que `Switch`, et c'est délibéré.** Il s'appelait `onChange`,
+   * c'est-à-dire exactement le nom que `Checkbox` hérite de React — mais avec
+   * une signature incompatible : ici un booléen, là un `ChangeEvent`. Qui
+   * apprenait l'un et écrivait l'autre recevait un événement là où il
+   * attendait `true`, sans que TypeScript le voie si le rappel ignorait son
+   * argument.
+   */
+  onCheckedChange?: (checked: boolean) => void;
+  /**
+   * @deprecated Employer `onCheckedChange`. Conservé pour ne rien casser chez
+   * qui consomme déjà le registry ; retiré à la prochaine version majeure.
+   */
   onChange?: (checked: boolean) => void;
   /** Précision sous le libellé. Reliée par `aria-describedby`. */
   description?: string;
@@ -79,6 +94,7 @@ export function ChoiceCard({
   name,
   checked,
   defaultChecked,
+  onCheckedChange,
   onChange,
   description,
   visual,
@@ -158,7 +174,7 @@ export function ChoiceCard({
         defaultChecked={defaultChecked}
         disabled={disabled}
         aria-describedby={descId}
-        onChange={(e) => onChange?.(e.target.checked)}
+        onChange={(e) => (onCheckedChange ?? onChange)?.(e.target.checked)}
         className="peer sr-only"
       />
 

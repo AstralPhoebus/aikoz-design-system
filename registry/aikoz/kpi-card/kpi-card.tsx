@@ -98,7 +98,22 @@ export interface KpiCardProps {
   /** Force le ton de l'étiquette — un délai qui baisse est une bonne nouvelle. */
   trendTone?: DeltaTone;
 
-  /** Ligne de contexte sous l'appui : « Objectif · 90 % », « 30 derniers jours ». */
+  /**
+   * Ligne de contexte sous l'appui : « Objectif · 90 % », « 30 derniers
+   * jours ».
+   *
+   * Elle s'appelait `caption`, et c'était le seul endroit du système où ce
+   * mot désignait autre chose que le **nom accessible d'un jeu de données**
+   * — les six graphiques et `Table` l'emploient dans ce sens-là, et un
+   * `<caption>` HTML n'est rien d'autre. Une ligne de contexte s'appelle
+   * `description` partout ailleurs : sur les huit champs de formulaire comme
+   * sur les cinq blocs de texte.
+   */
+  description?: string;
+  /**
+   * @deprecated Employer `description`. Conservé pour ne rien casser chez qui
+   * consomme déjà le registry ; retiré à la prochaine version majeure.
+   */
   caption?: string;
 
   /** `benchmark` — valeur de référence affichée en repère permanent (pas une variation). */
@@ -135,6 +150,7 @@ export function KpiCard({
   trend,
   trendUnit = "%",
   trendTone,
+  description,
   caption,
   benchmarkValue,
   benchmarkLabel = "vs Moyenne marché",
@@ -143,6 +159,10 @@ export function KpiCard({
   onClick,
   href,
 }: KpiCardProps) {
+  // L'ancien nom l'emporte s'il est encore posé : personne ne pose les deux, et
+  // ignorer celui qu'un appelant écrit déjà le laisserait sans ligne de
+  // contexte sans rien signaler.
+  const contexte = description ?? caption;
   // Le dégradé de la courbe est défini dans le SVG de la carte : sans
   // identifiant unique, deux cartes sur la même page partageraient le même
   // `<linearGradient>` et la seconde reprendrait la couleur de la première.
@@ -217,7 +237,7 @@ export function KpiCard({
     spokenTrend,
     target !== undefined ? `objectif ${target}${unit ?? ""}` : null,
     formattedBenchmark !== null ? `${benchmarkLabel} ${formattedBenchmark}${suffix}` : null,
-    caption,
+    contexte,
   ]
     .filter(Boolean)
     .join(", ");
@@ -380,7 +400,7 @@ export function KpiCard({
         </div>
       )}
 
-      {caption && <span className="text-xs text-muted-foreground">{caption}</span>}
+      {contexte && <span className="text-xs text-muted-foreground">{contexte}</span>}
     </Comp>
   );
 }
