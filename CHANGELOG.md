@@ -18,6 +18,68 @@ de l'API — mais il se voit, donc il est toujours écrit ici.
 
 ---
 
+## [2.9.0] — 2026-09-23
+
+### Corrigé
+
+- **`Toast` : le bouton de fermeture faisait 20 px de large**, sous le
+  plancher de 24 px du critère WCAG 2.2 AA 2.5.8. La hauteur passait, la
+  largeur non.
+- **`KpiCard` : la courbe d'ambiance n'était pas masquée.** recharts exposait
+  un `<svg>` anonyme, et un lecteur d'écran annonçait « graphique » après la
+  valeur sans rien pouvoir en dire. Elle est une ambiance ; le chiffre juste
+  au-dessus porte l'information.
+- La page Tokens du playground poussait la page de 155 px à 640 px de large :
+  une valeur longue (la pile de polices de Gotham, 346 px) était en
+  `shrink-0`.
+
+### Gouvernance
+
+- **Les mesures de rendu s'appliquent désormais à CHAQUE histoire**, dans les
+  deux thèmes, via `afterEach` du preview : cible d'au moins 24 px, `<svg>`
+  masqué ou nommé, aucun débordement horizontal.
+
+  Elles ne tournaient que sur le tableau de bord — **33 composants sur 53**.
+  Les vingt autres, dont `Combobox`, `Checkbox`, `AlertDialog` et
+  `Pagination`, n'étaient vus par aucune. Élargir la page d'audit aurait
+  demandé d'y ajouter chaque composant à la main ; les histoires, elles,
+  existent déjà pour tous.
+
+  Trois défauts trouvés au premier passage, tous dans des composants absents
+  du tableau de bord. Et deux faux positifs écartés en chemin : un lien
+  d'évitement fait 1 × 1 px par construction, et un `<svg>` dans un
+  sous-arbre déjà `aria-hidden` l'est aussi.
+
+---
+
+## [2.8.0] — 2026-09-23
+
+### Corrigé
+
+- **Le canevas des stories n'était pas peint dans le lanceur de tests.** La
+  règle visait `body.sb-show-main` — une classe que pose le CANEVAS de
+  Storybook, et que le lanceur n'a pas : chaque story y est rendue sans ce
+  chrome. Tant que la suite tournait en clair, le blanc du navigateur
+  ressemblait par coïncidence à `--background` et personne ne voyait rien.
+
+### Gouvernance
+
+- **Toute la suite tourne désormais dans les DEUX thèmes.** Elle ne tournait
+  qu'en clair : 2 histoires sur 250 déclaraient le sombre, `axe` compris.
+  `AuditContraste` balayait bien les huit combinaisons, mais il ne regarde
+  que des paires de couleurs, jamais le rendu d'un composant.
+
+  `STORYBOOK_THEME=sombre` rejoue la même suite dans l'autre thème —
+  `npm run test:sombre`, et une étape de plus en CI. Une variable plutôt
+  qu'un second jeu d'histoires : deux jeux divergent, et c'est toujours celui
+  qu'on ne regarde pas qui pourrit.
+
+  Au premier passage, **135 tests sur 250 sont tombés**. Un seul défaut
+  derrière : axe mesurait du texte clair sur un fond `#fcfcfc`. Le système
+  tenait, c'est la mesure qui n'avait jamais eu lieu.
+
+---
+
 ## [2.7.1] — 2026-09-22
 
 ### Corrigé

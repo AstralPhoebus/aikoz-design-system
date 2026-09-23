@@ -172,7 +172,13 @@ function Toast({
         type="button"
         onClick={() => onClose(toast.id)}
         className={cn(
-          "shrink-0 rounded-[calc(var(--radius)/2)] p-1 text-muted-foreground",
+          // 24 px est le plancher du critère WCAG 2.2 AA 2.5.8. Le glyphe
+          // « ✕ » plus `p-1` donnait 20 px de large : la hauteur passait, la
+          // largeur non, et rien ne le mesurait — `Toast` n'est pas dans le
+          // tableau de bord, seule page que les audits de rendu parcouraient.
+          "inline-flex shrink-0 items-center justify-center",
+          "min-h-6 min-w-6 tactile:min-h-11 tactile:min-w-11",
+          "rounded-[calc(var(--radius)/2)] p-1 text-muted-foreground",
           "hover:bg-[var(--surface-hover)] hover:text-foreground",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
         )}

@@ -8,7 +8,15 @@
   sur un fond clair, illisible. C'est exactement le défaut trouvé sur
   `bg-card` : un fond transparent ne se voit pas tant qu'on ne change pas ce
   qu'il y a derrière.
+
+  La règle ne visait que `body.sb-show-main` — une classe que pose le CANEVAS
+  de Storybook. Le lanceur de tests, lui, rend chaque story sans ce chrome :
+  la règle ne s'y appliquait jamais. Tant que la suite tournait en clair
+  personne ne l'a vu ; au premier passage en sombre, axe a signalé 135 tests
+  en échec, tous pour la même raison — du texte clair mesuré sur un fond
+  `#fcfcfc`. Un seul défaut, pas cent trente-cinq.
 */
+body,
 body.sb-show-main {
   background: var(--background);
   color: var(--foreground);

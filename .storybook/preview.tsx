@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import type { Decorator, Preview } from "@storybook/react-vite";
+import { mesurerLeRendu } from "./mesures";
 import { definirBaseDesLogos } from "@registry/aikoz/brand-logo/brands";
 
 // Les trois feuilles du design system, dans l'ordre : primitives et rôles,
@@ -25,6 +26,11 @@ definirBaseDesLogos("./brands/");
  * s'appliquent partout et se basculent devant n'importe quel composant —
  * c'est en basculant sous les yeux d'un composant qu'on voit ce qui bouge.
  */
+declare const __THEME_INITIAL__: string;
+/** « clair » par défaut ; « sombre » quand `STORYBOOK_THEME=sombre`. */
+const THEME_INITIAL =
+  typeof __THEME_INITIAL__ === "string" ? __THEME_INITIAL__ : "clair";
+
 const axes: Decorator = (Story, context) => {
   const { theme, registre } = context.globals as {
     theme: string;
@@ -39,7 +45,25 @@ const axes: Decorator = (Story, context) => {
   return <Story />;
 };
 
+/**
+ * Les trois mesures de rendu, sur CHAQUE histoire.
+ *
+ * Elles ne tournaient que sur le tableau de bord : 33 composants sur 53.
+ * Les histoires existent pour tous, et le lanceur les rend toutes, dans les
+ * deux thèmes — c'est le seul endroit qui ne décroche pas.
+ */
+const mesurer: Preview["afterEach"] = async ({ canvasElement, parameters }) => {
+  if (parameters?.mesures === false) return;
+  const echecs = mesurerLeRendu(canvasElement as HTMLElement);
+  if (echecs.length) {
+    throw new Error(
+      `${echecs.length} défaut(s) de rendu :\n  - ` + echecs.join("\n  - "),
+    );
+  }
+};
+
 const preview: Preview = {
+  afterEach: mesurer,
   globalTypes: {
     theme: {
       description: "Thème",
@@ -66,7 +90,9 @@ const preview: Preview = {
       },
     },
   },
-  initialGlobals: { theme: "clair", registre: "produit" },
+  // `__THEME_INITIAL__` est injecté par `viteFinal` depuis `STORYBOOK_THEME`
+  // (voir main.ts) : c'est ce qui permet de rejouer toute la suite en sombre.
+  initialGlobals: { theme: THEME_INITIAL, registre: "produit" },
   decorators: [axes],
   parameters: {
     layout: "centered",

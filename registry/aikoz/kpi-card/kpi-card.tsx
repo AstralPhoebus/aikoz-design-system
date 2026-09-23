@@ -309,6 +309,13 @@ export function KpiCard({
       )}
 
       {variant === "trend" && data && data.length > 1 && (
+        // `aria-hidden` : la courbe est une AMBIANCE, le chiffre porte
+        // l'information. Sans ça, recharts expose un `<svg>` anonyme et un
+        // lecteur d'écran annonce « graphique » après la valeur, sans rien
+        // pouvoir en dire. Même règle que `ChartFrame`, qui masque son tracé
+        // et confie la donnée au tableau équivalent — ici il n'y a rien à
+        // confier, la valeur est juste au-dessus.
+        <div aria-hidden="true">
         <ResponsiveContainer
           width="100%"
           height={density === "compact" ? 36 : density === "large" ? 76 : 56}
@@ -360,6 +367,7 @@ export function KpiCard({
             />
           </AreaChart>
         </ResponsiveContainer>
+        </div>
       )}
 
       {variant === "benchmark" && formattedBenchmark !== null && (

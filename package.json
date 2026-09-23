@@ -1,6 +1,6 @@
 {
   "name": "aikoz-design-system",
-  "version": "2.7.1",
+  "version": "2.9.0",
   "description": "Dépôt de référence pour tout contenu visuel et éditorial Aikoz by Okuden.   Il contient les sources de vérité — design tokens, voix de marque, logos, polices — que l'équipe injecte dans ses outils IA et ses productions.",
   "main": "index.js",
   "type": "module",
@@ -12,6 +12,7 @@
     "build:tokens": "node build-tokens.mjs",
     "registry:build": "shadcn build && node scripts/version-publiee.mjs && node scripts/chiffres.mjs",
     "test": "vitest --run",
+    "test:sombre": "STORYBOOK_THEME=sombre vitest --run --project=storybook",
     "build:preview": "npm run build:tokens && vite build",
     "build": "npm run build:tokens && npm run registry:build && vite build",
     "storybook": "storybook dev -p 6006 --no-open",

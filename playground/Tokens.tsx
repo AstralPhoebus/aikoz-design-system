@@ -367,7 +367,13 @@ function ScalarList({
           <span className="text-xs font-medium text-foreground truncate">
             {name.replace(strip, "")}
           </span>
-          <span className="text-xs font-mono text-muted-foreground shrink-0">
+          {/* `shrink-0` refusait de rétrécir, et une valeur longue — la pile
+              de polices de Gotham fait 346 px — poussait la PAGE de 155 px à
+              640 px de large. Un `title` garde la valeur entière au survol. */}
+          <span
+            className="min-w-0 truncate text-xs font-mono text-muted-foreground"
+            title={String(value)}
+          >
             {value}
           </span>
         </div>

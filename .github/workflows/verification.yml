@@ -161,3 +161,20 @@ jobs:
       # violation d'accessibilité fait échouer la marche.
       - name: Stories
         run: npx playwright install --with-deps chromium && npx vitest run --project=storybook
+
+      # ── La même suite, en thème sombre ───────────────────────────────────
+      #
+      # Elle ne tournait qu'en CLAIR : 2 histoires sur 250 déclaraient le
+      # sombre, `axe` compris. Un composant pouvait donc casser en sombre sans
+      # que rien ne le dise — `AuditContraste` balaie bien les huit
+      # combinaisons, mais il ne regarde que des paires de couleurs, jamais le
+      # rendu d'un composant.
+      #
+      # Au premier passage, 135 tests sur 250 sont tombés. Un seul défaut :
+      # la règle qui peint le canevas visait `body.sb-show-main`, une classe
+      # que pose le canevas de Storybook et que le lanceur de tests n'a pas.
+      # axe mesurait donc du texte clair sur un fond quasi blanc.
+      - name: Stories en thème sombre
+        env:
+          STORYBOOK_THEME: sombre
+        run: npx vitest run --project=storybook

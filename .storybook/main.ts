@@ -45,6 +45,21 @@ const config: StorybookConfig = {
   ],
   framework: "@storybook/react-vite",
   viteFinal: async (config) => {
+    // Le thème de DÉPART, injecté à la compilation.
+    //
+    // Toute la suite tournait en clair : 2 histoires sur 250 déclaraient le
+    // sombre, `axe` compris. Un composant pouvait donc casser en sombre sans
+    // que rien ne le dise — seul `AuditContraste` balayait les huit
+    // combinaisons, et il ne regarde que des paires de couleurs, pas le
+    // rendu des composants.
+    //
+    // `STORYBOOK_THEME=sombre` rejoue la MÊME suite dans l'autre thème. Une
+    // variable plutôt qu'un second jeu d'histoires : deux jeux divergent, et
+    // c'est toujours celui qu'on ne regarde pas qui pourrit.
+    config.define = {
+      ...config.define,
+      __THEME_INITIAL__: JSON.stringify(process.env.STORYBOOK_THEME ?? "clair"),
+    };
     config.resolve = config.resolve ?? {};
     config.resolve.alias = {
       ...config.resolve.alias,
