@@ -18,6 +18,28 @@ de l'API — mais il se voit, donc il est toujours écrit ici.
 
 ---
 
+## [2.17.2] — 2026-09-24
+
+### Corrigé
+
+- **La marque est un global de barre d'outils, plus un décorateur maison.**
+  Trois assemblages posaient `data-brand` sur la racine dans un `useEffect`
+  avec nettoyage. Le nettoyage arrive APRÈS le montage de l'histoire
+  suivante : celle-ci pouvait donc se rendre sous une marque qui n'était pas
+  la sienne. Un axe posé par CHAQUE histoire est un axe que personne n'oublie
+  de retirer — celle qui suit le repose, forcément. Au passage, la marque
+  devient commutable depuis la barre d'outils, comme le thème et le registre.
+- **Le test d'alignement de `KpiCard` mentait depuis au moins la veille.**
+  Il mesure la chasse des chiffres en dessinant « 1111 » et « 8888 », sans
+  attendre les polices : dans la suite complète, une police finissait de
+  charger en cours de route et changeait les métriques sous la sonde. Il
+  annonçait 3,53 px d'écart, soit « pas de jeu tabulaire », alors que le
+  composant est correct. Isolé il passait, en CI il passait — deux
+  environnements, deux verdicts, et aucun des deux ne parlait du composant.
+  Un `await document.fonts.ready` suffit.
+
+---
+
 ## [2.17.1] — 2026-09-24
 
 ### Corrigé

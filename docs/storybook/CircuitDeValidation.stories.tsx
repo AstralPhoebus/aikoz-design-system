@@ -72,7 +72,10 @@ const DEPART: Reponse[] = [
  * Le toast confirme le GESTE au moment où on le fait. Les deux, jamais l'un
  * à la place de l'autre.
  */
-const ETIQUETTE: Record<Etat, { texte: string; tone: "info" | "warning" | "success" } | null> = {
+const ETIQUETTE: Record<
+  Etat,
+  { texte: string; tone: "info" | "warning" | "success" } | null
+> = {
   brouillon: null,
   attente: { texte: "En attente de validation", tone: "info" },
   renvoyee: { texte: "Renvoyée pour correction", tone: "warning" },
@@ -88,7 +91,12 @@ function Carte({
 }) {
   const etiquette = ETIQUETTE[r.etat];
   return (
-    <VerbatimCard rating={r.rating} author={r.author} date={r.date} text={r.text}>
+    <VerbatimCard
+      rating={r.rating}
+      author={r.author}
+      date={r.date}
+      text={r.text}
+    >
       <ReplyBubble origin="ai">{r.reply}</ReplyBubble>
       <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
         <div className="flex min-w-0 flex-wrap items-center gap-2">
@@ -141,7 +149,10 @@ function CircuitDeValidation() {
             <Carte
               key={r.id}
               r={r}
-              action={{ libelle: "Envoyer pour validation", onClick: () => envoyer(r) }}
+              action={{
+                libelle: "Envoyer pour validation",
+                onClick: () => envoyer(r),
+              }}
             />
           ))}
         </Liste>
@@ -173,7 +184,10 @@ function CircuitDeValidation() {
             <Carte
               key={r.id}
               r={r}
-              action={{ libelle: "Corriger", onClick: () => deplacer(r.id, "brouillon") }}
+              action={{
+                libelle: "Corriger",
+                onClick: () => deplacer(r.id, "brouillon"),
+              }}
             />
           ))}
         </Liste>
@@ -184,7 +198,13 @@ function CircuitDeValidation() {
   return <KanbanBoard columns={colonnes} />;
 }
 
-function Liste({ children, vide }: { children: React.ReactNode[]; vide: string }) {
+function Liste({
+  children,
+  vide,
+}: {
+  children: React.ReactNode[];
+  vide: string;
+}) {
   if (!children.length) {
     return <EmptyState title={vide} density="compact" />;
   }
@@ -193,28 +213,20 @@ function Liste({ children, vide }: { children: React.ReactNode[]; vide: string }
 
 // ─── Storybook ───────────────────────────────────────────────────────────────
 
-const surMarque = (marque: string) => (S: () => React.ReactElement) => {
-  const Deco = () => {
-    useEffect(() => {
-      document.documentElement.setAttribute("data-brand", marque);
-      return () => document.documentElement.removeAttribute("data-brand");
-    }, []);
-    return (
+const meta = {
+  title: "Assemblages/Circuit de validation",
+  component: CircuitDeValidation,
+  parameters: { layout: "fullscreen" },
+  globals: { marque: "adp" },
+  decorators: [
+    (S) => (
       <ToastProvider>
         <div className="min-w-0 p-4">
           <S />
         </div>
       </ToastProvider>
-    );
-  };
-  return <Deco />;
-};
-
-const meta = {
-  title: "Assemblages/Circuit de validation",
-  component: CircuitDeValidation,
-  parameters: { layout: "fullscreen" },
-  decorators: [surMarque("adp")],
+    ),
+  ],
 } satisfies Meta<typeof CircuitDeValidation>;
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -269,11 +281,15 @@ export const LEtatVitSurLaCartePasDansLeToast: Story = {
   },
   play: async ({ canvasElement, userEvent }) => {
     const c = within(canvasElement);
-    await userEvent.click(c.getByRole("button", { name: "Envoyer pour validation" }));
+    await userEvent.click(
+      c.getByRole("button", { name: "Envoyer pour validation" }),
+    );
 
     // 1. Le geste est confirmé.
     await waitFor(() =>
-      expect(document.body).toHaveTextContent("Réponse envoyée à votre responsable."),
+      expect(document.body).toHaveTextContent(
+        "Réponse envoyée à votre responsable.",
+      ),
     );
 
     // 2. Et l'état est ÉCRIT sur la carte — c'est lui qui survivra au toast.

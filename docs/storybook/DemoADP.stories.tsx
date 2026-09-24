@@ -31,11 +31,42 @@ const AUTOMATISEES = [
   },
   // Les cinq autres sont derrière « Voir plus (5) » dans leur maquette : le
   // compteur de la colonne affiche bien 7.
-  { id: "adp-a3", rating: 5, author: "Client Google", date: "9 septembre 2026", reply: "Merci pour votre note, au plaisir de vous accueillir de nouveau." },
-  { id: "adp-a4", rating: 5, author: "Client Google", date: "9 septembre 2026", reply: "Merci beaucoup, nous transmettons votre message aux équipes du terminal." },
-  { id: "adp-a5", rating: 4, author: "Client Google", date: "9 septembre 2026", reply: "Merci d'avoir pris le temps de nous évaluer." },
-  { id: "adp-a6", rating: 5, author: "Client Google", date: "8 septembre 2026", reply: "Un grand merci pour votre retour." },
-  { id: "adp-a7", rating: 5, author: "Client Google", date: "8 septembre 2026", reply: "Merci pour votre note, bon voyage." },
+  {
+    id: "adp-a3",
+    rating: 5,
+    author: "Client Google",
+    date: "9 septembre 2026",
+    reply: "Merci pour votre note, au plaisir de vous accueillir de nouveau.",
+  },
+  {
+    id: "adp-a4",
+    rating: 5,
+    author: "Client Google",
+    date: "9 septembre 2026",
+    reply:
+      "Merci beaucoup, nous transmettons votre message aux équipes du terminal.",
+  },
+  {
+    id: "adp-a5",
+    rating: 4,
+    author: "Client Google",
+    date: "9 septembre 2026",
+    reply: "Merci d'avoir pris le temps de nous évaluer.",
+  },
+  {
+    id: "adp-a6",
+    rating: 5,
+    author: "Client Google",
+    date: "8 septembre 2026",
+    reply: "Un grand merci pour votre retour.",
+  },
+  {
+    id: "adp-a7",
+    rating: 5,
+    author: "Client Google",
+    date: "8 septembre 2026",
+    reply: "Merci pour votre note, bon voyage.",
+  },
 ];
 
 const HORS_CHARTE = [
@@ -79,24 +110,6 @@ const SENSIBLES = [
   },
 ];
 
-const surMarque = (marque: string) => (S: () => React.ReactElement) => {
-  const Deco = () => {
-    useEffect(() => {
-      document.documentElement.setAttribute("data-brand", marque);
-      return () => document.documentElement.removeAttribute("data-brand");
-    }, []);
-    return (
-      <div className="min-w-0 bg-background p-6">
-        <h2 className="m-0 mb-5 font-heading text-xl font-semibold text-foreground">
-          État des réponses en cours
-        </h2>
-        <S />
-      </div>
-    );
-  };
-  return <Deco />;
-};
-
 const meta = {
   title: "Assemblages/Démo ADP — État des réponses",
   component: ResponseKanban,
@@ -110,12 +123,28 @@ const meta = {
     onDraftReply: fn(),
     // Leurs intitulés, pas les nôtres : ils disent la règle de CE client.
     labels: {
-      automated: { subtitle: "Avis 4-5 étoiles sans commentaire · publication J+1" },
-      offCharter: { subtitle: "Réponses publiées non conformes à la charte éditoriale" },
-      sensitive: { subtitle: "À traiter immédiatement · réponse rédigée avec l'assistant" },
+      automated: {
+        subtitle: "Avis 4-5 étoiles sans commentaire · publication J+1",
+      },
+      offCharter: {
+        subtitle: "Réponses publiées non conformes à la charte éditoriale",
+      },
+      sensitive: {
+        subtitle: "À traiter immédiatement · réponse rédigée avec l'assistant",
+      },
     },
   },
-  decorators: [surMarque("adp")],
+  globals: { marque: "adp" },
+  decorators: [
+    (S) => (
+      <div className="min-w-0 bg-background p-6">
+        <h2 className="m-0 mb-5 font-heading text-xl font-semibold text-foreground">
+          État des réponses en cours
+        </h2>
+        <S />
+      </div>
+    ),
+  ],
 } satisfies Meta<typeof ResponseKanban>;
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -143,16 +172,26 @@ export const Clair: Story = {
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
     // Les trois colonnes portent LEURS intitulés.
-    await expect(c.getByText(/Avis 4-5 étoiles sans commentaire/)).toBeInTheDocument();
-    await expect(c.getByText(/non conformes à la charte éditoriale/)).toBeInTheDocument();
-    await expect(c.getByText(/réponse rédigée avec l'assistant/)).toBeInTheDocument();
+    await expect(
+      c.getByText(/Avis 4-5 étoiles sans commentaire/),
+    ).toBeInTheDocument();
+    await expect(
+      c.getByText(/non conformes à la charte éditoriale/),
+    ).toBeInTheDocument();
+    await expect(
+      c.getByText(/réponse rédigée avec l'assistant/),
+    ).toBeInTheDocument();
     // Et les comptes de leur maquette : 7, 2, 2.
-    await expect(c.getByRole("region", { name: "Réponses automatisées" })).toBeInTheDocument();
+    await expect(
+      c.getByRole("region", { name: "Réponses automatisées" }),
+    ).toBeInTheDocument();
     // Le compte est ANNONCÉ, pas seulement dessiné : « 7 » nu ne dit pas de
     // quoi. Le texte est coupé entre le chiffre et son étiquette `sr-only`,
     // donc on lit le nœud entier.
     const colonne = c.getByRole("region", { name: "Réponses automatisées" });
-    await expect(colonne.textContent).toMatch(/7\s*éléments dans « Réponses automatisées »/);
+    await expect(colonne.textContent).toMatch(
+      /7\s*éléments dans « Réponses automatisées »/,
+    );
   },
 };
 

@@ -294,28 +294,22 @@ function MatriceHabilitation({
 
 // ─── Storybook ───────────────────────────────────────────────────────────────
 
-/** Pose la marque sur la RACINE : une marque ne s'applique nulle part ailleurs. */
-const surMarque = (marque: string) => (S: () => React.ReactElement) => {
-  const Deco = () => {
-    useEffect(() => {
-      document.documentElement.setAttribute("data-brand", marque);
-      return () => document.documentElement.removeAttribute("data-brand");
-    }, []);
-    return (
-      <div className="min-w-0 max-w-5xl p-4">
-        <S />
-      </div>
-    );
-  };
-  return <Deco />;
-};
-
 const meta = {
   title: "Assemblages/Matrice d'habilitation",
   component: MatriceHabilitation,
   parameters: { layout: "fullscreen" },
   args: { modifiable: true },
-  decorators: [surMarque("adp")],
+  // La marque est un global de barre d'outils, plus un décorateur maison :
+  // celui-ci la posait sur la racine et la retirait au démontage, et le
+  // nettoyage arrivait après le montage de l'histoire suivante.
+  globals: { marque: "adp" },
+  decorators: [
+    (S) => (
+      <div className="min-w-0 max-w-5xl p-4">
+        <S />
+      </div>
+    ),
+  ],
 } satisfies Meta<typeof MatriceHabilitation>;
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -357,7 +351,9 @@ export const Modifiable: Story = {
     // la largeur suivait la longueur de l'intitulé : mesuré 165 px pour
     // « Gestionnaire POI » contre 84 px pour « Rôle 5 ».
     const entetes = [...canvasElement.querySelectorAll("thead th")].slice(1);
-    const largeurs = entetes.map((t) => Math.round(t.getBoundingClientRect().width));
+    const largeurs = entetes.map((t) =>
+      Math.round(t.getBoundingClientRect().width),
+    );
     const ecart = Math.max(...largeurs) - Math.min(...largeurs);
     await expect(
       ecart,

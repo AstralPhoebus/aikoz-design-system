@@ -32,16 +32,31 @@ const THEME_INITIAL =
   typeof __THEME_INITIAL__ === "string" ? __THEME_INITIAL__ : "clair";
 
 const axes: Decorator = (Story, context) => {
-  const { theme, registre } = context.globals as {
+  const { theme, registre, marque } = context.globals as {
     theme: string;
     registre: string;
+    marque: string;
   };
   useEffect(() => {
     const H = document.documentElement;
     H.classList.toggle("dark", theme === "sombre");
     if (registre === "marketing") H.setAttribute("data-register", "marketing");
     else H.removeAttribute("data-register");
-  }, [theme, registre]);
+    // La marque se pose ICI, pour TOUTES les histoires.
+    //
+    // Trois assemblages la posaient eux-mêmes, dans un `useEffect` avec
+    // nettoyage. Le nettoyage arrive après le montage de l'histoire suivante :
+    // `KpiCard` se rendait donc parfois sous la marque ADP, dont la police
+    // n'est pas installée, et le repli n'a pas de jeu tabulaire. Son test
+    // d'alignement mesurait 3,53 px d'écart entre « 1111 » et « 8888 » là où
+    // il en exige moins de 0,5 — et seulement quand la suite entière
+    // tournait, jamais isolé.
+    //
+    // Un axe posé par chaque histoire est un axe que personne n'oublie de
+    // retirer : celle qui suit le repose, forcément.
+    if (marque && marque !== "aikoz") H.setAttribute("data-brand", marque);
+    else H.removeAttribute("data-brand");
+  }, [theme, registre, marque]);
   return <Story />;
 };
 
@@ -77,6 +92,21 @@ const preview: Preview = {
         dynamicTitle: true,
       },
     },
+    marque: {
+      description: "Marque",
+      defaultValue: "aikoz",
+      toolbar: {
+        title: "Marque",
+        icon: "paintbrush",
+        items: [
+          { value: "aikoz", title: "Aikoz" },
+          { value: "adp", title: "ADP" },
+          { value: "extime", title: "Extime" },
+          { value: "generali", title: "Generali" },
+        ],
+        dynamicTitle: true,
+      },
+    },
     registre: {
       description: "Registre",
       toolbar: {
@@ -92,7 +122,11 @@ const preview: Preview = {
   },
   // `__THEME_INITIAL__` est injecté par `viteFinal` depuis `STORYBOOK_THEME`
   // (voir main.ts) : c'est ce qui permet de rejouer toute la suite en sombre.
-  initialGlobals: { theme: THEME_INITIAL, registre: "produit" },
+  initialGlobals: {
+    theme: THEME_INITIAL,
+    registre: "produit",
+    marque: "aikoz",
+  },
   decorators: [axes],
   parameters: {
     layout: "centered",

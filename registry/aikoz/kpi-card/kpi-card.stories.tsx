@@ -75,6 +75,17 @@ export const AlignementDansUneGrille: Story = {
     </div>
   ),
   play: async ({ canvasElement }) => {
+    // On attend les polices AVANT de mesurer une chasse.
+    //
+    // Sans ça, ce test mentait : isolé il passait, dans la suite complète il
+    // annonçait 3,53 px d'écart entre « 1111 » et « 8888 » — soit « pas de
+    // jeu tabulaire » — parce qu'une police finissait de charger en cours de
+    // route et changeait les métriques sous la sonde. Il échouait en local
+    // et passait en CI, où les polices ne se chargent pas du tout : deux
+    // environnements, deux verdicts, et aucun des deux ne parlait du
+    // composant.
+    await document.fonts.ready;
+
     const valeurs = [...canvasElement.querySelectorAll("[class*='font-bold']")];
     await expect(valeurs.length).toBeGreaterThanOrEqual(3);
     const hauts = valeurs.slice(0, 3).map((v) => Math.round(v.getBoundingClientRect().top));
