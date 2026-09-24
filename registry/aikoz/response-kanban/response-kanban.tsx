@@ -1,12 +1,10 @@
-import { useEffect, useId, useRef, useState } from "react";
-import { cn } from "@registry/aikoz/lib/utils";
-import { Card } from "@registry/aikoz/card/card";
+import { useEffect, useRef, useState } from "react";
+import { KanbanBoard } from "@registry/aikoz/kanban-board/kanban-board";
 import { Badge } from "@registry/aikoz/badge/badge";
 import { Button } from "@registry/aikoz/button/button";
 import { VerbatimCard } from "@registry/aikoz/verbatim-card/verbatim-card";
 import { ReplyBubble } from "@registry/aikoz/reply-bubble/reply-bubble";
 import { Textarea } from "@registry/aikoz/textarea/textarea";
-import { CountBadge, type CountBadgeTone } from "@registry/aikoz/count-badge/count-badge";
 import { EmptyState } from "@registry/aikoz/empty-state/empty-state";
 import { Dialog } from "@registry/aikoz/dialog/dialog";
 
@@ -61,44 +59,21 @@ export interface ResponseKanbanProps {
    * relais est hors de son périmètre.
    */
   onDraftReply?: (id: string) => void;
+  /**
+   * Remplace le titre et le sous-titre d'une colonne.
+   *
+   * Les intitulés sont du CONTENU, pas de la structure : « Avis 4-5 étoiles
+   * sans commentaire · publication J+1 » dit la règle de ce client-là, et le
+   * suivant en aura une autre. Ce qui appartient au composant, c'est
+   * l'ordre des colonnes, leur ton, et le fait que chacune soit une section
+   * nommée par son titre.
+   *
+   * Les valeurs par défaut restent celles du produit.
+   */
+  labels?: Partial<
+    Record<"automated" | "offCharter" | "sensitive", { title?: string; subtitle?: string }>
+  >;
   className?: string;
-}
-
-// ─── En-tête de colonne ─────────────────────────────────────────────────────
-//
-// Ne réutilise PAS un composant « En-tête de section » : Louis a tranché le
-// 10/09/2026 (cf. INVENTORY.md, décision 7) que c'est un GABARIT de mise en
-// page, pas un composant de bibliothèque. On en reproduit ici la forme —
-// liseré + titre + sous-titre + action — directement en JSX, comme le ferait
-// n'importe quelle autre page qui a besoin de ce gabarit.
-
-function ColumnHeader({
-  id,
-  accentVar,
-  tone,
-  title,
-  subtitle,
-  count,
-}: {
-  id: string;
-  accentVar: string;
-  /** Ton du compteur — reprend la même couleur que le liseré, cf. `accentVar`. */
-  tone: CountBadgeTone;
-  title: string;
-  subtitle: string;
-  count: number;
-}) {
-  return (
-    <div className="flex items-start justify-between gap-2">
-      <div className={cn("flex flex-col gap-0.5 border-l-4 pl-3")} style={{ borderColor: `var(${accentVar})` }}>
-        <h3 id={id} className="m-0 text-sm font-semibold text-foreground">
-          {title}
-        </h3>
-        <p className="m-0 text-xs text-muted-foreground">{subtitle}</p>
-      </div>
-      <CountBadge value={count} variant="count" tone={tone} label={`avis dans « ${title} »`} />
-    </div>
-  );
 }
 
 // ─── Colonne 1 — Réponses automatisées ─────────────────────────────────────
@@ -391,57 +366,47 @@ export function ResponseKanban({
   initialVisible = 3,
   onSaveReply,
   onDraftReply,
+  labels,
   className,
 }: ResponseKanbanProps) {
-  const uid = useId();
   const [visibleAutomated, setVisibleAutomated] = useState(initialVisible);
 
-  const titleAutomated = `${uid}-automated`;
-  const titleOffCharter = `${uid}-off-charter`;
-  const titleSensitive = `${uid}-sensitive`;
-
   return (
-    <div className={cn("grid grid-cols-1 items-start gap-4 md:grid-cols-3", className)}>
-      <Card as="section" aria-labelledby={titleAutomated} surface="flat" density="compact" className="gap-4">
-        <ColumnHeader
-          id={titleAutomated}
-          accentVar="--info"
-          tone="info"
-          title="Réponses automatisées"
-          subtitle="À valider avant publication J+1"
-          count={automated.length}
-        />
-        <AutomatedColumn
-          items={automated}
-          visibleCount={visibleAutomated}
-          onShowMore={() => setVisibleAutomated((v) => v + automated.length)}
-          onSave={onSaveReply}
-        />
-      </Card>
-
-      <Card as="section" aria-labelledby={titleOffCharter} surface="flat" density="compact" className="gap-4">
-        <ColumnHeader
-          id={titleOffCharter}
-          accentVar="--warning"
-          tone="warning"
-          title="Réponses hors charte"
-          subtitle="Publiées, à corriger"
-          count={offCharter.length}
-        />
-        <OffCharterColumn items={offCharter} onDraftReply={onDraftReply} />
-      </Card>
-
-      <Card as="section" aria-labelledby={titleSensitive} surface="flat" density="compact" className="gap-4">
-        <ColumnHeader
-          id={titleSensitive}
-          accentVar="--destructive-text"
-          tone="error"
-          title="Avis sensibles"
-          subtitle="À traiter immédiatement"
-          count={sensitive.length}
-        />
-        <SensitiveColumn items={sensitive} onDraftReply={onDraftReply} />
-      </Card>
-    </div>
+    <KanbanBoard
+      className={className}
+      columns={[
+        {
+          key: "automated",
+          title: labels?.automated?.title ?? "Réponses automatisées",
+          subtitle: labels?.automated?.subtitle ?? "À valider avant publication J+1",
+          tone: "info",
+          count: automated.length,
+          children: (
+            <AutomatedColumn
+              items={automated}
+              visibleCount={visibleAutomated}
+              onShowMore={() => setVisibleAutomated((v) => v + automated.length)}
+              onSave={onSaveReply}
+            />
+          ),
+        },
+        {
+          key: "off-charter",
+          title: labels?.offCharter?.title ?? "Réponses hors charte",
+          subtitle: labels?.offCharter?.subtitle ?? "Publiées, à corriger",
+          tone: "warning",
+          count: offCharter.length,
+          children: <OffCharterColumn items={offCharter} onDraftReply={onDraftReply} />,
+        },
+        {
+          key: "sensitive",
+          title: labels?.sensitive?.title ?? "Avis sensibles",
+          subtitle: labels?.sensitive?.subtitle ?? "À traiter immédiatement",
+          tone: "error",
+          count: sensitive.length,
+          children: <SensitiveColumn items={sensitive} onDraftReply={onDraftReply} />,
+        },
+      ]}
+    />
   );
 }

@@ -40,7 +40,33 @@ références culturelles à des métaux et non couleurs d'interface.
 
 ---
 
-## 1. Les fichiers
+## 1. Composant, ou assemblage ?
+
+À poser avant d'ouvrir un fichier. Le système a longtemps eu **53 composants
+et zéro assemblage publié** : une demande d'écran client n'avait nulle part où
+atterrir, donc elle devenait un 54e composant. C'est comme ça qu'un design
+system grossit sans devenir plus utile.
+
+| | **composant** | **assemblage** |
+| --- | --- | --- |
+| c'est | une brique | un écran, ou un morceau d'écran |
+| son contrat | doit tenir **partout**, sans qu'on le voie | tient **ici**, et on le voit |
+| il vit dans | `registry/aikoz/` | `docs/storybook/`, section *Assemblages* |
+| on le livre | par `shadcn add` | en le **copiant** depuis Storybook |
+
+La question qui tranche : **est-ce que la prochaine personne qui en a besoin
+en a besoin à l'identique, ou en a besoin comme point de départ ?** Un
+`Switch` doit être identique partout. Une matrice d'habilitation ne sert
+qu'une fois, avec les rôles de ce client-là.
+
+**Un assemblage porte quand même son test.** Ici une histoire EST un test :
+la matrice d'habilitation vérifie que ses vingt-quatre cases portent vingt-
+quatre noms distincts, déduits de leur ligne et de leur colonne. Sans ce
+test, l'assemblage n'est qu'une capture d'écran qui se périme.
+
+---
+
+## 2. Les fichiers
 
 ```
 registry/aikoz/mon-composant/
@@ -62,7 +88,7 @@ version. La CI compare et échoue si ça diverge.
 
 ---
 
-## 2. Les couleurs
+## 3. Les couleurs
 
 Une couleur s'écrit **toujours** par un rôle, jamais par une primitive :
 
@@ -91,7 +117,7 @@ se voit bien sous une marque et casse sous une autre.
 
 ---
 
-## 3. La typographie et l'espacement
+## 4. La typographie et l'espacement
 
 `text-sm`, `font-semibold`, `p-4`, `gap-2` : les utilitaires Tailwind **sont**
 les tokens, par un pont généré. Rien à faire de spécial — sauf ne pas sortir de
@@ -105,7 +131,7 @@ dessous ils deviennent illisibles.
 
 ---
 
-## 4. L'accessibilité
+## 5. L'accessibilité
 
 Le gros est attrapé automatiquement — `axe` tourne en mode `error` dans chaque
 histoire. Ce qui suit ne l'est pas toujours, et c'est là qu'on se trompe :
@@ -129,7 +155,7 @@ Et trois qui demandent du jugement :
 
 ---
 
-## 5. Les histoires SONT les tests
+## 6. Les histoires SONT les tests
 
 Il n'y a pas de dossier `__tests__`. Une histoire par comportement, avec un
 `play` qui vérifie ce que le composant promet.
@@ -148,7 +174,7 @@ mesuraient rien avant qu'on essaie — et ils avaient l'air parfaits.
 
 ---
 
-## 6. Le vocabulaire des props
+## 7. Le vocabulaire des props
 
 Un design system a deux cents props. Ce qui le rend apprenable n'est pas leur
 nombre — c'est qu'un même mot veuille toujours dire la même chose.
@@ -195,7 +221,7 @@ de marcher sans que personne ne le voie.
 
 ---
 
-## 7. Ce qu'on écrit dans le code
+## 8. Ce qu'on écrit dans le code
 
 Les commentaires disent **pourquoi**, jamais quoi. Le quoi est déjà dans le
 code ; le pourquoi disparaît avec la personne qui l'avait en tête.
@@ -215,7 +241,7 @@ choix dont on a oublié l'alternative se reprend tous les six mois.
 
 ---
 
-## 8. Avant d'ouvrir la PR
+## 9. Avant d'ouvrir la PR
 
 ```bash
 npm run build:tokens && npx tsc --noEmit && npm run registry:build

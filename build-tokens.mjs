@@ -891,6 +891,57 @@ for (const [cle, [bas, haut]] of Object.entries(BANDE_HEROS)) {
   }
 }
 
+// ─── Un rôle de statut défini dans un thème doit être PUBLIÉ par le pont ────
+//
+// Le garde-fou précédent attrape les rôles émis que personne ne lit. Il ne
+// voyait pas le cas inverse, et il coûtait cher : `status.warning-border`,
+// `status.error-border` et leurs deux frères existaient dans les quatre
+// thèmes depuis l'origine, sans jamais être republiés sous un nom court.
+// Quatre couleurs de la charte qu'AUCUN composant ne pouvait demander —
+// `Badge` dessinait donc son contour avec la couleur de texte, et
+// l'avertissement sortait en kaki.
+//
+// Un rôle qu'on ne peut pas demander n'existe pas. Il vaut moins qu'un rôle
+// mort : celui-là, au moins, se voit.
+{
+  const theme = JSON.parse(fs.readFileSync('tokens/theme/light.json', 'utf8'));
+  const pont = fs.readFileSync('bridge/shadcn-bridge.css', 'utf8');
+  const nomsDeStatut = [];
+  const parcourir = (o, chemin = '') => {
+    if (!o || typeof o !== 'object') return;
+    if ('$value' in o) {
+      if (/^color\.status\./.test(chemin)) nomsDeStatut.push(chemin.replace('color.status.', ''));
+      return;
+    }
+    for (const [k, v] of Object.entries(o)) parcourir(v, chemin ? `${chemin}.${k}` : k);
+  };
+  parcourir(theme);
+
+  // On cherche si le pont POINTE vers le rôle, pas s'il porte le même nom :
+  // il renomme volontiers — `status.warning-text` y devient `--warning`, et
+  // `status.error-text` y devient `--destructive-text`. Chercher le nom
+  // exact accusait cinq rôles parfaitement publiés.
+  // Les aplats PLEINS d'un statut — la rampe `*.500`. Seule l'erreur en a un
+  // usage aujourd'hui, republiée en `--destructive`. Les trois autres
+  // attendent un composant qui les demande, et la doctrine est explicite :
+  // « un rôle nouveau est légitime le jour où un composant le lit, pas la
+  // veille ». On les nomme ici pour que leur absence soit une DÉCISION
+  // relisible, pas un trou.
+  const ATTENDENT_UN_USAGE = new Set(['success', 'warning', 'info']);
+
+  const absents = nomsDeStatut.filter(
+    (n) => !ATTENDENT_UN_USAGE.has(n) && !pont.includes(`--color-status-${n})`),
+  );
+  if (absents.length) {
+    echecs.push(
+      `${absents.length} rôle(s) de statut défini(s) dans les thèmes et publié(s) ` +
+        `nulle part : ${absents.join(', ')}. Aucun composant ne peut les demander, ` +
+        `donc ils n'existent pas. Soit tokens/bridge/shadcn.json les expose, soit ` +
+        `ils sortent des thèmes.`,
+    );
+  }
+}
+
 if (echecs.length) {
   console.error('\nbuild ÉCHOUÉ — le bridge ne rend pas ce qu\'il annonce :');
   for (const e of echecs) console.error('  ✗ ' + e);

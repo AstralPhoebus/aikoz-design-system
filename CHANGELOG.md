@@ -18,6 +18,194 @@ de l'API — mais il se voit, donc il est toujours écrit ici.
 
 ---
 
+## [2.16.0] — 2026-09-24
+
+### Ajouté
+
+- **Le pont publie `--success-border`, `--warning-border`, `--error-border` et
+  `--info-border`** — la rampe `*.300` de la charte : **#FAD94E** pour
+  l'avertissement, **#EC9A84** pour l'erreur.
+
+  Ces rôles existaient dans les quatre thèmes **depuis l'origine** et
+  n'étaient republiés nulle part. Quatre couleurs de la charte qu'aucun
+  composant ne pouvait demander.
+- **Neuvième garde de build : un rôle de statut défini dans un thème doit
+  être publié par le pont.** Le contrôle des rôles morts attrapait l'inverse
+  — les rôles émis que personne ne lit — et ne voyait pas celui-ci, qui coûte
+  plus cher : un rôle mort se voit, un rôle injoignable non. Vérifié en
+  retirant `--warning-border` du pont.
+
+  Il cherche si le pont **pointe** vers le rôle, pas s'il porte le même nom :
+  le pont renomme volontiers — `status.warning-text` y devient `--warning`.
+  Le premier jet accusait cinq rôles parfaitement publiés.
+
+  Trois rôles sont nommés comme attendant un usage : les aplats pleins
+  `status.success`, `status.warning` et `status.info`. Seule l'erreur en a un
+  aujourd'hui, republiée en `--destructive`.
+
+### Changé
+
+- **`Badge` emploie TROIS rôles au lieu d'un.** Il dessinait tout avec la
+  couleur de texte — contour compris, et un fond fait d'un voile à 8 % de
+  cette même couleur. Un texte est foncé parce qu'il doit tenir 4,5:1 ; un
+  contour n'a aucune raison de l'être. L'avertissement sortait donc en kaki
+  (#6E5100) alors que la charte porte un jaune franc.
+
+  Le contour vient de `-border`, le fond de `-subtle`, et seul le texte garde
+  la couleur de texte. `neutral` reste sur `--muted-foreground` : il n'a pas
+  de rampe de statut, et un gris n'a pas de contour à distinguer de son
+  texte.
+
+---
+
+## [2.15.1] — 2026-09-24
+
+### Corrigé
+
+- **Les en-têtes riches d'un `Table` s'alignaient en bas, donc en escalier.**
+  Collé au bas de sa cellule, un libellé qui passe sur deux lignes pousse son
+  pictogramme vers le haut : mesuré **18 px d'écart** entre « Gestionnaire
+  POI » et « Directeur », et une rangée d'icônes en marches. Une colonne avec
+  `headerCell` s'aligne désormais en HAUT — les pictogrammes forment une
+  ligne et les libellés démarrent tous au même endroit. Écart mesuré après :
+  **0 px**, sur les icônes comme sur les textes.
+
+---
+
+## [2.15.0] — 2026-09-24
+
+### Ajouté
+
+- **`Table.layout="fixed"`** — les colonnes sans `width` déclarée se
+  partagent le reste à parts égales.
+
+  La règle qui tranche : **des colonnes qui portent le même contenu doivent
+  avoir la même largeur.** Sur la matrice d'habilitation, la largeur suivait
+  la longueur de l'intitulé — mesuré **165 · 107 · 152 · 84 · 85 · 84 px**
+  pour six colonnes contenant le même interrupteur, presque du simple au
+  double. Une différence de largeur se lit comme une différence de sens.
+  Après : **113 px partout, écart 0.** Une histoire le mesure, vérifiée en
+  retirant le prop.
+
+  `auto` reste le défaut : sur un tableau de texte, un nom long doit avoir la
+  place et un code court ne doit pas la gaspiller.
+
+---
+
+## [2.14.0] — 2026-09-24
+
+### Ajouté
+
+- **`Table.density="large"`** — 56 px de haut. Ce n'est pas un réglage
+  d'esthétique : une cellule qui porte un CONTRÔLE a besoin de la place d'une
+  cible de 44 px et de son anneau de focus, ce que 38 px ne donnent pas.
+- **`Table.rowHeaderSurface`** — pose la colonne d'en-têtes de ligne sur un
+  fond sourd. Sur six colonnes de marqueurs identiques, l'œil perd sa ligne
+  en parcourant vers la droite.
+- **`Table.columnRules`** — filets verticaux. Inutiles sur un tableau qu'on
+  lit ligne par ligne, nécessaires dès qu'on lit aussi en COLONNE. La règle :
+  filets verticaux si et seulement si les deux axes portent du sens.
+- **`TableColumn.headerCell`** — rendu visuel de l'en-tête, une icône
+  au-dessus du nom par exemple. Il COMPLÈTE `header`, il ne le remplace pas :
+  `scope="col"` continue de porter le texte.
+
+### Corrigé
+
+- **`BrandMark` : `className` REMPLAÇAIT la boîte au lieu de s'y ajouter.** Un
+  `shrink-0` posé pour une raison de mise en page effaçait
+  `h-8 max-w-[160px]`, et le logo d'ADP se rendait à **950 × 326 px** au
+  milieu d'un en-tête. Un même nom pour deux comportements — ajouter partout
+  ailleurs, remplacer ici — est le défaut le plus cher d'une bibliothèque :
+  il ne se voit qu'à l'usage, et il se voit tard. Redimensionner reste
+  possible, `tailwind-merge` tranche en faveur de la classe passée.
+- **Le trait sous l'en-tête d'un `Table` passe en `--border-strong`.** Il
+  sépare les noms de colonnes de rangées de cellules qui se ressemblent :
+  `--border` ne tient pas 3:1 contre la carte, `--border-strong` oui.
+
+### Changé
+
+- **La matrice d'habilitation est retravaillée.** Filet d'accent de marque en
+  haut de la carte — le vocabulaire de `SiteNav`, seule place de la troisième
+  couleur de marque —, logo et titre de bloc, un pictogramme par ligne et par
+  colonne, colonne d'ancrage, lignes à 56 px, filets verticaux, légende
+  dessinée. Les marqueurs de la légende ne sont PAS des `Switch` : un
+  contrôle focalisable qui ne commande rien est le piège qu'on évite.
+
+---
+
+## [2.13.0] — 2026-09-24
+
+### Ajouté
+
+- **Assemblage « Démo ADP — État des réponses »** : le contenu **exact** de la
+  maquette ADP du 24/09/2026, rendu par le design system. Mêmes avis, mêmes
+  dates, mêmes motifs de non-conformité, mêmes intitulés de colonne, mêmes
+  comptes (7 · 2 · 2). Seule la mise en forme change. En clair ET en sombre.
+- **`ResponseKanban.labels`** — remplace le titre et le sous-titre d'une
+  colonne. Les intitulés sont du CONTENU : « Avis 4-5 étoiles sans
+  commentaire · publication J+1 » dit la règle de ce client-là, et le suivant
+  en aura une autre. Ce qui appartient au composant, c'est l'ordre des
+  colonnes, leur ton, et le fait que chacune soit une section nommée.
+- **La matrice d'habilitation porte les données réelles d'ADP**, relevées case
+  par case, doublon de colonne compris — et une seconde histoire montre la
+  même matrice une fois les colonnes nommées.
+
+### Mesuré
+
+- **Deux colonnes de la maquette ADP portent le même intitulé (« RÔLE 6 »).**
+  Le nom d'une case se déduit de sa ligne et de sa colonne : l'histoire
+  compte **20 noms distincts pour 24 cases**, soit **quatre paires de droits
+  indiscernables**. Le test ne tombe pas, il chiffre — pour que ce soit un
+  chiffre dans la conversation avec ADP plutôt qu'une surprise en recette.
+
+---
+
+## [2.12.0] — 2026-09-24
+
+### Ajouté
+
+- **`KanbanBoard`** — le tableau à colonnes, extrait de `ResponseKanban`. Il
+  tient le contrat de STRUCTURE quel que soit ce qu'on y met : chaque colonne
+  est une `section` nommée par son titre, le compte est un `CountBadge`
+  étiqueté, et `tone` pilote le liseré ET le compteur — deux props, c'était
+  deux occasions de les laisser dire des choses différentes. Les cartes sont
+  fournies par l'appelant : une file de réponses et un circuit de validation
+  n'affichent pas les mêmes choses.
+- **Assemblage « Circuit de validation »** (Storybook). Bâti sur
+  `KanbanBoard`, comme `ResponseKanban` — le même tableau, d'autres colonnes.
+  Il porte la distinction que la demande manquait : **l'état de la réponse
+  vit sur la CARTE, le toast ne confirme que le geste.** « En attente de
+  validation » n'est pas un message passager ; un toast disparaît en six
+  secondes, et quelqu'un qui revient dix minutes plus tard doit toujours
+  savoir où en est son travail.
+- **Assemblage « Matrice d'habilitation »** (Storybook), en marque ADP.
+  Modifiable ou consultable. Chaque case porte un nom déduit de sa ligne et
+  de sa colonne — « Réponse aux avis pour Directeur » — sans quoi vingt-quatre
+  interrupteurs annoncent vingt-quatre fois « interrupteur, activé ».
+
+### Changé
+
+- **`ResponseKanban` est bâti sur `KanbanBoard`.** Son API ne bouge pas, son
+  rendu non plus ; ses trois colonnes restent ses trois colonnes.
+
+---
+
+## [2.11.1] — 2026-09-24
+
+### Corrigé
+
+- **`Table` : un tableau large poussait la PAGE au lieu de défiler chez lui.**
+  Son conteneur de débordement était en `position: static`, donc bloc
+  conteneur de personne. Tout descendant `sr-only` — le `<caption>` masqué,
+  l'étiquette d'un `Switch` posé dans une cellule — est en
+  `position: absolute` et prenait alors **la page** pour référence : il
+  sortait du conteneur et étirait le document. Mesuré sur une matrice de six
+  colonnes à interrupteurs : **238 px de débordement à 375 px de large**. Un
+  `relative` le corrige, et une histoire le mesure en forçant le tableau à
+  2 400 px — vérifiée en retirant le mot.
+
+---
+
 ## [2.11.0] — 2026-09-23
 
 ### Ajouté

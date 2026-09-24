@@ -15,7 +15,20 @@ export interface TableColumn<T> {
   key: string;
   /** En-tête de colonne. Court : il est relu à chaque cellule par un
    *  lecteur d'écran en mode tableau. */
+  /**
+   * Nom de la colonne. **Obligatoire, et toujours du texte** : c'est lui qui
+   * nomme la cellule pour un lecteur d'écran, et il ne peut donc pas être un
+   * pictogramme.
+   */
   header: string;
+  /**
+   * Rendu VISUEL de l'en-tête — une icône au-dessus du nom, par exemple.
+   *
+   * Il complète `header`, il ne le remplace pas : la relation `scope="col"`
+   * continue de porter le texte. Ce qu'on met ici est décoratif par
+   * construction, et doit l'être par déclaration (`aria-hidden`).
+   */
+  headerCell?: ReactNode;
   /** Rendu de la cellule. Par défaut, la valeur brute de `row[key]`. */
   cell?: (row: T) => ReactNode;
   /**
@@ -57,7 +70,53 @@ export interface TableProps<T> {
   loadingRows?: number;
   /** Rendu quand `rows` est vide — un `EmptyState`, en général. */
   empty?: ReactNode;
-  density?: "compact" | "default";
+  /**
+   * `compact` pour un tableau de CHIFFRES qu'on parcourt du regard,
+   * `default` pour la lecture courante, `large` quand chaque cellule porte
+   * un CONTRÔLE — une matrice de droits, une grille de réglages.
+   *
+   * Ce n'est pas un réglage d'esthétique : une case à 56 px de haut laisse
+   * la place d'une cible de 44 px et de son anneau de focus, ce que 38 px ne
+   * permet pas. La densité suit ce que la cellule contient.
+   */
+  density?: "compact" | "default" | "large";
+  /**
+   * Pose la colonne d'en-têtes de ligne sur une surface distincte.
+   *
+   * Sur une grille large — six colonnes de marqueurs identiques — l'œil perd
+   * sa ligne en parcourant vers la droite. Un fond sourd sur la colonne qui
+   * NOMME la ligne l'ancre. Sans `rowHeaderKey`, ce prop ne fait rien : il
+   * n'y a pas de colonne à ancrer.
+   */
+  rowHeaderSurface?: boolean;
+  /**
+   * Trace un filet entre les COLONNES.
+   *
+   * Inutile sur un tableau qu'on lit ligne par ligne — il ajoute du bruit et
+   * Tufte aurait raison de le dire. Nécessaire dès qu'on lit aussi en
+   * COLONNE : une matrice de droits se parcourt dans les deux sens, et sept
+   * colonnes de marqueurs identiques sans séparation se confondent.
+   *
+   * La règle : filets verticaux si et seulement si les deux axes portent du
+   * sens.
+   */
+  columnRules?: boolean;
+  /**
+   * `auto` (défaut) — chaque colonne prend la largeur de son contenu. C'est
+   * ce qu'on veut d'un tableau de texte : un nom long a la place, un code
+   * court ne la gaspille pas.
+   *
+   * `fixed` — les colonnes SANS `width` déclarée se partagent le reste à
+   * parts égales.
+   *
+   * La règle qui tranche : **des colonnes qui portent le même contenu
+   * doivent avoir la même largeur.** Sur une matrice de droits, la largeur
+   * suivait la longueur de l'intitulé — mesuré 165 px pour « Gestionnaire
+   * POI » contre 84 px pour « Rôle 5 », presque du simple au double pour
+   * deux colonnes qui contiennent le même interrupteur. Une différence de
+   * largeur se lit comme une différence de sens.
+   */
+  layout?: "auto" | "fixed";
   className?: string;
 }
 
@@ -119,9 +178,13 @@ export function Table<T>({
   loadingRows = 5,
   empty,
   density = "default",
+  rowHeaderSurface = false,
+  columnRules = false,
+  layout = "auto",
   className,
 }: TableProps<T>) {
-  const cellule = density === "compact" ? "px-3 py-2" : "px-4 py-3";
+  const cellule =
+    density === "compact" ? "px-3 py-2" : density === "large" ? "px-4 py-4" : "px-4 py-3";
 
   function trier(key: string) {
     const direction: SortDirection =
@@ -147,12 +210,25 @@ export function Table<T>({
         // grille vaut `min-width: auto` et ne rétrécit pas sous son contenu. Sans
         // lui, le conteneur s'élargit au lieu de défiler, et c'est la PAGE qui
         // finit par défiler à sa place.
-        "w-full min-w-0 overflow-x-auto rounded-[var(--radius)] border border-border bg-card",
+        // `relative` n'est PAS décoratif : sans lui, ce conteneur est en
+        // `position: static` et ne sert de bloc conteneur à personne. Tout
+        // descendant `sr-only` — le `<caption>` masqué, l'étiquette d'un
+        // `Switch` dans une cellule — est en `position: absolute` et prend
+        // alors la PAGE pour référence. Il sort du conteneur de défilement,
+        // et un tableau large pousse le document à l'horizontale au lieu de
+        // défiler chez lui. Mesuré : 238 px de débordement à 375 px de large
+        // sur une matrice de six colonnes à interrupteurs.
+        "relative w-full min-w-0 overflow-x-auto rounded-[var(--radius)] border border-border bg-card",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]",
         className
       )}
     >
-      <table className="w-full border-collapse text-sm">
+      <table
+        className={cn(
+          "w-full border-collapse text-sm",
+          layout === "fixed" && "table-fixed",
+        )}
+      >
         <caption
           className={cn(
             "text-left text-sm text-muted-foreground",
@@ -163,7 +239,10 @@ export function Table<T>({
         </caption>
 
         <thead>
-          <tr className="border-b border-border">
+          {/* Le trait sous l'en-tête est PORTEUR, pas décoratif : il sépare
+              les noms de colonnes de rangées de cellules qui se ressemblent.
+              `--border-strong` tient 3:1 contre la carte, `--border` non. */}
+          <tr className="border-b-2 border-[var(--border-strong)]">
             {columns.map((c) => {
               const actif = sort?.key === c.key;
               return (
@@ -184,7 +263,16 @@ export function Table<T>({
                   className={cn(
                     cellule,
                     "font-semibold text-foreground",
-                    c.numeric ? "text-right" : "text-left"
+                    // Un en-tête riche s'aligne en HAUT, jamais en bas. Collé
+                    // au bas, un libellé qui passe sur deux lignes pousse son
+                    // pictogramme vers le haut : mesuré 18 px d'écart entre
+                    // « Gestionnaire POI » et « Directeur », et une rangée
+                    // d'icônes en escalier. Aligné en haut, les pictogrammes
+                    // forment une ligne et les libellés démarrent tous au même
+                    // endroit.
+                    c.headerCell ? "align-top" : "align-bottom",
+                    columnRules && "border-l border-border first:border-l-0",
+                    c.numeric ? "text-right" : c.headerCell ? "text-center" : "text-left"
                   )}
                 >
                   {c.sortable && onSortChange ? (
@@ -202,7 +290,7 @@ export function Table<T>({
                       <Fleche direction={actif ? sort.direction : undefined} />
                     </button>
                   ) : (
-                    c.header
+                    (c.headerCell ?? c.header)
                   )}
                 </th>
               );
@@ -244,6 +332,7 @@ export function Table<T>({
                     : ((row as Record<string, unknown>)[c.key] as ReactNode);
                   const classes = cn(
                     cellule,
+                    columnRules && "border-l border-border first:border-l-0",
                     // Chiffres tabulaires : sans eux, les colonnes de nombres
                     // ne s'alignent pas verticalement et la comparaison d'une
                     // ligne à l'autre demande de relire chiffre par chiffre.
@@ -253,7 +342,11 @@ export function Table<T>({
                     <th
                       key={c.key}
                       scope="row"
-                      className={cn(classes, "font-medium text-foreground")}
+                      className={cn(
+                        classes,
+                        "font-medium text-foreground",
+                        rowHeaderSurface && "bg-[var(--muted)]",
+                      )}
                     >
                       {contenu}
                     </th>

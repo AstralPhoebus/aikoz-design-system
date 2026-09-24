@@ -189,6 +189,26 @@
     "$value": "{color.status.info-subtle}",
     "$description": "extension DS — fond tres pale d'un statut ; PORTE le texte du meme statut, donc audite a 4,5:1 contre lui"
   },
+  "success-border": {
+    "$type": "color",
+    "$value": "{color.status.success-border}",
+    "$description": "extension DS — CONTOUR d'un statut, la rampe `*.300`. Il existait dans les thèmes depuis l'origine et n'était publié nulle part : quatre couleurs de la charte qu'aucun composant ne pouvait demander. `Badge` dessinait donc son contour avec la couleur de TEXTE, ce qui rendait l'avertissement kaki."
+  },
+  "warning-border": {
+    "$type": "color",
+    "$value": "{color.status.warning-border}",
+    "$description": "extension DS — CONTOUR d'un statut, la rampe `*.300`. Il existait dans les thèmes depuis l'origine et n'était publié nulle part : quatre couleurs de la charte qu'aucun composant ne pouvait demander. `Badge` dessinait donc son contour avec la couleur de TEXTE, ce qui rendait l'avertissement kaki."
+  },
+  "error-border": {
+    "$type": "color",
+    "$value": "{color.status.error-border}",
+    "$description": "extension DS — CONTOUR d'un statut, la rampe `*.300`. Il existait dans les thèmes depuis l'origine et n'était publié nulle part : quatre couleurs de la charte qu'aucun composant ne pouvait demander. `Badge` dessinait donc son contour avec la couleur de TEXTE, ce qui rendait l'avertissement kaki."
+  },
+  "info-border": {
+    "$type": "color",
+    "$value": "{color.status.info-border}",
+    "$description": "extension DS — CONTOUR d'un statut, la rampe `*.300`. Il existait dans les thèmes depuis l'origine et n'était publié nulle part : quatre couleurs de la charte qu'aucun composant ne pouvait demander. `Badge` dessinait donc son contour avec la couleur de TEXTE, ce qui rendait l'avertissement kaki."
+  },
   "chart-1": {
     "$type": "color",
     "$value": "{color.chart.1}",

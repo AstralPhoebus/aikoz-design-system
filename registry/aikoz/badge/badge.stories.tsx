@@ -65,3 +65,58 @@ export const LEtatNeTientPasALaCouleur: Story = {
     await expect(badge).toHaveTextContent("3 sans réponse");
   },
 };
+
+export const TroisRolesPasUnSeul: Story = {
+  name: "Trois rôles, pas un seul",
+  render: () => (
+    <div className="flex flex-wrap gap-2">
+      {(["success", "warning", "error", "info", "neutral"] as const).map((t) => (
+        <Badge key={t} tone={t} size="sm">
+          {t}
+        </Badge>
+      ))}
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Le badge dessinait **tout** avec la couleur de texte : contour " +
+          "compris, et un fond fait d'un voile à 8 % de cette même couleur. " +
+          "Un texte est foncé parce qu'il doit tenir 4,5:1 ; un contour n'a " +
+          "aucune raison de l'être. L'avertissement sortait donc en kaki " +
+          "(#6E5100) alors que la charte porte un jaune franc.\n\n" +
+          "`status.*-border` — la rampe `*.300`, **#FAD94E** pour " +
+          "l'avertissement, **#EC9A84** pour l'erreur — existait dans les " +
+          "quatre thèmes depuis l'origine et n'était **publié nulle part**. " +
+          "Quatre couleurs de la charte qu'aucun composant ne pouvait " +
+          "demander.\n\n" +
+          "Cette histoire vérifie les trois rôles : le contour vient de " +
+          "`-border`, le fond de `-subtle`, et seul le texte garde la couleur " +
+          "de texte.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const pastilles = [...canvasElement.querySelectorAll<HTMLElement>("span")].filter(
+      (s) => /rounded-full/.test(s.className) && /border/.test(s.className),
+    );
+    await expect(pastilles).toHaveLength(5);
+
+    // Les QUATRE statuts. `neutral` n'a pas de rampe : il n'existe pas de
+    // `status.neutral-border`, il emprunte `--muted-foreground` pour les
+    // trois usages, et c'est correct — un gris n'a pas de contour à
+    // distinguer de son texte.
+    for (const p of pastilles.slice(0, 4)) {
+      const s = getComputedStyle(p);
+      // Trois couleurs DISTINCTES : si le contour retombe sur le texte, c'est
+      // qu'on est revenu à l'ancien câblage.
+      await expect(
+        s.borderTopColor,
+        `« ${p.textContent} » : le contour a la couleur du texte, donc il vient ` +
+          `du rôle de TEXTE et pas du rôle de contour.`,
+      ).not.toBe(s.color);
+      await expect(s.backgroundColor).not.toBe(s.color);
+    }
+  },
+};

@@ -72,8 +72,18 @@ export interface BrandMarkProps {
    */
   brand?: string;
   /**
-   * Classes de la BOÎTE, pas du logo. `h-8 max-w-[160px]` par défaut — cf. la
-   * note du composant sur le cadrage.
+   * Classes de la BOÎTE, pas du logo. La boîte par défaut est
+   * `h-8 max-w-[160px]` et elle **reste appliquée** : ce qu'on passe ici
+   * s'AJOUTE, comme partout ailleurs dans le système.
+   *
+   * Elle remplaçait la boîte, et c'était un piège : un `className="shrink-0"`
+   * posé pour une raison de mise en page effaçait la hauteur, et le logo
+   * d'ADP se rendait à 950 × 326 px au milieu d'un en-tête. Un même nom pour
+   * deux comportements — ajouter ici, remplacer là — est le défaut le plus
+   * cher d'une bibliothèque.
+   *
+   * Passer `h-12` ou `max-w-[200px]` continue de redimensionner : c'est
+   * `tailwind-merge` qui tranche, et la classe la plus tardive gagne.
    */
   className?: string;
 }
@@ -141,7 +151,7 @@ export function BrandMark({ brand, className }: BrandMarkProps) {
   // permet : les marques compactes atteignent la hauteur, les verrous larges
   // butent sur la largeur. `object-contain` garantit qu'aucun n'est déformé —
   // toutes les chartes l'interdisent.
-  const boite = className ?? "h-8 max-w-[160px]";
+  const boite = cn("h-8 max-w-[160px]", className);
   const commun = "w-auto shrink-0 object-contain object-left";
 
   return (

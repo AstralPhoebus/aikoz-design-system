@@ -1217,6 +1217,34 @@
       ]
     },
     {
+      "name": "kanban-board",
+      "type": "registry:component",
+      "title": "Kanban Board",
+      "description": "Tableau à colonnes. Il tient le contrat de STRUCTURE, quel que soit ce qu'on y met : chaque colonne est une section nommée par son titre (aria-labelledby), donc atteignable au repère par un lecteur d'écran ; le compte est un CountBadge étiqueté et jamais un nombre nu ; le liseré et le compteur partagent la couleur du ton, sans qu'on puisse les désaccorder. Il ne décide de rien d'autre — les cartes sont fournies par l'appelant, parce qu'une file de réponses et un circuit de validation n'affichent pas les mêmes choses. ResponseKanban est bâti dessus.",
+      "files": [
+        {
+          "path": "registry/aikoz/kanban-board/kanban-board.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/aikoz/card/card.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/aikoz/count-badge/count-badge.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/aikoz/lib/utils.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ]
+    },
+    {
       "name": "kpi-card",
       "type": "registry:component",
       "title": "KPI Card",
@@ -1454,6 +1482,10 @@
       "files": [
         {
           "path": "registry/aikoz/response-kanban/response-kanban.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/aikoz/kanban-board/kanban-board.tsx",
           "type": "registry:component"
         },
         {

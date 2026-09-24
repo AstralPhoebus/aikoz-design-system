@@ -135,3 +135,47 @@ export const LeConteneurQuiDefileEstAtteignable: Story = {
     await expect(region).toHaveAccessibleName();
   },
 };
+
+export const LeLargeDefileChezLuiPasDansLaPage: Story = {
+  name: "Un tableau large défile chez lui, pas dans la page",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Le conteneur de débordement porte `relative`, et ce n'est pas " +
+          "décoratif. Sans lui il est en `position: static` et ne sert de " +
+          "bloc conteneur à personne : tout descendant `sr-only` — le " +
+          "`<caption>` masqué, l'étiquette d'un `Switch` posé dans une " +
+          "cellule — est en `position: absolute` et prend alors **la page** " +
+          "pour référence.\n\n" +
+          "Il sort du conteneur, et un tableau large pousse le document à " +
+          "l'horizontale au lieu de défiler chez lui. Mesuré sur la matrice " +
+          "d'habilitation : **238 px de débordement** à 375 px de large.\n\n" +
+          "Cette histoire force le tableau bien au-delà de son conteneur et " +
+          "vérifie les deux moitiés : il défile DEDANS, et la page ne bouge " +
+          "pas.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const tableau = canvasElement.querySelector("table")!;
+    const conteneur = tableau.parentElement!;
+
+    // Le conteneur doit être un bloc conteneur, sinon l'absolu s'échappe.
+    await expect(getComputedStyle(conteneur).position).not.toBe("static");
+
+    // On force le contenu bien au-delà de la largeur disponible.
+    const avant = tableau.style.width;
+    tableau.style.width = "2400px";
+    try {
+      await expect(conteneur.scrollWidth).toBeGreaterThan(conteneur.clientWidth);
+      const d = document.documentElement;
+      await expect(
+        d.scrollWidth - d.clientWidth,
+        "le tableau pousse la PAGE au lieu de défiler dans son conteneur",
+      ).toBeLessThanOrEqual(1);
+    } finally {
+      tableau.style.width = avant;
+    }
+  },
+};

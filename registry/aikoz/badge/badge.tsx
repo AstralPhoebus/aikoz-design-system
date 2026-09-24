@@ -19,26 +19,38 @@ const badgeVariants = cva(
   {
     variants: {
       tone: {
-        // Une seule couleur par ton, portée par le texte ET le contour ; le fond
-        // n'est qu'un voile à 8 %. C'est le contour qui tient le 3:1 contre la
-        // carte — le cas « badge de tendance » documenté dans a11y.md : un aplat
-        // teinté seul donnait 1,05:1, le badge flottait sans limite visible.
-        // Le Figma dessine ces pastilles SANS contour ; l'écart est assumé.
+        // TROIS rôles, pas un seul.
+        //
+        // Le badge dessinait tout avec la couleur de TEXTE : contour compris,
+        // et un fond fait d'un voile à 8 % de cette même couleur. Un texte
+        // est foncé parce qu'il doit tenir 4,5:1 — un contour n'a aucune
+        // raison de l'être. L'avertissement sortait donc en kaki (#6E5100)
+        // alors que la charte porte un jaune franc.
+        //
+        // `status.*-border` — la rampe `*.300`, #FAD94E pour l'avertissement,
+        // #EC9A84 pour l'erreur — existait dans les thèmes depuis l'origine
+        // et n'était publié nulle part. Quatre couleurs de la charte
+        // qu'aucun composant ne pouvait demander.
+        //
+        // C'est toujours le contour qui tient le 3:1 contre la carte, cas
+        // « badge de tendance » d'a11y.md : un aplat teinté seul donnait
+        // 1,05:1 et le badge flottait sans limite. Le Figma dessine ces
+        // pastilles SANS contour ; l'écart reste assumé.
         success: [
-          "border-[var(--success)] text-[var(--success)]",
-          "bg-[color-mix(in_oklch,var(--success),transparent_92%)]",
+          "border-[var(--success-border)] text-[var(--success)]",
+          "bg-[var(--success-subtle)]",
         ],
         warning: [
-          "border-[var(--warning)] text-[var(--warning)]",
-          "bg-[color-mix(in_oklch,var(--warning),transparent_92%)]",
+          "border-[var(--warning-border)] text-[var(--warning)]",
+          "bg-[var(--warning-subtle)]",
         ],
         error: [
-          "border-[var(--destructive-text)] text-[var(--destructive-text)]",
-          "bg-[color-mix(in_oklch,var(--destructive-text),transparent_92%)]",
+          "border-[var(--error-border)] text-[var(--destructive-text)]",
+          "bg-[var(--error-subtle)]",
         ],
         info: [
-          "border-[var(--info)] text-[var(--info)]",
-          "bg-[color-mix(in_oklch,var(--info),transparent_92%)]",
+          "border-[var(--info-border)] text-[var(--info)]",
+          "bg-[var(--info-subtle)]",
         ],
         neutral: [
           "border-[var(--muted-foreground)] text-[var(--muted-foreground)]",

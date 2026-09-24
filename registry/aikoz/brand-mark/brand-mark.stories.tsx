@@ -121,3 +121,36 @@ export const LeLogoEstDecoratif: Story = {
     }
   },
 };
+
+export const LaBoiteResteAppliquee: Story = {
+  name: "`className` s'ajoute à la boîte, il ne la remplace pas",
+  args: { className: "shrink-0" },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "`className` REMPLAÇAIT la boîte par défaut. Un `shrink-0` posé " +
+          "pour une raison de mise en page effaçait donc `h-8 max-w-[160px]`, " +
+          "et le logo d'ADP se rendait à **950 × 326 px** au milieu d'un " +
+          "en-tête.\n\n" +
+          "Un même nom pour deux comportements — ajouter partout ailleurs, " +
+          "remplacer ici — est le défaut le plus cher d'une bibliothèque : il " +
+          "ne se voit qu'à l'usage, et il se voit tard.\n\n" +
+          "Redimensionner reste possible : `h-12` ou `max-w-[200px]` gagnent, " +
+          "c'est `tailwind-merge` qui tranche.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const logo = canvasElement.querySelector<HTMLElement>("img:not(.hidden)");
+    await expect(logo).not.toBeNull();
+    const r = logo!.getBoundingClientRect();
+    // La boîte du système tient, malgré le `className` passé.
+    await expect(
+      Math.round(r.height),
+      `le logo fait ${Math.round(r.width)} × ${Math.round(r.height)} px : la ` +
+        `boîte du système a été effacée par le className.`,
+    ).toBeLessThanOrEqual(32);
+    await expect(Math.round(r.width)).toBeLessThanOrEqual(160);
+  },
+};
