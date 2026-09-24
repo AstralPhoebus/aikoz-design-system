@@ -227,9 +227,22 @@ export const Defaut: Story = {
       description: {
         story:
           "Bâti sur `KanbanBoard`, comme `ResponseKanban` — **le même tableau, " +
-          "d'autres colonnes**. Un circuit de validation, ce sont des " +
-          "ÉTAPES ; la file de réponses, ce sont des niveaux d'urgence. Les " +
-          "deux partagent la structure, pas les cartes.",
+          "d'autres colonnes**.\n\n" +
+          "### Ce n'est pas « État des réponses »\n\n" +
+          "La question s'est posée, et les deux écrans se ressemblent assez " +
+          "pour qu'elle se pose. Ils répondent pourtant à deux **modèles de " +
+          "gouvernance** différents :\n\n" +
+          "| | État des réponses | Circuit de validation |\n| --- | --- | --- |\n" +
+          "| la réponse est | **automatique** | **écrite à la main** |\n" +
+          "| elle part | demain, toute seule | quand un responsable l'accepte |\n" +
+          "| on peut | la modifier jusque-là | la corriger si elle revient |\n" +
+          "| l'axe des colonnes | l'**urgence** | l'**étape** |\n\n" +
+          "Le sous-titre par défaut de la première colonne d'`État des " +
+          "réponses` disait « À valider avant publication J+1 ». Il décrivait " +
+          "un circuit d'approbation alors qu'il habillait des réponses qui " +
+          "n'attendent personne — c'est ce mot-là qui faisait confondre les " +
+          "deux écrans, pas leur structure. Il dit désormais « Publiées " +
+          "demain, modifiables jusque-là ».",
       },
     },
   },

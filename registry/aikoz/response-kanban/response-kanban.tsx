@@ -378,7 +378,13 @@ export function ResponseKanban({
         {
           key: "automated",
           title: labels?.automated?.title ?? "Réponses automatisées",
-          subtitle: labels?.automated?.subtitle ?? "À valider avant publication J+1",
+          // « À valider » décrivait un circuit d'APPROBATION — une réponse
+          // qui attend l'accord de quelqu'un. Ces réponses-là n'attendent
+          // personne : elles partent demain, et on peut les modifier
+          // jusque-là. Le mot faisait confondre ce tableau avec un circuit
+          // de validation, qui est un autre écran et un autre métier.
+          subtitle:
+            labels?.automated?.subtitle ?? "Publiées demain, modifiables jusque-là",
           tone: "info",
           count: automated.length,
           children: (

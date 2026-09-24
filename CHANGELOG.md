@@ -18,6 +18,24 @@ de l'API — mais il se voit, donc il est toujours écrit ici.
 
 ---
 
+## [2.17.1] — 2026-09-24
+
+### Corrigé
+
+- **Le sous-titre par défaut de la première colonne de `ResponseKanban`
+  décrivait le mauvais écran.** Il disait « À valider avant publication
+  J+1 », c'est-à-dire un circuit d'APPROBATION — une réponse qui attend
+  l'accord de quelqu'un. Ces réponses-là n'attendent personne : elles partent
+  demain, et on peut les modifier jusque-là.
+
+  C'est ce mot qui faisait confondre « État des réponses » avec « Circuit de
+  validation », deux écrans qui répondent à deux modèles de gouvernance
+  distincts — l'un automatique avec droit d'intervention, l'autre manuel avec
+  obligation d'accord. Il dit désormais « Publiées demain, modifiables
+  jusque-là », et la distinction est écrite dans l'assemblage.
+
+---
+
 ## [2.17.0] — 2026-09-24
 
 ### Changé
