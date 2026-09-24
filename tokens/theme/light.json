@@ -204,7 +204,7 @@
       },
       "success-subtle": {
         "$type": "color",
-        "$value": "{color.success.50}"
+        "$value": "{color.success.200}"
       },
       "success-border": {
         "$type": "color",
@@ -222,7 +222,7 @@
       },
       "warning-subtle": {
         "$type": "color",
-        "$value": "{color.warning.50}"
+        "$value": "{color.warning.200}"
       },
       "warning-border": {
         "$type": "color",
@@ -240,7 +240,7 @@
       },
       "error-subtle": {
         "$type": "color",
-        "$value": "{color.error.50}"
+        "$value": "{color.error.200}"
       },
       "error-border": {
         "$type": "color",
@@ -292,7 +292,7 @@
       },
       "info-subtle": {
         "$type": "color",
-        "$value": "{color.info.50}"
+        "$value": "{color.info.100}"
       },
       "info-border": {
         "$type": "color",

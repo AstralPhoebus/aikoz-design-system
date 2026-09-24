@@ -8,5 +8,5 @@ export const CHIFFRES = {
   entrees: 55,
   marques: 19,
   combinaisons: 4,
-  version: "2.16.0",
+  version: "2.17.0",
 } as const;

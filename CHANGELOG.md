@@ -18,6 +18,38 @@ de l'API — mais il se voit, donc il est toujours écrit ici.
 
 ---
 
+## [2.17.0] — 2026-09-24
+
+### Changé
+
+- **Le fond d'un statut en thème CLAIR descend de deux paliers.** Il était sur
+  la rampe `*.50`, le sombre sur `*.950` — et le `.950` est bien plus loin de
+  son fond que le `.50` du sien. Mesuré sur le rendu, l'écart perceptuel
+  entre la pastille et la carte :
+
+  | ton | clair avant | sombre | rapport |
+  | --- | --- | --- | --- |
+  | success | 0,018 | 0,110 | **6,2×** |
+  | warning | 0,032 | 0,151 | **4,7×** |
+  | error | 0,015 | 0,099 | **6,7×** |
+  | info | 0,009 | 0,097 | **10,5×** |
+
+  Le clair paraissait fade à côté du sombre d'un facteur 5 à 10, et ce
+  n'était pas une impression.
+
+  Après : **0,130 · 0,127 · 0,129 · 0,050.** Toujours la même rampe, deux
+  paliers plus bas.
+
+  **La règle se dit par le résultat, pas par le palier** : le fond descend au
+  palier le plus profond qui tienne 4,5:1 avec le texte du même statut.
+  Chaque rampe a son profil de clarté, et le même numéro n'y donne pas le
+  même écart — `info` plafonne à `.100`, son texte étant trop clair pour un
+  bleu plus profond. Mesuré : `info.200` donne **4,18:1**, sous le plancher.
+  C'est l'audit qui l'a dit, pas moi : mon estimation annonçait 4,77 parce
+  que j'avais deviné la valeur du palier au lieu de la lire.
+
+---
+
 ## [2.16.0] — 2026-09-24
 
 ### Ajouté

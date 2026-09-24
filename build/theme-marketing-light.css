@@ -22,15 +22,15 @@
   --color-border-disabled: var(--color-neutral-200);
   --color-border-input: var(--color-neutral-500); /** Bordure de champ — 4,07:1 sur carte, 4,44 sur page (seuil 3:1, WCAG 1.4.11 : le trait porte l'information « ici on saisit »). Le palier des séparateurs ne donnait que 1,32:1, une bordure de champ invisible. Défaut systémique relevé en auditant les quatre combinaisons registre × thème — il touchait produit clair, produit sombre et marketing clair, seul le marketing sombre avait déjà été corrigé. */
   --color-status-success: var(--color-success-500);
-  --color-status-success-subtle: var(--color-success-50);
+  --color-status-success-subtle: var(--color-success-200);
   --color-status-success-border: var(--color-success-300);
   --color-status-success-text: var(--color-success-700); /** Texte/emphase succès. Passé de .600 à .700 : sur un voile de badge à 8 % le .600 tombait à 4,20:1, sous le seuil texte. En .700 — 7,44:1 sur carte, 6,82 sur page, 6,55 sur voile. Un rôle « texte » doit tenir 4,5:1 sur TOUTES les surfaces où il peut atterrir, voile compris. */
   --color-status-warning: var(--color-warning-500);
-  --color-status-warning-subtle: var(--color-warning-50);
+  --color-status-warning-subtle: var(--color-warning-200);
   --color-status-warning-border: var(--color-warning-300);
   --color-status-warning-text: var(--color-warning-800); /** Texte/emphase alerte. .800 et non .700 comme en produit clair : la carte du registre marketing vaut oklch(0.97), pas le blanc pur du produit. Le même palier y tombe à 4,25:1 sur le voile d'un Badge — sous 4,5 — alors qu'il passe en produit. Un rôle calé contre UNE carte ne vaut pas pour l'autre : le registre change la surface d'accueil autant que le thème. .800 : 6,26:1 sur le voile, 7,05:1 sur la carte. */
   --color-status-error: var(--color-error-500);
-  --color-status-error-subtle: var(--color-error-50);
+  --color-status-error-subtle: var(--color-error-200);
   --color-status-error-border: var(--color-error-300);
   --color-status-success-fill: var(--color-success-600); /** Aplat d'une jauge. Le jaune vif du thème sombre est repris ici — il ne tient pas 3:1 seul sur une piste claire (1,40:1), c'est le CONTOUR qui porte la limite. idem clair */
   --color-status-success-fill-edge: var(--color-success-700); /** Contour de l'aplat d'une jauge — il porte le 3:1 là où l'aplat ne peut pas. idem clair */
@@ -41,7 +41,7 @@
   --color-status-error-text: var(--color-error-600); /** Texte/emphase erreur, contraste AA sur surface (error.600 light, .400 dark). Mappé sur --destructive-text. */
   --color-status-info: var(--color-info-500);
   --color-status-info-text: var(--color-info-600); /** Texte/emphase information (info.600 light, .400 dark), aligné sur success-text, warning-text et error-text. Mappé sur --info. Il manquait : les quatre statuts n'avaient pas tous leur déclinaison texte. */
-  --color-status-info-subtle: var(--color-info-50);
+  --color-status-info-subtle: var(--color-info-100);
   --color-status-info-border: var(--color-info-300);
   --color-status-neutral-text: var(--color-data-neutral-text); /** Variation NEUTRE d'un indicateur — registre marketing. */
   --color-status-neutral-fill: var(--color-data-neutral-fill); /** Aplat neutre d'un indicateur — registre marketing. */
