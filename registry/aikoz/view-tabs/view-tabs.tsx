@@ -9,6 +9,12 @@ export interface ViewTab {
   /** Panneau associé. Seul celui de l'onglet actif est monté. */
   content?: ReactNode;
   disabled?: boolean;
+  /**
+   * Compte affiché après le libellé — typiquement un `CountBadge`. Purement
+   * décoratif : `aria-hidden` implicite via le rendu, le libellé seul porte
+   * le nom accessible de l'onglet.
+   */
+  badge?: ReactNode;
 }
 
 export interface ViewTabsProps {
@@ -159,7 +165,7 @@ export function ViewTabs({
               onClick={() => choisir(t.value)}
               onKeyDown={(e) => naviguer(e, i)}
               className={cn(
-                "shrink-0 -mb-px border-b-2 px-4 py-2 text-sm font-medium capitalize",
+                "shrink-0 -mb-px flex items-center gap-2 border-b-2 px-4 py-2 text-sm font-medium capitalize",
                 "min-h-11 transition-colors bg-transparent cursor-pointer",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]",
                 "focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]",
@@ -174,6 +180,7 @@ export function ViewTabs({
               )}
             >
               {t.label}
+              {t.badge}
             </button>
           );
         })}

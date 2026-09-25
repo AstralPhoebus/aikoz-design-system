@@ -18,6 +18,31 @@ de l'API — mais il se voit, donc il est toujours écrit ici.
 
 ---
 
+## [2.18.0] — 2026-09-25
+
+Contribution de Louis Brach (#127).
+
+### Ajouté
+
+- **`ViewTab.badge`** — un compte à côté du libellé d'un onglet. Le
+  `CountBadge` passé en `label={null}` est `aria-hidden` : le nom accessible
+  de l'onglet reste son seul libellé. Mesuré « Classement » pour un onglet qui
+  affiche « Classement 128 ».
+- **`formatValeurParDefaut`**, exporté par `ChartFrame` : deux décimales au
+  maximum, format français. `maximumFractionDigits` et non `toFixed`, pour
+  qu'un entier reste « 30 » au lieu de devenir « 30,00 ».
+
+### Corrigé
+
+- **Les infobulles des trois graphiques rendaient la précision flottante
+  brute** — « 30.000004333 » pour une moyenne. Le format s'applique à
+  l'infobulle ET au tableau équivalent, qui restent donc d'accord sur la même
+  valeur.
+- **L'infobulle du donut passait sous le libellé central.** Sans `z-index`
+  explicite, l'ordre du DOM l'emportait dès qu'ils se chevauchaient.
+
+---
+
 ## [2.17.3] — 2026-09-25
 
 ### Corrigé
