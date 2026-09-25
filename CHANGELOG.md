@@ -18,6 +18,34 @@ de l'API — mais il se voit, donc il est toujours écrit ici.
 
 ---
 
+## [2.19.0] — 2026-09-25
+
+Contribution de Louis Brach (#129).
+
+### Ajouté
+
+- **`RankingBars`** — classement en barres horizontales, forable sur
+  plusieurs niveaux.
+
+  Il ne double pas `GeoDrilldown`, et la raison est structurelle : rien n'y
+  est dessiné en SVG, donc **chaque ligne EST le bouton**, directement
+  focalisable et activable. `GeoDrilldown`, dont le graphique recharts est
+  `aria-hidden`, doit passer par un bouton « Explorer » dans un tableau à
+  côté.
+
+  Une ligne sans enfants n'est pas un bouton : la rendre cliquable sans
+  action promettrait un détail qui n'existe pas. Même raisonnement que le fil
+  d'Ariane, qui ne lie jamais la page courante.
+
+### Corrigé
+
+- **Deux assertions de ses histoires cherchaient un bouton sur une feuille**,
+  et contredisaient donc la règle du composant. Elles dataient d'une version
+  antérieure, et sa CI n'allait jamais assez loin pour le dire. Elles
+  vérifient désormais la présence, pas la cliquabilité.
+
+---
+
 ## [2.18.0] — 2026-09-25
 
 Contribution de Louis Brach (#127).

@@ -57,7 +57,11 @@ export const ChaqueLigneEstLeBouton: Story = {
     await u.click(ligne);
 
     await waitFor(async () => {
-      await expect(canvas.getByRole("button", { name: /Amabilité/i })).toBeInTheDocument();
+      // « Amabilité » est une FEUILLE : le composant la rend en `div`, pas en
+      // bouton, et c'est sa règle — « une ligne sans enfants n'est pas un
+      // bouton, la rendre cliquable promettrait un détail qui n'existe pas ».
+      // L'assertion cherchait un bouton et datait d'avant cette règle.
+      await expect(canvas.getByText(/Amabilité/i)).toBeInTheDocument();
     });
     await expect(args.onNavigate).toHaveBeenCalled();
   },
@@ -90,13 +94,19 @@ export const LeFilRemonte: Story = {
     const u = ue ?? userEvent;
     await u.click(canvas.getByRole("button", { name: /Personnel & accueil/i }));
     await waitFor(async () => {
-      await expect(canvas.getByRole("button", { name: /Amabilité/i })).toBeInTheDocument();
+      // « Amabilité » est une FEUILLE : le composant la rend en `div`, pas en
+      // bouton, et c'est sa règle — « une ligne sans enfants n'est pas un
+      // bouton, la rendre cliquable promettrait un détail qui n'existe pas ».
+      // L'assertion cherchait un bouton et datait d'avant cette règle.
+      await expect(canvas.getByText(/Amabilité/i)).toBeInTheDocument();
     });
 
     const retour = canvas.getByRole("button", { name: "Thématiques" });
     await u.click(retour);
     await waitFor(async () => {
-      await expect(canvas.getByRole("button", { name: /Boutiques & restauration/i })).toBeInTheDocument();
+      // Feuille elle aussi : on vérifie qu'on est bien remonté, pas qu'elle
+      // est cliquable.
+      await expect(canvas.getByText(/Boutiques & restauration/i)).toBeInTheDocument();
     });
   },
 };
