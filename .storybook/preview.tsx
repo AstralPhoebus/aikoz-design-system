@@ -67,8 +67,28 @@ const axes: Decorator = (Story, context) => {
  * Les histoires existent pour tous, et le lanceur les rend toutes, dans les
  * deux thèmes — c'est le seul endroit qui ne décroche pas.
  */
-const mesurer: Preview["afterEach"] = async ({ canvasElement, parameters }) => {
+const mesurer: Preview["afterEach"] = async ({
+  canvasElement,
+  parameters,
+  viewMode,
+}) => {
   if (parameters?.mesures === false) return;
+
+  // ── JAMAIS en mode docs ───────────────────────────────────────────────────
+  //
+  // Une page de documentation n'est pas un écran de produit : elle empile
+  // dix histoires, leurs blocs de code et leurs tableaux de props. Le
+  // contrôle de débordement y mesurait la page de Storybook, pas la nôtre,
+  // et trouvait 143 px — ceux de SON gabarit.
+  //
+  // Le coût n'était pas théorique. `afterEach` qui lève en mode docs remplace
+  // l'histoire par un bloc d'erreur : la documentation PUBLIÉE affichait six
+  // encadrés rouges à la place des six exemples, sur cinq pages sur six.
+  // C'est exactement ce que Louis et ADP consultent.
+  //
+  // Le lanceur de tests, lui, rend les histoires en mode `story` : la
+  // couverture ne bouge pas d'une ligne.
+  if (viewMode === "docs") return;
   const echecs = mesurerLeRendu(canvasElement as HTMLElement);
   if (echecs.length) {
     throw new Error(

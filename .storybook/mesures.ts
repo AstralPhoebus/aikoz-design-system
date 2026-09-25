@@ -100,7 +100,11 @@ export function mesurerLeRendu(racine: HTMLElement): string[] {
     );
   }
 
-  const d = document.documentElement;
+  // Le débordement se mesure sur le CANEVAS de l'histoire, pas sur le
+  // document. Mesuré sur le document, ce contrôle attribuait à nos
+  // composants le débordement du gabarit qui les entoure — 143 px de la
+  // page de documentation de Storybook, dans le cas qui l'a révélé.
+  const d = racine.parentElement ?? racine;
   const debord = d.scrollWidth - d.clientWidth;
   if (debord > 1) {
     echecs.push(

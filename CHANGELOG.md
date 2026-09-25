@@ -18,6 +18,30 @@ de l'API — mais il se voit, donc il est toujours écrit ici.
 
 ---
 
+## [2.17.3] — 2026-09-25
+
+### Corrigé
+
+- **L'audit de rendu cassait la documentation PUBLIÉE.** Depuis la 2.9.0, il
+  tourne sur chaque histoire, `afterEach` compris en mode docs. Or une page
+  de documentation n'est pas un écran de produit : elle empile dix histoires,
+  leurs blocs de code et leurs tableaux de props. Le contrôle de débordement
+  y mesurait le gabarit de Storybook, pas le nôtre, et trouvait **143 px** qui
+  ne nous appartenaient pas.
+
+  Un `afterEach` qui lève en mode docs **remplace l'histoire par un bloc
+  d'erreur**. Mesuré sur le site publié : **six encadrés rouges à la place
+  des six exemples, sur cinq pages de composant sur six.** Zéro badge rendu
+  sur la page `Badge`. C'est exactement ce que Louis et ADP consultent.
+
+  L'audit ne tourne plus en mode docs, et son contrôle de débordement mesure
+  désormais le **canevas de l'histoire**, plus le document. Le lanceur de
+  tests rend les histoires en mode `story` : la couverture ne bouge pas, et
+  le contrôle attrape toujours un vrai débordement, vérifié en retirant le
+  `relative` de `Table`.
+
+---
+
 ## [2.17.2] — 2026-09-24
 
 ### Corrigé
